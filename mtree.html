@@ -1,0 +1,3271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrate the topological structure of both hierarchies</title>
+
+    <link rel="icon" type="image/png" href="./Images/hierarchy1.png">
+
+    <style>
+        .dot {
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot scrolls {
+            overflow-x: scroll;
+            overflow-y: hidden;
+            height: 80px;
+            white-space: nowrap
+        }
+
+
+        /************/
+
+        body {
+            padding: 50px;
+            font-family: Arial;
+            font-size: 10px;
+        }
+
+        .axis path,
+        .axis line {
+
+            stroke: #000;
+            stroke-width: 0px;
+            opacity: 0;
+            shape-rendering: geometricPrecision;
+            /*shape-rendering: crispEdges;*/
+        }
+
+        /*  .x.axis path {
+            display: none;
+        } */
+
+        .tick text {
+
+            opacity: 0;
+        }
+
+        .line {
+
+            opacity: 0.5;
+
+        }
+    </style>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+
+
+
+
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://kit.fontawesome.com/ae1e2e7d99.js" crossorigin="anonymous"></script>
+<script src="algorithm.js"></script>
+<script src="mtree-guidedtour.js"></script>
+<script src="mtree-trainingquestions.js"></script>
+<script src="mtree-experimentquestions.js"></script>
+<script src="logging.js"></script>
+<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css" />
+<link rel="stylesheet" type="text/css" href="./assets/styles.css" />
+
+
+
+<body>
+
+
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4"></div>
+
+            <div class="col-4" style="border: 2px outset black; margin-top: 2%;" id="qandamodule">
+                <p id="question" style="margin-top: 2%;"></p>
+                <hr class='border border-primary border-3 opacity-75'>
+
+                <button class="btn btn-outline-success" type="button" data-bs-toggle="collapse" id="btn-hint"
+                    data-bs-target="#collapseElement" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="fa-solid fa-lightbulb" style="color:rgb(244, 166, 11);"></i> Show hint
+                </button>
+                <br>
+                <div class="collapse" id="collapseElement">
+
+                    <p id="hint" style="background-color: azure; text-align: center; margin-top: 2%;"> </p>
+
+                </div>
+
+
+
+
+                <div class="form-check" id="qanda_options">
+
+                </div>
+
+
+
+                <div class="btn-group btn-group-md" role="group" aria-label="Basic mixed styles example"
+                    style="margin-bottom: 2%;">
+                    <button type="button" class="btn btn-md" id="btn-backquestion"
+                        style="color: white;background-color:#155446;">Back</button>
+
+                    <button type="button" class="btn btn-md" id="btn-nextquestion"
+                        style="margin-left: 10px; color:white;background-color:#155446;">Next</button>
+                </div>
+
+
+
+            </div>
+            <div class=" col-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2" style=" margin-left: 20px; color:black;">
+
+                <fieldset class="border p-2" style="margin-top:150px;">
+                    <legend class="w-auto">Dataset</legend>
+                    <button type="button" id="btn-swapdataset" class="btn btn-primary" style="margin-top:50px;">
+                        <i class="fa-solid fa-right-left"></i>
+                        <h5>Swap primary and secondary datasets</h5>
+                    </button>
+
+
+                    <span class="form-check" style="margin-top:20px;">
+                        <label class="form-check-label" for="fileversion0radio">
+                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion0radio"
+                                checked>
+                            Default
+                        </label>
+                    </span>
+
+                    <span class="form-check" style=" margin-top:10px;">
+                        <label class="form-check-label" for="fileversion1radio">
+                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion1radio">
+                            <span style="float:left;">Default 2</span>
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:10px;">
+                        <label class="form-check-label" for="fileversion5radio">
+                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion5radio">
+                            <span style="float:left;">Project Team</span>
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:10px;">
+                        <label class="form-check-label" for="fileversion2radio">
+                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion2radio">
+
+                            <span style="float:left;">Log Files</span>
+
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:10px;">
+                        <label class="form-check-label" for="fileversion6radio">
+                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion6radio">
+
+                            <span style="float:left;">Book Classification</span>
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:10px; ">
+                        <label class="form-check-label" for="fileversion3radio">
+                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion3radio">
+
+                            <span style="float:left;">UK SIC - v4 and v3.1</span>
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:10px;">
+                        <label class="form-check-label" for="filterdata">
+                            <input class="form-check-input" type="checkbox" id="filterdatacheck" name="filterdata"
+                                value="yes">
+
+                            <span style="float:left;">Filter Data - (A,B,C)</span>
+                        </label>
+
+                    </span>
+                    <br>
+                </fieldset>
+
+
+                <fieldset class="border p-2" style="margin-top:100px;">
+                    <legend class="w-auto">Styling level lines</legend>
+                    <span class="form-check" style="margin-top:10px;">
+                        <label class="form-check-label" for="fillcolorradio">
+                            <input class="form-check-input" type="radio" name="levelcolorradio" id="fillcolorradio">
+                            <span>Fill level lines with color
+                                <span class="dot"
+                                    style="background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);">
+                                </span>
+                            </span>
+                        </label>
+                    </span>
+
+
+                    <span class="form-check" style="margin-top:10px;">
+                        <label class="form-check-label" for="fillnoneradio">
+                            <input class="form-check-input" type="radio" name="levelcolorradio" id="fillnoneradio"
+                                checked>
+                            <span>No color
+                                <span class="dot" style="background-color: blue;"></span>
+                            </span>
+                        </label>
+                    </span>
+
+
+                </fieldset>
+
+
+
+                <fieldset class="border p-2" style="margin-top:100px;">
+                    <legend class="w-auto">Change color theme</legend>
+                    <div class="form-check" style="margin-top:50px;">
+                        <label class="form-check-label" for="blueredradio">
+                            <input class="form-check-input" type="radio" name="nodecolorradio" id="blueredradio"
+                                checked>
+                            Blue/Red Theme (default)
+                            <br>
+                            <span class="dot" style="background-color: blue;"></span> +
+                            <span class="dot" style="background-color: red;"></span> =
+                            <span class="dot" style="background-color: purple;"></span>
+                        </label>
+                    </div>
+                    <div class="form-check" style="margin-top:20px;">
+                        <label class="form-check-label" for="orangeblueradio">
+                            <input class="form-check-input" type="radio" name="nodecolorradio" id="orangeblueradio">
+                            Orange/blue Theme
+                            <br>
+                            <span class="dot" style="background-color: orange;"></span> +
+                            <span class="dot" style="background-color: blue;"></span> =
+                            <span class="dot" style="background-color: yellowgreen;"></span>
+                        </label>
+                    </div>
+
+                </fieldset>
+
+
+                <fieldset class="border p-2" style="margin-top:100px;">
+                    <legend class="w-auto">Change node shape</legend>
+                    <div class="form-check" style="margin-top:50px; ">
+                        <label class="form-check-label" for="solidshaperadio">
+                            <input class="form-check-input" type="radio" name="nodeshaperadio" id="solidshaperadio">
+                            Solid Circles in different colors
+                            <br>
+                            <span class="dot" style="background-color: blue;"></span> +
+                            <span class="dot" style="background-color: red;"></span> =
+                            <span class="dot" style="background-color: purple;"></span>
+
+                        </label>
+                    </div>
+                    <div class="form-check" style=" margin-top:20px;">
+                        <label class="form-check-label" for="hollowshaperadio">
+                            <input class="form-check-input" type="radio" name="nodeshaperadio" id="hollowshaperadio"
+                                checked>
+                            A combination of hollow and solid circles
+                            <br>
+                            <span style="background-color: white;  border-color:blue; border-style:solid; border-width: 5px; height: 25px;
+                        width: 25px; border-radius: 50%; display: inline-block;"></span> +
+                            <span class="dot" style="background-color: blue;"></span> =
+                            <i style="color:blue;" class="fa-regular fa-circle-dot fa-2xl"></i>
+                        </label>
+
+                    </div>
+                </fieldset>
+
+
+
+
+                <fieldset class="border p-2" style="margin-top:100px;">
+                    <legend class="w-auto">Layout</legend>
+
+                    <span class="form-check" style="margin-top:20px; ">
+                        <label class="form-check-label" for="sideradio">
+                            <input class="form-check-input" type="radio" name="layoutradio" id="sideradio">
+                            <span class="text-justify"> Trees are laid side-by-side</span>
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:20px;">
+                        <label class=" form-check-label" for="def_tbradio">
+                            <input class="form-check-input" type="radio" name="layoutradio" id="def_tbradio">
+                            <span class="text-justify">
+                                Default Top-bottom layout
+                            </span>
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:20px;">
+                        <label class=" form-check-label" for="tbradio">
+                            <input class="form-check-input" type="radio" name="layoutradio" id="tbradio">
+                            <span class="text-justify">
+                                Top-bottom layout</span>
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:20px;">
+                        <label class=" form-check-label" for="lrradio">
+                            <input class="form-check-input" type="radio" name="layoutradio" id="lrradio">
+                            <span class="text-justify"> Left-right layout</span>
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:20px;">
+                        <label class=" form-check-label" for="lrleavesradio">
+                            <input class="form-check-input" type="radio" name="layoutradio" id="lrleavesradio" checked>
+                            <span class="text-justify">
+                                Left-right leaves facing-first layout</span>
+                        </label>
+                    </span>
+
+
+                    <span class="form-check" style="margin-top:20px;">
+                        <label class=" form-check-label" for="tlbrradio">
+                            <input class="form-check-input" type="radio" name="layoutradio" id="tlbrradio">
+                            <span class="text-justify"> Top-left and bottom right layout</span>
+                        </label>
+                    </span>
+
+
+                    <span class=" form-check" style="margin-top:20px;">
+                        <label class=" form-check-label" for="ang_tlbrradio">
+                            <input class="form-check-input" type="radio" name="layoutradio" id="ang_tlbrradio">
+                            <span class="text-justify">Angled top-left and bottom-right layout</span>
+                        </label>
+                    </span>
+
+
+                </fieldset>
+
+
+                <fieldset class="border p-2" style="margin-top:100px;">
+                    <legend class="w-auto">Type of links</legend>
+                    <span class="form-check" style="margin-top:50px; ">
+                        <label class="form-check-label" for="straightlradio">
+                            <input class="form-check-input" type="radio" name="linesradio" id="straightlradio" checked>
+
+                            Straight lines
+                        </label>
+                    </span>
+
+                    <span class="form-check" style="margin-top:20px;">
+                        <label class=" form-check-label" for="curvedlradio">
+                            <input class="form-check-input" type="radio" name="linesradio" id="curvedlradio">
+
+                            <span style="width:100%;">Curved links</span>
+                        </label>
+                    </span>
+
+                </fieldset>
+
+            </div>
+
+
+            <div id="content" class="col-8">
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <script>
+
+
+
+
+
+        var qcounter = -1;
+        var logObject = [];
+
+
+        var fileversion = "File0";
+        var swapdataset = "h1";
+
+        var h1 = "";
+        var h2 = "";
+
+
+        var mtree = "";
+        const vizID = "mergedtree";
+        const pageID = "mtree";
+
+
+        var title = [];
+
+        update_log("", "landed on the mergedtree page");
+
+        /*
+        function setLogObject(logObject) {
+            logObject = logObject;
+            console.log("SETTER");
+            console.log(logObject);
+
+        }
+
+        function getLogObject() {
+            console.log("GETTER");
+            console.log(logObject);
+            return logObject;
+
+        }
+        */
+
+
+        if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
+            title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
+
+        else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
+            title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
+
+        else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
+            title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
+
+        else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
+            title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+        else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+            title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+        d3.select("#btn-swapdataset").on("click", function () {
+            update_log("btn-swapdataset", "button", "swapping datasets");
+
+            console.log("Swapdataset");
+            if (d3.select("#fileversion0radio")._groups[0][0].checked == true)
+                fileversion = "File0";
+            else if (d3.select("#fileversion1radio")._groups[0][0].checked == true)
+                fileversion = "File1";
+            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                fileversion = "File2";
+            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                fileversion = "File6";
+            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                fileversion = "File5";
+            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                fileversion = "File3";
+
+
+            if (swapdataset == "h1") {
+                d3.queue()
+                    .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+                    .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+                    .await(function (error, h1, h2) {
+                        if (error) throw error;
+
+                        else
+                            runScript_tabs(h2, h1);
+                    });
+                swapdataset = "h2";
+            }
+            else {
+                d3.queue()
+                    .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+                    .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+                    .await(function (error, h1, h2) {
+                        if (error) throw error;
+
+                        else
+                            runScript_tabs(h1, h2);
+                    });
+                swapdataset = "h1";
+            }
+
+        });
+
+        d3.select("#fileversion0radio").on("change", function () {
+
+            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
+
+
+            d3.selectAll("#filterdatacheck").property('checked', false);
+            if (d3.select("#fileversion0radio")._groups[0][0].checked == true)
+                fileversion = "File0";
+
+            d3.queue()
+                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+                .await(function (error, h1, h2) {
+                    if (error) throw error;
+
+                    else {
+                        window.h1 = h1;
+                        window.h2 = h2;
+                        //h1 = h1;
+                        //h2 = h2;
+                        //console.log(h1);
+                        runScript_tabs(h1, h2);
+                    }
+
+                });
+
+        });
+
+        d3.select("#fileversion1radio").on("change", function () {
+
+            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+            d3.selectAll("#filterdatacheck").property('checked', false);
+            if (d3.select("#fileversion1radio")._groups[0][0].checked == true)
+                fileversion = "File1";
+
+            d3.queue()
+                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+                .await(function (error, h1, h2) {
+                    if (error) throw error;
+
+                    else {
+                        window.h1 = h1;
+                        window.h2 = h2;
+                        runScript_tabs(h1, h2);
+                    }
+                });
+        });
+
+
+        d3.select("#fileversion2radio").on("change", function () {
+
+            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+            d3.selectAll("#filterdatacheck").property('checked', false);
+            if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                fileversion = "File4";
+            //fileversion = "File5";
+
+
+            d3.queue()
+                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryHB-reduced.csv")
+                //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+                //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+                .await(function (error, h1, h2) {
+                    if (error) throw error;
+
+                    else {
+                        window.h1 = h1;
+                        window.h2 = h2;
+                        runScript_tabs(h1, h2);
+                    }
+                });
+        });
+
+        d3.select("#fileversion3radio").on("change", function () {
+
+            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+            if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                fileversion = "File3";
+
+            d3.selectAll("#filterdatacheck").property('checked', true);
+
+            d3.queue()
+                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+                .await(function (error, h1, h2) {
+                    if (error) throw error;
+
+                    else {
+                        window.h1 = h1;
+                        window.h2 = h2;
+                        //h1 = h1;
+                        //h2 = h2;
+                        runScript_tabs(h1, h2);
+                    }
+                });
+        });
+
+        d3.select("#fileversion5radio").on("change", function () {
+
+            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
+
+            if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                fileversion = "File5";
+
+            d3.selectAll("#filterdatacheck").property('checked', false);
+
+            d3.queue()
+                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+                .await(function (error, h1, h2) {
+                    if (error) throw error;
+
+                    else {
+                        window.h1 = h1;
+                        window.h2 = h2;
+                        //h1 = h1;
+                        //h2 = h2;
+                        runScript_tabs(h1, h2);
+                    }
+                });
+        });
+
+        d3.select("#fileversion6radio").on("change", function () {
+
+            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
+
+            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
+
+
+
+
+            if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                fileversion = "File6";
+
+            d3.selectAll("#filterdatacheck").property('checked', false);
+
+
+
+            d3.queue()
+                //.defer(d3.csv, "File/" + fileversion + "-secondaryHJ.csv")
+                //.defer(d3.csv, "File/" + fileversion + "-primaryH-edited-J.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+                .await(function (error, h1, h2) {
+                    if (error) throw error;
+
+                    else {
+                        window.h1 = h1;
+                        window.h2 = h2;
+                        //h1 = h1;
+                        //h2 = h2;
+                        runScript_tabs(h1, h2);
+                    }
+                });
+        });
+
+
+        d3.queue()
+            .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+            .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+            .await(function (error, h1, h2) {
+                if (error) throw error;
+
+                else {
+                    window.h1 = h1;
+                    window.h2 = h2;
+                    //h1 = h1;
+                    //h2 = h2;
+                    runScript_tabs(h1, h2);
+                }
+            });
+
+
+        function runScript_tabs(h1, h2) {
+
+            runScript_mergedtree(h1, h2);
+
+
+            var urlpage = new URLSearchParams(window.location.search).get('page');
+            //console.log("page reached in mtree " + pageID);
+
+            if (urlpage == "guidedtour") {
+                d3.select("#qandamodule")
+                    .style("opacity", 0);
+                guidedtour();
+            }
+
+            else if (urlpage == "trainingquestions") {
+                trainingquestions(0);
+                qcounter = -1;
+            }
+
+            else if (urlpage == "experimentquestions") {
+                d3.select("#btn-hint")
+                    .remove();
+
+                d3.select("#collapseElement")
+                    .remove();
+
+                experimentquestions(0);
+            }
+
+
+
+
+
+        }
+
+
+        d3.select("#mergedtrees-tab")
+            .on("click", function () {
+
+                //console.log(window.h1);
+                //console.log(swapdataset);
+
+                d3.select("#treeswlinking-tab")
+                    .classed("active", false);
+
+                d3.select("#treeswolinking-tab")
+                    .classed("active", false);
+
+                d3.select("#mergedtrees-tab")
+                    .classed("active", true);
+
+
+                d3.select("#content")
+                    .select("#treeswlinking_svg")
+                    .remove();
+
+                d3.select("#content")
+                    .select("#treeswolinking_svg")
+                    .remove();
+
+                runScript_mergedtree(h1, h2);
+
+
+            });
+
+
+
+        const urlpage = new URLSearchParams(window.location.search).get('page');
+
+        d3.select("#btn-nextquestion")
+            .on("click", function () {
+
+                if (qcounter == -1)
+                    qcounter = qcounter + 2;
+                else
+                    qcounter++;
+
+                //console.log("QC " + qcounter);
+
+                if (urlpage == "trainingquestions") {
+                    //update_log("btn-nextquestion", "button", "display training question " + qcounter);
+                    d3.select("#collapseElement")
+                        .attr("class", "collapse");
+                    d3.select("#btn-hint")
+                        .html("<i class='fa-solid fa-lightbulb' style='color:rgb(244, 166, 11);'></i> Show hint");
+                    trainingquestions(qcounter);
+                }
+                else {
+                    //update_log("btn-nextquestion", "button", "display experiment question " + qcounter);
+                    experimentquestions(qcounter);
+                }
+            });
+
+        d3.select("#btn-backquestion")
+            .on("click", function () {
+                qcounter--;
+                if (urlpage == "trainingquestions") {
+                    //update_log("btn-backquestion", "button", "display training question " + qcounter);
+                    trainingquestions(qcounter);
+                }
+                else {
+                    //update_log("btn-backquestion", "button", "display experiment question " + qcounter);
+                    experimentquestions(qcounter);
+                }
+            });
+
+
+        d3.select("#sideradio")
+            .on("click", function () {
+                d3.select("#treeswlinking_svg").remove();
+                runScript_treeswlinking(h1, h2);
+            });
+
+
+        d3.select("#def_tbradio")
+            .on("click", function () {
+                d3.select("#treeswlinking_svg").remove();
+                runScript_treeswlinking(h1, h2);
+            });
+
+        d3.select("#tbradio")
+            .on("click", function () {
+                d3.select("#treeswlinking_svg").remove();
+                runScript_treeswlinking(h1, h2);
+            });
+
+
+        d3.select("#lrradio")
+            .on("click", function () {
+                d3.select("#treeswlinking_svg").remove();
+                runScript_treeswlinking(h1, h2);
+            });
+
+        d3.select("#lrleavesradio")
+            .on("click", function () {
+                d3.select("#treeswlinking_svg").remove();
+                runScript_treeswlinking(h1, h2);
+            });
+
+        d3.select("#tlbrradio")
+            .on("click", function () {
+                d3.select("#treeswlinking_svg").remove();
+                runScript_treeswlinking(h1, h2);
+            });
+
+
+
+
+        d3.select("#ang_tlbrradio")
+            .on("click", function () {
+                d3.select("#treeswlinking_svg").remove();
+                runScript_treeswlinking(h1, h2);
+            });
+
+
+
+        d3.select("#straightlradio")
+            .on("click", function () {
+                d3.select("#treeswlinking_svg").remove();
+                runScript_treeswlinking(h1, h2);
+            });
+
+
+        d3.select("#curvedlradio")
+            .on("click", function () {
+                d3.select("#treeswlinking_svg").remove();
+                runScript_treeswlinking(h1, h2);
+            });
+
+
+
+
+
+
+
+
+
+
+        function filterData(array) {
+            for (var i = array.children.length - 1; i >= 0; i--) {
+
+                if (!(array.children[i].data.data.child === 'A' || array.children[i].data.data.child === 'B' || array.children[i].data.data.child === 'C'))
+                    array.children.splice(i, 1);
+
+            }
+
+            return array;
+        }
+
+        var width = Math.round(1 * window.innerWidth);
+        var height = 2000;
+        var level_offset = 150;
+
+
+
+
+        function runScript_mergedtree(h1, h2) {
+            //console.log("MERGEDTREE");
+
+            //console.log(h1);
+            //console.log(h2);
+
+            //console.log(window.innerWidth + " " + window.innerHeight + " ");
+
+            d3.select("#content").select("svg").remove();
+
+            var radius = 0;
+
+            if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                radius = 10;
+            else radius = 15;
+
+
+            d3.select("#solidhollowcircle")
+                .append("circle")
+                .attr("cx", 500)
+                .attr("cy", 500)
+                .attr("r", 500)
+                .style("fill", "blue")
+                .style("stroke-width", "30px")
+                .style("stroke", "red");
+
+
+            //mergedtree size
+            var margin = { top: 30, right: 30, bottom: 30, left: 120 };
+            //width = 2000 - margin.left - margin.right,
+            //height = 2500 - margin.top - margin.bottom;
+
+
+
+
+            var mergedtree_svg = d3
+                .select("#content")
+                .append("svg")
+                .attr("id", "mergedtree_svg")
+                /*
+                .call(d3.zoom().on("zoom", function () {
+                    mergedtree_svg.attr("transform", d3.event.transform)
+                }))
+                */
+                .attr("width", width)
+                .attr("height", height);
+
+
+
+
+            if (d3.select("#tooltip").empty())
+                d3.select("#content")
+                    .append("div")
+                    .style("width", "300px")
+                    .style("height", "150px")
+                    //.style("width", "850px")
+                    //.style("height", "350px")
+                    .style("position", "absolute")
+                    .style("opacity", 0)
+                    .attr("id", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("font-size", "20px")
+                    .style("color", "black")
+                    .style("border-width", "3px")
+                    .style("border-radius", "15px")
+                    .style("padding", "15px");
+
+
+            const depthArray = [];
+
+            //console.log(h1);
+            //console.log(h2);
+
+            stratify = d3
+                .stratify()
+                .id(function (d) {
+                    //console.log(d.child);
+                    return d.child;
+                })
+                .parentId(function (d) {
+                    //console.log(d.parent);
+                    return d.parent;
+                });
+
+            //console.log(window.h2);
+            var h2_struct = stratify(h2);
+            //console.log(h2_struct.children);
+
+
+            var h1_struct = stratify(h1);
+            //console.log(h1_struct);
+
+
+
+            var h1_root = d3.hierarchy(h1_struct);
+            var h2_root = d3.hierarchy(h2_struct);
+
+            //console.log(h2_root.children);
+
+            if (d3.select("#filterdatacheck")._groups[0][0].checked == true) {
+                h1_root = filterData(h1_root);
+                h2_root = filterData(h2_root);
+            }
+
+            //console.log(h2_root.children);
+
+            //console.log(h1_rootElement.descendants());
+            //console.log(h2_rootElement.descendants());
+
+            //console.log(h1_root.descendants());
+
+
+
+            var h1_dims = findDimensions(h1_root);
+            var h2_dims = findDimensions(h2_root);
+
+            //console.log(h1_dims);
+
+            var h1color = "", h2color = "", mergedcolor = "";
+
+
+
+            if (d3.select("#blueredradio")._groups[0][0].checked == true) {
+                h1color = "blue";
+                h2color = "red";
+                mergedcolor = "purple";
+
+                if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
+                    h1color = h1color;
+                    h2color = h1color;
+                    mergedcolor = h1color;
+
+                }
+
+            }
+
+            else if (d3.select("#orangeblueradio")._groups[0][0].checked == true) {
+                h1color = "orange";
+                h2color = "blue";
+                mergedcolor = "yellowgreen";
+
+                if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
+                    h1color = h1color;
+                    h2color = h1color;
+                    mergedcolor = h1color;
+
+                }
+            }
+
+
+            //console.log(h2_root.children);
+
+            //no h1 and h2 trees
+            h1tree(h1_root);
+            h2tree(h2_root);
+
+
+            //var arrDims = compareDimensions(h1_dims, h2_dims);
+            //var hier = createHierarchy(arrDims, h1_root.descendants(), h2_root.descendants());
+
+
+            var hier_arr = [];
+            //hier_arr = compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants());
+            hier_arr = bt_compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants(), h1color, h2color, mergedcolor);
+            //console.log(hier_arr);
+
+
+            var hier_struct = stratify(hier_arr);
+
+            //mergedtree size
+            //width = 1500, height = 1000;
+
+            var hier_root = d3.hierarchy(hier_struct);
+
+            //console.log(hier_root);
+
+            var tree = d3
+                .tree()
+                //.nodeSize([200, 600]);
+                .size([Math.round(width * .75), Math.round(height * .75)]);
+
+
+            var cluster = d3
+                .cluster()
+                //.nodeSize([200, 600]);
+                .size([Math.round(width * .75), Math.round(height * .75)]);
+
+            //console.log(hier_root);
+
+
+            //if (d3.select("#leavesdiffheightradio")._groups[0][0].checked == true)
+            mtree = tree(hier_root);
+            //else if (d3.select("#leavessameheightradio")._groups[0][0].checked == true)
+            //mtree = cluster(hier_root);
+
+            //var data = mtree;
+            var tree_start = [100, 400];
+
+
+            //console.log(parseInt(margin.left + 40) + " " + parseInt(margin.top + 400));
+            mergedtree_svg
+                .append("g")
+                .attr("id", "mergedtree")
+                .attr("transform",
+                    "translate(" + tree_start[0] + "," + tree_start[1] + ")");
+
+
+
+
+            //console.log(mtree.descendants());
+
+            var flag = 0;
+            mtree.descendants().reverse().forEach(function (element) {
+                flag = 0;
+                //console.log(element.data.data.child);
+                if ((element.data.data.linkcolor == "blue") || element.children == null) {
+                    for (var i = 0; i < element.descendants().length; i++) {
+                        //console.log("entering check" + element.descendants()[i].data.data.child);
+                        if ((element.descendants()[i].data.data.linkcolor == "blue") && element.descendants()[i].children == null) {
+                            //console.log(element.descendants()[i].data.data.child + " passed check");
+                            flag += 1;
+                        }
+                    }
+                    //console.log(element.data.data.child + " " + flag + " " + (element.descendants().length));
+                    if (flag == element.descendants().length - 1 || element.children == null) {
+                        //console.log("collapse " + element.data.data.child);
+                        collapse(element);
+                    }
+                    else {
+                        //console.log("expand " + element.data.data.child + " " + flag + " " + element.descendants().length);
+                    }
+                }
+                //else
+                // console.log("expandedpc  " + element.data.data.child + " " + element.data.data.linkcolor + " " + element.children.length);
+            });
+
+
+
+
+            //console.log(mtree.descendants()[0]);
+
+            mergedtree(mtree.descendants()[0]);
+
+
+            d3.select("#filterdatacheck").on("change", function () {
+                runScript_mergedtree(h1, h2);
+            });
+
+
+            d3.select("#blueredradio").on("change", function () {
+                if (d3.select("#blueredradio")._groups[0][0].checked == true) {
+                    h1color = "blue";
+                    h2color = "red";
+                    mergedcolor = "purple";
+                }
+                runScript_mergedtree(h1, h2);
+                //h1tree(h1_root);
+                //h2tree(h2_root);
+                //hier_arr = compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants());
+                //mergedtree(mtree.descendants(), mtree.links());
+            });
+
+            d3.select("#orangeblueradio").on("change", function () {
+                if (d3.select("#orangeblueradio")._groups[0][0].checked == true) {
+                    h1color = "orange";
+                    h2color = "blue";
+                    mergedcolor = "yellowgreen";
+                }
+                runScript_mergedtree(h1, h2);
+                //h1tree(h1_root);
+                //h2tree(h2_root);
+                //hier_arr = compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants());
+                //mergedtree(mtree.descendants(), mtree.links());
+
+            });
+
+
+            /* d3.select("#redgreenradio").on("change", function () {
+                if (d3.select("#redgreenradio")._groups[0][0].checked == true) {
+                    h1color = "green";
+                    h2color = "green";
+                    mergedcolor = "#a52a2a";
+                }
+                h1tree(h1_root);
+                h2tree(h2_root);
+                hier_arr = compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants());
+                //hier_arr = flatten_array(hier);
+                hier_struct = stratify(hier_arr);
+                mergedtree(mtree.descendants(), mtree.links());
+            }); */
+
+            d3.select("#solidshaperadio").on("change", function () {
+                h1tree(h1_root);
+                h2tree(h2_root);
+                mergedtree(mtree.descendants(), mtree.links());
+            });
+
+            d3.select("#hollowshaperadio").on("change", function () {
+                h1tree(h1_root);
+                h2tree(h2_root);
+                mergedtree(mtree.descendants(), mtree.links());
+            });
+
+            d3.select("#leavessameheightradio").on("change", function () {
+                runScript_mergedtree(h1, h2);
+                //mergedtree(mtree.descendants(), mtree.links());
+            });
+
+            d3.select("#leavesdiffheightradio").on("change", function () {
+                runScript_mergedtree(h1, h2);
+                //mergedtree(mtree.descendants(), mtree.links());
+            });
+
+            d3.select("#hidenodesradio").on("change", function () {
+                mergedtree(mtree.descendants(), mtree.links());
+            });
+
+            d3.select("#hidenodesedgesradio").on("change", function () {
+                mergedtree(mtree.descendants(), mtree.links());
+            });
+
+            d3.select("#shownodesradio").on("change", function () {
+                mergedtree(mtree.descendants(), mtree.links());
+            });
+
+
+            d3.select("#fillcolorradio").on("change", function () {
+                mergedtree(mtree.descendants(), mtree.links());
+            });
+
+            d3.select("#fillnoneradio").on("change", function () {
+                mergedtree(mtree.descendants(), mtree.links());
+            });
+
+
+
+            mergedtree_svg
+                .append("g")
+                .attr("class", "titleg");
+
+            mergedtree_svg
+                .select(".titleg")
+                .selectAll("text")
+                .data(title)
+                .enter()
+                .append("text")
+                .style("font-size", "20px")
+                .attr("dy", "4em")
+                .attr("x", function (d, i) {
+                    if (i == 0)
+                        return 50;
+                    else if (i == 1)
+                        return width - 600;
+                    else
+                        return 50;
+
+                })
+                .attr("y", function (d, i) {
+                    if (i == 0 || i == 1)
+                        return -30;
+                    else
+                        return tree_start[1] - 70;
+
+                })
+                .attr("text-anchor", function (d) {
+                    return "start";
+                })
+
+                .style("opacity", 1)
+                .text(function (d) {
+
+                    return d;
+                });
+
+
+
+
+
+
+
+
+            /* START OF H1 TREE */
+
+
+            function h1tree(h1_root, tabname) {
+
+                //    console.log(h1color + " " + h2color + " " + mergedcolor);
+                //console.log("H1 TREE");
+                d3.select("#h1tree").remove();
+
+                h1_radius = 3;
+
+                var h1tree = d3
+                    .tree()
+                    //.nodeSize([]);
+                    .size([Math.round(.25 * width), Math.round(.10 * height)]);
+
+
+
+                var h1_tree = h1tree(h1_root);
+
+
+                var data_nodes = h1_tree.descendants();
+
+                //console.log(data_nodes);
+
+                /*  data_nodes = data_nodes.filter(function (d) {
+                     //console.log(d.children.length);
+                     if (d.data.data.child.includes("A") || d.data.data.child.includes("B") || d.data.data.child.includes("C"))
+                         return d;
+ 
+                 }); */
+
+                //console.log(data_nodes);
+
+
+                var data_links = h1_tree.links();
+
+                /*  data_links = data_links.filter(function (d) {
+                     //console.log(d);
+                     if (d.source.data.data.child.includes("A") || d.source.data.data.child.includes("B") || d.source.data.data.child.includes("C"))
+                         return d;
+ 
+                 }); */
+
+                //console.log(width + " " + Math.round(.25 * width));
+
+
+                var h1_node = mergedtree_svg
+                    .append("g")
+                    .attr("id", "h1tree")
+                    .attr("transform", "translate(" + parseInt(width - Math.round(.25 * width) - 200) + "," + 100 + ")")
+                    .selectAll(".h1_node")
+                    .data(data_nodes)
+                    //.data(h1_tree.descendants())
+                    .enter()
+                    .append("g")
+                    .attr("class", function (d) {
+                        //   console.log(d);
+                        return d.child;
+                    });
+
+                mergedtree_svg.select("#h1tree")
+                    .append("rect")
+                    .attr('x', -30)
+                    .attr('y', -30)
+                    .attr('width', Math.round(.25 * width + 50))
+                    .attr('height', Math.round(.10 * height + 100))
+                    .attr('stroke', 'black')
+                    .attr('fill', 'none');
+
+
+                var h1_link = h1_node
+                    .append("path")
+                    //.data(h1_tree.links())
+                    .data(data_links)
+                    // .enter()
+                    .attr("class", function (d) {
+                        return "h1_link";
+                    })
+                    //.classed("link", true)
+                    .attr("d", function (d) {
+                        return "M" + d.source.x + "," + d.source.y
+                            + "C" + d.source.x + "," + (d.source.y + d.target.y) / 2
+                            + " " + d.target.x + "," + (d.source.y + d.target.y) / 2
+                            + " " + d.target.x + "," + (d.target.y);
+                    })
+                    .style("opacity", function (d) {
+                        return 0.5;
+                    })
+                    //.style("stroke", "#ccc")
+                    .style("stroke", "green")
+                    .style("fill", "none")
+                    .style("stroke-width", "1px");
+
+                h1_node
+                    .append("circle")
+                    .attr("cx", function (d) {
+                        // console.log(d);
+                        // console.log(radialPoint(d.x, d.y));
+                        return d.x;
+                    })
+                    .attr("cy", function (d) {
+                        return d.y;
+                    })
+                    .attr("r", function (d) {
+                        //        console.log(radius);
+                        //if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                        //  return (h1_radius - 3) + "px";
+                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                        return (h1_radius) + "px";
+                    })
+                    .attr("class", function (d) {
+                        return (
+                            "node" + (d.children ? " node--internal" : " node--leaf")
+                        );
+                    })
+                    .attr("id", function (d) {
+                        return "h1tree_" + d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                    })
+                    .style("fill", function (d) {
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                            return h2color;
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                            return h1color;
+
+                    })
+                    // .style("opacity", 1)
+
+                    .style("opacity", function (d) {
+                        return 0.3;
+                    })
+                    .on("mouseover", function (d, i) {
+                        var name = d.data.data.child;
+                        //console.log(name);
+                        //if (name == undefined)
+                        //name = d.data.data.child;
+                        var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
+                        d3.select("#tooltip")
+                            .html(text)
+
+                            .style("left", parseInt(d3.event.pageX - 200) + "px")
+                            .style("top", parseInt(d3.event.pageY + 50) + "px")
+                            .style("text-align", "left")
+                            .style("opacity", 1);
+
+                        d3.select(this)
+                            .transition()
+                            .attr("r", 18);
+                    })
+                    .on("mouseleave", function (d) {
+
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                            d3.select(this)
+                                .transition()
+                                .attr("r", radius - 3);
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                            d3.select(this)
+                                .transition()
+                                .attr("r", radius - 6);
+
+
+                        d3.select("#tooltip")
+                            .html("")
+                            .style("left", 0)
+                            .style("top", 0)
+                            .style("opacity", 0);
+
+                    });
+
+                h1_node
+                    .append("text")
+                    .style("font-size", function (d) {
+                        if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                            return "10px";
+                        else
+                            return "20px";
+                        //console.log(data_nodes[0]);
+                        //return data_nodes[0].height - 1.5 + "em";
+                    })
+                    .attr("class", function (d) {
+                        return "text " + d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                    })
+
+                    .attr("dy", "2em")
+                    .attr("x", function (d) {
+
+                        if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                            return d.x - 8;
+                        else
+                            return d.x + 10;
+                    })
+                    .attr("y", function (d) {
+                        if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                            return d.y - 10;
+                        else
+                            return d.y - 30;
+                    })
+                    .attr("text-anchor", function (d) {
+                        return "start";
+                    })
+
+                    .style("opacity", function (d) {
+                        /*  if (d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion2radio")._groups[0][0].checked == true) {
+                             if (d.depth <= 1)
+                                 return 1;
+                             else
+                             return 0;
+                         }
+                         //  console.log(d);
+ 
+                         else return 1; */
+                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                            return 0;
+                        else
+                            return 1;
+                    })
+                    .text(function (d) {
+                        // console.log(d);
+                        var label = d.data.data.child;
+                        if (label.includes("_"))
+                            label = label.substring(label.indexOf("_") + 1, label.length);
+                        if (label.includes("/"))
+                            label = label.substring(label.lastIndexOf("/") + 1, label.length);
+                        return label;
+                    });
+            }
+
+
+            /* END OF H1 TREE*/
+
+
+
+            /* START OF H2 TREE */
+
+            function h2tree(h2_root) {
+
+                //console.log(h2_root.children);
+
+                d3.select("#h2tree").remove();
+
+                var h2_radius = 8;
+
+                var h2tree = d3
+                    .tree()
+                    //.nodeSize([]);
+                    .size([Math.round(.45 * width), Math.round(.10 * height)]);
+
+
+                var h2_tree = h2tree(h2_root);
+
+
+
+
+                var h2_node = mergedtree_svg
+                    .append("g")
+                    .attr("id", "h2tree")
+                    .attr("transform", "translate(" + 50 + "," + 100 + ")")
+                    .selectAll(".h2_node")
+                    .data(h2_tree.descendants())
+                    .enter()
+                    .append("g")
+                    .attr("class", function (d) {
+                        //   console.log(d);
+                        return d.child;
+                    });
+
+                mergedtree_svg.select("#h2tree")
+                    .append("rect")
+                    .attr('x', -30)
+                    .attr('y', -30)
+                    .attr('width', Math.round(.25 * width) + 50)
+                    .attr('height', Math.round(.10 * height + 100))
+                    .attr('stroke', 'black')
+                    .attr('fill', 'none');
+
+
+                /*  var len = h2_node._groups[0].length;
+     
+                 console.log(h2_node);
+     
+                 var h2_node_sliced = h2_node._groups[0].slice(1, len);
+     
+                 console.log(h2_node_sliced); */
+
+                var h2_link = h2_node
+                    .append("path")
+                    .data(h2_tree.links())
+                    // .enter()
+                    .attr("class", function (d) {
+                        return "h2_link";
+                    })
+                    //.classed("link", true)
+                    .attr("d", function (d) {
+                        //console.log(d.source.y + " " + parseInt(d.source.y + parseInt(h2_radius / 2)));
+                        return "M" + d.source.x + "," + parseInt(d.source.y + parseInt(h2_radius / 2))
+                            + "C" + d.source.x + "," + (d.source.y + d.target.y + parseInt(h2_radius / 2)) / 2
+                            + " " + d.target.x + "," + (d.source.y + d.target.y - parseInt(h2_radius / 2)) / 2
+                            + " " + d.target.x + "," + (d.target.y - parseInt(h2_radius / 2));
+                    })
+                    .style("opacity", function (d) {
+                        return 0.3;
+                    })
+                    //.style("stroke", "#ccc")
+                    .style("stroke", "red")
+                    .style("fill", "none")
+                    .style("stroke-width", "1px");
+
+                h2_node
+                    .append("circle")
+                    .attr("cx", function (d) {
+                        // console.log(d);
+                        // console.log(radialPoint(d.x, d.y));
+                        return d.x;
+                    })
+                    .attr("cy", function (d) {
+                        return d.y;
+                    })
+                    .attr("r", function (d) {
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                            return h2_radius + "px";
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                            return (h2_radius - 4) + "px";
+                    })
+                    .attr("class", function (d) {
+                        return (
+                            "node" + (d.children ? " node--internal" : " node--leaf")
+                        );
+                    })
+                    .attr("id", function (d) {
+                        return "h2tree_" + d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                    })
+                    .style("fill", function (d) {
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                            return h1color;
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                            return "white";
+                    })
+                    .style("stroke", function (d) {
+                        //console.log(h1color);
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                            return "none";
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                            return h1color;
+
+                    })
+                    .style("stroke-width", function (d) {
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                            return "0px";
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                            return "2px";
+
+                    })
+
+                    .style("opacity", function (d) {
+                        return 0.3;
+                    })
+                    .on("mouseover", function (d, i) {
+                        var name = d.data.data.child;
+                        //console.log(name);
+                        //if (name == undefined)
+                        //name = d.data.data.child;
+                        var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
+                        d3.select("#tooltip")
+                            .html(text)
+
+                            .style("left", parseInt(d3.event.pageX - 200) + "px")
+                            .style("top", parseInt(d3.event.pageY + 50) + "px")
+                            .style("text-align", "left")
+                            .style("opacity", 1);
+
+                        if (text.length > 80 && text.length < 120)
+                            d3.select("#tooltip")
+                                .style("height", "200px");
+                        else if (text.length > 120 && text.length < 200)
+                            d3.select("#tooltip")
+                                .style("height", "250px");
+                        else if (text.length > 200)
+                            d3.select("#tooltip")
+                                .style("height", "350px");
+
+
+                        d3.select(this)
+                            .transition()
+                            .attr("r", 15);
+                    })
+                    .on("mouseleave", function (d) {
+
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                            d3.select(this)
+                                .transition()
+                                .attr("r", h2_radius - 3);
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                            d3.select(this)
+                                .transition()
+                                .attr("r", h2_radius - 6);
+
+
+                        d3.select("#tooltip")
+                            .html("")
+                            .style("left", 0)
+                            .style("top", 0)
+                            .style("opacity", 0);
+
+                    });
+
+
+
+                h2_node
+                    .append("text")
+                    .style("font-size", function (d) {
+                        if (d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                            return "10px";
+                        else
+                            return "20px";
+                        //  return (h2_tree.descendants()[0].height + 2) - (d.depth) + "em";
+                    })
+                    .attr("class", function (d) {
+                        return "text " + d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                    })
+                    //.classed("text", true)
+                    .attr("dy", "2em")
+                    .attr("x", function (d) {
+
+                        //console.log(d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class"));
+                        if (d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class").includes("leaf"))
+                            return d.x - 8;
+                        else
+                            return d.x + 20;
+                    })
+                    .attr("y", function (d) {
+                        //if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                        if (d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class").includes("leaf"))
+                            return d.y - 10;
+                        else
+                            return d.y - 30;
+                    })
+                    .attr("text-anchor", function (d) {
+                        return "start";
+                    })
+
+                    .style("opacity", function (d) {
+                        /*  if (d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion2radio")._groups[0][0].checked == true) {
+                             if (d.depth <= 1)
+                                 return 1;
+                             else
+                             return 0;
+                         }
+                         //  console.log(d);
+ 
+                         else return 1; */
+                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                            return 0;
+                        else
+                            return 1;
+                    })
+                    .text(function (d) {
+                        // console.log(d);
+                        var label = d.data.data.child;
+                        if (label.includes("_"))
+                            label = label.substring(label.indexOf("_") + 1, label.length);
+                        if (label.includes("/"))
+                            label = label.substring(label.lastIndexOf("/") + 1, label.length);
+                        return label;
+                    });
+            }
+
+
+            /* END OF H2 TREE*/
+
+
+
+
+
+            /* START OF MERGED TREE */
+
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children
+                    d._children.forEach(collapse)
+                    d.children = null
+                }
+            }
+
+
+            function mergedtree(source) {
+
+                var mtree_radius = 6;
+
+                //console.log(hier_root);
+                var tree = d3
+                    .tree()
+                    //.nodeSize([50]);
+                    .size([Math.round(width * .9), Math.round(height * .65)]);
+
+                //console.log(hier_root);
+
+                mtree = tree(hier_root);
+
+                //console.log(mtree.descendants()[0]);
+
+
+
+
+
+
+
+                //console.log("MERGED TREE");
+
+                nodes = mtree.descendants();
+                links = mtree.links();
+
+
+                //console.log(nodes);
+                //console.log(source);
+
+
+                //remove this for temp fix
+
+
+                //d3.select("#mergedtree").selectAll("g").remove();
+
+                /* var nodes_data = nodes.filter(function (el) {
+                    if (el.position == "expand") {
+                        return el;
+                    }
+                });
+ 
+                
+ 
+ 
+                var links_data = links.filter(function (el) {
+                    if (el.target.position == "expand") {
+                        return el;
+                    }
+                }); */
+
+                var duration = 500;
+                //nodes = source;
+                //nodes_data = nodes;
+
+                //console.log(nodes_data);
+                //for (var i = 0; i < nodes_data.length; i++)
+                //console.log(nodes_data[i].data.data.child + " " + nodes_data[i].position + " " + nodes_data[i].childrenposition);
+
+                var color = "orange";
+                var triangleSize = 100;
+                var verticalTransform = Math.sqrt(triangleSize);
+
+                var triangle_shape = d3.symbol()
+                    .type(d3.symbolTriangle)
+                    .size(triangleSize);
+
+
+
+                var node = mergedtree_svg
+                    .select("#mergedtree")
+                    .selectAll(".nodes")
+                    .data(nodes, function (d, i) {
+                        //return d.data.data.child;
+
+                        //return d.id || (d.id = ++i);
+                        //return ++i;
+                        return d.id;
+                    });
+
+                var triangle = mergedtree_svg
+                    .select("#mergedtree")
+                    //.selectAll(".nodes")
+                    .selectAll(".triangle")
+                    .data(nodes, function (d, i) {
+                        return "tri" + d.data.data.child;
+
+                        //return d.id || (d.id = ++i);
+                        //return ++i;
+                        //return d.id;
+                    });
+
+
+
+                /*
+            // Define the zoom function for the zoomable tree
+ 
+            function zoom() {
+                svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+            }
+ 
+ 
+            // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
+            var zoomListener = d3.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
+*/
+
+                //console.log(node);
+
+
+
+                var nodeEnter = node
+                    //.data(mergedtree.descendants())
+                    .enter()
+                    .append("g")
+                    .attr("class", "nodes")
+                    .attr("transform", function (d, i) {
+                        //console.log("ENTER " + d.data.data.child);
+                        //console.log(source);
+                        //console.log(source.y);
+                        var y = (source.data.data.level === 0 ? 50 : source.data.data.level * level_offset);
+                        return "translate(" + source.x + "," + y + ")";
+                    })
+                    .on("click", function (d) {
+                        update_log(d.data.data.child, "node", "collapse/expand nodes");
+                        click(d);
+                    });
+
+
+                var triUpdate = nodeEnter
+                    .merge(triangle)
+                    .transition()
+                    //.duration(duration)
+                    .attr("transform", function (d) {
+                        //console.log("UPDATE");
+                        //console.log(d);
+
+                        //console.log(source.data.data.child);
+                        var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
+                        //y = y + 20;
+                        //if (source.data.data.child == "root")
+                        //console.log(d.data.data.child);
+                        //console.log(d.x + " " + y);
+                        return "translate(" + d.x + "," + y + ")";
+                        //else
+                        // return "translate(" + source.x + "," + y + ")";
+                    });
+
+
+
+                var nodeUpdate = nodeEnter
+                    .merge(node)
+                    .transition()
+                    //.duration(duration)
+                    .attr("transform", function (d) {
+                        //console.log("UPDATE");
+                        //console.log(d);
+                        //console.log(source.data.data.child);
+                        var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
+                        //if (source.data.data.child == "root")
+                        return "translate(" + d.x + "," + y + ")";
+                        //else
+                        // return "translate(" + source.x + "," + y + ")";
+                    });
+
+
+
+                nodeUpdate
+                    .selectAll("text")
+                    .style("fill-opacity", 1);
+
+                var triExit = node
+                    //.selectAll("circle")
+                    .exit()
+                    .transition()
+                    .duration(duration)
+                    .attr("size", function (d) {
+                        //console.log("EXIT ");
+
+                        return 0;
+                    })
+                    .attr("transform", function (d) {
+                        //console.log(d);
+                        //var y = (d.parent.data.data.level === 0 ? 50 : d.parent.data.data.level * level_offset);
+                        //return "translate(" + d.parent.x + "," + y + ")";
+
+                        var y = (source.data.data.level === 0 ? 50 : source.data.data.level * level_offset);
+                        return "translate(" + source.x + "," + y + ")";
+                    })
+                    .remove();
+
+
+                var nodeExit = node
+                    //.selectAll("circle")
+                    .exit()
+                    .transition()
+                    .duration(duration)
+                    .attr("r", function (d) {
+                        //console.log("EXIT ");
+
+                        return 0;
+                    })
+                    .attr("transform", function (d) {
+                        //console.log(d);
+                        //var y = (d.parent.data.data.level === 0 ? 50 : d.parent.data.data.level * level_offset);
+                        //return "translate(" + d.parent.x + "," + y + ")";
+
+                        var y = (source.data.data.level === 0 ? 50 : source.data.data.level * level_offset);
+                        return "translate(" + source.x + "," + y + ")";
+                    })
+                    .remove();
+
+
+
+                nodeExit.select("text")
+                    .style("fill-opacity", 0);
+
+
+
+                var index = nodes.length;
+                //console.log(nodes);
+                //console.log(nodes[index - 1]);
+                var levels = new Array(nodes[index - 1].depth + 1).fill(0);
+
+
+
+                function click(d) {
+                    if (d.children) {
+                        d._children = d.children;
+                        d.children = null;
+                    } else {
+                        d.children = d._children;
+                        d._children = null;
+                    }
+                    console.log(d);
+                    if (d.children != null || d._children != null)
+                        mergedtree(d);
+
+                }
+
+
+
+
+                nodeEnter
+                    .append("path")
+                    .attr("class", "triangle")
+                    .attr("d", triangle_shape)
+                    /*  .attr("x", function (d) {
+                         return d.x;
+                     })
+                     .attr("y", function (d) {
+                         return d.y + 200;
+                     }) */
+                    .attr("stroke", function (d) {
+                        if (d._children)
+                            return "green";
+                        else return "none";
+
+                    })
+                    .style("stroke-width", "5px")
+                    .attr("fill", function (d) {
+                        if (d._children)
+                            return "green";
+                        else return "none";
+
+                        /*   if (!d._children && !d.children)
+                              return color;
+                          else return "green"; */
+                    })
+                    .attr("transform", function (d) {
+                        var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
+                        y = + 25;
+
+                        var trans = "translate(" + 0 + "," + y + ")";
+
+
+                        if (d._children)
+                            return trans + "rotate(180)";
+                        else
+                            return trans;
+                    })
+                    .on("mouseover", function (d) {
+                        console.log(this);
+                        d3.select(this).style("cursor", "default");
+                    });
+                   /*  .attr("transform", function (d, i) {
+
+                        var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
+                        return "translate(" + d.x + "," + y + ")";
+                    }) */;
+
+
+
+
+
+                //console.log("SOLID");
+                nodeEnter
+                    .append("circle")
+
+                    .attr("r", function (d) {
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                            return mtree_radius + "px";
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                            return (mtree_radius - 1) + "px";
+                    })
+                    .attr("class", function (d) {
+                        return (
+                            "node" + (d.children ? " node--internal" : " node--leaf")
+                        );
+                    })
+                    .attr("id", function (d) {
+                        return "mergedtree_" + d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                    })
+                    .style("fill", function (d) {
+                        //            console.log(d.data.data.shape);
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true) {
+                            //console.log("solid");
+                            console.log(d.data.data.color);
+                            return d.data.data.color;
+                        }
+
+
+                        else if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
+                            //console.log("hollow");
+                            if (d.data.data.shape == "h1")
+                                return "white";
+                            else
+                                return h1color;
+                        }
+
+
+
+                    })
+                    // .style("opacity", 1)
+
+                    .style("stroke-dasharray", function (d) {
+                        /*  if (d.data.data.bordertype == "solid")
+                             return "none";
+                         else
+ 
+                             return "8,8.5"; */
+                        return "solid";
+
+                    })
+
+                    .style("opacity", function (d) {
+                        return 1;
+                    })
+                    .on("mouseover", function (d) {
+                        var circle_id = this.getAttribute("id");
+                        circle_id = circle_id.split("_")[1];
+
+                        //console.log(circle_id);
+
+                        update_log(circle_id, "node", "hovering on a node " + circle_id);
+
+                        var name = d.data.data.child;
+                        //console.log(name);
+                        //if (name == undefined)
+                        //  name = d.data.data.child;
+                        var text = "Element: <b>" + name + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>"
+                            + "<br>Description: <b>" + d.data.data.description + "</b>";
+                        d3.select("#tooltip")
+                            .html(text)
+                            .style("left", parseInt(d3.event.pageX + 100) + "px")
+                            .style("top", parseInt(d3.event.pageY) + "px")
+                            .style("text-align", "left")
+                            .style("opacity", 1);
+
+                        //console.log(text + "     " + text.length);
+
+                        if (text.length > 80 && text.length < 120)
+                            d3.select("#tooltip")
+                                .style("height", "200px");
+                        else if (text.length > 120 && text.length < 200)
+                            d3.select("#tooltip")
+                                .style("height", "250px");
+                        else if (text.length > 200)
+                            d3.select("#tooltip")
+                                .style("height", "350px");
+
+
+
+                        d3.select(this)
+                            .transition()
+                            .attr("r", mtree_radius + 5);
+
+
+                        d3.select("#h1tree")
+                            .select("#h1tree_" + circle_id)
+                            .style("opacity", 1);
+
+                        d3.select("#h2tree")
+                            .select("#h2tree_" + circle_id)
+                            .style("opacity", 1);
+
+
+                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
+                            d3.select("#h1tree")
+                                .selectAll(".text")
+                                .select("." + circle_id)
+                                .style("opacity", 1);
+
+                            d3.select("#h2tree")
+                                .selectAll(".text")
+                                .select("." + circle_id)
+                                .style("opacity", 1);
+                        }
+
+
+                        // console.log(h1_root.descendants());
+
+                        for (var i = 1; i < h1_root.descendants().length; i++) {
+                            var name = h1_root.descendants()[i].data.data.child
+                                .replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+                            if (name == circle_id) {
+                                var children = (h1_root.descendants()[0]).path(h1_root.descendants()[i]);
+                                // console.log(children);
+
+                                var node_id;
+                                for (var j = 0; j < children.length; j++) {
+                                    // console.log(children[j]);
+
+                                    node_id = children[j].data.id
+                                        .replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
+                                        .toLowerCase();
+                                    //console.log(node_id);
+                                    //console.log(children[j]);
+                                    d3.select("#h1tree").select("#h1tree_" + node_id).style("opacity", "1");
+                                    d3.select("#h1tree").selectAll(".text" + "." + node_id).style("opacity", "1");
+                                }
+
+                            }
+                        }
+
+
+                        for (var i = 1; i < h2_root.descendants().length; i++) {
+                            var name = h2_root.descendants()[i].data.data.child
+                                .replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+                            if (name == circle_id) {
+                                var children = (h2_root.descendants()[0]).path(h2_root.descendants()[i]);
+                                // console.log(children);
+
+                                var node_id;
+                                for (var j = 0; j < children.length; j++) {
+                                    // console.log(children[j]);
+                                    node_id = children[j].data.id
+                                        .replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
+                                        .toLowerCase();
+
+                                    //console.log(node_id);
+                                    //console.log(children[j]);
+                                    d3.select("#h2tree").select("#h2tree_" + node_id).style("opacity", "1");
+                                    d3.select("#h2tree").selectAll(".text" + "." + node_id).style("opacity", "1");
+                                }
+
+                            }
+                        }
+
+
+
+                    })
+                    .on("mouseleave", function (d) {
+
+
+
+                        d3.select("#tooltip")
+                            .html("")
+                            .style("left", "0px")
+                            .style("top", "0px")
+                            .style("opacity", 0);
+
+
+                        var circle_id = this.getAttribute("id");
+                        circle_id = circle_id.split("_")[1];
+
+
+
+                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true) {
+                            d3.select(this)
+                                .transition()
+                                .attr("r", mtree_radius);
+                        }
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
+                            d3.select(this)
+                                .transition()
+                                .attr("r", mtree_radius - 1);
+                        }
+
+
+                        d3.select("#h1tree")
+                            .selectAll(".node")
+                            .style("opacity", 0.3);
+
+                        d3.select("#h2tree")
+                            .selectAll(".node")
+                            .style("opacity", 0.3);
+
+
+                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
+                            d3.select("#h1tree")
+                                .selectAll(".text")
+                                .style("opacity", 0);
+
+                            d3.select("#h2tree")
+                                .selectAll(".text")
+                                .style("opacity", 0);
+
+                        }
+                        else {
+                            d3.select("#h1tree")
+                                .selectAll(".text")
+                                .style("opacity", 1);
+
+                            d3.select("#h2tree")
+                                .selectAll(".text")
+                                .style("opacity", 1);
+
+                        }
+
+
+
+                    });
+                // console.log(mergedtree.links());
+
+
+
+
+                if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
+                    //console.log("HOLLOW");
+                    nodeEnter
+                        .append("circle")
+
+                        .attr("r", function (d) {
+
+                            if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                                return (mtree_radius + 5) + "px";
+                        })
+                        .attr("class", function (d) {
+                            return (
+                                "node" + (d.children ? " node--internal" : " node--leaf")
+                            );
+                        })
+                        .attr("id", function (d) {
+                            return "mergedtree_" + d.data.data.child
+                                .replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+                        })
+                        .style("fill", function (d) {
+                            return "none";
+                        })
+                        .style("stroke", function (d) {
+                            //if (d.data.data.shape == "h1" || d.data.data.shape == "merged")
+                            //  return h1color;
+                            //console.log(d);
+                            if (d.data.data.shape == "h1" || d.data.data.shape == "merged")
+                                return d.data.data.levelcolor;
+                            //return h1color;
+
+                            else return "none";
+                        })
+                        .style("stroke-width", "3px")
+                        .style("stroke-dasharray", function (d) {
+                            /*  if (d.data.data.bordertype == "solid")
+                                 return "none";
+                             else
+                                 return "8,8.5"; */
+                            //return "10,10";
+                            return "solid";
+
+                        })
+                        .style("opacity", function (d) {
+                            return 1;
+                        })
+                        .on("mouseover", function (d, i) {
+
+
+
+                            var name = d.data.data.child;
+                            //console.log(name);
+                            //if (name == undefined)
+                            //name = d.data.data.child;
+                            update_log(d.data.data.child, "node", "hovering on a node " + d.data.data.child);
+
+                            var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
+                            d3.select("#tooltip")
+                                .html(text)
+                                .style("left", parseInt(d3.event.pageX + 100) + "px")
+                                .style("top", parseInt(d3.event.pageY) + "px")
+                                .style("text-align", "left")
+                                .style("opacity", 1);
+
+                            d3.select(this)
+                                .transition()
+                                .attr("r", 20);
+                        })
+                        .on("mouseleave", function (d) {
+                            d3.select(this)
+                                .transition()
+                                .attr("r", mtree_radius + 5);
+
+                            d3.select("#tooltip")
+                                .html("")
+                                .style("left", 0)
+                                .style("top", 0)
+                                .style("opacity", 0);
+
+                        });
+                    /* .on("click", function (d) {
+                        //console.log("click");
+                        //console.log(e);
+                        console.log(d);
+                        click(d, nodes, links);
+                    }); */
+
+
+
+                }
+
+
+
+
+
+
+                nodeEnter
+                    .append("text")
+                    .style("font-size", function (d) {
+                        //  if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
+                        //    if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                        return "10px";
+                        // else return "5px";
+                        //}
+
+                        // else
+                        //   return "20px";
+                    })
+                    .attr("class", function (d) {
+                        return d.data.data.child
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                    })
+                    .classed("text", true)
+                    // .style("font-size", "20px")
+                    .attr("dx", function (d) {
+                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
+                            if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                                return "0em";
+                            else return "4em";
+                        }
+
+                        else {
+                            if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                                return "0em";
+                            else return "2em";
+
+                        }
+                    })
+                    .attr("dy", function (d) {
+                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
+                            if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                                return "3em";
+                            else return "5em";
+                        }
+
+                        else {
+                            if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                                return "3em";
+                            else return "0em";
+
+                        }
+
+                    })
+                    .attr("text-anchor", function (d) {
+                        return "start";
+                    })
+
+                    .style("opacity", function (d) {
+                        /*   if (d3.select("#fileversion3radio")._groups[0][0].checked == true) {
+                              if (d.depth <= 2)
+                                  return 1;
+                              else
+                                  return 0;
+                          }
+                          else return 1; */
+                        return 1;
+                    })
+                    /* .attr("transform", function (d) {
+                        return "rotate(90)";
+                    }) */
+                    .text(function (d) {
+                        // console.log(d);
+                        var label = d.data.data.child;
+                        if (label.includes("_"))
+                            label = label.substring(label.indexOf("_") + 1, label.length);
+                        if (label.includes("/"))
+                            label = label.substring(label.lastIndexOf("/") + 1, label.length);
+                        return label;
+                    });
+
+
+                //console.log(links);
+                //console.log(links_data);
+
+
+
+
+                //normal links
+                var link = mergedtree_svg
+                    .select("#mergedtree")
+                    //.append("g")
+                    //.attr("id", "links")
+                    .selectAll(".link")
+                    .data(links, function (d) {
+                        //console.log(d.target.id);
+                        return d.target.id;
+                    });
+
+                //console.log(link);
+
+                var linkEnter = link
+                    .enter()
+                    .append("path")
+                    .attr("class", function (d) {
+                        //console.log(d);
+                        if (d.target.data.data.linkcolor == "blue")
+                            return "link " + "merged";
+                        else if (d.target.data.data.linkcolor == "green")
+                            return "link " + "h2parent";
+                        else
+                            return "link " + "h1parent";
+                        //return "link";
+
+                    })
+                    // .insert("path", "g")
+
+                    .attr("d", function (d) {
+
+                        var sourcex = source.x, targetx = source.x
+
+                        //console.log(d.source.data.data.child);
+
+                        // if (d3.select("#leavesdiffheightradio")._groups[0][0].checked == true) {
+                        //check y pos/
+                        var sourcey = source.data.data.level === 0 ? 50 : source.data.data.level * level_offset;
+                        var targety = source.data.data.level === 0 ? 50 : source.data.data.level * level_offset;
+                        //}
+
+
+                        return "M" + sourcex + "," + sourcey
+                            + "C" + sourcex + "," + (sourcey + targety) / 2
+                            + " " + targetx + "," + (sourcey + targety) / 2
+                            + " " + targetx + "," + targety;
+                    })
+                    .style("opacity", function (d) {
+                        /* if (d.parent != "" && d.h1parent == "" && d.h2parent == "")
+                            return 0.1;
+                        else if (d.h1parent != "" && d.h2parent == "")
+                            return 0.7;
+                        else if (d.h1parent == "" && d.h2parent != "")
+                            return 0.7; */
+
+                        if (d.target.data.data.linkcolor == "blue")
+                            return 0.3;
+                        else
+                            return 0.7;
+                    })
+                    //.style("stroke", "#ccc")
+                    .style("stroke", function (d) {
+                        //if (d.source.data.data.shape == "h1" || (d.source.data.data.shape == "h2" && d.source.data.data.linkcolor != "red" && d.target.data.data.linkcolor != "red"))
+                        //  return "green";
+                        //else
+                        return d.target.data.data.linkcolor;
+                    })
+                    .style("fill", "none")
+                    .style("stroke-width", "3px");
+
+
+                linkEnter
+                    .merge(link)
+                    .transition()
+                    //.duration(duration)
+                    .attr("d", function (d) {
+                        //console.log("update");
+                        //console.log(d.source.data.data.child);
+                        var sourcex = d.source.x, targetx = d.target.x;
+                        var sourcey = d.source.data.data.level === 0 ? 50 : d.source.data.data.level * level_offset;
+                        var targety = d.target.data.data.level === 0 ? 50 : d.target.data.data.level * level_offset;
+
+                        //sourcey = sourcey + 60;
+                        targety = targety - 25;
+
+                        return "M" + sourcex + "," + parseInt(sourcey + 10)
+                            + "C" + sourcex + "," + (sourcey + 10 + targety) / 2
+                            + " " + targetx + "," + (sourcey + targety) / 2
+                            + " " + targetx + "," + (targety + 10);
+                    });
+
+                // Transition exiting nodes to the parent's new position.
+                link
+                    .exit()
+                    .transition()
+                    .duration(duration)
+                    .attr("d", function (d) {
+                        //console.log("exit");
+                        var sourcex = source.x, targetx = source.x;
+                        var sourcey = source.data.data.level === 0 ? 50 : source.data.data.level * level_offset;
+                        var targety = source.data.data.level === 0 ? 50 : source.data.data.level * level_offset;
+                        return "M" + sourcex + "," + parseInt(sourcey + 10)
+                            + "C" + sourcex + "," + (sourcey + 10 + targety) / 2
+                            + " " + targetx + "," + (sourcey + targety) / 2
+                            + " " + targetx + "," + (targety + 10);
+                    })
+                    .remove();
+
+
+                function hidelinks() {
+                    console.log("hide links");
+
+                    d3.selectAll(".merged").style("opacity", 0.3);
+                    d3.selectAll(".h1parent").style("opacity", 0.7);
+                    d3.selectAll(".altlink").remove();
+                }
+
+                function showlinks() {
+
+                    console.log("show links");
+
+                    //alternate parent links
+                    links
+                        .forEach(function (d, i) {
+
+
+                            d3.selectAll(".h1parent").style("opacity", 0);
+
+                            var altparent = d.target.data.data.alternateparent.replaceAll(/\//g, "").replaceAll(".", "");
+                            var child = d.target.data.data.child.replaceAll(/\//g, "").replaceAll(".", "");
+                            var h2parent = d.target.data.data.h2parent.replaceAll(/\//g, "").replaceAll(".", "");
+
+                            console.log("c:" + child + " ap:" + altparent + " h1:" + d.target.data.data.h1parent + " h2:" + h2parent);
+
+                            if (altparent != "") {
+
+                                //console.log("c:" + child + " ap:" + altparent + " h1:" + d.target.data.data.h1parent + " h2:" + h2parent);
+
+                                var sourcex = "";
+                                var sourcey = "";
+
+                                for (var j = 0; j < nodes.length; j++) {
+                                    if (nodes[j].data.data.child == altparent) {
+                                        sourcex = nodes[j].x;
+                                        sourcey = nodes[j].data.data.level === 0 ? 50 : nodes[j].data.data.level * level_offset;
+                                    }
+                                }
+
+                                var targetx = d3.select("#mergedtree").select("#mergedtree_" + child.toLowerCase())._groups[0][0].__data__.x;
+                                var targety = d.target.data.data.level === 0 ? 50 : d.target.data.data.level * level_offset;
+
+                                d3.select("#mergedtree").append("path")
+                                    .attr("class", function (d) {
+                                        return "altlink";
+                                    })
+                                    .classed(altparent + "-" + child, true)
+                                    .attr("d", function (d) {
+
+                                        if (targety == sourcey) {
+                                            console.log("SAME LEVEL");
+                                            if (sourcex < targetx)
+                                                return "M" + sourcex + "," + (sourcey + mtree_radius)
+                                                    + "L" + sourcex + "," + (sourcey + mtree_radius + 50)
+                                                    + "L" + (targetx - mtree_radius - 20) + "," + (targety + mtree_radius + 50)
+                                                    + "L" + (targetx - mtree_radius - 20) + "," + (targety - mtree_radius - 50)
+                                                    + "L" + (targetx) + "," + (targety - mtree_radius - 50)
+                                                    + "L" + (targetx) + "," + (targety + mtree_radius);
+
+                                            else
+                                                return "M" + sourcex + "," + (sourcey + mtree_radius)
+                                                    + "L" + sourcex + "," + (sourcey + mtree_radius + 50)
+                                                    + "L" + (targetx - mtree_radius - 20) + "," + (targety + mtree_radius + 50)
+                                                    + "L" + (targetx - mtree_radius - 20) + "," + (targety - mtree_radius - 50)
+                                                    + "L" + (targetx) + "," + (targety - mtree_radius - 50)
+                                                    + "L" + (targetx) + "," + (targety + mtree_radius);
+
+                                        }
+
+                                        if (targety < sourcey) {
+                                            //console.log("RECURSIVE PARENT");
+                                            return "M" + targetx + "," + (targety - mtree_radius)
+                                                + "L" + targetx + "," + (targety - 50)
+                                                + "L" + (targetx + 50) + "," + (targety - 50)
+                                                + "L " + (sourcex + 50) + "," + (sourcey + 50)
+                                                + "L" + (sourcex) + "," + (sourcey + 50)
+                                                + "L" + sourcex + "," + (sourcey + mtree_radius);
+                                        }
+
+                                        else {
+                                            //console.log("NORMAL LEVEL");
+                                            return "M" + sourcex + "," + sourcey
+                                                + "C" + sourcex + "," + (sourcey + targety) / 2
+                                                + " " + targetx + "," + (sourcey + targety) / 2
+                                                + " " + targetx + "," + targety;
+                                        }
+
+                                    })
+                                    .style("opacity", function (d) {
+                                        return 1;
+                                    })
+                                    .style("stroke", "green")
+                                    .style("stroke-dasharray", "3,3")
+                                    //.style("stroke-dasharray", "3,3")
+                                    .style("fill", "none")
+                                    .style("stroke-width", "7px");
+
+                            }
+
+                        });
+                }
+
+
+
+                nodes.forEach(function (d) {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+
+
+                for (var n = 0; n < nodes.length; n++) {
+                    levels[nodes[n].depth] = nodes[n].depth === 0 ? 50 : nodes[n].depth * level_offset;
+                }
+
+                //console.log(nodes[0].height);
+                /* var accent = d3
+                    .scaleSequential()
+                    .domain([0, nodes[0].height])
+                    .interpolator(d3.interpolateInferno); */
+
+                var accent = d3
+                    // .range(0, nodes[0].height)
+                    .scaleOrdinal(d3.schemeCategory10);
+
+
+
+                if (d3.select("#levellines").empty()) {
+
+                    var n = 0;
+
+                    var levelg = mergedtree_svg
+                        .append("g")
+                        .attr("id", "levellines")
+                        .attr("transform",
+                            "translate(" + tree_start[0] + "," + tree_start[1] + ")");
+
+                    d3
+                        .select("#levellines")
+                        .selectAll("line")
+                        .data(levels)
+                        .enter()
+                        .append("line")
+                        .attr("x1", function (d) {
+                            //console.log(d);
+                            return 100;
+
+                        })
+                        .attr("y1", function (d) {
+                            return d + 10;
+                        })
+                        .attr("x2", function (d) {
+
+                            return width;
+                        })
+                        .attr("y2", function (d) {
+
+                            return d + 10;
+
+
+                        })
+                        .style("stroke", "grey")
+                        .style("stroke-width", 6)
+                        .style("stroke-dasharray", "6,60")
+                        .style("opacity", 0.6);
+
+
+
+                    levelg
+                        .selectAll("text")
+                        .data(levels)
+                        .enter()
+                        .append("text")
+                        .attr("class", function (d, i) {
+                            return "text-level" + i;
+                        })
+                        .style("font-size", "15px")
+                        .attr("dy", "4em")
+                        .attr("x", function (d) {
+                            //return -150;
+                            return width * .9;
+
+                        })
+                        .attr("y", function (d) {
+                            //console.log(d);
+                            return d - 75;
+                        })
+                        .attr("text-anchor", function (d) {
+                            return "start";
+                        })
+                        .attr("fill", function (d, i) {
+                            return accent(i);
+                        })
+                        .text(function (d, i) {
+                            return "Level: " + i;
+                        })
+                        .on("mouseover", function (d) {
+                            d3.select(this).style("cursor", "pointer");
+                        })
+                        .on("click", function (d) {
+                            var levelline = d3.select(this).text().split(": ")[1];
+                            //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
+                            if (document.getElementById("line-chart-l" + levelline).style.opacity == 0.7) {
+                                update_log("line-chart-l" + levelline, "level line", "hide level line " + levelline);
+                                d3.select("#line-chart-l" + levelline)
+                                    .style("opacity", 0);
+                            }
+                            else {
+                                update_log("line-chart-l" + levelline, "level line", "show level line " + levelline);
+                                d3.select("#line-chart-l" + levelline)
+                                    .style("opacity", 0.7);
+                            }
+
+                        });
+
+
+                    //levels.splice(4, 1);
+                    mergedtree_svg
+                        .append("g")
+                        .attr("id", "levellines-grey-text")
+                        .attr("transform",
+                            "translate(" + tree_start[0] + "," + tree_start[1] + ")")
+                        .selectAll("text")
+                        .data(levels)
+                        .enter()
+                        .append("text")
+                        .attr("class", function (d, i) {
+                            return "text-level" + i;
+                        })
+                        .style("font-size", "20px")
+                        .attr("dy", "3em")
+                        .attr("x", function (d) {
+                            return -80;
+                        })
+                        .attr("y", function (d) {
+                            return d - 55;
+                        })
+                        .attr("text-anchor", function (d) {
+                            return "start";
+                        })
+                        .attr("fill", "grey")
+                        .text(function (d, i) {
+                            //console.log(d + " " + i);
+                            return "Level: " + i;
+                        });
+
+                }
+
+
+                if (d3.select("#linkbutton").empty()) {
+                    mergedtree_svg
+                        .append("g")
+                        .attr("id", "linkbutton")
+                        .on("mouseover", function (d) {
+                            d3.select(this).style("cursor", "pointer");
+                        })
+                        .on("click", function (d) {
+                            if (d3.selectAll(".altlink")._groups[0].length == 0) {
+                                console.log("show");
+                                update_log("altlink", "link", "show alternate links");
+                                showlinks();
+                            }
+
+                            else {
+                                console.log("hide");
+                                update_log("altlink", "link", "hide alternate links");
+                                hidelinks();
+                            }
+                        });
+                    /*  .on("click", function (d) {
+                         if (document.getElementsByClassName("link")[0].style.opacity == 0.5) {
+                             d3.select("#mergedtree").selectAll(".link").style("opacity", 0);
+                             d3.select("#mergedtree").selectAll(".altlink").style("opacity", 0.5);
+                         }
+                         else {
+                             d3.select("#mergedtree").selectAll(".link").style("opacity", 0.5);
+                             d3.select("#mergedtree").selectAll(".altlink").style("opacity", 0);
+                         }
+                     }); */
+
+                    var btn_width = 200;
+                    var btn_height = 40;
+
+                    d3.select("#linkbutton")
+                        .append("rect")
+                        .attr('x', width - btn_width * 2.5)
+                        .attr('y', tree_start[1] - 20)
+                        .attr("class", "rounded")
+                        .attr("height", btn_height)
+                        .attr("width", btn_width)
+                        .attr("fill", "#4CAF50")
+                        //.style("stroke-width", "9px")
+                        //.style("stroke", "red")
+                        .style("opacity", 1)
+                        .style("border-radius", "8px");
+
+
+
+                    d3.select("#linkbutton")
+                        .append("text")
+                        .attr('x', width - btn_width * 2.5 + 5)
+                        .attr('y', tree_start[1])
+                        .attr("dy", ".40em")
+                        .style("font-size", "18px")
+                        .style("fill", "white")
+                        .text("Show/hide links from TH");
+
+                }
+
+
+                if (d3.select("#btn-level").empty()) {
+                    mergedtree_svg
+                        .append("g")
+                        .attr("id", "btn-level")
+                        .on("mouseover", function (d) {
+                            d3.select(this).style("cursor", "pointer");
+                        })
+                        .on("click", function (d) {
+                            //console.log("hi");
+
+                            for (var l = 0; l < levels.length; l++) {
+                                if (document.getElementById("line-chart-l" + l).style.opacity == 0.5) {
+                                    d3.select("#line-chart-l" + l)
+                                        .style("opacity", 0);
+                                    update_log("btn-level", "button", "hide level lines");
+                                }
+                                else {
+                                    d3.select("#line-chart-l" + l)
+                                        .style("opacity", 0.5);
+                                    update_log("btn-level", "button", "show level lines");
+                                }
+                            }
+                        });
+
+
+
+
+                    d3.select("#btn-level")
+                        .append("rect")
+                        .attr('x', width - btn_width * 4)
+                        .attr('y', tree_start[1] - 20)
+                        .attr("class", "rounded")
+                        .attr("height", btn_height)
+                        .attr("width", btn_width)
+                        .attr("fill", "#008CBA")
+                        //.style("stroke-width", "5px")
+                        //.style("stroke", "red")
+                        //.style("opacity", 0.3)
+                        .style("border-radius", "5px");
+
+
+                    d3.select("#btn-level")
+                        .append("text")
+                        .attr('x', width - btn_width * 4 + 5)
+                        .attr('y', tree_start[1] + 2)
+                        .attr("dy", ".40em")
+                        .style("font-size", "20px")
+                        .style("fill", "white")
+                        .text("Show/hide level lines");
+
+
+
+                    var x = d3.scaleLinear()
+                        .range([0, width])
+                        .domain([0, width]);
+
+
+                    var y = d3.scaleLinear()
+                        .range([0, height - level_offset])
+                        .range([0, height - level_offset]);
+
+                    var xAxis = d3.axisBottom(x);
+
+                    var yAxis = d3.axisLeft(y);
+
+                    mergedtree_svg
+
+                        .append("g")
+                        .attr("id", "line-chart")
+                        .attr("transform", "translate(" + tree_start[0] + "," + tree_start[1] + ")");
+
+                    mergedtree_svg
+                        .select("#line-chart")
+                        .append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0,1200)")
+                        .call(xAxis);
+
+                    mergedtree_svg
+                        .select("#line-chart")
+                        .append("g")
+                        .attr("class", "y axis")
+                        .call(yAxis)
+
+                }
+
+
+
+
+
+
+
+                var datapoints = [];
+                var lev = 3;
+                //console.log(levels);
+                //for (var l = lev - 1; l < lev; l++) {
+                for (var l = 0; l < levels.length; l++) {
+
+
+                    if (!d3.select("#line-chart-l" + l).empty())
+                        d3.select("#line-chart-l" + l).remove();
+
+                    //console.log(l + " " + levels[l]);
+
+                    datapoints = [];
+                    datapoints.push({ "x": 0, "y": l === 0 ? 50 : l * level_offset, "node": "dummy" });
+
+                    var node_levels = nodes
+                        .filter(function (d) {
+                            //console.log(d);
+                            //console.log(d.data.data.child + " level:" + l + " " + d.data.data.level + " " + d.data.data.alternatelevel);
+                            if (d.data.data.level == l) {
+                                //console.log("actual " + d.data.data.child + " " + d.data.data.level + " " + d.data.data.alternatelevel);
+                                datapoints.push({ "x": d.x - 20, "y": d.data.data.level === 0 ? 50 : d.data.data.level * level_offset, "node": d.data.data.child });
+                                datapoints.push({ "x": d.x + 20, "y": d.data.data.level === 0 ? 50 : d.data.data.level * level_offset, "node": d.data.data.child });
+                                return d;
+                            }
+
+                            else if (d.data.data.alternatelevel == l && d.data.data.alternatelevel != "") {
+                                //var offset = 100;
+                                var offset = 0;
+                                if (d.data.data.level < d.data.data.alternatelevel)
+                                    offset *= -1;
+
+                                //console.log("alt " + d.data.data.child + " " + d.data.data.level + " " + d.data.data.alternatelevel);
+                                datapoints.push({ "x": d.x - 20, "y": d.data.data.level === 0 ? 50 : d.data.data.level * level_offset + offset, "node": d.data.data.child });
+                                datapoints.push({ "x": d.x + 20, "y": d.data.data.level === 0 ? 50 : d.data.data.level * level_offset + offset, "node": d.data.data.child });
+                                return d;
+                            }
+                        });
+
+
+                    datapoints.push({ "x": width * .9, "y": levels[l], "node": "dummy" });
+                    //console.log(node_levels);
+
+
+
+
+                    var line = d3.line()
+                        .x(function (d, i) { return d.x; })
+                        .y(function (d) {
+                            return d.y;
+                        })
+                        .curve(d3.curveLinear);
+
+
+
+                    datapoints.sort(function (x, y) {
+                        return d3.ascending(x.x, y.x);
+                    });
+
+
+                    for (let d = datapoints.length - 1; d > 0; d--) {
+                        //console.log("keeping " + datapoints[d].node);
+                        //console.log("removing " + datapoints[d - 1].node);
+                        if (datapoints[d - 1].x == datapoints[d].x) {
+                            if (datapoints[d - 1].y == levels[l])
+                                datapoints.splice(d - 1, 1);
+                            else
+                                datapoints.splice(d, 1);
+                        }
+
+                    }
+
+                    //console.log(datapoints);
+
+                    mergedtree_svg
+                        .select("#line-chart")
+                        .append("g")
+                        .attr("id", "line-chart-l" + l)
+                        .style("opacity", 0.5);
+
+                    var fill = "none";
+                    if (d3.select("#fillcolorradio")._groups[0][0].checked)
+                        fill = accent(l);
+                    else if (d3.select("#fillnoneradio")._groups[0][0].checked) {
+                        fill = "none";
+                    }
+
+                    mergedtree_svg
+                        .select("#line-chart-l" + l)
+                        .append("path")
+                        .datum(datapoints)
+                        .attr("class", "line")
+                        .attr("d", line)
+                        .attr("stroke-width", 2)
+                        .attr("fill", fill)
+                        .attr("stroke", function (d) {
+                            //console.log(d);
+                            return accent(l);
+                        });
+
+
+                }
+
+
+                //console.log(datapoints);
+
+
+
+
+            }
+
+
+            /* END OF MERGED TREE */
+
+
+
+
+
+
+
+        }
+
+        function update_log(elementID, elementType, description) {
+            var date = new Date();
+
+
+            var logObject = JSON.parse(localStorage.getItem("logObject"));
+            logObject.push({
+                "userID": localStorage.getItem("userID"),
+                "vizID": vizID,
+                "pageID": pageID,
+                "elementID": elementID,
+                "elementType": elementType,
+                "description": description,
+                "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
+                "overall_timestamp": new Date().getMilliseconds(),
+                "phase_timestamp": new Date().getMilliseconds(),
+                "questionID": "",
+                "question": "",
+                "useranswer": "",
+                "correctanswer": ""
+            });
+            localStorage.removeItem("logObject");
+            localStorage.setItem("logObject", JSON.stringify(logObject));
+
+        }
+
+
+    </script>
+</body>
+
+</html>

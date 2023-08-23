@@ -1,0 +1,214 @@
+        .btn-primary,
+        .btn-primary:hover,
+        .btn-primary:focus {
+            
+
+            /* Prevent inheritence from `body` */
+            /*background-color: #4265ce;*/
+            border: 1px solid #fff;
+            
+        }
+
+        .btn-secondary,
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            
+
+            /* Prevent inheritence from `body` */
+            /*background-color: #4265ce;*/
+            border: 1px solid #fff;
+           
+        }
+
+
+        /*
+         * Base structure
+         */
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+        }
+
+        body {
+            color: #000;
+            text-align: center;
+            overflow: auto;
+            margin: 0;
+padding: 0;
+
+        }
+
+        /* Extra markup and styles for table-esque vertical and horizontal centering */
+        .site-wrapper {
+            display: table;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            /*height: 100%; */
+            /*min-height: 100%;*/
+        }
+
+        .site-wrapper-inner {
+            display: table-cell;
+            vertical-align: top;
+        }
+
+
+      
+
+
+       
+
+        .form-check-input {
+            width: 20px;
+            height: 25px;
+            float:left;
+            padding: 0px 1em 10px 8px;
+            margin-right:5px;
+            
+        }
+
+        label{
+            float:left;
+            
+        }
+
+        .consent-radio {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            flex-wrap: wrap;
+            float:left;
+            margin-left: 50px;
+            
+        }
+
+
+        
+
+        
+
+       
+
+
+           .consent-checkbox{
+            width:30px;
+            height:30px;
+            accent-color: #155446bc;
+            
+            
+           }
+
+          
+
+           #btn-mtree{
+            font-size:25px;
+            background-color: #0469D9;
+           }
+
+           #btn-treewlinking{
+            font-size:25px;
+            background-color: #0469D9;
+           }
+
+
+           .progress-overview, .progress-tour, .progress-training, .progress-experiment{
+            border-width:5px;
+            border-style: none inset none inset; 
+            /*border-color: #c1940f;*/
+            color:black;
+            font-weight: medium;
+           }
+
+           #intro-btn, #notations-btn, #mergedtree-btn, #dataset-btn{
+            margin-right:1%;
+            font-size: 1em;
+
+           }
+
+           
+           blockquote{
+            font-size: 2em;
+            margin:10px auto;
+            font-family:Open Sans;
+            font-style:italic;
+            color: #555555;
+            padding:1.2em 2px 1.2em 2px;
+            border-left:8px solid #f1c232 ;
+            line-height:1.2;
+            position: relative;
+            background:whitesmoke;
+          }
+          
+          
+          blockquote span{
+            display:block;
+            color:#333333;
+            font-style: normal;
+            font-weight: bold;
+            margin-top:1em;
+          }
+
+          mark{
+            font-weight: bold;
+          }
+
+          .introjs-helperNumberLayer {
+            font-family: tahoma, Arial, verdana, sans-serif;
+            font-size: 14px;
+            text-shadow: none;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            border: 2px solid #ecf0f1;
+            border-radius: 50%;
+            
+          }
+
+          .introjs-tooltip {
+            letter-spacing: .1em;
+            font-family: tahoma, Arial, verdana, sans-serif;
+            border-radius: 2px;
+            min-width:400px;
+          }
+
+          .introjs-button {
+            color: #237750;
+            
+          }
+
+          .introjs-prevbutton {
+            border-radius: .2em 0 0 .2em;
+          }
+          
+          .introjs-nextbutton {
+            border-radius: 0 .2em .2em 0;
+          }
+          
+          .introjs-button:hover, .introjs-button:focus {
+            background: #449e74;
+            color:white;
+            box-shadow: none;
+            border-color: #449e74;
+            text-decoration: none;
+            text-shadow: 0px 0px #fff;
+          }
+
+          .introjs-overlay { pointer-events: none; } 
+          
+          .introjs-helperLayer { pointer-events: none; } 
+
+          #qandamodule{
+            letter-spacing: .1em;
+            font-family: tahoma, Arial, verdana, sans-serif;
+          }
+
+          #consent-form{
+            letter-spacing: .1em;
+            font-family: tahoma, Arial, verdana, sans-serif;
+          }
+
+          

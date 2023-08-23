@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://kit.fontawesome.com/ae1e2e7d99.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.js"></script>
+    <script src="logging.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./assets/styles.css" />
+
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <div class="fixed-top row"
+            style=" margin-bottom:20%; float:left; background-color:#155446; color:rgb(255, 255, 255);">
+
+            <span>
+                <br>
+
+                <h1><i class="fa-solid fa-sitemap"></i> <i class="fa-solid fa-sitemap"></i> Multiple-Tree Visualization
+                </h1>
+                <br>
+            </span>
+
+
+        </div>
+
+        <div class="row">
+            <div style="margin-top: 10%;">
+
+                <blockquote class="blockquote">
+                    <p>
+                        In this study, you will evaluate a novel visualization called the MergedTree visualization.
+
+                        The study will be carried out in 4 phases: Overview, Guided Tour, Training and Experiment and
+                        will take a total of approximately 40 minutes to complete.
+                        <br>
+                        <br>
+                        <mark> Please note that you can return to any / all phases before you start the experiment
+                            phase. Once you start the experiment phase you
+                            will not be able to return to any of the phases.
+                        </mark>
+                    </p>
+                </blockquote>
+                <br style="margin: 20% 0 20px 0;">
+                <button id="btn-downloadlog" type="button" class="btn" style="margin-left: 2px; 
+        background-color:#26a764; color: white; ">Download Log <i class="fa-solid fa-download"></i>
+                </button>
+                <br>
+                <br>
+                <span style="color: black; height:50px; font-size:x-large; font-weight: bold; margin-top: 20px; ">
+                    Phases of the study
+                </span>
+            </div>
+        </div>
+
+
+
+
+        <div class="row"
+            style="margin-top:2%; --bs-gutter-x:0rem; font-size: large; font-weight: bold; background-color:whitesmoke;">
+
+
+
+            <div class="progress-overview col-3">
+                <div class="progress-bar" id="progress-overview" role="progressbar"
+                    style="width: 30%; background-color:#5F9C3F ;">
+                    Overview
+                </div>
+
+            </div>
+            <div class="progress-tour col-3">
+                <div class="progress-bar" id="progress-tour" role="progressbar"
+                    style="width: 0%; background-color: #1d83d1;">
+                </div>
+                <span style="color:black; margin-left: 50%;"> Guided Tour </span>
+            </div>
+            <div class="progress-training col-3">
+                <div class="progress-bar" id="progress-training" role="progressbar"
+                    style="width: 0%; background-color: #dba620;">
+                </div>
+                <span style="color:black; margin-left: 50%;"> Training </span>
+            </div>
+            <div class="progress-experiment col-3">
+                <div class="progress-bar" id="progress-experiment" role="progressbar"
+                    style="width: 0%; background-color: #c6503b;">
+                </div>
+                <span style="color:black; margin-left: 50%;"> Experiment </span>
+            </div>
+
+
+
+            <!--
+                <div class="btn-group-lg" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-primary" style="margin-right:20px;">Overview</button>
+                    <button type="button" class="btn btn-outline-primary" style="margin-right:20px;">Guided
+                        Tour</button>
+                    <button type="button" class="btn btn-outline-primary" style="margin-right:20px;">Training</button>
+                    <button type="button" class="btn btn-outline-primary" style="margin-right:20px;">Experiment</button>
+                </div>
+                -->
+
+        </div>
+
+
+        <div class="row" style="margin-top:2%;">
+            <div class="col-1">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Slide button group" id="overview-btn"
+                    style="margin-left: -20px;">
+                    <button id="mihierarchies-btn" type="button" class="btn btn-success">Multiple-Intersecting
+                        Hierarchies</button>
+                    <button id="fsystemexample-btn" type="button" class="btn btn-success" disabled>File System
+                        Example</button>
+
+                    <button id="fsystemchanges-btn" type="button" class="btn btn-success" disabled>File System
+                        Changes</button>
+                    <button id="mergedtree-btn" type="button" class="btn btn-success" disabled>MergedTree</button>
+                    <button id="notations-btn" type="button" class="btn btn-success" disabled>Notations</button>
+                    <button id="mergedtreevideo-btn" type="button" class="btn btn-success" disabled>MergedTree in
+                        action</button>
+                    <button id="treerelationships-btn" type="button" class="btn btn-success" disabled>Tree
+                        Relationships</button>
+
+                </div>
+
+            </div>
+            <div class="col-11"></div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12" style="margin-top: 3%;">
+                <div class="btn-group btn-group-lg" role="group" aria-label="Second group" style="margin-top: 50px;">
+                    <button id="btn-back" type="button" class="btn" style="background-color:#155446; color: white;">
+                        <i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button id="btn-next" type="button" class="btn" style="margin-left: 2px; 
+                        background-color:#155446; color: white; ">Next <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row" id="slidescarousel">
+            <div class="col-12" id="imgvid-div">
+                <br>
+                <img id="image" src="Images/mihierarchies.png" class="img-fluid" alt="Responsive image"
+                    style="height:80%; width:70%; border: 2px solid black;">
+                <br>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script type="text/javascript">
+
+        var logObject = [];
+
+
+        // var logObject = getLogObject();
+
+        //console.log(logObject);
+
+        const vizID = "mergedtree";
+        const pageID = "landingpage";
+
+        var date = new Date();
+        const urlpage = new URLSearchParams(window.location.search).get('page');
+        //console.log(pageID);
+        //console.log(window);
+
+
+        //console.log(JSON.parse(localStorage.getItem("logObject")));
+        update_log("", "landed on landing page");
+
+        //console.log(logObject);
+        //console.log(JSON.parse(localStorage.getItem("logObject")));
+
+        d3.select("#btn-downloadlog")
+            .on("click", function () {
+
+                update_log("btn-downloadlog", "button", "download log");
+
+
+                var logstr = "userID,vizID,pageID,elementID,elementType,description,date,overall_timestamp,phase_timestamp,questionID,question,useranswer,correctanswer\n";
+
+                var logarr = JSON.parse(localStorage.getItem("logObject"));
+
+                for (var i = 0; i < logarr.length; i++) {
+                    logstr = logstr + logarr[i].userID + "," + logarr[i].vizID + "," + logarr[i].pageID + "," + logarr[i].elementID + "," + logarr[i].elementType + "," + logarr[i].description + "," + logarr[i].date + "," + logarr[i].overall_timestamp + "," + logarr[i].phase_timestamp + "," + logarr[i].questionID + "," + logarr[i].question + "," + logarr[i].useranswer + "," + logarr[i].correctanswer + "\n";
+                }
+
+                var blob = new Blob([logstr], { type: "text/csv;charset=utf-8" });
+                saveAs(blob, "ProjectLog.csv");
+
+            });
+
+
+
+        /*  function setLogObject(logObject) {
+             logObject = logObject;
+             console.log("SETTER");
+             console.log(logObject);
+ 
+         }
+ 
+         function getLogObject() {
+             console.log("GETTER");
+             console.log(logObject);
+             return logObject;
+ 
+         }
+ 
+  */
+        console.log(urlpage);
+        var slides = ["mihierarchies", "fsystemexample", "fsystemchanges", "mergedtree", "notations", "mergedtreevideo", "treerelationships"];
+        if (urlpage == "landingpage") {
+
+
+
+            var numofclicks = 0;
+
+            d3.select("#btn-next")
+                .on("click", function (d) {
+
+
+
+                    numofclicks++;
+                    console.log(numofclicks + " " + slides.length);
+                    if (numofclicks >= slides.length) {
+                        update_log("btn-next", "button", "redirect to guided tour");
+
+                        //window.location.href = 'mtree.html?page=guidedtour';
+                        window.location.href = 'mtree.html?page=guidedtour';
+                        window.body.style.zoom = "25%";
+                        //d3.select("body").style("zoom", "25%");
+                        //document.body.style.zoom = "25%";
+                    }
+
+
+
+                    else {
+                        console.log(slides[numofclicks]);
+                        update_log("btn-next", "button", "carousel image on display " + slides[numofclicks]);
+
+                        d3.select("#" + slides[numofclicks] + "-btn")._groups[0][0].disabled = false;
+
+                        if (slides[numofclicks] == "mergedtreevideo") {
+                            d3.select("#image").remove();
+                            d3.select("#imgvid-div")
+                                .append("video")
+                                .attr("id", "video")
+                                .attr("width", "80%")
+                                .attr("height", "70%")
+                                .attr("controls", "")
+                                .append("source")
+                                .attr("src", "Images/mergedtreeinaction.mov")
+                                .attr("type", "video/mp4");
+
+                        }
+                        else {
+                            d3.select("#video").remove();
+
+                            if (d3.select("#image").empty())
+                                d3.select("#imgvid-div")
+                                    .append("img")
+                                    .attr("id", "image")
+                                    .attr("src", "Images/" + slides[numofclicks] + ".png")
+                                    .attr("class", "img-fluid")
+                                    .style("height", "80%")
+                                    .style("width", "70%");
+                            else
+                                d3.select("#image")
+                                    .attr("src", "Images/" + slides[numofclicks] + ".png");
+
+                        }
+
+                        d3.select("#progress-overview").style("width", ((numofclicks + 1) / (slides.length) * 100) + "%");
+
+
+                        if (numofclicks + 1 == slides.length) {
+                            console.log(numofclicks + " " + slides.length);
+                            d3.select("#progress-overview")
+                                .text("Overview")
+                                .style("font-family", "Arial")
+                                .append("i")
+                                .attr("class", "fa-solid fa-flag-checkered");
+                            //.style("color", "white");
+
+                        }
+
+                    }
+
+
+                });
+
+            d3.select("#btn-back")
+                .on("click", function (d) {
+
+                    console.log(numofclicks + " " + slides.length);
+                    if (numofclicks <= slides.length && numofclicks > 0) {
+                        //console.log(slides[numofclicks]);
+                        update_log("btn-next", "button", "carousel image on display " + slides[numofclicks - 1]);
+
+                        d3.select("#" + slides[numofclicks] + "-btn")._groups[0][0].disabled = true;
+
+                        if (slides[numofclicks] == "mergedtreevideo") {
+                            d3.select("#image").remove();
+                            d3.select("#imgvid-div")
+                                .append("video")
+                                .attr("id", "video")
+                                .attr("width", "80%")
+                                .attr("height", "70%")
+                                .attr("controls", "")
+                                .append("source")
+                                .attr("src", "Images/mergedtreeinaction.mov")
+                                .attr("type", "video/mp4");
+
+                        }
+                        else {
+                            d3.select("#video").remove();
+
+                            if (d3.select("#image").empty())
+                                d3.select("#imgvid-div")
+                                    .append("img")
+                                    .attr("id", "image")
+                                    .attr("src", "Images/" + slides[numofclicks] + ".png")
+                                    .attr("class", "img-fluid")
+                                    .style("height", "80%")
+                                    .style("width", "70%");
+                            else
+                                d3.select("#image")
+                                    .attr("src", "Images/" + slides[numofclicks] + ".png");
+
+                        }
+                        d3.select("#progress-overview").style("width", ((numofclicks + 1) / (slides.length) * 100) + "%");
+                    }
+
+
+                });
+        }
+
+        else if (urlpage == "guidedtour") {
+            console.log("entered gt");
+
+            for (var i = 0; i < slides.length; i++) {
+                d3.select("#" + slides[i] + "-btn")._groups[0][0].disabled = false;
+            }
+
+            d3.select("#progress-overview").style("width", "100%");
+            d3.select("#progress-overview")
+                .text("Overview")
+                .style("font-family", "Arial")
+                .append("i")
+                .attr("class", "fa-solid fa-flag-checkered");
+            //.style("color", "white");
+
+
+
+            d3.select(".progress-tour")
+                .select("span")
+                .remove();
+
+
+            d3.timeout(function () {
+                d3.select("#progress-tour")
+                    .style("width", "100%");
+
+            }, 200);
+
+
+
+
+            d3.select("#progress-tour")
+                .text("Guided tour")
+                .style("font-family", "Arial")
+                .append("i")
+                .attr("class", "fa-solid fa-flag-checkered");
+            //.style("color", "white");
+
+
+            d3.select("#btn-next")
+                .on("click", function (d) {
+                    update_log("btn-next", "button", "redirect to training questions");
+                    window.location.href = 'mtree.html?page=trainingquestions';
+                })
+                .append("span")
+                .attr("class", "spinner-grow spinner-grow-sm")
+                .attr("role", "status");
+
+
+            d3.select("#btn-back")
+                .on("click", function (d) {
+                    update_log("btn-next", "button", "redirect to overview");
+                    window.location.href = 'landingpage.html?page=landingpage';
+                });
+
+
+            d3.timeout(function () {
+                d3.select("#btn-back")
+                    .select("span")
+                    .remove();
+            }, 3000);
+
+        }
+
+        else if (urlpage == "trainingquestions") {
+            console.log("entered tq");
+
+            for (var i = 0; i < slides.length; i++) {
+                d3.select("#" + slides[i] + "-btn")._groups[0][0].disabled = false;
+            }
+
+            d3.select("#progress-overview").style("width", "100%");
+            d3.select("#progress-overview")
+                .text("Overview")
+                .style("font-family", "Arial")
+                .append("i")
+                .attr("class", "fa-solid fa-flag-checkered");
+            //.style("color", "white");
+
+            d3.select("#progress-tour").style("width", "100%");
+
+            d3.select("#progress-tour")
+                .text("Guided tour")
+                .style("font-family", "Arial")
+                .append("i")
+                .attr("class", "fa-solid fa-flag-checkered");
+            // .style("color", "white");
+
+            d3.timeout(function () {
+                d3.select("#progress-training")
+                    .style("width", "100%");
+
+            }, 200);
+
+            d3.select("#progress-training")
+                .text("Training questions")
+                .style("font-family", "Arial")
+                .append("i")
+                .attr("class", "fa-solid fa-flag-checkered");
+            //.style("color", "white");
+
+            d3.select(".progress-overview")
+                .select("span")
+                .remove();
+
+
+
+            d3.select(".progress-tour")
+                .select("span")
+                .remove();
+
+
+
+            d3.select(".progress-training")
+                .select("span")
+                .remove();
+
+
+
+            d3.select("#btn-next")
+                .on("click", function (d) {
+                    update_log("btn-next", "button", "redirect to experiment questions");
+
+                    window.location.href = 'mtree.html?page=experimentquestions';
+                })
+                .append("span")
+                .attr("class", "spinner-grow spinner-grow-sm")
+                .attr("role", "status");
+
+
+            d3.select("#btn-back")
+                .on("click", function (d) {
+                    update_log("btn-back", "button", "redirect to guided tour");
+
+                    window.location.href = 'mtree.html?page=guidedtour';
+                });
+        }
+
+        else if (urlpage == "experimentquestions") {
+            console.log("entered eq");
+
+
+            for (var i = 0; i < slides.length; i++) {
+                d3.select("#" + slides[i] + "-btn")._groups[0][0].disabled = false;
+            }
+
+            d3.select("#progress-overview").style("width", "100%");
+            d3.select("#progress-overview")
+                .text("Overview")
+                .style("font-family", "Arial")
+                .append("i")
+                .attr("class", "fa-solid fa-flag-checkered");
+            //.style("color", "white");
+
+            d3.select("#progress-tour").style("width", "100%");
+            d3.select("#progress-tour")
+                .text("Guided tour")
+                .style("font-family", "Arial")
+                .append("i")
+                .attr("class", "fa-solid fa-flag-checkered");
+            //.style("color", "white");
+
+            d3.select("#progress-training").style("width", "100%");
+            d3.select("#progress-training")
+                .text("Training questions")
+                .style("font-family", "Arial")
+                .append("i")
+                .attr("class", "fa-solid fa-flag-checkered");
+            //.style("color", "white");
+
+            d3.timeout(function () {
+                d3.select("#progress-experiment")
+                    .style("width", "100%");
+
+            }, 200);
+
+            d3.select("#progress-experiment")
+                .text("Experiment questions")
+                .style("font-family", "Arial")
+                .append("i")
+                .attr("class", "fa-solid fa-flag-checkered");
+
+
+            d3.select(".progress-overview")
+                .select("span")
+                .remove();
+
+
+
+
+            d3.select(".progress-tour")
+                .select("span")
+                .remove();
+
+
+
+
+            d3.select(".progress-training")
+                .select("span")
+                .remove();
+
+
+
+            d3.select(".progress-experiment")
+                .select("span")
+                .remove();
+
+
+            d3.select("#btn-back")
+                .attr("disabled", true);
+
+
+
+
+
+            /*
+            d3.select("#progress-tour")
+                            .text("Guided tour")
+                            .style("font-family", "Arial")
+                            .append("i")
+                            .attr("class", "fa-solid fa-flag-checkered");
+                            */
+
+
+
+        }
+
+        if (d3.select("#progress-overview").style("width") == "100%")
+            d3.select("#progress-overview")
+                .on("click", function () {
+                    window.location.href = 'landingpage.html?page=landingpage';
+                });
+
+        if (d3.select("#progress-tour").style("width") == "100%")
+            d3.select("#progress-tour")
+                .on("click", function () {
+                    window.location.href = 'mtree.html?page=guidedtour';
+                });
+
+        if (d3.select("#progress-training").style("width") == "100%")
+            d3.select("#progress-training")
+                .on("click", function () {
+                    window.location.href = 'mtree.html?page=trainingquestions';
+                });
+
+
+        function update_log(elementID, elementType, description) {
+
+
+            logObject = JSON.parse(localStorage.getItem("logObject"));
+            logObject.push({
+                "userID": localStorage.getItem("userID"),
+                "vizID": vizID,
+                "pageID": pageID,
+                "elementID": elementID,
+                "elementType": elementType,
+                "description": description,
+                "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
+                "overall_timestamp": new Date().getMilliseconds(),
+                "phase_timestamp": new Date().getMilliseconds(),
+                "questionID": "",
+                "question": "",
+                "useranswer": "",
+                "correctanswer": ""
+            });
+            localStorage.removeItem("logObject");
+            localStorage.setItem("logObject", JSON.stringify(logObject));
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
