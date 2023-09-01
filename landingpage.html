@@ -29,7 +29,7 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://kit.fontawesome.com/ae1e2e7d99.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.js"></script>
-    <script src="logging.js"></script>
+
 
     <link rel="stylesheet" type="text/css" href="./assets/styles.css" />
 
@@ -135,10 +135,9 @@
 
         <div class="row" style="margin-top:2%;">
             <div class="col-1">
-                <div class="btn-group btn-group-sm" role="group" aria-label="Slide button group" id="overview-btn"
-                    style="margin-left: -20px;">
-                    <button id="mihierarchies-btn" type="button" class="btn btn-success">Multiple-Intersecting
-                        Hierarchies</button>
+                <div class="btn-group-vertical" role="group" aria-label="Slide button group" id="overview-btn">
+                    <button id="mihierarchies-btn" type="button" class="btn btn-success">
+                        MI Hierarchies</button>
                     <button id="fsystemexample-btn" type="button" class="btn btn-success" disabled>File System
                         Example</button>
 
@@ -159,8 +158,8 @@
 
 
         <div class="row">
-            <div class="col-12" style="margin-top: 3%;">
-                <div class="btn-group btn-group-lg" role="group" aria-label="Second group" style="margin-top: 50px;">
+            <div class="col-12">
+                <div class="btn-group btn-group-lg" role="group" aria-label="Second group">
                     <button id="btn-back" type="button" class="btn" style="background-color:#155446; color: white;">
                         <i class="fa-solid fa-arrow-left"></i> Back</button>
                     <button id="btn-next" type="button" class="btn" style="margin-left: 2px; 
@@ -207,8 +206,16 @@
         //console.log(window);
 
 
+
         //console.log(JSON.parse(localStorage.getItem("logObject")));
         update_log("", "landed on landing page");
+
+        d3.select("#mihierarchies-btn")
+            .style("width", d3.select(".progress-tour")._groups[0][0].offsetWidth + "px");
+
+        d3.select("#overview-btn")
+            .selectAll("button")
+            .style("height", "30px");
 
         //console.log(logObject);
         //console.log(JSON.parse(localStorage.getItem("logObject")));
@@ -333,13 +340,14 @@
 
             d3.select("#btn-back")
                 .on("click", function (d) {
-
+                    d3.select("#" + slides[numofclicks] + "-btn")._groups[0][0].disabled = true;
+                    numofclicks = numofclicks - 1;
                     console.log(numofclicks + " " + slides.length);
                     if (numofclicks <= slides.length && numofclicks > 0) {
                         //console.log(slides[numofclicks]);
-                        update_log("btn-next", "button", "carousel image on display " + slides[numofclicks - 1]);
+                        update_log("btn-next", "button", "carousel image on display " + slides[numofclicks]);
 
-                        d3.select("#" + slides[numofclicks] + "-btn")._groups[0][0].disabled = true;
+                        //d3.select("#" + slides[numofclicks] + "-btn")._groups[0][0].disabled = true;
 
                         if (slides[numofclicks] == "mergedtreevideo") {
                             d3.select("#image").remove();
