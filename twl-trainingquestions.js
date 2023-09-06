@@ -1,6 +1,6 @@
 var selected_value = "";
 
-function trainingquestions(qcounter) {
+function twl_trainingquestions(qcounter) {
 
     var pageID = "training";
     var vizID = "mergedtree";
@@ -166,7 +166,7 @@ function trainingquestions(qcounter) {
 
 
     else {
-        window.location.href = 'landingpage.html?page=trainingquestions';
+        window.location.href = 'twl-landingpage.html?page=trainingquestions';
     }
 
     d3.selectAll("input[name='traininganswer']")

@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="./assets/styles.css" />
 
     <script src="https://kit.fontawesome.com/ae1e2e7d99.js" crossorigin="anonymous"></script>
-    <script src="logging.js"></script>
+
 </head>
 
 
@@ -151,7 +151,7 @@
 
                     <div class="btn-group btn-group-sm col text-center" role="group" aria-label="Second group"
                         style="margin-top: 30px; width:100%;">
-                        <button type="button" class="btn-lg btn-primary text-center" id="btn-treewlinking">Trees with
+                        <button type="button" class="btn-lg btn-primary text-center" id="btn-treeswlinking">Trees with
                             linking</button>
 
                         <button type="button" class="btn-lg btn-primary text-center" id="btn-mtree"
@@ -278,6 +278,36 @@
 
                         });
                         window.location.href = 'landingpage.html?page=landingpage';
+                    }
+                });
+
+            d3.select("#btn-treeswlinking")
+                .on("click", function (d) {
+                    var consent_counter = 0;
+                    for (var i = 0; i < d3.selectAll(".consent-checkbox")._groups[0].length; i++) {
+                        if (d3.selectAll(".consent-checkbox")._groups[0][i].checked)
+                            consent_counter++;
+                    }
+
+                    if (consent_counter == d3.selectAll(".consent-checkbox")._groups[0].length) {
+                        logObject.push({
+
+                            "userID": userID,
+                            "vizID": "",
+                            "pageID": pageID,
+                            "elementID": "btn-treewlinking",
+                            "elementType": "button",
+                            "description": "Redirecting to trees w linking landing page",
+                            "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
+                            "overall_timestamp": new Date().getMilliseconds(),
+                            "phase_timestamp": new Date().getMilliseconds(),
+                            "questionID": "",
+                            "question": "",
+                            "useranswer": "",
+                            "correctanswer": ""
+
+                        });
+                        window.location.href = 'twl-landingpage.html?page=landingpage';
                     }
                 });
 

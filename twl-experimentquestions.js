@@ -1,4 +1,4 @@
-function experimentquestions(qcounter) {
+function twl_experimentquestions(qcounter) {
     var selected_value = "";
     var pageID = "experiment";
     var vizID = "mergedtree";
@@ -187,7 +187,7 @@ function experimentquestions(qcounter) {
 
 
     else {
-        window.location.href = 'landingpage.html?page=experimentquestions';
+        window.location.href = 'twl-landingpage.html?page=experimentquestions';
     }
 
     d3.selectAll("input[name='experimentanswer']")

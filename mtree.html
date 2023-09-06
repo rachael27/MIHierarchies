@@ -59,8 +59,6 @@
         }
     </style>
 </head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 
 
@@ -91,12 +89,13 @@
 <script src="mtree-guidedtour.js"></script>
 <script src="mtree-trainingquestions.js"></script>
 <script src="mtree-experimentquestions.js"></script>
-<script src="logging.js"></script>
 <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
 
 
 
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css" />
 <link rel="stylesheet" type="text/css" href="./assets/styles.css" />
@@ -114,21 +113,25 @@
             <div class="col-4"></div>
 
             <div class="col-4" style="border: 2px outset black; margin-top: 2%;" id="qandamodule">
-                <p id="question" style="margin-top: 2%;"></p>
+
+                <p id="question" style="margin-top: 2%;">
+
+                </p>
+
                 <hr class='border border-primary border-3 opacity-75'>
 
                 <button class="btn btn-outline-success" type="button" data-bs-toggle="collapse" id="btn-hint"
                     data-bs-target="#collapseElement" aria-expanded="false" aria-controls="collapseExample">
                     <i class="fa-solid fa-lightbulb" style="color:rgb(244, 166, 11);"></i> Show hint
                 </button>
-                <br>
+                <br />
                 <div class="collapse" id="collapseElement">
 
                     <p id="hint" style="background-color: azure; text-align: center; margin-top: 2%;"> </p>
 
                 </div>
 
-
+                <br />
 
 
                 <div class="form-check" id="qanda_options">
@@ -142,8 +145,11 @@
                     <button type="button" class="btn btn-md" id="btn-backquestion"
                         style="color: white;background-color:#155446;">Back</button>
 
-                    <button type="button" class="btn btn-md" id="btn-nextquestion"
-                        style="margin-left: 10px; color:white;background-color:#155446;">Next</button>
+                    <span id="span-nextquestion">
+                        <button type="button" class="btn btn-md" id="btn-nextquestion"
+                            style="margin-left: 10px; color:white;background-color:#155446;">
+
+                            Next</button></span>
                 </div>
 
 
@@ -152,7 +158,10 @@
             <div class=" col-4">
             </div>
         </div>
+
+
         <div class="row">
+            <!--
             <div class="col-2" style=" margin-left: 20px; color:black;">
 
                 <fieldset class="border p-2" style="margin-top:150px;">
@@ -393,14 +402,20 @@
                 </fieldset>
 
             </div>
+ -->
 
-
-            <div id="content" class="col-8">
+            <!--  <div class="col-1">
+            </div> -->
+            <div id="content" class="col-12">
 
 
             </div>
+            <!-- <div class="col-1">
+            </div> -->
 
         </div>
+
+
 
 
 
@@ -416,7 +431,11 @@
         var logObject = [];
 
 
+        //LOG FILES
+        //var fileversion = "File4";
+
         var fileversion = "File0";
+
         var swapdataset = "h1";
 
         var h1 = "";
@@ -432,62 +451,38 @@
 
         update_log("", "landed on the mergedtree page");
 
-        /*
-        function setLogObject(logObject) {
-            logObject = logObject;
-            console.log("SETTER");
-            console.log(logObject);
-
-        }
-
-        function getLogObject() {
-            console.log("GETTER");
-            console.log(logObject);
-            return logObject;
-
-        }
-        */
-
-
-        if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
-            title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
-
-        else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
-            title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
-
-        else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
-            title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
-
-        else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
-            title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
 
 
 
-        else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-            title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
 
 
+        title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
+
+        d3.queue()
+            //.defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced.csv")
+            //.defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced.csv")
+            .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+            .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+            .await(function (error, h1, h2) {
+                if (error) throw error;
+
+                else
+                    runScript_tabs(h1, h2);
+            });
 
         d3.select("#btn-swapdataset").on("click", function () {
             update_log("btn-swapdataset", "button", "swapping datasets");
 
             console.log("Swapdataset");
-            if (d3.select("#fileversion0radio")._groups[0][0].checked == true)
-                fileversion = "File0";
-            else if (d3.select("#fileversion1radio")._groups[0][0].checked == true)
-                fileversion = "File1";
-            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
-                fileversion = "File2";
-            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                fileversion = "File6";
-            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                fileversion = "File5";
-            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                fileversion = "File3";
+
+            fileversion = "File2";
+
 
 
             if (swapdataset == "h1") {
                 d3.queue()
+                    //.defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced.csv")
+                    //.defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced.csv")
                     .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
                     .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
                     .await(function (error, h1, h2) {
@@ -513,279 +508,13 @@
 
         });
 
-        d3.select("#fileversion0radio").on("change", function () {
-
-            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
-
-
-            d3.selectAll("#filterdatacheck").property('checked', false);
-            if (d3.select("#fileversion0radio")._groups[0][0].checked == true)
-                fileversion = "File0";
-
-            d3.queue()
-                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-                .await(function (error, h1, h2) {
-                    if (error) throw error;
-
-                    else {
-                        window.h1 = h1;
-                        window.h2 = h2;
-                        //h1 = h1;
-                        //h2 = h2;
-                        //console.log(h1);
-                        runScript_tabs(h1, h2);
-                    }
-
-                });
-
-        });
-
-        d3.select("#fileversion1radio").on("change", function () {
-
-            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-            d3.selectAll("#filterdatacheck").property('checked', false);
-            if (d3.select("#fileversion1radio")._groups[0][0].checked == true)
-                fileversion = "File1";
-
-            d3.queue()
-                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-                .await(function (error, h1, h2) {
-                    if (error) throw error;
-
-                    else {
-                        window.h1 = h1;
-                        window.h2 = h2;
-                        runScript_tabs(h1, h2);
-                    }
-                });
-        });
-
-
-        d3.select("#fileversion2radio").on("change", function () {
-
-            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-            d3.selectAll("#filterdatacheck").property('checked', false);
-            if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
-                fileversion = "File4";
-            //fileversion = "File5";
-
-
-            d3.queue()
-                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryHB-reduced.csv")
-                //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-                //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-                .await(function (error, h1, h2) {
-                    if (error) throw error;
-
-                    else {
-                        window.h1 = h1;
-                        window.h2 = h2;
-                        runScript_tabs(h1, h2);
-                    }
-                });
-        });
-
-        d3.select("#fileversion3radio").on("change", function () {
-
-            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-            if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                fileversion = "File3";
-
-            d3.selectAll("#filterdatacheck").property('checked', true);
-
-            d3.queue()
-                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-                .await(function (error, h1, h2) {
-                    if (error) throw error;
-
-                    else {
-                        window.h1 = h1;
-                        window.h2 = h2;
-                        //h1 = h1;
-                        //h2 = h2;
-                        runScript_tabs(h1, h2);
-                    }
-                });
-        });
-
-        d3.select("#fileversion5radio").on("change", function () {
-
-            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
-
-            if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                fileversion = "File5";
-
-            d3.selectAll("#filterdatacheck").property('checked', false);
-
-            d3.queue()
-                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-                .await(function (error, h1, h2) {
-                    if (error) throw error;
-
-                    else {
-                        window.h1 = h1;
-                        window.h2 = h2;
-                        //h1 = h1;
-                        //h2 = h2;
-                        runScript_tabs(h1, h2);
-                    }
-                });
-        });
-
-        d3.select("#fileversion6radio").on("change", function () {
-
-            if (d3.select("#fileversion0radio")._groups[0][0].checked == true || d3.select("#fileversion1radio")._groups[0][0].checked == true || d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy", "Target Hierarchy", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion2radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - UOS Library", "Target Hierarchy QNL", "Merged Hierarchy - Target mapped onto Base "];
-
-            else if (d3.select("#fileversion5radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - NPRP Project Team", "Target Hierarchy - PhD Team ", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-            else if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                title = ["Base Hierarchy - International Standard Industrial Classification of All Economic Activities (ISIC) v3.1", "Target Hierarchy - ISIC v4.0", "Merged Hierarchy - Target mapped onto Base "];
-
-
-
-
-            if (d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                fileversion = "File6";
-
-            d3.selectAll("#filterdatacheck").property('checked', false);
-
-
-
-            d3.queue()
-                //.defer(d3.csv, "File/" + fileversion + "-secondaryHJ.csv")
-                //.defer(d3.csv, "File/" + fileversion + "-primaryH-edited-J.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-                .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-                .await(function (error, h1, h2) {
-                    if (error) throw error;
-
-                    else {
-                        window.h1 = h1;
-                        window.h2 = h2;
-                        //h1 = h1;
-                        //h2 = h2;
-                        runScript_tabs(h1, h2);
-                    }
-                });
-        });
-
-
-        d3.queue()
-            .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-            .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-            .await(function (error, h1, h2) {
-                if (error) throw error;
-
-                else {
-                    window.h1 = h1;
-                    window.h2 = h2;
-                    //h1 = h1;
-                    //h2 = h2;
-                    runScript_tabs(h1, h2);
-                }
-            });
 
 
         function runScript_tabs(h1, h2) {
+
+            console.log(h1);
+            console.log(h2);
+
 
             runScript_mergedtree(h1, h2);
 
@@ -811,51 +540,39 @@
                 d3.select("#collapseElement")
                     .remove();
 
+                d3.select("#btn-backquestion")
+                    .remove();
+
                 experimentquestions(0);
             }
-
-
-
-
 
         }
 
 
-        d3.select("#mergedtrees-tab")
-            .on("click", function () {
-
-                //console.log(window.h1);
-                //console.log(swapdataset);
-
-                d3.select("#treeswlinking-tab")
-                    .classed("active", false);
-
-                d3.select("#treeswolinking-tab")
-                    .classed("active", false);
-
-                d3.select("#mergedtrees-tab")
-                    .classed("active", true);
 
 
-                d3.select("#content")
-                    .select("#treeswlinking_svg")
-                    .remove();
-
-                d3.select("#content")
-                    .select("#treeswolinking_svg")
-                    .remove();
-
-                runScript_mergedtree(h1, h2);
 
 
-            });
+
+
 
 
 
         const urlpage = new URLSearchParams(window.location.search).get('page');
 
+
+
+
         d3.select("#btn-nextquestion")
             .on("click", function () {
+
+                console.log("click on butn");
+                //console.log(d3.select("#btn-nextquestion")._groups[0][0].disabled);
+
+
+
+
+                d3.select("#btn-nextquestion")._groups[0][0].disabled = true;
 
                 if (qcounter == -1)
                     qcounter = qcounter + 2;
@@ -891,79 +608,19 @@
                 }
             });
 
-
-        d3.select("#sideradio")
-            .on("click", function () {
-                d3.select("#treeswlinking_svg").remove();
-                runScript_treeswlinking(h1, h2);
-            });
-
-
-        d3.select("#def_tbradio")
-            .on("click", function () {
-                d3.select("#treeswlinking_svg").remove();
-                runScript_treeswlinking(h1, h2);
-            });
-
-        d3.select("#tbradio")
-            .on("click", function () {
-                d3.select("#treeswlinking_svg").remove();
-                runScript_treeswlinking(h1, h2);
-            });
-
-
-        d3.select("#lrradio")
-            .on("click", function () {
-                d3.select("#treeswlinking_svg").remove();
-                runScript_treeswlinking(h1, h2);
-            });
-
-        d3.select("#lrleavesradio")
-            .on("click", function () {
-                d3.select("#treeswlinking_svg").remove();
-                runScript_treeswlinking(h1, h2);
-            });
-
-        d3.select("#tlbrradio")
-            .on("click", function () {
-                d3.select("#treeswlinking_svg").remove();
-                runScript_treeswlinking(h1, h2);
-            });
-
-
-
-
-        d3.select("#ang_tlbrradio")
-            .on("click", function () {
-                d3.select("#treeswlinking_svg").remove();
-                runScript_treeswlinking(h1, h2);
-            });
-
-
-
-        d3.select("#straightlradio")
-            .on("click", function () {
-                d3.select("#treeswlinking_svg").remove();
-                runScript_treeswlinking(h1, h2);
-            });
-
-
-        d3.select("#curvedlradio")
-            .on("click", function () {
-                d3.select("#treeswlinking_svg").remove();
-                runScript_treeswlinking(h1, h2);
-            });
+        /*  d3.select("#span-nextquestion")
+             .on("click", function () {
+                 //console.log(d3.select("#btn-nextquestion").property("disabled"));
+                 //console.log(document.getElementById("btn-nextquestion").disabled);
+                 if (d3.select("#btn-nextquestion")._groups[0][0].disabled == true)
+                     alert("please select an answer");
+             }); */
 
 
 
 
 
-
-
-
-
-
-        function filterData(array) {
+        /* function filterData(array) {
             for (var i = array.children.length - 1; i >= 0; i--) {
 
                 if (!(array.children[i].data.data.child === 'A' || array.children[i].data.data.child === 'B' || array.children[i].data.data.child === 'C'))
@@ -972,7 +629,7 @@
             }
 
             return array;
-        }
+        } */
 
         var width = Math.round(1 * window.innerWidth);
         var height = 2000;
@@ -982,20 +639,20 @@
 
 
         function runScript_mergedtree(h1, h2) {
-            //console.log("MERGEDTREE");
+            console.log("MERGEDTREE");
 
-            //console.log(h1);
-            //console.log(h2);
+            console.log(h1);
+            console.log(h2);
 
             //console.log(window.innerWidth + " " + window.innerHeight + " ");
 
             d3.select("#content").select("svg").remove();
 
-            var radius = 0;
+            var radius = 15;
 
-            if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+            /* if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
                 radius = 10;
-            else radius = 15;
+            else radius = 15; */
 
 
             d3.select("#solidhollowcircle")
@@ -1081,10 +738,10 @@
 
             //console.log(h2_root.children);
 
-            if (d3.select("#filterdatacheck")._groups[0][0].checked == true) {
+            /* if (d3.select("#filterdatacheck")._groups[0][0].checked == true) {
                 h1_root = filterData(h1_root);
                 h2_root = filterData(h2_root);
-            }
+            } */
 
             //console.log(h2_root.children);
 
@@ -1100,36 +757,11 @@
 
             //console.log(h1_dims);
 
-            var h1color = "", h2color = "", mergedcolor = "";
+            var h1color = "blue", h2color = "blue", mergedcolor = "";
 
 
 
-            if (d3.select("#blueredradio")._groups[0][0].checked == true) {
-                h1color = "blue";
-                h2color = "red";
-                mergedcolor = "purple";
 
-                if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
-                    h1color = h1color;
-                    h2color = h1color;
-                    mergedcolor = h1color;
-
-                }
-
-            }
-
-            else if (d3.select("#orangeblueradio")._groups[0][0].checked == true) {
-                h1color = "orange";
-                h2color = "blue";
-                mergedcolor = "yellowgreen";
-
-                if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
-                    h1color = h1color;
-                    h2color = h1color;
-                    mergedcolor = h1color;
-
-                }
-            }
 
 
             //console.log(h2_root.children);
@@ -1226,95 +858,9 @@
             mergedtree(mtree.descendants()[0]);
 
 
-            d3.select("#filterdatacheck").on("change", function () {
-                runScript_mergedtree(h1, h2);
-            });
 
 
-            d3.select("#blueredradio").on("change", function () {
-                if (d3.select("#blueredradio")._groups[0][0].checked == true) {
-                    h1color = "blue";
-                    h2color = "red";
-                    mergedcolor = "purple";
-                }
-                runScript_mergedtree(h1, h2);
-                //h1tree(h1_root);
-                //h2tree(h2_root);
-                //hier_arr = compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants());
-                //mergedtree(mtree.descendants(), mtree.links());
-            });
 
-            d3.select("#orangeblueradio").on("change", function () {
-                if (d3.select("#orangeblueradio")._groups[0][0].checked == true) {
-                    h1color = "orange";
-                    h2color = "blue";
-                    mergedcolor = "yellowgreen";
-                }
-                runScript_mergedtree(h1, h2);
-                //h1tree(h1_root);
-                //h2tree(h2_root);
-                //hier_arr = compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants());
-                //mergedtree(mtree.descendants(), mtree.links());
-
-            });
-
-
-            /* d3.select("#redgreenradio").on("change", function () {
-                if (d3.select("#redgreenradio")._groups[0][0].checked == true) {
-                    h1color = "green";
-                    h2color = "green";
-                    mergedcolor = "#a52a2a";
-                }
-                h1tree(h1_root);
-                h2tree(h2_root);
-                hier_arr = compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants());
-                //hier_arr = flatten_array(hier);
-                hier_struct = stratify(hier_arr);
-                mergedtree(mtree.descendants(), mtree.links());
-            }); */
-
-            d3.select("#solidshaperadio").on("change", function () {
-                h1tree(h1_root);
-                h2tree(h2_root);
-                mergedtree(mtree.descendants(), mtree.links());
-            });
-
-            d3.select("#hollowshaperadio").on("change", function () {
-                h1tree(h1_root);
-                h2tree(h2_root);
-                mergedtree(mtree.descendants(), mtree.links());
-            });
-
-            d3.select("#leavessameheightradio").on("change", function () {
-                runScript_mergedtree(h1, h2);
-                //mergedtree(mtree.descendants(), mtree.links());
-            });
-
-            d3.select("#leavesdiffheightradio").on("change", function () {
-                runScript_mergedtree(h1, h2);
-                //mergedtree(mtree.descendants(), mtree.links());
-            });
-
-            d3.select("#hidenodesradio").on("change", function () {
-                mergedtree(mtree.descendants(), mtree.links());
-            });
-
-            d3.select("#hidenodesedgesradio").on("change", function () {
-                mergedtree(mtree.descendants(), mtree.links());
-            });
-
-            d3.select("#shownodesradio").on("change", function () {
-                mergedtree(mtree.descendants(), mtree.links());
-            });
-
-
-            d3.select("#fillcolorradio").on("change", function () {
-                mergedtree(mtree.descendants(), mtree.links());
-            });
-
-            d3.select("#fillnoneradio").on("change", function () {
-                mergedtree(mtree.descendants(), mtree.links());
-            });
 
 
 
@@ -1489,10 +1035,10 @@
                             .toLowerCase();
                     })
                     .style("fill", function (d) {
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                            return h2color;
-                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                            return h1color;
+                        //if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                        //return h2color;
+                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                        return h1color;
 
                     })
                     // .style("opacity", 1)
@@ -1520,14 +1066,14 @@
                     })
                     .on("mouseleave", function (d) {
 
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                        /* if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
                             d3.select(this)
                                 .transition()
                                 .attr("r", radius - 3);
-                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                            d3.select(this)
-                                .transition()
-                                .attr("r", radius - 6);
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
+                        d3.select(this)
+                            .transition()
+                            .attr("r", radius - 6);
 
 
                         d3.select("#tooltip")
@@ -1541,10 +1087,10 @@
                 h1_node
                     .append("text")
                     .style("font-size", function (d) {
-                        if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                            return "10px";
-                        else
-                            return "20px";
+                        //if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
+                        //  return "10px";
+                        //else
+                        return "20px";
                         //console.log(data_nodes[0]);
                         //return data_nodes[0].height - 1.5 + "em";
                     })
@@ -1586,10 +1132,10 @@
                          //  console.log(d);
  
                          else return 1; */
-                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                            return 0;
-                        else
-                            return 1;
+                        // if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                        return 0;
+                        // else
+                        //   return 1;
                     })
                     .text(function (d) {
                         // console.log(d);
@@ -1693,10 +1239,10 @@
                         return d.y;
                     })
                     .attr("r", function (d) {
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                            return h2_radius + "px";
-                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                            return (h2_radius - 4) + "px";
+                        //if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                        //  return h2_radius + "px";
+                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                        return (h2_radius - 4) + "px";
                     })
                     .attr("class", function (d) {
                         return (
@@ -1713,24 +1259,24 @@
                             .toLowerCase();
                     })
                     .style("fill", function (d) {
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                            return h1color;
-                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                            return "white";
+                        // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                        //return h1color;
+                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                        return "white";
                     })
                     .style("stroke", function (d) {
-                        //console.log(h1color);
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                            return "none";
-                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                            return h1color;
+                        console.log(h1color);
+                        // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                        //   return "none";
+                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                        return h1color;
 
                     })
                     .style("stroke-width", function (d) {
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                            return "0px";
-                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                            return "2px";
+                        // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                        //    return "0px";
+                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                        return "2px";
 
                     })
 
@@ -1768,14 +1314,14 @@
                     })
                     .on("mouseleave", function (d) {
 
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                        /* if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
                             d3.select(this)
                                 .transition()
                                 .attr("r", h2_radius - 3);
-                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                            d3.select(this)
-                                .transition()
-                                .attr("r", h2_radius - 6);
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
+                        d3.select(this)
+                            .transition()
+                            .attr("r", h2_radius - 6);
 
 
                         d3.select("#tooltip")
@@ -1791,10 +1337,10 @@
                 h2_node
                     .append("text")
                     .style("font-size", function (d) {
-                        if (d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion2radio")._groups[0][0].checked == true)
-                            return "10px";
-                        else
-                            return "20px";
+                        //  if (d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion2radio")._groups[0][0].checked == true)
+                        return "10px";
+                        //else
+                        //  return "20px";
                         //  return (h2_tree.descendants()[0].height + 2) - (d.depth) + "em";
                     })
                     .attr("class", function (d) {
@@ -1837,10 +1383,10 @@
                          //  console.log(d);
  
                          else return 1; */
-                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                            return 0;
-                        else
-                            return 1;
+                        //  if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
+                        return 0;
+                        //else
+                        //  return 1;
                     })
                     .text(function (d) {
                         // console.log(d);
@@ -2171,10 +1717,10 @@
                     .append("circle")
 
                     .attr("r", function (d) {
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                            return mtree_radius + "px";
-                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                            return (mtree_radius - 1) + "px";
+                        //   if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
+                        //     return mtree_radius + "px";
+                        // if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                        return (mtree_radius - 1) + "px";
                     })
                     .attr("class", function (d) {
                         return (
@@ -2192,20 +1738,20 @@
                     })
                     .style("fill", function (d) {
                         //            console.log(d.data.data.shape);
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true) {
-                            //console.log("solid");
-                            console.log(d.data.data.color);
-                            return d.data.data.color;
-                        }
+                        //    if (d3.select("#solidshaperadio")._groups[0][0].checked == true) {
+                        //console.log("solid");
+                        //      console.log(d.data.data.color);
+                        //    return d.data.data.color;
+                        //}
 
 
-                        else if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
-                            //console.log("hollow");
-                            if (d.data.data.shape == "h1")
-                                return "white";
-                            else
-                                return h1color;
-                        }
+                        //    else if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
+                        //console.log("hollow");
+                        if (d.data.data.shape == "h1")
+                            return "white";
+                        else
+                            return h1color;
+                        //  }
 
 
 
@@ -2216,7 +1762,7 @@
                         /*  if (d.data.data.bordertype == "solid")
                              return "none";
                          else
- 
+         
                              return "8,8.5"; */
                         return "solid";
 
@@ -2274,17 +1820,17 @@
                             .style("opacity", 1);
 
 
-                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
-                            d3.select("#h1tree")
-                                .selectAll(".text")
-                                .select("." + circle_id)
-                                .style("opacity", 1);
+                        // if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
+                        d3.select("#h1tree")
+                            .selectAll(".text")
+                            .select("." + circle_id)
+                            .style("opacity", 1);
 
-                            d3.select("#h2tree")
-                                .selectAll(".text")
-                                .select("." + circle_id)
-                                .style("opacity", 1);
-                        }
+                        d3.select("#h2tree")
+                            .selectAll(".text")
+                            .select("." + circle_id)
+                            .style("opacity", 1);
+                        //}
 
 
                         // console.log(h1_root.descendants());
@@ -2373,16 +1919,16 @@
 
 
 
-                        if (d3.select("#solidshaperadio")._groups[0][0].checked == true) {
+                        /* if (d3.select("#solidshaperadio")._groups[0][0].checked == true) {
                             d3.select(this)
                                 .transition()
                                 .attr("r", mtree_radius);
                         }
-                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
-                            d3.select(this)
-                                .transition()
-                                .attr("r", mtree_radius - 1);
-                        }
+                        if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) { */
+                        d3.select(this)
+                            .transition()
+                            .attr("r", mtree_radius - 1);
+                        //}
 
 
                         d3.select("#h1tree")
@@ -2423,100 +1969,100 @@
 
 
 
-                if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
-                    //console.log("HOLLOW");
-                    nodeEnter
-                        .append("circle")
+                //  if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
+                //console.log("HOLLOW");
+                nodeEnter
+                    .append("circle")
 
-                        .attr("r", function (d) {
+                    .attr("r", function (d) {
 
-                            if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                                return (mtree_radius + 5) + "px";
-                        })
-                        .attr("class", function (d) {
-                            return (
-                                "node" + (d.children ? " node--internal" : " node--leaf")
-                            );
-                        })
-                        .attr("id", function (d) {
-                            return "mergedtree_" + d.data.data.child
-                                .replaceAll(/\//g, "")
-                                .replaceAll(".", "")
-                                .replaceAll(" ", "")
-                                .replaceAll("(", "")
-                                .replaceAll(")", "")
-                                .toLowerCase();
-                        })
-                        .style("fill", function (d) {
-                            return "none";
-                        })
-                        .style("stroke", function (d) {
-                            //if (d.data.data.shape == "h1" || d.data.data.shape == "merged")
-                            //  return h1color;
-                            //console.log(d);
-                            if (d.data.data.shape == "h1" || d.data.data.shape == "merged")
-                                return d.data.data.levelcolor;
-                            //return h1color;
+                        //   if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                        return (mtree_radius + 5) + "px";
+                    })
+                    .attr("class", function (d) {
+                        return (
+                            "node" + (d.children ? " node--internal" : " node--leaf")
+                        );
+                    })
+                    .attr("id", function (d) {
+                        return "mergedtree_" + d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                    })
+                    .style("fill", function (d) {
+                        return "none";
+                    })
+                    .style("stroke", function (d) {
+                        //if (d.data.data.shape == "h1" || d.data.data.shape == "merged")
+                        //  return h1color;
+                        //console.log(d);
+                        if (d.data.data.shape == "h1" || d.data.data.shape == "merged")
+                            return d.data.data.levelcolor;
+                        //return h1color;
 
-                            else return "none";
-                        })
-                        .style("stroke-width", "3px")
-                        .style("stroke-dasharray", function (d) {
-                            /*  if (d.data.data.bordertype == "solid")
-                                 return "none";
-                             else
-                                 return "8,8.5"; */
-                            //return "10,10";
-                            return "solid";
+                        else return "none";
+                    })
+                    .style("stroke-width", "3px")
+                    .style("stroke-dasharray", function (d) {
+                        /*  if (d.data.data.bordertype == "solid")
+                             return "none";
+                         else
+                             return "8,8.5"; */
+                        //return "10,10";
+                        return "solid";
 
-                        })
-                        .style("opacity", function (d) {
-                            return 1;
-                        })
-                        .on("mouseover", function (d, i) {
-
-
-
-                            var name = d.data.data.child;
-                            //console.log(name);
-                            //if (name == undefined)
-                            //name = d.data.data.child;
-                            update_log(d.data.data.child, "node", "hovering on a node " + d.data.data.child);
-
-                            var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
-                            d3.select("#tooltip")
-                                .html(text)
-                                .style("left", parseInt(d3.event.pageX + 100) + "px")
-                                .style("top", parseInt(d3.event.pageY) + "px")
-                                .style("text-align", "left")
-                                .style("opacity", 1);
-
-                            d3.select(this)
-                                .transition()
-                                .attr("r", 20);
-                        })
-                        .on("mouseleave", function (d) {
-                            d3.select(this)
-                                .transition()
-                                .attr("r", mtree_radius + 5);
-
-                            d3.select("#tooltip")
-                                .html("")
-                                .style("left", 0)
-                                .style("top", 0)
-                                .style("opacity", 0);
-
-                        });
-                    /* .on("click", function (d) {
-                        //console.log("click");
-                        //console.log(e);
-                        console.log(d);
-                        click(d, nodes, links);
-                    }); */
+                    })
+                    .style("opacity", function (d) {
+                        return 1;
+                    })
+                    .on("mouseover", function (d, i) {
 
 
 
-                }
+                        var name = d.data.data.child;
+                        //console.log(name);
+                        //if (name == undefined)
+                        //name = d.data.data.child;
+                        update_log(d.data.data.child, "node", "hovering on a node " + d.data.data.child);
+
+                        var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
+                        d3.select("#tooltip")
+                            .html(text)
+                            .style("left", parseInt(d3.event.pageX + 100) + "px")
+                            .style("top", parseInt(d3.event.pageY) + "px")
+                            .style("text-align", "left")
+                            .style("opacity", 1);
+
+                        d3.select(this)
+                            .transition()
+                            .attr("r", 20);
+                    })
+                    .on("mouseleave", function (d) {
+                        d3.select(this)
+                            .transition()
+                            .attr("r", mtree_radius + 5);
+
+                        d3.select("#tooltip")
+                            .html("")
+                            .style("left", 0)
+                            .style("top", 0)
+                            .style("opacity", 0);
+
+                    });
+                /* .on("click", function (d) {
+                    //console.log("click");
+                    //console.log(e);
+                    console.log(d);
+                    click(d, nodes, links);
+                }); */
+
+
+
+                // }
 
 
 
@@ -2545,32 +2091,33 @@
                     .classed("text", true)
                     // .style("font-size", "20px")
                     .attr("dx", function (d) {
-                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
-                            if ((this.previousSibling).getAttribute("class").includes("leaf"))
-                                return "0em";
-                            else return "4em";
-                        }
+                        //if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
+                        if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                            return "0em";
+                        else return "4em";
+                        //}
 
-                        else {
+                        /* else {
                             if ((this.previousSibling).getAttribute("class").includes("leaf"))
                                 return "0em";
                             else return "2em";
 
-                        }
+                        } */
                     })
                     .attr("dy", function (d) {
-                        if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
-                            if ((this.previousSibling).getAttribute("class").includes("leaf"))
-                                return "3em";
-                            else return "5em";
-                        }
+                        // if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
+                        if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                            return "3em";
+                        else return "5em";
+                        //}
 
-                        else {
+                        /* else {
                             if ((this.previousSibling).getAttribute("class").includes("leaf"))
                                 return "3em";
                             else return "0em";
 
-                        }
+                    }
+                     */
 
                     })
                     .attr("text-anchor", function (d) {
@@ -3198,11 +2745,11 @@
                         .style("opacity", 0.5);
 
                     var fill = "none";
-                    if (d3.select("#fillcolorradio")._groups[0][0].checked)
-                        fill = accent(l);
-                    else if (d3.select("#fillnoneradio")._groups[0][0].checked) {
-                        fill = "none";
-                    }
+                    // if (d3.select("#fillcolorradio")._groups[0][0].checked)
+                    // fill = accent(l);
+                    //else if (d3.select("#fillnoneradio")._groups[0][0].checked) {
+                    fill = "none";
+                    //}
 
                     mergedtree_svg
                         .select("#line-chart-l" + l)

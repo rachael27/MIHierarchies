@@ -187,11 +187,7 @@
                 <button id="fsystemchanges-btn" type="button" class="btn btn-success" disabled>File
                     System
                     Changes</button>
-                <button id="mergedtree-btn" type="button" class="btn btn-success" disabled>MergedTree</button>
-                <button id="notations-btn" type="button" class="btn btn-success" disabled>Notations</button>
-                <button id="mergedtreevideo-btn" type="button" class="btn btn-success" disabled>MergedTree
-                    in
-                    action</button>
+
                 <button id="treerelationships-btn" type="button" class="btn btn-success" disabled>Tree
                     Relationships</button>
 
@@ -302,7 +298,7 @@
  
   */
         console.log(urlpage);
-        var slides = ["mihierarchies", "fsystemexample", "fsystemchanges", "mergedtree", "notations", "mergedtreevideo", "treerelationships"];
+        var slides = ["mihierarchies", "fsystemexample", "fsystemchanges", "treerelationships"];
         if (urlpage == "landingpage") {
 
 
@@ -319,8 +315,8 @@
                     if (numofclicks >= slides.length) {
                         update_log("btn-next", "button", "redirect to guided tour");
 
-                        //window.location.href = 'mtree.html?page=guidedtour';
-                        window.location.href = 'mtree.html?page=guidedtour';
+                        //window.location.href = 'treeswlinking.html?page=guidedtour';
+                        window.location.href = 'treeswlinking.html?page=guidedtour';
                         window.body.style.zoom = "25%";
                         //d3.select("body").style("zoom", "25%");
                         //document.body.style.zoom = "25%";
@@ -489,7 +485,7 @@
             d3.select("#btn-next")
                 .on("click", function (d) {
                     update_log("btn-next", "button", "redirect to training questions");
-                    window.location.href = 'mtree.html?page=trainingquestions';
+                    window.location.href = 'treeswlinking.html?page=trainingquestions';
                 })
                 .append("span")
                 .attr("class", "spinner-grow spinner-grow-sm")
@@ -499,7 +495,7 @@
             d3.select("#btn-back")
                 .on("click", function (d) {
                     update_log("btn-next", "button", "redirect to overview");
-                    window.location.href = 'landingpage.html?page=landingpage';
+                    window.location.href = 'twl-landingpage.html?page=landingpage';
                 });
 
 
@@ -580,7 +576,7 @@
                 .on("click", function (d) {
                     update_log("btn-next", "button", "redirect to experiment questions");
 
-                    window.location.href = 'mtree.html?page=experimentquestions';
+                    window.location.href = 'treeswlinking.html?page=experimentquestions';
                 })
                 .append("span")
                 .attr("class", "spinner-grow spinner-grow-sm")
@@ -591,7 +587,7 @@
                 .on("click", function (d) {
                     update_log("btn-back", "button", "redirect to guided tour");
 
-                    window.location.href = 'mtree.html?page=guidedtour';
+                    window.location.href = 'treeswlinking.html?page=guidedtour';
                 });
         }
 
@@ -778,19 +774,19 @@
         if (d3.select("#progress-overview").style("width") == "100%")
             d3.select("#progress-overview")
                 .on("click", function () {
-                    window.location.href = 'landingpage.html?page=landingpage';
+                    window.location.href = 'twl-landingpage.html?page=landingpage';
                 });
 
         if (d3.select("#progress-tour").style("width") == "100%")
             d3.select("#progress-tour")
                 .on("click", function () {
-                    window.location.href = 'mtree.html?page=guidedtour';
+                    window.location.href = 'treeswlinking.html?page=guidedtour';
                 });
 
         if (d3.select("#progress-training").style("width") == "100%")
             d3.select("#progress-training")
                 .on("click", function () {
-                    window.location.href = 'mtree.html?page=trainingquestions';
+                    window.location.href = 'treeswlinking.html?page=trainingquestions';
                 });
 
 
