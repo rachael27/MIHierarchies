@@ -201,9 +201,9 @@
 
 
         //LOG FILES
-        //var fileversion = "File4";
+        var fileversion = "File4";
 
-        var fileversion = "File0";
+        //var fileversion = "File0";
         var swapdataset = "h1";
 
         var h1 = "";
@@ -224,10 +224,10 @@
         title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
 
         d3.queue()
-            //.defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced.csv")
-            //.defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced.csv")
-            .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-            .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced v2.csv")
+            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v2.csv")
+            //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+            //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
             .await(function (error, h1, h2) {
                 if (error) throw error;
 
@@ -430,8 +430,8 @@
 
 
             var margin = { top: 30, right: 30, bottom: 30, left: 120 },
-                width = 3000 - margin.left - margin.right,
-                height = 3500 - margin.top - margin.bottom;
+                width = 6000 - margin.left - margin.right,
+                height = 3000 - margin.top - margin.bottom;
 
 
 
@@ -463,6 +463,9 @@
             var h1_root = d3.hierarchy(h1_struct);
             var h2_root = d3.hierarchy(h2_struct);
 
+            h2_root.x0 = 0;
+            h2_root.y0 = 100;
+
 
             /* if (d3.select("#filterdatacheck")._groups[0][0].checked == true) {
                 h1_root = filterData(h1_root);
@@ -473,25 +476,25 @@
 
             var tree;
 
-            var h1_xpos = 5800;
+            var h1_xpos = 0;
             var h1_ypos = 3300;
 
             var h2_xpos = 50;
             var h2_ypos = 100;
 
-            var ltree_size = [1800, 2000];
+            var ltree_size = [4000, 1500];
             var mtree_size = [1300, 1000];
-            var stree_size = [1300, 500];
+            var stree_size = [1000, 500];
 
-            var h1_rot = 180;
-            var h2_rot = 0;
-
-            var lab_rot = 180;
-            var h1_scalex = -1;
-            var h1_scaley = 1;
-
-            var h2_scalex = 0;
-            var h2_scaley = 0;
+            /*  var h1_rot = 180;
+             var h2_rot = 0;
+ 
+             var lab_rot = 180;
+             var h1_scalex = -1;
+             var h1_scaley = 1;
+ 
+             var h2_scalex = 0;
+             var h2_scaley = 0; */
 
 
 
@@ -540,15 +543,15 @@
             else {
                 ////// left right with leaves facing
 
-                h1_xpos = 1800;
-                h1_ypos = 1550;
+                h1_xpos = 3000;
+                h1_ypos = 100;
                 //h1_ypos = 2600;
 
 
-                h2_xpos = 100;
-                h2_ypos = 1500;
+                h2_xpos = 50;
+                h2_ypos = 100;
 
-                h1_rot = 270;
+                /* h1_rot = 270;
                 h2_rot = 90;
 
 
@@ -562,7 +565,7 @@
                 lab_rot = 180;
 
                 lab_scalex = 1;
-                lab_scaley = -1;
+                lab_scaley = -1; */
 
                 h1color = "red", h2color = "red", linkcolor = "blue";
 
@@ -603,10 +606,10 @@
                 .append("g")
                 .attr("id", "h1tree")
                 .attr("transform", function (d) {
-                    if (method != "link")
-                        return "translate(" + h1_xpos + "," + h1_ypos + ")";
-                    else
-                        return "translate(" + h1_xpos + "," + h1_ypos + ") rotate(" + h1_rot + ") scale(" + h1_scalex + "," + h1_scaley + ")";
+                    //if (method != "link")
+                    return "translate(" + h1_xpos + "," + h1_ypos + ")";
+                    //else
+                    //return "translate(" + h1_xpos + "," + h1_ypos + ") rotate(" + h1_rot + ") scale(" + h1_scalex + "," + h1_scaley + ")";
                 })
                 //.attr("transform", "translate(" + h1_xpos + "," + h1_ypos + ") rotate(" + h1_rot + " " + h1_xpos + " " + h1_ypos + ")")
                 .selectAll(".h1_node")
@@ -630,9 +633,11 @@
                 .attr('stroke', 'black')
                 .attr('fill', 'none'); */
 
+            var h1_root_pos = 1000;
 
             var h1_link = h1_node
                 .append("path")
+                //.append("line")
                 //.data(h1_tree.links())
                 .data(data_links)
                 // .enter()
@@ -641,11 +646,26 @@
                 })
                 //.classed("link", true)
                 .attr("d", function (d) {
-                    return "M" + d.source.x + "," + d.source.y
-                        + "C" + d.source.x + "," + (d.source.y + d.target.y) / 2
-                        + " " + d.target.x + "," + (d.source.y + d.target.y) / 2
-                        + " " + d.target.x + "," + (d.target.y);
+                    console.log(Math.abs(h1_root_pos - d.source.y));
+                    return "M" + Math.abs(h1_root_pos - d.source.y) + "," + Math.round(d.source.x)
+                        + "C" + Math.abs(Math.round((h1_root_pos - d.source.y + h1_root_pos - d.target.y) / 2)) + "," + Math.round(d.source.x)
+                        + " " + Math.abs(Math.round((h1_root_pos - d.source.y + h1_root_pos - d.target.y) / 2)) + "," + Math.round(d.target.x)
+                        + " " + Math.abs(h1_root_pos - d.target.y) + "," + Math.round(d.target.x);
                 })
+                /*
+                .attr("x1", function (d) {
+                    return h1_root_pos - d.source.y;
+                })
+                .attr("y1", function (d) {
+                    return d.source.x;
+                })
+                .attr("x2", function (d) {
+                    return h1_root_pos - d.target.y;
+                })
+                .attr("y2", function (d) {
+                    return d.target.x;
+                })
+                */
                 .style("opacity", function (d) {
                     return 0.5;
                 })
@@ -657,12 +677,14 @@
             h1_node
                 .append("circle")
                 .attr("cx", function (d) {
-                    // console.log(d);
+                    //console.log(d);
                     // console.log(radialPoint(d.x, d.y));
-                    return d.x;
+
+                    //console.log(h1_root_pos - d.y);
+                    return h1_root_pos - d.y;
                 })
                 .attr("cy", function (d) {
-                    return d.y;
+                    return d.x;
                 })
                 .attr("r", function (d) {
                     //        console.log(radius);
@@ -773,22 +795,22 @@
                 .attr("x", function (d) {
 
                     if ((this.previousSibling).getAttribute("class").includes("leaf"))
-                        return d.x - 8;
+                        return h1_root_pos - d.y - 8;
                     else
-                        return d.x + 10;
+                        return h1_root_pos - d.y + 10;
                 })
                 .attr("y", function (d) {
                     if ((this.previousSibling).getAttribute("class").includes("leaf"))
-                        return d.y - 8;
+                        return d.x - 8;
                     else
-                        return d.y - 30;
+                        return d.x - 30;
                 })
                 .attr("text-anchor", function (d) {
                     return "start";
                 })
 
                 .style("opacity", function (d) {
-                    return 1;
+                    return 0;
                 })
                 .text(function (d) {
                     // console.log(d);
@@ -813,21 +835,23 @@
             var h2_tree = tree(h2_root);
 
 
-            if (h2_scalex == 0 && h2_scaley == 0) {
-                var h2_node = treeswlinking_svg
-                    .append("g")
-                    .attr("id", "h2tree")
-                    .attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ") rotate(" + h2_rot + ")")
-                    //.attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ") rotate(" + h2_rot + " " + h2_xpos + " " + h2_ypos + ")")
-                    .selectAll(".h2_node")
-                    .data(h2_tree.descendants())
-                    .enter()
-                    .append("g")
-                    .attr("class", function (d) {
-                        //   console.log(d);
-                        return d.child;
-                    });
-            }
+            //if (h2_scalex == 0 && h2_scaley == 0) {
+            var h2_node = treeswlinking_svg
+                .append("g")
+                .attr("id", "h2tree")
+                .attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ")")
+                //.attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ") rotate(" + h2_rot + ")")
+                //.attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ") rotate(" + h2_rot + " " + h2_xpos + " " + h2_ypos + ")")
+                .selectAll(".h2_node")
+                .data(h2_tree.descendants())
+                .enter()
+                .append("g")
+                .attr("class", function (d) {
+                    //   console.log(d);
+                    return d.child;
+                });
+            //}
+            /*
             else
                 var h2_node = treeswlinking_svg
                     .append("g")
@@ -842,7 +866,7 @@
                         //   console.log(d);
                         return d.child;
                     });
-
+*/
 
             /* treeswolinking_svg.select("#h2tree")
                 .append("rect")
@@ -858,18 +882,36 @@
 
             var h2_link = h2_node
                 .append("path")
+                //.append("line")
                 .data(h2_tree.links())
                 // .enter()
                 .attr("class", function (d) {
                     return "h2_link";
                 })
                 //.classed("link", true)
+
                 .attr("d", function (d) {
-                    return "M" + d.source.x + "," + d.source.y
-                        + "C" + d.source.x + "," + (d.source.y + d.target.y) / 2
-                        + " " + d.target.x + "," + (d.source.y + d.target.y) / 2
-                        + " " + d.target.x + "," + (d.target.y);
+                    //console.log(d);
+                    return "M" + d.source.y + "," + d.source.x
+                        + "C" + (d.source.y + d.target.y) / 2 + "," + d.source.x
+                        + " " + (d.source.y + d.target.y) / 2 + "," + d.target.x
+                        + " " + d.target.y + "," + (d.target.x);
                 })
+                /*
+               .attr("x1", function (d) {
+                   return d.source.y;
+               })
+               .attr("y1", function (d) {
+                   return d.source.x;
+               })
+               .attr("x2", function (d) {
+                   return d.target.y;
+               })
+               .attr("y2", function (d) {
+                   return d.target.x;
+               })
+*/
+
                 .style("opacity", function (d) {
                     return 0.3;
                 })
@@ -883,10 +925,10 @@
                 .attr("cx", function (d) {
                     // console.log(d);
                     // console.log(radialPoint(d.x, d.y));
-                    return d.x;
+                    return d.y;
                 })
                 .attr("cy", function (d) {
-                    return d.y;
+                    return d.x;
                 })
                 .attr("r", function (d) {
                     //  if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
@@ -986,16 +1028,16 @@
 
                     //console.log(d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class"));
                     if (d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class").includes("leaf"))
-                        return d.x - 8;
+                        return d.y - 8;
                     else
-                        return d.x + 20;
+                        return d.y + 20;
                 })
                 .attr("y", function (d) {
                     //if ((this.previousSibling).getAttribute("class").includes("leaf"))
                     if (d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class").includes("leaf"))
-                        return d.y - 8;
+                        return d.x - 8;
                     else
-                        return d.y - 30;
+                        return d.x - 30;
                 })
                 .attr("text-anchor", function (d) {
                     return "start";
@@ -1003,7 +1045,7 @@
 
                 .style("opacity", function (d) {
                     //  console.log(d);
-                    if (d.depth <= 4)
+                    if (d.depth <= 2)
                         return 1;
                     else
                         return 0;
@@ -1027,9 +1069,9 @@
             //console.log(h1_tree.descendants());
             //console.log(h2_tree.descendants());
 
-            var x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+            var x1 = 0, x2 = 0, y1 = 0, y2 = 0, loop_counter = 0;;
             var h1child = "", h2child = "";
-
+            var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
 
             d3
                 .select("#treeswlinking_svg")
@@ -1066,9 +1108,9 @@
 
             else {
                 for (var h1 = 0; h1 < h1_tree.descendants().length; h1++) {
-                    for (var h2 = 0; h2 < h2_tree.descendants().length; h2++) {
-                        if (h1_tree.descendants()[h1].data.data.child == h2_tree.descendants()[h2].data.data.child) {
-                            console.log(h1 + " " + h2);
+                    for (var h2 = loop_counter; h2 < h1_tree.descendants().length; h2++) {
+                        if (h1_tree.descendants()[h1].data.data.child == h2_tree.descendants()[h2].data.data.child && h1_tree.descendants()[h1].data.height == 0) {
+                            //console.log(h1 + " " + h2);
                             //console.log(h2_tree.descendants()[h2].data.data.child + " " + h1_tree.descendants()[h1].data.data.child);
 
                             //console.log(document.getElementById("h2tree_" + h2_tree.descendants()[h2].data.data.child.toLowerCase()));
@@ -1119,7 +1161,7 @@
 
                             points = [];
                             points.push([upd_x1, upd_y1]);
-                            points.push([(upd_x1 + upd_x2) / 2, (upd_y1 + upd_y2) / 2 - 200]);
+                            //points.push([(upd_x1 + upd_x2) / 2, (upd_y1 + upd_y2) / 2 - 200]);
                             points.push([upd_x2, upd_y2]);
 
 
@@ -1150,7 +1192,7 @@
 
                             //else if (d3.select("#curvedlradio")._groups[0][0].checked == true)  {
 
-                            var pathcurve = d3.line().curve(d3.curveBasis);
+                            var pathcurve = d3.line().curve(d3.curveStep);
 
 
 
@@ -1160,9 +1202,19 @@
                                 .select("#lines")
                                 .append("path")
                                 .attr("d", pathcurve(points))
-                                .style("stroke", "green")
+                                .style("stroke", function () {
+                                    //console.log(h1_tree.descendants()[h1].data.depth);
+                                    return colorScale(h1_tree.descendants()[h1].data.depth);
+                                })
                                 .style("fill", "none")
-                                .style("stroke-width", 5);
+                                .style("stroke-width", 5)
+                                .style("opacity", 0.5)
+                                .on("mouseover", function (d) {
+                                    d3.select(this).style("opacity", 1);
+                                })
+                                .on("mouseout", function (d) {
+                                    d3.select(this).style("opacity", 0.5);
+                                });
 
                             // }
 
@@ -1171,7 +1223,7 @@
 
                             //console.log(d3.select("h1tree_" + h1_tree.descendants()[h1].data.data.child).attr("cx"));
 
-
+                            loop_counter = h2;
                             break;
                         }
 
@@ -1179,6 +1231,9 @@
 
                 }
             }
+
+
+            ////////////////
 
 
         }

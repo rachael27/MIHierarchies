@@ -432,9 +432,9 @@
 
 
         //LOG FILES
-        //var fileversion = "File4";
+        var fileversion = "File4";
 
-        var fileversion = "File0";
+        //var fileversion = "File0";
 
         var swapdataset = "h1";
 
@@ -459,10 +459,10 @@
         title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
 
         d3.queue()
-            //.defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced.csv")
-            //.defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced.csv")
-            .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-            .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced v2.csv")
+            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v2.csv")
+            //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
+            //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
             .await(function (error, h1, h2) {
                 if (error) throw error;
 
