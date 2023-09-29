@@ -73,7 +73,7 @@ function twl_experimentquestions(qcounter) {
             "qid": "E8.",
             "question": "Local relative: Find the siblings of folder:root/projects/hcil/treemap3/doc",
             "answer": "Yes",
-            "options": ["[doc3.3,demo_shtml,demo_files]", "[1.html,2.html,3.html],[spotfire,touchscreens,timesearcher]"]
+            "options": ["[doc3.3,demo_shtml,demo_files]", "[1.html,2.html,3.html]", "[spotfire,touchscreens,timesearcher]"]
 
         },
         {

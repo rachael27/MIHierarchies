@@ -35,7 +35,10 @@ function trainingquestions(qcounter) {
             "numoptions": 3,
             "options": ["root/projects/hcil/collaborators.shtml", "root/projects/hcil/members/collaborators.shtml", "root/projects/hcil/colooaborators/collaborators.shtml"]
 
+
         },
+
+
 
         {
             "qid": "T3.",
@@ -54,12 +57,12 @@ function trainingquestions(qcounter) {
             "answer": "",
             "numoptions": 3,
             "options": ["It was newly created in H2", "The folder already existed in H1 but had no files in H1", "The folder already existed in H1 and had some files in it"]
-
         },
+
 
         {
             "qid": "T5.",
-            "question": "What happened to file:jrexxlab.jpg?",
+            "question": "What happened to thr file:jrexxlab.jpg?",
             "hint": "",
             "answer": "The file was present in H1 but deleted in H2",
             "numoptions": 3,
