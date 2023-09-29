@@ -14,7 +14,7 @@ function twl_experimentquestions(qcounter) {
         },
         {
             "qid": "E1.",
-            "question": "How many levels does H2 have?",
+            "question": "How many levels does hierarchy H2 have?",
             "answer": "1",
             "options": [1, 3, 5, 7]
 
@@ -22,24 +22,24 @@ function twl_experimentquestions(qcounter) {
 
         {
             "qid": "E2.",
-            "question": "What is the path of the Node: ?",
+            "question": "What is the path of the Node:treeml.dtd?",
             "answer": "P1",
-            "options": ["P1", "P2"]
+            "options": ["root/project/hcil/iv03contest/datasets/treeml.dtd", "root/project/hcil/census/JavaProto/demo_files/treeml.dtd", "root/project/hcil/about/pictures/treeml.dtd", "root/project/hcil/treemap/treeml.dtd"]
 
         },
 
-        /*
+
         {
             "qid": "E3.",
-            "question": "What is the level of node filename:root/projects/hcil/jazz/index.css in H1 and H2?",
-            "answer": "Level n in H1 and Level n in H2",
-            "options": ["Level n in H1 and Level n in H2", "Level n in H1 and Level n in H2", "Level n in H1 and Level n in H2"]
+            "question": "What is the level of node filename:root/projects/hcil/piccolo/newsroom/index.shtml in H1 and H2?",
+            "answer": "Level 5 in H1 and Level 6 in H2",
+            "options": ["Level 5 in H1 and Level 5 in H2", "Level 4 in H1 and Level 5 in H2", "Level 5 in H1 and Level 6 in H2"]
 
         },
 
         {
             "qid": "E4.",
-            "question": "Which folder has the maximum number of files?",
+            "question": "Which folder has the maximum number of files deletions?",
             "answer": "H2",
             "options": [" "]
 
@@ -47,9 +47,9 @@ function twl_experimentquestions(qcounter) {
 
         {
             "qid": "E5.",
-            "question": "Is the element filename:root/projects/hcil/jazz/list-archives/jazz-chat/000.html avail in both hierarchies?",
+            "question": "Is the element filename:root/projects/hcil/treemap3/images/tm.gif avail in both hierarchies?",
             "answer": "Yes",
-            "options": ["Yes", "No"]
+            "options": ["Yes, it is available in both hierarchies.", "No, it is available only in H1.", "No, it is available in H2."]
 
         },
 
@@ -63,41 +63,46 @@ function twl_experimentquestions(qcounter) {
 
         {
             "qid": "E7.",
-            "question": "Has the subtree of folder:root/projects/hcil/jazz/list-archives/jazz-chat changed? Are there any file additions or deletions?",
+            "question": "Has the contents of folder:root/projects/hcil/timesearcher/docs/graphics changed?",
             "answer": "Yes",
-            "options": ["Yes", "No"]
+            "options": ["Some files have been added.", "Some files have been deleted.", "The folder contents have not changed at all."]
 
         },
 
         {
             "qid": "E8.",
-            "question": "Local relative: Find siblings of folder:root/projects/hcil/historian?",
+            "question": "Local relative: Find the siblings of folder:root/projects/hcil/treemap3/doc",
             "answer": "Yes",
-            "options": ["Yes", "No"]
+            "options": ["[doc3.3,demo_shtml,demo_files]", "[1.html,2.html,3.html],[spotfire,touchscreens,timesearcher]"]
 
         },
         {
             "qid": "E9.",
-            "question": "Which folder in H1 has grown the most in H2?",
-            "answer": "Yes",
-            "options": ["Yes", "No"]
+            "question": "Which folder in H1 has grown the most in 3 weeks?",
+            "answer": "treemaps3",
+            "options": ["treemaps3", "pictures"]
 
         },
         {
             "qid": "E10.",
-            "question": "How much has changed from H1 to H2?",
-            "answer": "Yes",
-            "options": ["Yes", "No"]
+            "question": "Which folder in H1 was deleted in H2?",
+            "answer": "about",
+            "options": ["treemaps3", "about", "treemaps"]
 
         },
-*/
+
+        {
+            "qid": "E11.",
+            "question": "What changes has the folder:root/projects/hcil/piccolo/applications gone through?",
+            "answer": "One file was deleted",
+            "options": ["One file was deleted", "Multiple files were added", "No changes were made"]
+
+        },
+
         {
             "qid": "E11.",
             "question": "You're done with the experiment! Thank you so much for your time!",
         }
-
-
-
 
     ];
 

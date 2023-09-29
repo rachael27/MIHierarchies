@@ -19,36 +19,57 @@ function trainingquestions(qcounter) {
         },
         {
             "qid": "T1.",
-            "question": "Is root a merged node?",
-            "hint": "It is merged because it has two circles",
-            "answer": "Yes",
-            "numoptions": 2,
-            "options": ["Yes", "No"]
+            "question": "How many levels does hierarchy H1 have?",
+            "hint": "",
+            "answer": "9",
+            "numoptions": 3,
+            "options": ["4", "6", "9"]
 
         },
 
         {
             "qid": "T2.",
-            "question": "Is h1tree a merged node?",
-            "hint": "It is h1tree with one solid circle",
-            "answer": "Easy",
-            "numoptions": 2,
-            "options": ["Easy", "Medium"]
+            "question": "What is the path of the node:collaborators.shtml?",
+            "hint": "",
+            "answer": "root/projects/hcil/members/collaborators.shtml",
+            "numoptions": 3,
+            "options": ["root/projects/hcil/collaborators.shtml", "root/projects/hcil/members/collaborators.shtml", "root/projects/hcil/colooaborators/collaborators.shtml"]
 
         },
-        /*
-                {
-                    "qid": "T3.",
-                    "question": "Is h2tree a merged node?",
-                    "hint": "It is h1tree with one hollow circle",
-                    "answer": "Opt2",
-                    "numoptions": 3,
-                    "options": ["Opt1", "Opt2", "Opt3"]
-        
-                },
-        */
+
+        {
+            "qid": "T3.",
+            "question": "What is the level of node filename:root/projects/hcil/privacy-policy.shtml in H1 and H2?",
+            "hint": "",
+            "answer": "Level 3 in H1 and Level 3 in H2",
+            "numoptions": 3,
+            "options": ["Level 3 in H1 and Level 3 in H2", "Level 3 in H1 and Level 2 in H2", "Level 4 in H1 and Level 3 in H2"]
+
+        },
+
         {
             "qid": "T4.",
+            "question": "Choose the best description of folder:treemaps3",
+            "hint": "",
+            "answer": "",
+            "numoptions": 3,
+            "options": ["It was newly created in H2", "The folder already existed in H1 but had no files in H1", "The folder already existed in H1 and had some files in it"]
+
+        },
+
+        {
+            "qid": "T5.",
+            "question": "What happened to file:jrexxlab.jpg?",
+            "hint": "",
+            "answer": "The file was present in H1 but deleted in H2",
+            "numoptions": 3,
+            "options": ["The file was present in H1 but deleted in H2", "The file was not present in H1 but added in H2", "The file is present in H1 and H2"]
+
+        },
+
+
+        {
+            "qid": "T6.",
             "question": "You're done with the training questions! Proceed to the experiment questions!",
             "hint": "Good luck!"
 

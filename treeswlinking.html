@@ -192,12 +192,16 @@
     <script>
 
         var method = "";
+
+
+
         if (d3.select("#highlight_radio")._groups[0][0].checked == true)
             method = "highlight";
         else method = "link";
 
         var qcounter = -1;
         var logObject = [];
+        let level_offset = 250;
 
 
         //LOG FILES
@@ -206,8 +210,8 @@
         //var fileversion = "File0";
         var swapdataset = "h1";
 
-        var h1 = "";
-        var h2 = "";
+        let h1 = "";
+        let h2 = "";
 
 
         var mtree = "";
@@ -217,6 +221,9 @@
 
         var title = [];
 
+        let h1_root = "", h1_struct = "", h1_tree = "";
+        let h2_root = "", h2_struct = "", h2_tree = "";
+
         update_log("", "landed on the treeswlinking page");
 
 
@@ -224,8 +231,8 @@
         title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
 
         d3.queue()
-            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced v2.csv")
-            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v2.csv")
+            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v3.csv")
+            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v3.csv")
             //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
             //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
             .await(function (error, h1, h2) {
@@ -313,10 +320,30 @@
         });
 
 
+
+
         function runScript_tabs(h1, h2) {
 
-            console.log(h1);
-            console.log(h2);
+            //console.log(h1);
+            //console.log(h2);
+
+            if (d3.select("#tooltip").empty())
+                d3.select("#content")
+                    .append("div")
+                    .style("width", "300px")
+                    .style("height", "150px")
+                    //.style("width", "850px")
+                    //.style("height", "350px")
+                    .style("position", "absolute")
+                    .style("opacity", 0)
+                    .attr("id", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("font-size", "20px")
+                    .style("color", "black")
+                    .style("border-width", "3px")
+                    .style("border-radius", "15px")
+                    .style("padding", "15px");
 
 
             runScript_treeswlinking(h1, h2);
@@ -328,7 +355,9 @@
             if (urlpage == "guidedtour") {
                 d3.select("#qandamodule")
                     .style("opacity", 0);
-                twl_guidedtour();
+                setTimeout(() => {
+                    twl_guidedtour();
+                }, 4000);
             }
 
             else if (urlpage == "trainingquestions") {
@@ -412,37 +441,148 @@
 
         var width = Math.round(1 * window.innerWidth);
         var height = 2000;
-        var level_offset = 150;
+
+
+        var radius = 18;
+        var opacity = 0.3;
+
+
+
+        var margin = { top: 30, right: 30, bottom: 30, left: 120 },
+            width = 6000 - margin.left - margin.right,
+            height = 5000 - margin.top - margin.bottom;
+
+        var tree;
+
+        var h1_xpos = 0;
+        var h1_ypos = 3300;
+
+        var h2_xpos = 50;
+        var h2_ypos = 100;
+
+        var ltree_size = [4000, 3000];
+        var mtree_size = [1300, 1000];
+        var stree_size = [1000, 500];
+
+        var treeswlinking_svg = d3
+            .select("#content")
+            .append("svg")
+            .attr("id", "treeswlinking_svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        /*  var h1_rot = 180;
+         var h2_rot = 0;
+ 
+         var lab_rot = 180;
+         var h1_scalex = -1;
+         var h1_scaley = 1;
+ 
+         var h2_scalex = 0;
+         var h2_scaley = 0; */
+
+
+        /*
+
+       //console.log(h1_root.descendants().length);
+       if (h1_root.descendants().length > 0 && h1_root.descendants().length <= 100)
+           tree = d3
+               .tree()
+               .size(stree_size);
+       else if (h1_root.descendants().length > 100 && h1_root.descendants().length <= 500)
+           tree = d3
+               .tree()
+               .size(mtree_size);
+       else if (h1_root.descendants().length > 500)
+           tree = d3
+               .tree()
+               .size(ltree_size);
+               */
+
+
+        var h1color = "red", h2color = "red", mergedcolor = "green", linkcolor = "blue";
+
+
+
+
+
+        //h1 tree is 
+        //h2 tree is 
+
+
+        ///////trees next to each other
+        if (method != "link") {
+
+
+            h1_xpos = 1200;
+            h1_ypos = 1000;
+
+            h2_xpos = 0;
+            h2_ypos = 1000;
+
+            h1color = "yellow", h2color = "red", mergedcolor = "green", linkcolor = "blue";
+        }
+
+
+        /////////////////
+
+
+        else {
+            ////// left right with leaves facing
+
+            h1_xpos = 3000;
+            h1_ypos = 100;
+            //h1_ypos = 2600;
+
+
+            h2_xpos = 50;
+            h2_ypos = 100;
+
+            /* h1_rot = 270;
+            h2_rot = 90;
+
+
+            h1_scalex = 1;
+            h1_scaley = -1;
+
+
+            h2_scalex = -1;
+            h2_scaley = -1;
+
+            lab_rot = 180;
+
+            lab_scalex = 1;
+            lab_scaley = -1; */
+
+            h1color = "red", h2color = "red", linkcolor = "blue";
+
+            //////////
+
+        }
 
 
         function runScript_treeswlinking(h1, h2) {
 
+            d3
+                .select("#treeswlinking_svg")
+                .append("g")
+                .attr("id", "h1tree")
+                .attr("transform", function (d) {
+                    return "translate(" + h1_xpos + "," + h1_ypos + ")";
+                });
+
+            d3
+                .select("#treeswlinking_svg")
+                .append("g")
+                .attr("id", "h2tree")
+                .attr("transform", function (d) {
+                    return "translate(" + h2_xpos + "," + h2_ypos + ")";
+                });
 
 
-            var radius = 18;
-
-
-
-
-
-
-
-
-
-            var margin = { top: 30, right: 30, bottom: 30, left: 120 },
-                width = 6000 - margin.left - margin.right,
-                height = 3000 - margin.top - margin.bottom;
-
-
-
-            var treeswlinking_svg = d3
-                .select("#content")
-                .append("svg")
-                .attr("id", "treeswlinking_svg")
-                .attr("width", width)
-                .attr("height", height);
-
-
+            tree = d3
+                .tree()
+                .size(ltree_size);
 
             stratify = d3
                 .stratify()
@@ -453,219 +593,125 @@
                     return d.parent;
                 });
 
-            var h2_struct = stratify(h2);
-            //console.log(h2_struct);
+            h1_struct = stratify(h1);
+            h1_root = d3.hierarchy(h1_struct);
+            h1_tree = tree(h1_root);
+            h1tree(h1_tree.descendants()[0], h1_root);
 
-            var h1_struct = stratify(h1);
-            //console.log(h1_struct);
+            h2_struct = stratify(h2);
+            h2_root = d3.hierarchy(h2_struct);
+            h2_tree = tree(h2_root);
+            h2tree(h2_tree.descendants()[0], h2_root);
 
+            commonElements(h1_tree.descendants(), h2_tree.descendants());
 
-            var h1_root = d3.hierarchy(h1_struct);
-            var h2_root = d3.hierarchy(h2_struct);
-
-            h2_root.x0 = 0;
-            h2_root.y0 = 100;
-
-
-            /* if (d3.select("#filterdatacheck")._groups[0][0].checked == true) {
-                h1_root = filterData(h1_root);
-                h2_root = filterData(h2_root);
-            } */
-
-
-
-            var tree;
-
-            var h1_xpos = 0;
-            var h1_ypos = 3300;
-
-            var h2_xpos = 50;
-            var h2_ypos = 100;
-
-            var ltree_size = [4000, 1500];
-            var mtree_size = [1300, 1000];
-            var stree_size = [1000, 500];
-
-            /*  var h1_rot = 180;
-             var h2_rot = 0;
- 
-             var lab_rot = 180;
-             var h1_scalex = -1;
-             var h1_scaley = 1;
- 
-             var h2_scalex = 0;
-             var h2_scaley = 0; */
-
-
-
-            //console.log(h1_root.descendants().length);
-            if (h1_root.descendants().length > 0 && h1_root.descendants().length <= 100)
-                tree = d3
-                    .tree()
-                    .size(stree_size);
-            else if (h1_root.descendants().length > 100 && h1_root.descendants().length <= 500)
-                tree = d3
-                    .tree()
-                    .size(mtree_size);
-            else if (h1_root.descendants().length > 500)
-                tree = d3
-                    .tree()
-                    .size(ltree_size);
-
-
-            var h1color = "red", h2color = "red", mergedcolor = "green", linkcolor = "blue";
+        }
 
 
 
 
+        function h1tree(source, h1_root) {
 
-            //h1 tree is 
-            //h2 tree is 
-
-
-            ///////trees next to each other
-            if (method != "link") {
+            //console.log(source);
+            //console.log(h1);
 
 
-                h1_xpos = 1200;
-                h1_ypos = 1000;
-
-                h2_xpos = 0;
-                h2_ypos = 1000;
-
-                h1color = "yellow", h2color = "red", mergedcolor = "green", linkcolor = "blue";
-            }
+            h1_tree = tree(h1_root);
 
 
-            /////////////////
-
-
-            else {
-                ////// left right with leaves facing
-
-                h1_xpos = 3000;
-                h1_ypos = 100;
-                //h1_ypos = 2600;
-
-
-                h2_xpos = 50;
-                h2_ypos = 100;
-
-                /* h1_rot = 270;
-                h2_rot = 90;
-
-
-                h1_scalex = 1;
-                h1_scaley = -1;
-
-
-                h2_scalex = -1;
-                h2_scaley = -1;
-
-                lab_rot = 180;
-
-                lab_scalex = 1;
-                lab_scaley = -1; */
-
-                h1color = "red", h2color = "red", linkcolor = "blue";
-
-                //////////
-
-            }
-
-            var h1_tree = tree(h1_root);
-
-
-            var data_nodes = h1_tree.descendants();
-
-            //console.log(data_nodes);
-
-            /*  data_nodes = data_nodes.filter(function (d) {
-                 //console.log(d.children.length);
-                 if (d.data.data.child.includes("A") || d.data.data.child.includes("B") || d.data.data.child.includes("C"))
-                     return d;
-            
-             }); */
+            data_nodes = h1_tree.descendants();
+            data_links = h1_tree.links();
 
             //console.log(data_nodes);
 
 
-            var data_links = h1_tree.links();
+            var h1_node = d3.select("#h1tree")
+                .selectAll(".h1_nodes")
+                .data(data_nodes, function (d) {
+                    //console.log(d.data.id);
+                    //return d.data.id;
+                    return d.id;
+                });
 
-            /*  data_links = data_links.filter(function (d) {
-                 //console.log(d);
-                 if (d.source.data.data.child.includes("A") || d.source.data.data.child.includes("B") || d.source.data.data.child.includes("C"))
-                     return d;
-            
-             }); */
-
-            //console.log(data);
-
-
-            var h1_node = treeswlinking_svg
-                .append("g")
-                .attr("id", "h1tree")
-                .attr("transform", function (d) {
-                    //if (method != "link")
-                    return "translate(" + h1_xpos + "," + h1_ypos + ")";
-                    //else
-                    //return "translate(" + h1_xpos + "," + h1_ypos + ") rotate(" + h1_rot + ") scale(" + h1_scalex + "," + h1_scaley + ")";
-                })
-                //.attr("transform", "translate(" + h1_xpos + "," + h1_ypos + ") rotate(" + h1_rot + " " + h1_xpos + " " + h1_ypos + ")")
-                .selectAll(".h1_node")
-                .data(data_nodes)
-                //.data(h1_tree.descendants())
-                .enter()
-                .append("g")
-                .attr("class", function (d) {
-                    //   console.log(d);
-                    return d.child;
+            var h1_link = d3.select("#h1tree")
+                .selectAll(".h1_link")
+                .data(data_links, function (d) {
+                    //console.log(d);
+                    //console.log(d.target.id);
+                    return d.source.data.id + "-" + d.target.data.id;
                 });
 
 
+            var h1_root_pos = 1500;
+            var duration = 500;
 
-            /* treeswolinking_svg.select("#h1tree")
-                .append("rect")
-                .attr('x', -30)
-                .attr('y', -30)
-                .attr('width', 1400)
-                .attr('height', 600)
-                .attr('stroke', 'black')
-                .attr('fill', 'none'); */
+            var h1_nodeEnter = h1_node
+                .enter()
+                .append("g")
+                .attr("class", function (d, i) {
+                    return "h1_nodes";
+                })
+                .on("click", function (d) {
+                    update_log(d.data.data.child, "node", "collapse/expand nodes");
+                    click(d);
+                });
 
-            var h1_root_pos = 1000;
 
-            var h1_link = h1_node
-                .append("path")
-                //.append("line")
-                //.data(h1_tree.links())
-                .data(data_links)
-                // .enter()
+            var h1_nodeUpdate = h1_nodeEnter
+                .merge(h1_node)
+                .transition()
+                .duration(duration);
+
+            /*  h1_nodeUpdate
+                 .selectAll("text")
+                 .style("font-size", "60px");
+             //.style("fill-opacity", 1); */
+
+            var h1_nodeExit = h1_node
+                //.selectAll("circle")
+                .exit()
+                .transition()
+                .duration(duration)
+                .attr("cx", function (d) {
+                    return h1_root_pos - source.y;
+                })
+                .attr("cy", function (d) {
+                    return source.x;
+
+                })
+                .attr("r", function (d) {
+                    console.log("EXIT ");
+                    return 0;
+                })
+                .remove();
+
+
+
+            h1_nodeExit
+                .selectAll("text")
+                .style("fill-opacity", 0);
+
+
+            var h1_linkEnter = h1_link
+                .enter()
+                .append("line")
                 .attr("class", function (d) {
                     return "h1_link";
                 })
-                //.classed("link", true)
-                .attr("d", function (d) {
-                    console.log(Math.abs(h1_root_pos - d.source.y));
-                    return "M" + Math.abs(h1_root_pos - d.source.y) + "," + Math.round(d.source.x)
-                        + "C" + Math.abs(Math.round((h1_root_pos - d.source.y + h1_root_pos - d.target.y) / 2)) + "," + Math.round(d.source.x)
-                        + " " + Math.abs(Math.round((h1_root_pos - d.source.y + h1_root_pos - d.target.y) / 2)) + "," + Math.round(d.target.x)
-                        + " " + Math.abs(h1_root_pos - d.target.y) + "," + Math.round(d.target.x);
-                })
-                /*
+
                 .attr("x1", function (d) {
-                    return h1_root_pos - d.source.y;
+                    return h1_root_pos - d.source.depth * level_offset;
                 })
                 .attr("y1", function (d) {
                     return d.source.x;
                 })
                 .attr("x2", function (d) {
-                    return h1_root_pos - d.target.y;
+                    return h1_root_pos - d.target.depth * level_offset;
                 })
                 .attr("y2", function (d) {
                     return d.target.x;
                 })
-                */
+
                 .style("opacity", function (d) {
                     return 0.5;
                 })
@@ -674,23 +720,62 @@
                 .style("fill", "none")
                 .style("stroke-width", "7px");
 
-            h1_node
+
+            h1_linkEnter
+                .merge(h1_link)
+                .transition()
+                //.duration(duration)
+                .attr("x1", function (d) {
+                    //console.log("UPDATE");
+                    //console.log(d.source.height);
+                    return h1_root_pos - d.source.depth * level_offset;
+                })
+                .attr("y1", function (d) {
+                    return d.source.x;
+                })
+                .attr("x2", function (d) {
+                    return h1_root_pos - d.target.depth * level_offset;
+                })
+                .attr("y2", function (d) {
+                    return d.target.x;
+                });
+
+            // Transition exiting nodes to the parent's new position.
+            h1_link
+                .exit()
+                .transition()
+                .duration(duration)
+                .attr("x1", function (d) {
+                    //console.log(d);
+                    console.log("EXIT");
+                    return h1_root_pos - source.depth * level_offset;
+                })
+                .attr("y1", function (d) {
+                    return source.x;
+                })
+                .attr("x2", function (d) {
+                    return h1_root_pos - source.depth * level_offset;
+                })
+                .attr("y2", function (d) {
+                    return source.x;
+                })
+                .remove();
+
+
+
+            h1_nodeEnter
                 .append("circle")
                 .attr("cx", function (d) {
-                    //console.log(d);
+                    //console.log("ENTER");
                     // console.log(radialPoint(d.x, d.y));
 
                     //console.log(h1_root_pos - d.y);
-                    return h1_root_pos - d.y;
+                    return h1_root_pos - d.depth * level_offset;
                 })
                 .attr("cy", function (d) {
                     return d.x;
                 })
                 .attr("r", function (d) {
-                    //        console.log(radius);
-                    // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                    //   return (radius - 3) + "px";
-                    //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
                     return (radius - 4) + "px";
                 })
                 .attr("class", function (d) {
@@ -709,24 +794,21 @@
                 })
                 //.style("stroke", h1color)
                 .style("fill", function (d) {
-                    // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                    //   return h2color;
-                    //  if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                    console.log(h1color);
+                    //console.log(h1color);
                     return h1color;
 
                 })
                 // .style("opacity", 1)
-
                 .style("opacity", function (d) {
                     return 0.3;
                 })
                 .on("mouseover", function (d, i) {
+                    //console.log(d);
                     var name = d.data.data.child;
                     //console.log(name);
                     //if (name == undefined)
                     //name = d.data.data.child;
-                    var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
+                    var text = "</b>Common element: <b>" + d.data.data.child + "</b><br>Parent: <b>" + d.data.data.parent + "</b>";
                     d3.select("#tooltip")
                         .html(text)
                         .style("left", parseInt(d3.event.pageX - 200) + "px")
@@ -736,7 +818,8 @@
 
                     d3.select(this)
                         .transition()
-                        .attr("r", 15);
+                        .attr("r", radius + 10)
+                        .style("opacity", 1);
                 })
                 .on("mouseleave", function (d) {
 
@@ -747,7 +830,8 @@
                      if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
                     d3.select(this)
                         .transition()
-                        .attr("r", radius - 6);
+                        .attr("r", radius - 4)
+                        .style("opacity", opacity);
 
 
                     d3.select("#tooltip")
@@ -758,30 +842,15 @@
 
                 });
 
-            h1_node
+
+
+
+            h1_nodeEnter
                 .append("text")
-
-                /* .attr("transform", function (d) {
-                    var x = 0;
-                    var y = 0;
-            
-                    if ((this.previousSibling).getAttribute("class").includes("leaf")) {
-                        x = d.x - 8;
-                        y = d.y;
-                    }
-                    else {
-                        x = d.x - 10;
-                        y = d.y;
-                    }
-                    return "rotate(" + lab_rot + "," + x + "," + y + ")";
-            
-                }) */
-
                 .style("font-size", function (d) {
-                    // if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                    //   return "20px";
-                    //else
-                    return "40px";
+                    var size = 40;
+                    size = size - (d.depth * 2);
+                    return size + "px";
                 })
                 .attr("class", function (d) {
                     return d.data.data.child
@@ -810,6 +879,7 @@
                 })
 
                 .style("opacity", function (d) {
+
                     return 0;
                 })
                 .text(function (d) {
@@ -824,116 +894,207 @@
                     return label;
                 });
 
+            function click(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                //console.log(d);
+                //if (d.children != null || d._children != null)
+                h1tree(d, h1_root);
+
+            }
+
+        }
 
 
 
 
 
+        function h2tree(source, h2_root) {
 
-            //////////////// TREESWLINKING H2
+            //console.log(source);
+            //console.log(h2);
 
-            var h2_tree = tree(h2_root);
+            console.log(h2_root);
+
+            h2_tree = tree(h2_root);
 
 
-            //if (h2_scalex == 0 && h2_scaley == 0) {
-            var h2_node = treeswlinking_svg
-                .append("g")
-                .attr("id", "h2tree")
-                .attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ")")
-                //.attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ") rotate(" + h2_rot + ")")
-                //.attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ") rotate(" + h2_rot + " " + h2_xpos + " " + h2_ypos + ")")
-                .selectAll(".h2_node")
-                .data(h2_tree.descendants())
+            data_nodes = h2_tree.descendants();
+            data_links = h2_tree.links();
+
+
+            //data_nodes.forEach(function (d) { d.y = d.depth * 250; });
+
+
+
+            var h2_node = d3.select("#h2tree")
+                .selectAll(".h2_nodes")
+                .data(data_nodes, function (d, i) {
+                    //console.log(d.data.id);
+                    //console.log(d.id);
+                    return d.id;
+                    //return d.id || (d.id = ++i);
+                });
+
+            var h2_link = d3.select("#h2tree")
+                .selectAll(".h2_link")
+                .data(data_links, function (d) {
+                    //console.log(d);
+                    //console.log(d.source.data.id + "-" + d.target.data.id);
+                    return d.source.data.id + "-" + d.target.data.id;
+                });
+
+
+            var h2_root_pos = 1000;
+            var duration = 500;
+
+            var h2_nodeEnter = h2_node
                 .enter()
                 .append("g")
-                .attr("class", function (d) {
-                    //   console.log(d);
-                    return d.child;
+                .attr("class", function (d, i) {
+                    return "h2_nodes";
+                })
+                .on("click", function (d) {
+                    update_log(d.data.data.child, "node", "collapse/expand nodes");
+                    click(d);
                 });
-            //}
-            /*
-            else
-                var h2_node = treeswlinking_svg
-                    .append("g")
-                    .attr("id", "h2tree")
-                    .attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ") rotate(" + h2_rot + ") scale(" + h2_scalex + "," + h2_scaley + ")")
-                    //.attr("transform", "translate(" + h2_xpos + "," + h2_ypos + ") rotate(" + h2_rot + " " + h2_xpos + " " + h2_ypos + ")")
-                    .selectAll(".h2_node")
-                    .data(h2_tree.descendants())
-                    .enter()
-                    .append("g")
-                    .attr("class", function (d) {
-                        //   console.log(d);
-                        return d.child;
-                    });
-*/
-
-            /* treeswolinking_svg.select("#h2tree")
-                .append("rect")
-                .attr('x', -30)
-                .attr('y', -30)
-                .attr('width', 1500)
-                .attr('height', 600)
-                .attr('stroke', 'black') 
-                .attr('fill', 'none');
-            */
 
 
+            var h2_nodeUpdate = h2_nodeEnter
+                .merge(h2_node)
+                .transition()
+                .duration(function (d) {
+                    console.log("NODE UPDATE");
+                    return duration;
+                });
 
-            var h2_link = h2_node
-                .append("path")
-                //.append("line")
-                .data(h2_tree.links())
-                // .enter()
+            /*  h2_nodeUpdate
+                 .selectAll("text")
+                 .style("font-size", "60px");
+             //.style("fill-opacity", 1); */
+
+            var h2_nodeExit = h2_node
+                //.selectAll("circle")
+                .exit()
+                .transition()
+                .duration(duration)
+                .attr("cx", function (d) {
+                    return source.depth * level_offset;
+                    //return source.y;
+                })
+                .attr("cy", function (d) {
+                    return source.x;
+
+                })
+                .attr("r", function (d) {
+                    console.log("NODE EXIT ");
+                    return 0;
+                })
+                .remove();
+
+
+
+            h2_nodeExit
+                .selectAll("text")
+                .style("fill-opacity", 0);
+
+
+            var h2_linkEnter = h2_link
+                .enter()
+                .append("line")
                 .attr("class", function (d) {
                     return "h2_link";
                 })
-                //.classed("link", true)
 
-                .attr("d", function (d) {
-                    //console.log(d);
-                    return "M" + d.source.y + "," + d.source.x
-                        + "C" + (d.source.y + d.target.y) / 2 + "," + d.source.x
-                        + " " + (d.source.y + d.target.y) / 2 + "," + d.target.x
-                        + " " + d.target.y + "," + (d.target.x);
+                .attr("x1", function (d) {
+                    console.log("LINK ENTER");
+                    //d.source.y
+                    return d.source.depth * level_offset;
                 })
-                /*
-               .attr("x1", function (d) {
-                   return d.source.y;
-               })
-               .attr("y1", function (d) {
-                   return d.source.x;
-               })
-               .attr("x2", function (d) {
-                   return d.target.y;
-               })
-               .attr("y2", function (d) {
-                   return d.target.x;
-               })
-*/
+                .attr("y1", function (d) {
+                    return d.source.x;
+                })
+                .attr("x2", function (d) {
+                    //d.target.y
+                    return d.target.depth * level_offset;
+                })
+                .attr("y2", function (d) {
+                    return d.target.x;
+                })
 
                 .style("opacity", function (d) {
-                    return 0.3;
+                    return 0.5;
                 })
                 //.style("stroke", "#ccc")
                 .style("stroke", linkcolor)
                 .style("fill", "none")
                 .style("stroke-width", "7px");
 
-            h2_node
+
+            h2_linkEnter
+                .merge(h2_link)
+                .transition()
+                //.duration(duration)
+                .attr("x1", function (d) {
+                    console.log("LINK UPDATE");
+                    //console.log(d.source.height);
+                    return d.source.depth * level_offset;
+                })
+                .attr("y1", function (d) {
+                    return d.source.x;
+                })
+                .attr("x2", function (d) {
+                    return d.target.depth * level_offset;
+                })
+                .attr("y2", function (d) {
+                    return d.target.x;
+                });
+
+            // Transition exiting nodes to the parent's new position.
+            h2_link
+                .exit()
+                .transition()
+                .duration(duration)
+                .attr("x1", function (d) {
+                    //console.log(d);
+                    console.log("LINK EXIT");
+                    //return source.y;
+                    return source.depth * level_offset;
+                })
+                .attr("y1", function (d) {
+                    return source.x;
+                })
+                .attr("x2", function (d) {
+                    return source.depth * level_offset;
+                })
+                .attr("y2", function (d) {
+                    return source.x;
+                })
+                .remove();
+
+
+
+            h2_nodeEnter
                 .append("circle")
                 .attr("cx", function (d) {
-                    // console.log(d);
+                    console.log("NODE ENTER");
                     // console.log(radialPoint(d.x, d.y));
-                    return d.y;
+
+                    //console.log(h2_root_pos - d.y);
+                    //console.log(d.height + " " + d.height * 300);
+                    return d.depth * level_offset;
+                    //return d.y;
                 })
                 .attr("cy", function (d) {
                     return d.x;
                 })
                 .attr("r", function (d) {
-                    //  if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                    //    return radius + "px";
-                    // if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
+                    d.status = "ACCEPT";
                     return (radius - 4) + "px";
                 })
                 .attr("class", function (d) {
@@ -950,32 +1111,25 @@
                         .replaceAll(")", "")
                         .toLowerCase();
                 })
+                //.style("stroke", h2color)
                 .style("fill", function (d) {
-                    /*   if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                          return h1color;
-                      if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
-
-                    // return "white";
+                    //console.log(h2color);
                     return h2color;
 
                 })
-                //.style("stroke", h2color)
-                .style("stroke-width", function (d) {
-                    /*   if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                          return "0px";
-                      if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
-                    return "5px";
-
-                })
-
+                // .style("opacity", 1)
                 .style("opacity", function (d) {
                     return 0.3;
                 })
                 .on("mouseover", function (d, i) {
-                    var text = "Element: <b>" + d.data.data.description + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
+                    //console.log(d);
+                    var name = d.data.data.child;
+                    //console.log(name);
+                    //if (name == undefined)
+                    //name = d.data.data.child;
+                    var text = "</b>Common element: <b>" + d.data.data.child + "</b><br>Parent: <b>" + d.data.data.parent + "</b>";
                     d3.select("#tooltip")
                         .html(text)
-
                         .style("left", parseInt(d3.event.pageX - 200) + "px")
                         .style("top", parseInt(d3.event.pageY + 50) + "px")
                         .style("text-align", "left")
@@ -983,7 +1137,8 @@
 
                     d3.select(this)
                         .transition()
-                        .attr("r", 15);
+                        .attr("r", radius + 10)
+                        .style("opacity", 1);
                 })
                 .on("mouseleave", function (d) {
 
@@ -994,7 +1149,8 @@
                      if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
                     d3.select(this)
                         .transition()
-                        .attr("r", radius - 6);
+                        .attr("r", radius - 4)
+                        .style("opacity", opacity);
 
 
                     d3.select("#tooltip")
@@ -1007,13 +1163,13 @@
 
 
 
-            h2_node
+
+            h2_nodeEnter
                 .append("text")
                 .style("font-size", function (d) {
-                    /* if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                        return "20px";
-                    else */
-                    return "40px";
+                    var size = 40;
+                    size = size - (d.depth * 2);
+                    return size + "px";
                 })
                 .attr("class", function (d) {
                     return d.data.data.child
@@ -1026,15 +1182,13 @@
                 .attr("dy", "2em")
                 .attr("x", function (d) {
 
-                    //console.log(d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class"));
-                    if (d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class").includes("leaf"))
+                    if ((this.previousSibling).getAttribute("class").includes("leaf"))
                         return d.y - 8;
                     else
-                        return d.y + 20;
+                        return d.y + 10;
                 })
                 .attr("y", function (d) {
-                    //if ((this.previousSibling).getAttribute("class").includes("leaf"))
-                    if (d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class").includes("leaf"))
+                    if ((this.previousSibling).getAttribute("class").includes("leaf"))
                         return d.x - 8;
                     else
                         return d.x - 30;
@@ -1044,11 +1198,8 @@
                 })
 
                 .style("opacity", function (d) {
-                    //  console.log(d);
-                    if (d.depth <= 2)
-                        return 1;
-                    else
-                        return 0;
+
+                    return 0;
                 })
                 .text(function (d) {
                     // console.log(d);
@@ -1062,62 +1213,74 @@
                     return label;
                 });
 
+            data_nodes.forEach(function (d) {
+                d.x0 = d.x;
+                d.y0 = d.y;
+            });
+
+            function click(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                //console.log(d);
+                //if (d.children != null || d._children != null)
+                h2tree(d, h2_root);
+
+            }
+
+        }
 
 
+        //console.log()
+        //console.log(h1_tree.descendants());
+        //console.log(h2_tree.descendants());
 
-            //console.log()
-            //console.log(h1_tree.descendants());
-            //console.log(h2_tree.descendants());
 
-            var x1 = 0, x2 = 0, y1 = 0, y2 = 0, loop_counter = 0;;
+        function commonElements(h1_desc, h2_desc) {
+
+            //console.log(h1_desc);
+            //console.log(h2_desc);
+
+
+            var x1 = 0, x2 = 0, y1 = 0, y2 = 0;
             var h1child = "", h2child = "";
-            var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+            var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
             d3
                 .select("#treeswlinking_svg")
                 .append("g")
                 .attr("id", "lines");
-            console.log(h1_tree.descendants().length + " " + h2_tree.descendants().length);
-
-            if (method != "link")
-                for (var h1 = 0; h1 < h1_tree.descendants().length; h1++) {
-                    for (var h2 = 0; h2 < h2_tree.descendants().length; h2++) {
-                        if (h1_tree.descendants()[h1].data.data.child == h2_tree.descendants()[h2].data.data.child) {
-
-                            h1child = h1_tree.descendants()[h1].data.data.child
-                                .replaceAll(/\//g, "")
-                                .replaceAll(".", "")
-                                .replaceAll(" ", "")
-                                .replaceAll("(", "")
-                                .replaceAll(")", "")
-                                .toLowerCase();
-
-                            console.log(h1child + " " + mergedcolor);
-
-
-                            d3.select("#h1tree_" + h1child)
-                                .style("fill", mergedcolor);
-
-                            d3.select("#h2tree_" + h1child)
-                                .style("fill", mergedcolor);
-                            // break;
-
-                        }
-                    }
-                }
-
-            else {
-                for (var h1 = 0; h1 < h1_tree.descendants().length; h1++) {
-                    for (var h2 = loop_counter; h2 < h1_tree.descendants().length; h2++) {
-                        if (h1_tree.descendants()[h1].data.data.child == h2_tree.descendants()[h2].data.data.child && h1_tree.descendants()[h1].data.height == 0) {
-                            //console.log(h1 + " " + h2);
-                            //console.log(h2_tree.descendants()[h2].data.data.child + " " + h1_tree.descendants()[h1].data.data.child);
-
-                            //console.log(document.getElementById("h2tree_" + h2_tree.descendants()[h2].data.data.child.toLowerCase()));
+            // console.log(h1_desc.length + " " + h2_tree.descendants().length);
 
 
 
-                            h1child = h1_tree.descendants()[h1].data.data.child
+
+            var loop_counter = 0;
+            //console.log(h1_desc.length);
+
+            for (h1 = 0; h1 < 50; h1++) {
+
+
+                for (h2 = 0; h2 < 50; h2++) {
+                    //console.log(h1 + " " + h2);
+
+                    //console.log("STATUS " + h2_tree.descendants()[h2].data.data.child + " " + h2_tree.descendants()[h2].status);
+
+
+                    // console.log("agn_STATUS " + h1_tree.descendants
+                    //    ()[h1].data.data.child + " " + h1_desc[h1].status);
+
+                    if (h2_tree.descendants()[h2].status == "ACCEPT") {
+                        //console.log(h1_desc[h1].data.data.child + " " + h2_desc[h2].data.data.child);
+                        if (h1_desc[h1].data.data.child == h2_tree.descendants()[h2].data.data.child && h1_desc[h1].descendants().length == h2_tree.descendants()[h2].descendants().length) {
+                            console.log("ITS A MATCH");
+
+
+                            h1child = h1_desc[h1].data.data.child
                                 .replaceAll(/\//g, "")
                                 .replaceAll(".", "")
                                 .replaceAll(" ", "")
@@ -1169,7 +1332,13 @@
                             // if (d3.select("#straightlradio")._groups[0][0].checked == true) {
                             //    var pathline = d3.line(points);
 
-
+                            //console.log("PARENT " + h2_tree.descendants()[h2].data.data.child + " " + h2_tree.descendants()[h2].descendants().length);
+                            for (var i = 1; i < h2_tree.descendants()[h2].descendants().length; i++) {
+                                //console.log("changing " + h2_tree.descendants()[h2].descendants()[i].data.data.child);
+                                //console.log(h2_tree.descendants()[h2].descendants()[i].status);
+                                h2_tree.descendants()[h2].descendants()[i].status = "ignore";
+                                //console.log(h2_tree.descendants()[h2].descendants()[i].status);
+                            }
 
 
                             //  d3
@@ -1192,7 +1361,7 @@
 
                             //else if (d3.select("#curvedlradio")._groups[0][0].checked == true)  {
 
-                            var pathcurve = d3.line().curve(d3.curveStep);
+                            var pathcurve = d3.line().curve(d3.curveNatural);
 
 
 
@@ -1201,19 +1370,77 @@
                                 .select("#treeswlinking_svg")
                                 .select("#lines")
                                 .append("path")
+                                .attr("id", "link_" + h1_desc[h1].data.data.child)
                                 .attr("d", pathcurve(points))
                                 .style("stroke", function () {
-                                    //console.log(h1_tree.descendants()[h1].data.depth);
-                                    return colorScale(h1_tree.descendants()[h1].data.depth);
+                                    //console.log(h1_desc[h1].data.depth);
+                                    return colorScale(h1_desc[h1].data.depth);
                                 })
                                 .style("fill", "none")
-                                .style("stroke-width", 5)
+                                .style("stroke-width", 7)
                                 .style("opacity", 0.5)
                                 .on("mouseover", function (d) {
+
                                     d3.select(this).style("opacity", 1);
+
+                                    //console.log(h1_desc[h1].data.data.child);
+
+                                    var child = d3.select(this).attr("id").split("_")[1]
+                                        .replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
+                                        .toLowerCase();
+
+                                    d3.select("#h1tree_" + child)
+                                        .transition()
+                                        .attr("r", radius + 10)
+                                        .style("opacity", 1);
+
+                                    d3.select("#h2tree_" + child)
+                                        .transition()
+                                        .attr("r", radius + 10)
+                                        .style("opacity", 1);
+
+                                    //console.log(d3.select(this).attr("id"));
+                                    //console.log(h1_desc[h1].data.data.child + " " + h1_desc[h1].data.depth);
+
+                                    var text = "Common Element: <b>" + d3.select(this).attr("id") + "</b>";
+                                    d3.select("#tooltip")
+                                        .html(text)
+                                        .style("left", parseInt(d3.event.pageX - 200) + "px")
+                                        .style("top", parseInt(d3.event.pageY + 50) + "px")
+                                        .style("text-align", "left")
+                                        .style("opacity", 1);
+
                                 })
                                 .on("mouseout", function (d) {
                                     d3.select(this).style("opacity", 0.5);
+
+                                    var child = d3.select(this).attr("id").split("_")[1]
+                                        .replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
+                                        .toLowerCase();
+
+                                    // d3.select("#tooltip")
+                                    //     .html("")
+                                    //     .style("left", 0)
+                                    //     .style("top", 0)
+                                    //     .style("opacity", 0); 
+
+                                    d3.select("#h1tree_" + child)
+                                        .transition()
+                                        .attr("r", radius - 4)
+                                        .style("opacity", opacity);
+
+                                    d3.select("#h2tree_" + child)
+                                        .transition()
+                                        .attr("r", radius - 4)
+                                        .style("opacity", opacity);
                                 });
 
                             // }
@@ -1221,22 +1448,35 @@
 
 
 
-                            //console.log(d3.select("h1tree_" + h1_tree.descendants()[h1].data.data.child).attr("cx"));
-
-                            loop_counter = h2;
+                            //console.log(d3.select("h1tree_" + h1_desc[h1].data.data.child).attr("cx"));
+                            loop_counter = h2 + 1;
                             break;
+
                         }
+
 
                     }
 
-                }
-            }
 
+                } //////////// H2 LOOP
 
-            ////////////////
+                //console.log("break out of h2 loop");
+            } //////////// H1 LOOP
 
 
         }
+
+
+
+
+        function collapse(d) {
+            if (d.children) {
+                d._children = d.children
+                d._children.forEach(collapse)
+                d.children = null
+            }
+        }
+
 
         function update_log(elementID, elementType, description) {
             var date = new Date();

@@ -14,7 +14,7 @@ function experimentquestions(qcounter) {
         },
         {
             "qid": "E1.",
-            "question": "How many levels does H2 have?",
+            "question": "How many levels does hierarchy H2 have?",
             "answer": "1",
             "options": [1, 3, 5, 7]
 
@@ -22,13 +22,13 @@ function experimentquestions(qcounter) {
 
         {
             "qid": "E2.",
-            "question": "What is the path of the Node: ?",
+            "question": "What is the path of the Node:treeml.dtd?",
             "answer": "P1",
-            "options": ["P1", "P2"]
+            "options": ["root/project/hcil/iv03contest/datasets/treeml.dtd", "root/project/hcil/census/JavaProto/demo_files/treeml.dtd", "root/project/hcil/about/pictures/treeml.dtd", "root/project/hcil/treemap/treeml.dtd"]
 
         },
 
-        /*
+
         {
             "qid": "E3.",
             "question": "What is the level of node filename:root/projects/hcil/jazz/index.css in H1 and H2?",
@@ -47,9 +47,9 @@ function experimentquestions(qcounter) {
 
         {
             "qid": "E5.",
-            "question": "Is the element filename:root/projects/hcil/jazz/list-archives/jazz-chat/000.html avail in both hierarchies?",
+            "question": "Is the element filename:root/projects/hcil/treemap3/images/tm.gif avail in both hierarchies?",
             "answer": "Yes",
-            "options": ["Yes", "No"]
+            "options": ["Yes, it is available in both hierarchies.", "No, it is available only in H1.", "No, it is available in H2."]
 
         },
 
@@ -63,17 +63,17 @@ function experimentquestions(qcounter) {
 
         {
             "qid": "E7.",
-            "question": "Has the subtree of folder:root/projects/hcil/jazz/list-archives/jazz-chat changed? Are there any file additions or deletions?",
+            "question": "Has the contents of folder:root/projects/hcil/timesearcher/docs/graphics changed?",
             "answer": "Yes",
-            "options": ["Yes", "No"]
+            "options": ["Some files have been added.", "Some files have been deleted.", "The folder contents have not changed at all."]
 
         },
 
         {
             "qid": "E8.",
-            "question": "Local relative: Find siblings of folder:root/projects/hcil/historian?",
+            "question": "Local relative: Find the siblings of folder:root/projects/hcil/treemap3/doc",
             "answer": "Yes",
-            "options": ["Yes", "No"]
+            "options": ["[doc3.3,demo_shtml,demo_files]", "[1.html,2.html,3.html],[spotfire,touchscreens,timesearcher]"]
 
         },
         {
@@ -90,7 +90,7 @@ function experimentquestions(qcounter) {
             "options": ["Yes", "No"]
 
         },
-*/
+
         {
             "qid": "E11.",
             "question": "You're done with the experiment! Thank you so much for your time!",
