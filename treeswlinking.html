@@ -114,19 +114,20 @@
             <div class="col-4">
 
                 <fieldset class="border p-2" style="margin-top:150px;">
-                    <legend class="w-auto">Choose layout</legend>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="layout_radio" id="highlight_radio">
-                        <label class="form-check-label" for="highlight_radio">
-                            Highlight common elements
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="layout_radio" id="link_radio" checked>
-                        <label class="form-check-label" for="link_radio">
-                            Link common elements
-                        </label>
-                    </div>
+                    <!--<legend class="w-auto">Choose layout</legend>-->
+                    <br>
+                    <button type="button" class="btn btn-md" id="btn-refresh"
+                        style="color: white;background-color:#155446;">Refresh the layout</button>
+                    <br><br>
+                    <label for="browser">Search:</label>
+                    <input list="search-nodes-list" name="search-nodes" id="search-nodes">
+                    <button type="button" class="btn btn-md" id="btn-search"
+                        style="color: white;background-color:#155446;">Search</button>
+
+                    <datalist id="search-nodes-list">
+                    </datalist>
+
+
                 </fieldset>
 
             </div>
@@ -195,9 +196,9 @@
 
 
 
-        if (d3.select("#highlight_radio")._groups[0][0].checked == true)
+        /* if (d3.select("#highlight_radio")._groups[0][0].checked == true)
             method = "highlight";
-        else method = "link";
+        else method = "link"; */
 
         var qcounter = -1;
         var logObject = [];
@@ -322,6 +323,11 @@
 
 
 
+
+
+
+
+
         function runScript_tabs(h1, h2) {
 
             //console.log(h1);
@@ -355,6 +361,10 @@
             if (urlpage == "guidedtour") {
                 d3.select("#qandamodule")
                     .style("opacity", 0);
+
+                //twl_guidedtour();
+
+
                 setTimeout(() => {
                     twl_guidedtour();
                 }, 4000);
@@ -388,6 +398,14 @@
         d3.select("#btn-nextquestion")
             .on("click", function () {
 
+                console.log("click on butn");
+                //console.log(d3.select("#btn-nextquestion")._groups[0][0].disabled);
+
+
+
+
+                d3.select("#btn-nextquestion")._groups[0][0].disabled = true;
+
                 if (qcounter == -1)
                     qcounter = qcounter + 2;
                 else
@@ -414,11 +432,11 @@
                 qcounter--;
                 if (urlpage == "trainingquestions") {
                     //update_log("btn-backquestion", "button", "display training question " + qcounter);
-                    twl_trainingquestions(qcounter);
+                    trainingquestions(qcounter);
                 }
                 else {
                     //update_log("btn-backquestion", "button", "display experiment question " + qcounter);
-                    twl_experimentquestions(qcounter);
+                    experimentquestions(qcounter);
                 }
             });
 
@@ -460,7 +478,7 @@
         var h2_xpos = 50;
         var h2_ypos = 100;
 
-        var ltree_size = [4000, 3000];
+        var ltree_size = [4000, 2000];
         var mtree_size = [1300, 1000];
         var stree_size = [1000, 500];
 
@@ -514,13 +532,13 @@
         if (method != "link") {
 
 
-            h1_xpos = 1200;
-            h1_ypos = 1000;
+            h1_xpos = 2400;
+            h1_ypos = 70;
 
-            h2_xpos = 0;
-            h2_ypos = 1000;
+            h2_xpos = 70;
+            h2_ypos = 70;
 
-            h1color = "yellow", h2color = "red", mergedcolor = "green", linkcolor = "blue";
+            h1color = "red", h2color = "red", mergedcolor = "green", linkcolor = "blue";
         }
 
 
@@ -561,7 +579,9 @@
         }
 
 
+
         function runScript_treeswlinking(h1, h2) {
+
 
             d3
                 .select("#treeswlinking_svg")
@@ -603,9 +623,81 @@
             h2_tree = tree(h2_root);
             h2tree(h2_tree.descendants()[0], h2_root);
 
+            d3.select("#search-nodes-list")
+                .selectAll("option")
+                .data(h1_tree.descendants())
+                .enter()
+                .append("option")
+                .attr("value", function (d) {
+                    //console.log(d);
+                    return d.data.data.child;
+                })
+                .text(function (d) {
+                    return d.data.data.child;
+                });
+
             commonElements(h1_tree.descendants(), h2_tree.descendants());
 
         }
+
+
+
+        var path = "", name = "", num_slashes = "", pathname = "";
+        d3.select("#btn-search")
+            .on("click", function () {
+
+                child = d3.select("#search-nodes").node().value
+                    .replaceAll(".", "")
+                    .replaceAll(" ", "")
+                    .replaceAll("(", "")
+                    .replaceAll(")", "")
+                    .toLowerCase();
+                num_slashes = child.split("/");
+                var root = h2_tree.descendants()[0];
+                console.log(num_slashes);
+
+                h2_tree.descendants().forEach(function (element) {
+                    //console.log(element.depth + " " + num_slashes);
+                    if (element.depth == num_slashes.length - 1) {
+                        name = element.data.data.child
+                            //.replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                        //console.log(name);
+                        //console.log(child);
+                        //console.log(name + " " + child);
+                        if (name == child) {
+                            //console.log("ITS A MATCHYY");
+
+                            path = root.path(element);
+
+                            for (var i = 0; i < path.length; i++) {
+
+                                pathname = path[i].data.data.child
+                                    .replaceAll(/\//g, "")
+                                    .replaceAll(".", "")
+                                    .replaceAll(" ", "")
+                                    .replaceAll("(", "")
+                                    .replaceAll(")", "")
+                                    .toLowerCase();
+                                //console.log(pathname);
+                                d3.select("#h2tree_" + pathname)
+                                    .style("radius", radius + 10)
+                                    .style("opacity", "1");
+                            }
+                        }
+                    }
+
+
+                });
+
+
+
+            });
+
 
 
 
@@ -654,6 +746,9 @@
                 .on("click", function (d) {
                     update_log(d.data.data.child, "node", "collapse/expand nodes");
                     click(d);
+                    d3.select("#lines").remove();
+                    commonElements(h1_tree.descendants(), h2_tree.descendants());
+
                 });
 
 
@@ -804,10 +899,25 @@
                 })
                 .on("mouseover", function (d, i) {
                     //console.log(d);
+                    var root = h1_tree.descendants()[0];
+                    for (var i = 0; i < root.path(d).length; i++) {
+                        var id = root.path(d)[i].data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                        d3.select("#h1tree_" + id)
+                            .attr("r", radius + 10)
+                            .style("opacity", 1);
+                    }
+
                     var name = d.data.data.child;
                     //console.log(name);
                     //if (name == undefined)
                     //name = d.data.data.child;
+
                     var text = "</b>Common element: <b>" + d.data.data.child + "</b><br>Parent: <b>" + d.data.data.parent + "</b>";
                     d3.select("#tooltip")
                         .html(text)
@@ -828,6 +938,20 @@
                              .transition()
                              .attr("r", radius - 3);
                      if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
+                    var root = h1_tree.descendants()[0];
+                    for (var i = 0; i < root.path(d).length; i++) {
+                        var id = root.path(d)[i].data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                        d3.select("#h1tree_" + id)
+                            .attr("r", radius - 4)
+                            .style("opacity", opacity);
+                    }
+
                     d3.select(this)
                         .transition()
                         .attr("r", radius - 4)
@@ -919,7 +1043,7 @@
             //console.log(source);
             //console.log(h2);
 
-            console.log(h2_root);
+            //console.log(h2_root);
 
             h2_tree = tree(h2_root);
 
@@ -962,6 +1086,8 @@
                 .on("click", function (d) {
                     update_log(d.data.data.child, "node", "collapse/expand nodes");
                     click(d);
+                    d3.select("#lines").remove();
+                    commonElements(h1_tree.descendants(), h2_tree.descendants());
                 });
 
 
@@ -969,7 +1095,7 @@
                 .merge(h2_node)
                 .transition()
                 .duration(function (d) {
-                    console.log("NODE UPDATE");
+                    //console.log("NODE UPDATE");
                     return duration;
                 });
 
@@ -992,7 +1118,7 @@
 
                 })
                 .attr("r", function (d) {
-                    console.log("NODE EXIT ");
+                    //console.log("NODE EXIT ");
                     return 0;
                 })
                 .remove();
@@ -1012,7 +1138,7 @@
                 })
 
                 .attr("x1", function (d) {
-                    console.log("LINK ENTER");
+                    //console.log("LINK ENTER");
                     //d.source.y
                     return d.source.depth * level_offset;
                 })
@@ -1041,7 +1167,7 @@
                 .transition()
                 //.duration(duration)
                 .attr("x1", function (d) {
-                    console.log("LINK UPDATE");
+                    //console.log("LINK UPDATE");
                     //console.log(d.source.height);
                     return d.source.depth * level_offset;
                 })
@@ -1082,7 +1208,7 @@
             h2_nodeEnter
                 .append("circle")
                 .attr("cx", function (d) {
-                    console.log("NODE ENTER");
+                    //console.log("NODE ENTER");
                     // console.log(radialPoint(d.x, d.y));
 
                     //console.log(h2_root_pos - d.y);
@@ -1123,6 +1249,23 @@
                 })
                 .on("mouseover", function (d, i) {
                     //console.log(d);
+                    var root = h2_tree.descendants()[0];
+                    console.log(root.path(d));
+                    for (var i = 0; i < root.path(d).length; i++) {
+                        var id = root.path(d)[i].data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                        d3.select("#h2tree_" + id)
+                            .attr("r", radius + 10)
+                            .style("opacity", 1);
+
+
+
+                    }
                     var name = d.data.data.child;
                     //console.log(name);
                     //if (name == undefined)
@@ -1147,6 +1290,20 @@
                              .transition()
                              .attr("r", radius - 3);
                      if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
+                    var root = h2_tree.descendants()[0];
+                    for (var i = 0; i < root.path(d).length; i++) {
+                        var id = root.path(d)[i].data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                        d3.select("#h2tree_" + id)
+                            .attr("r", radius - 4)
+                            .style("opacity", opacity);
+                    }
+
                     d3.select(this)
                         .transition()
                         .attr("r", radius - 4)
@@ -1262,10 +1419,10 @@
             var loop_counter = 0;
             //console.log(h1_desc.length);
 
-            for (h1 = 0; h1 < 50; h1++) {
+            for (h1 = 0; h1 < h1_desc.length; h1++) {
 
 
-                for (h2 = 0; h2 < 50; h2++) {
+                for (h2 = 0; h2 < h2_desc.length; h2++) {
                     //console.log(h1 + " " + h2);
 
                     //console.log("STATUS " + h2_tree.descendants()[h2].data.data.child + " " + h2_tree.descendants()[h2].status);
@@ -1273,11 +1430,13 @@
 
                     // console.log("agn_STATUS " + h1_tree.descendants
                     //    ()[h1].data.data.child + " " + h1_desc[h1].status);
-
-                    if (h2_tree.descendants()[h2].status == "ACCEPT") {
+                    //console.log(h2_desc[h2]);
+                    if (h2_desc[h2].status == "ACCEPT") {
                         //console.log(h1_desc[h1].data.data.child + " " + h2_desc[h2].data.data.child);
-                        if (h1_desc[h1].data.data.child == h2_tree.descendants()[h2].data.data.child && h1_desc[h1].descendants().length == h2_tree.descendants()[h2].descendants().length) {
-                            console.log("ITS A MATCH");
+                        //console.log(h1_desc[h1].data.data.child + " " + h2_desc[h2].data.data.child);
+
+                        if (h1_desc[h1].data.data.child == h2_desc[h2].data.data.child && h1_desc[h1].descendants().length == h2_desc[h2].descendants().length) {
+                            //console.log("ITS A MATCH");
 
 
                             h1child = h1_desc[h1].data.data.child

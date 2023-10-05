@@ -110,7 +110,26 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4"></div>
+            <div class="col-4">
+
+                <fieldset class="border p-2" style="margin-top:150px;">
+                    <!--<legend class="w-auto">Choose layout</legend>-->
+                    <br>
+                    <button type="button" class="btn btn-md" id="btn-refresh"
+                        style="color: white;background-color:#155446;">Refresh the layout</button>
+                    <br><br>
+                    <label for="browser">Search:</label>
+                    <input list="search-nodes-list" name="search-nodes" id="search-nodes">
+                    <button type="button" class="btn btn-md" id="btn-search"
+                        style="color: white;background-color:#155446;">Search</button>
+
+                    <datalist id="search-nodes-list">
+                    </datalist>
+
+
+                </fieldset>
+
+            </div>
 
             <div class="col-4" style="border: 2px outset black; margin-top: 2%;" id="qandamodule">
 
@@ -470,6 +489,20 @@
                     runScript_tabs(h1, h2);
             });
 
+        d3.select("#btn-refresh").on("click", function () {
+            update_log("btn-refresh", "button", "refresh the layout");
+            d3.queue()
+                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v3.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v3.csv")
+                .await(function (error, h1, h2) {
+                    if (error) throw error;
+
+                    else
+                        runScript_tabs(h1, h2);
+                });
+        });
+
+
         d3.select("#btn-swapdataset").on("click", function () {
             update_log("btn-swapdataset", "button", "swapping datasets");
 
@@ -512,8 +545,8 @@
 
         function runScript_tabs(h1, h2) {
 
-            console.log(h1);
-            console.log(h2);
+            //console.log(h1);
+            //console.log(h2);
 
 
             runScript_mergedtree(h1, h2);
@@ -559,6 +592,9 @@
 
 
         const urlpage = new URLSearchParams(window.location.search).get('page');
+
+
+
 
 
 
@@ -639,10 +675,10 @@
 
 
         function runScript_mergedtree(h1, h2) {
-            console.log("MERGEDTREE");
+            //console.log("MERGEDTREE");
 
-            console.log(h1);
-            console.log(h2);
+            //console.log(h1);
+            //console.log(h2);
 
             //console.log(window.innerWidth + " " + window.innerHeight + " ");
 
@@ -735,6 +771,101 @@
 
             var h1_root = d3.hierarchy(h1_struct);
             var h2_root = d3.hierarchy(h2_struct);
+
+
+
+
+
+
+            var child = "", parent = "", childsplit = "", parentsplit = "";
+
+            d3.select("#btn-search")
+                .on("click", function () {
+                    child = d3.select("#search-nodes").node().value;
+                    //console.log("CHILD " + child);
+
+                    var split_element = child.split("/");
+                    //console.log(split_element);
+
+                    childsplit = split_element[split_element.length - 1];
+                    split_element.pop();
+                    //parent = split_element.join("/");
+                    //parentsplit = split_element[split_element.length - 1];
+                    //console.log(childsplit + " " + parentsplit);
+                    //console.log(child + " " + parent);
+
+                    var flag = 0;
+                    //console.log(mtree.descendants().length);
+                    mtree.descendants().reverse().forEach(function (element) {
+                        flag = 0;
+
+
+
+
+
+
+                        if ((element.data.data.linkcolor == "blue") || element.children == null) {
+                            for (var i = 0; i < element.descendants().length; i++) {
+                                //console.log("entering check" + element.descendants()[i].data.data.child);
+                                if ((element.descendants()[i].data.data.linkcolor == "blue") && element.descendants()[i].children == null) {
+                                    //console.log(element.descendants()[i].data.data.child + " passed check");
+                                    flag += 1;
+                                }
+
+                            }
+                            //console.log(element.data.data.child + " " + flag + " " + (element.descendants().length));
+                            if (flag == element.descendants().length - 1 || element.children == null) {
+                                //console.log("collapse " + element.data.data.child);
+                                collapse(element);
+                            }
+
+                        }
+                        //else
+                        // console.log("expandedpc  " + element.data.data.child + " " + element.data.data.linkcolor + " " + element.children.length);
+                    });
+
+                    mtree.descendants().forEach(function (element) {
+                        split_element = child.split("/");
+                        for (var i = 0; i < element.ancestors().length; i++) {
+                            //console.log(element);
+                            //console.log(element.ancestors()[i].data.data.child + " " + split_element.join("/"));
+                            //console.log(element.depth);
+                            if (element.ancestors()[i].depth > 2) {
+                                //console.log(element.ancestors()[i].data.data.child);
+                                if (split_element.join("/").includes(element.ancestors()[i].data.data.child)) {
+                                    console.log("MATCH COLLAPSE" + element.ancestors()[i].data.data.child);
+                                    console.log(element.ancestors()[i]);
+                                    //if (element.ancestors()[i].data.data.child == "root/projects/hcil/kiddiglib")
+                                    // console.log("MATCH ELEMENT");
+                                    //flag += 1;
+                                    //console.log(element.data.data.child);
+                                    //console.log(element.ancestors()[i].data.data.child);
+                                    expand(element.ancestors()[i]);
+                                    console.log(element.ancestors()[i]);
+                                    //break;
+                                }
+                                /* else {
+                                    split_element.pop();
+                                } */
+                            }
+                        }
+                    });
+
+
+                    //console.log(mtree.descendants()[0]);
+                    //console.log(mtree.descendants()[0]);
+                    //d3.select("#mergedtree").selectAll(".nodes").remove();
+                    //d3.select("#mergedtree").selectAll(".link").remove();
+                    mergedtree(mtree.descendants()[0], hier_root);
+
+
+
+                });
+
+
+
+
+
 
             //console.log(h2_root.children);
 
@@ -842,9 +973,7 @@
                         //console.log("collapse " + element.data.data.child);
                         collapse(element);
                     }
-                    else {
-                        //console.log("expand " + element.data.data.child + " " + flag + " " + element.descendants().length);
-                    }
+
                 }
                 //else
                 // console.log("expandedpc  " + element.data.data.child + " " + element.data.data.linkcolor + " " + element.children.length);
@@ -903,6 +1032,21 @@
                 });
 
 
+
+
+
+            d3.select("#search-nodes-list")
+                .selectAll("option")
+                .data(h1_root.descendants())
+                .enter()
+                .append("option")
+                .attr("value", function (d) {
+                    //console.log(d);
+                    return d.data.data.child;
+                })
+                .text(function (d) {
+                    return d.data.data.child;
+                });
 
 
 
@@ -1265,7 +1409,7 @@
                         return "white";
                     })
                     .style("stroke", function (d) {
-                        console.log(h1color);
+                        //console.log(h1color);
                         // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
                         //   return "none";
                         //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
@@ -1416,12 +1560,24 @@
                 }
             }
 
+            function expand(d) {
+                console.log("EXPAND");
+                console.log(d);
+                if (d._children) {
+                    d.children = d._children
+                    d.children.forEach(expand)
+                    d._children = null
+                }
+            }
+
+
+
 
             function mergedtree(source, hier_root) {
 
                 var mtree_radius = 6;
 
-                console.log(hier_root);
+                //console.log(hier_root);
                 var tree = d3
                     .tree()
                     //.nodeSize([15]);
@@ -1446,7 +1602,7 @@
                 links = mtree.links();
 
 
-                console.log(nodes);
+                //console.log(nodes);
                 //console.log(source);
 
 
@@ -1479,7 +1635,7 @@
                 //console.log(nodes_data[i].data.data.child + " " + nodes_data[i].position + " " + nodes_data[i].childrenposition);
 
                 var color = "orange";
-                var triangleSize = 100;
+                var triangleSize = 80;
                 var verticalTransform = Math.sqrt(triangleSize);
 
                 var triangle_shape = d3.symbol()
@@ -1492,9 +1648,9 @@
                     .select("#mergedtree")
                     .selectAll(".nodes")
                     .data(nodes, function (d, i) {
-                        //return d.data.data.child;
+                        return d.data.data.child;
 
-                        return d.id || (d.id = ++i);
+                        //return d.id || (d.id = ++i);
                         //return ++i;
                         //return d.id;
                     });
@@ -1599,7 +1755,7 @@
                     .transition()
                     //.duration(duration)
                     .attr("transform", function (d) {
-                        console.log("NODE UPDATE");
+                        //console.log("NODE UPDATE");
                         //console.log(d);
                         //console.log(source.data.data.child);
                         var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
@@ -1754,7 +1910,7 @@
                             return trans;
                     })
                     .on("mouseover", function (d) {
-                        console.log(this);
+                        //console.log(this);
                         d3.select(this).style("cursor", "default");
                     });
                    /*  .attr("transform", function (d, i) {
@@ -1772,7 +1928,7 @@
                     .append("circle")
 
                     .attr("r", function (d) {
-                        console.log("NODE ENTER");
+                        //console.log("NODE ENTER");
                         //   if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
                         //     return mtree_radius + "px";
                         // if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)

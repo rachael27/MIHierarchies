@@ -5,34 +5,45 @@ function twl_guidedtour() {
 
     var stepsArr = [
         {
-            title: " Welcome to the Guided Tour! <hr class='border border-primary border-3 opacity-75'>",
+            title: "Welcome to the Guided Tour! <hr class='border border-primary border-3 opacity-75'>",
             intro: "You can also use the left and right arrow keys to move through the tour."
         },
         {
-            //element: document.querySelector("#link_root/projects/hcil/People"),
+            element: document.querySelector('[id="link_root/projects/hcil/People"]'),
             title: "A common node <hr class='border border-primary border-3 opacity-75'>",
             intro: "<p class='text-justify'>If an element belongs to both hierarchies, a line/link is drawn between them. <br> <hr class='border border-danger border-2 opacity-50'> Hovering on the link will highlight the element from both hierarchies and a tooltip displays the element name. <hr class='border border-danger border-2 opacity-50'> The connecting links are drawn based on two requirements.<hr class='border border-danger border-2 opacity-50'>  </p>"
         },
         {
-            //element: document.querySelector("#link_root/projects/hcil/members"),
+            element: document.querySelector('[id="link_root/projects/hcil/piccolo/applications/Salsa-thumb.jpg"]'),
             title: "A connecting link between files <hr class='border border-primary border-3 opacity-75'>",
-            intro: "If a link is drawn between 2 files, it means that the file is common to both hierarchies. <hr class='border border-danger border-2 opacity-50'> It is represented by orange-colored links. <hr class='border border-danger border-2 opacity-50'> "
+            intro: "If a link is drawn between 2 files, it means that the file is common to both hierarchies. <hr class='border border-danger border-2 opacity-50'> "
         },
         {
-            //element: document.querySelector("#link_root/projects/hcil/members"),
+            element: document.querySelector('[id="link_root/projects/hcil/photolib"]'),
             title: "A connecting link between folders <hr class='border border-primary border-3 opacity-75'>",
-            intro: "If a link is drawn between 2 folders, it means that the folder along with the files that belong to it are common to both hierarchies. <hr class='border border-danger border-2 opacity-50'> It is represented by blue-colored links. <hr class='border border-danger border-2 opacity-50'>"
+            intro: "If a link is drawn between 2 folders, it means that the folder along with the files that belong to it are common to both hierarchies. <hr class='border border-danger border-2 opacity-50'>"
         },
         {
-            //element: document.querySelector("#h2tree_rootprojectshcilmembers"),
+            element: document.querySelector('[id="h2tree_rootprojectshcilanthrophotosindex_filesfilelistxml"]'),
             title: "Interacting with a node <hr class='border border-primary border-3 opacity-75'>",
-            intro: "You can hover on a node to view a tooltip which displays the details about an element. <br><hr class='border border-danger border-2 opacity-50'> You can also click on a node to collapse/expand its children. "
+            intro: "You can hover on a node to view a tooltip which displays the details about an element. <br><hr class='border border-danger border-2 opacity-50'> It also highlights the path from the node to the root."
+        },
+        {
+            element: document.querySelector('[id="link_root/projects/hcil/multi-cluster"]'),
+            title: "Interacting with a node <hr class='border border-primary border-3 opacity-75'>",
+            intro: "You can also click on a node to collapse/expand its children. <br><hr class='border border-danger border-2 opacity-50'> "
         },
 
         {
             //element: document.querySelector(".text-level1"),
             title: "Tree levels <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The level of an element in a tree is calculated as the number of nodes its away from the root node. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of parent nodes till you reach the root node."
+            intro: "The level of an element in a tree is calculated as the number of nodes its away from the root node. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of parent nodes it takes to reach the selected node from the root node. The root node is at level 0."
+        },
+
+        {
+            element: document.querySelector('[id="search-nodes"]'),
+            title: "Search nodes <hr class='border border-primary border-3 opacity-75'>",
+            intro: "Enter the file/folder name, for e.g. type 'filelist.xml' will give you a list of all files named filelist.xml. Choose the required file based on its path:/anthro/photos/index_files/filelist.xml and click the search button."
         },
 
         {

@@ -3,7 +3,7 @@ var selected_value = "";
 function twl_trainingquestions(qcounter) {
 
     var pageID = "training";
-    var vizID = "mergedtree";
+    var vizID = "linkededtree";
 
 
 
@@ -19,36 +19,60 @@ function twl_trainingquestions(qcounter) {
         },
         {
             "qid": "T1.",
-            "question": "Is root a merged node?",
-            "hint": "It is merged because it has two circles",
-            "answer": "Yes",
-            "numoptions": 2,
-            "options": ["Yes", "No"]
+            "question": "How many levels does hierarchy H1 have?",
+            "hint": "The maximum number of levels in a tree defines the level of a tree. The node at the highest level is root/projects/hcil/ndl/ndldemo/anita/new/invit/newmain.html:",
+            "answer": "8",
+            "numoptions": 3,
+            "options": ["4", "6", "8"]
 
         },
 
         {
             "qid": "T2.",
-            "question": "Is h1tree a merged node?",
-            "hint": "It is h1tree with one solid circle",
-            "answer": "Easy",
-            "numoptions": 2,
-            "options": ["Easy", "Medium"]
+            "question": "What is the path of the node:collaborators.shtml?",
+            "hint": "The path refers shortest set of parent nodes that need to be traversed to reach the root node from the given node.",
+            "answer": "root/projects/hcil/members/collaborators.shtml",
+            "numoptions": 3,
+            "options": ["root/projects/hcil/collaborators.shtml", "root/projects/hcil/members/collaborators.shtml", "root/projects/hcil/colooaborators/collaborators.shtml"]
+
 
         },
-        /*
-                {
-                    "qid": "T3.",
-                    "question": "Is h2tree a merged node?",
-                    "hint": "It is h1tree with one hollow circle",
-                    "answer": "Opt2",
-                    "numoptions": 3,
-                    "options": ["Opt1", "Opt2", "Opt3"]
-        
-                },
-        */
+
+
+
+        {
+            "qid": "T3.",
+            "question": "What is the level of node filename:root/projects/hcil/privacy-policy.shtml in H1 and H2?",
+            "hint": "Count the number of parent nodes it takes to reach the root node.",
+            "answer": "Level 3 in H1 and Level 3 in H2",
+            "numoptions": 3,
+            "options": ["Level 3 in H1 and Level 3 in H2", "Level 3 in H1 and Level 2 in H2", "Level 4 in H1 and Level 3 in H2"]
+
+        },
+
         {
             "qid": "T4.",
+            "question": "Choose the best description of folder:treemap3",
+            "hint": "",
+            "answer": "",
+            "numoptions": 3,
+            "options": ["It was newly created in H2", "The folder already existed in H1 but had no files", "The folder already existed in H1 and had few files in it"]
+        },
+
+
+        {
+            "qid": "T5.",
+            "question": "What happened to the file:jrexxlab.jpg?",
+            "hint": "When you search for the file, it is available in H1 but not H2. Also, there is no link connecting the node from H1, indicating that it does not belong to H2.",
+            "answer": "The file was present in H1 but deleted in H2",
+            "numoptions": 3,
+            "options": ["The file was present in H1 but deleted in H2", "The file was not present in H1 but added in H2", "The file is present in H1 and H2"]
+
+        },
+
+
+        {
+            "qid": "T6.",
             "question": "You're done with the training questions! Proceed to the experiment questions!",
             "hint": "Good luck!"
 

@@ -295,7 +295,7 @@ padding: 0;
             border:white solid 1px;
           } */
 
-          #mihierarchies-btn, #fsystemexample-btn, #fsystemchanges-btn, #mergedtree-btn, #notations-btn, #mergedtreevideo-btn, #treerelationships-btn{
+          #mihierarchies-btn, #fsystemexample-btn, #fsystemchanges-btn, #mergedtree-btn, #notations-btn, #mergedtreevideo-btn, #treerelationships-btn,#connectinglinks-files-btn,#connectinglinks-folders-btn,#connectinglinks-colors-btn{
             all:unset;
             background: #198753;
 	color: white;
@@ -315,7 +315,7 @@ padding: 0;
 
           }
 
-          #mihierarchies-btn[disabled], #fsystemexample-btn[disabled], #fsystemchanges-btn[disabled], #mergedtree-btn[disabled], #notations-btn[disabled], #mergedtreevideo-btn[disabled], #treerelationships-btn[disabled]{
+          #mihierarchies-btn[disabled], #fsystemexample-btn[disabled], #fsystemchanges-btn[disabled], #mergedtree-btn[disabled], #notations-btn[disabled], #mergedtreevideo-btn[disabled], #treerelationships-btn[disabled],#connectinglinks-files-btn[disabled],#connectinglinks-folders-btn[disabled],#connectinglinks-colors-btn[disabled]{
             all:unset;
             background: #19875468;
 	color: black;
