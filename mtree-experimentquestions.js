@@ -14,7 +14,7 @@ function experimentquestions(qcounter) {
         },
         {
             "qid": "E1.",
-            "question": "How many levels does hierarchy H2 have?",
+            "question": "How many levels does the after hierarchy have?",
             "answer": "1",
             "options": [1, 3, 5, 7]
 
@@ -22,40 +22,40 @@ function experimentquestions(qcounter) {
 
         {
             "qid": "E2.",
-            "question": "What is the path of the Node:treeml.dtd?",
-            "answer": "P1",
-            "options": ["root/project/hcil/iv03contest/datasets/treeml.dtd", "root/project/hcil/census/JavaProto/demo_files/treeml.dtd", "root/project/hcil/about/pictures/treeml.dtd", "root/project/hcil/treemap/treeml.dtd"]
+            "question": "What is the path of the node:<i>treeml.dtd</i>?",
+            "answer": " ",
+            "options": ["<i>root/project/hcil/iv03contest/datasets/treeml.dtd</i>", "<i>root/project/hcil/census/JavaProto/demo_files/treeml.dtd</i>", "<i>root/project/hcil/about/pictures/treeml.dtd</i>", "<i>root/project/hcil/treemap/treeml.dtd</i>"]
 
         },
 
 
         {
             "qid": "E3.",
-            "question": "What is the level of node filename:root/projects/hcil/jazz/index.css in H1 and H2?",
-            "answer": "Level n in H1 and Level n in H2",
-            "options": ["Level n in H1 and Level n in H2", "Level n in H1 and Level n in H2", "Level n in H1 and Level n in H2"]
+            "question": "What is the level of node filename:<i>root/projects/hcil/piccolo/newsroom/index.shtml</i> in the before and after hierarchies?",
+            "answer": "Level 5 in the before hierarchy and Level 6 in the after hierarchy",
+            "options": ["Level 5 in the before hierarchy and Level 5 in the after hierarchy", "Level 4 in the before hierarchy and Level 5 in the after hierarchy", "Level 5 in the before hierarchy and Level 6 in the after hierarchy"]
 
         },
 
         {
             "qid": "E4.",
-            "question": "Which folder has the maximum number of files?",
-            "answer": "H2",
+            "question": "Which folder has the maximum number of files deletions?",
+            "answer": " ",
             "options": [" "]
 
         },
 
         {
             "qid": "E5.",
-            "question": "Is the element filename:root/projects/hcil/treemap3/images/tm.gif avail in both hierarchies?",
+            "question": "Is the element filename:<i>root/projects/hcil/treemap3/images/tm.gif</i> available in both hierarchies?",
             "answer": "Yes",
-            "options": ["Yes, it is available in both hierarchies.", "No, it is available only in H1.", "No, it is available in H2."]
+            "options": ["Yes, it is available in both hierarchies.", "No, it is available only in the before hierarchy.", "No, it is available only in the after hierarchy."]
 
         },
 
         {
             "qid": "E6.",
-            "question": "Node folder:root/pojects/hcil/jazz  belongs to Parent ABC in H1. Has the parent changed now(in MT)?",
+            "question": "Node folder:<i>root/pojects/hcil/jazz</i>  belongs to Parent ABC in the before hierarchy. Has the parent changed now (in MT)?",
             "answer": "Yes",
             "options": ["Yes", "No"]
 
@@ -63,7 +63,7 @@ function experimentquestions(qcounter) {
 
         {
             "qid": "E7.",
-            "question": "Has the contents of folder:root/projects/hcil/timesearcher/docs/graphics changed?",
+            "question": "Have the contents of folder:<i>root/projects/hcil/timesearcher/docs/graphics</i> changed?",
             "answer": "Yes",
             "options": ["Some files have been added.", "Some files have been deleted.", "The folder contents have not changed at all."]
 
@@ -71,23 +71,31 @@ function experimentquestions(qcounter) {
 
         {
             "qid": "E8.",
-            "question": "Local relative: Find the siblings of folder:root/projects/hcil/treemap3/doc",
+            "question": "Find the siblings of folder:<i>root/projects/hcil/treemap3/doc</i>",
             "answer": "Yes",
-            "options": ["[doc3.3,demo_shtml,demo_files]", "[1.html,2.html,3.html],[spotfire,touchscreens,timesearcher]"]
+            "options": ["[doc3.3,demo_shtml,demo_files]", "[1.html,2.html,3.html]", "[spotfire,touchscreens,timesearcher]"]
 
         },
         {
             "qid": "E9.",
-            "question": "Which folder in H1 has grown the most in H2?",
-            "answer": "Yes",
-            "options": ["Yes", "No"]
+            "question": "Which folder in the before hierarchy has grown the most in the after hierarchy?",
+            "answer": "treemaps3",
+            "options": ["treemaps3", "pictures"]
 
         },
         {
             "qid": "E10.",
-            "question": "How much has changed from H1 to H2?",
-            "answer": "Yes",
-            "options": ["Yes", "No"]
+            "question": "Which folder in the before hierarchy was deleted in the after hierarchy?",
+            "answer": "about",
+            "options": ["treemaps3", "about", "treemaps"]
+
+        },
+
+        {
+            "qid": "E11.",
+            "question": "What changes has the folder:<i>root/projects/hcil/piccolo/applications</i> gone through?",
+            "answer": "One file was deleted",
+            "options": ["One file was deleted", "Multiple files were added", "No changes were made"]
 
         },
 
@@ -95,9 +103,6 @@ function experimentquestions(qcounter) {
             "qid": "E11.",
             "question": "You're done with the experiment! Thank you so much for your time!",
         }
-
-
-
 
     ];
 
@@ -126,7 +131,7 @@ function experimentquestions(qcounter) {
 
 
         d3.select("#question")
-            .text(list_questions[qcounter].qid + " " + list_questions[qcounter].question);
+            .html(list_questions[qcounter].qid + " " + list_questions[qcounter].question);
 
 
 
@@ -149,7 +154,7 @@ function experimentquestions(qcounter) {
                     .attr("form", "option")
                     .attr("id", "option" + i + "_label")
                     .attr("style", "text-align: left; margin-left: 10px; ")
-                    .text(list_questions[qcounter].options[i]);
+                    .html(list_questions[qcounter].options[i]);
 
             }
 
@@ -209,6 +214,7 @@ function experimentquestions(qcounter) {
         logObject.push({
             "userID": localStorage.getItem("userID"),
             "vizID": vizID,
+            "screenSize": window.innerWidth + ";" + window.innerHeight,
             "pageID": pageID,
             "elementID": elementID,
             "elementType": elementType,

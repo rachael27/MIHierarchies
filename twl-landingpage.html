@@ -64,14 +64,19 @@
             <div class="col-1"></div>
             <div class="col-10">
 
-                <div style="margin-top: 7%;" align="right">
-                    <button id="btn-downloadlog" type="button" class="btn btn-lg" data-toggle="tooltip"
-                        data-bs-placement="right" title="Email log file to rf312@sussex.ac.uk">Download Log <i
-                            class="fa-solid fa-download"></i>
-                    </button>
-                </div>
-                <div style="margin-top: 25px;">
+
+
+
+                <div style="margin-top: 10%;">
+                    <div style="margin-top: 7%; margin-bottom: 20px;" align="right">
+                        <button id="btn-downloadlog" type="button" class="btn btn-lg" data-toggle="tooltip"
+                            data-bs-placement="right" style="display: none;"
+                            title="Email log file to rf312@sussex.ac.uk">Download Log <i
+                                class="fa-solid fa-download"></i></button>
+                    </div>
                     <div id="blockquote">
+
+
                         <blockquote>
                             <p>
 
@@ -85,19 +90,23 @@
                                     Experiment,</b> and will take approximately <em>40 minutes </em> to complete.
                                 <br>
                                 <br>
-                                At the end of the study, don't forget to download (red button on top-right) and
-                                <mark>email
+                                We will analyse the profile of your answers to eliminate those that are flagged as
+                                guesswork. At the end of the study, <b> don't forget to download and
+                                    email
                                     your
-                                    log files to receive your amazon
+                                    log files. </b>
+                                <mark>Only those profiles with complete answers and not flagged as guesswork will
+                                    receive an amazon
                                     voucher
-                                    code. </mark>
-                                <br>
-                                <br>
-                                Please note that you can return to any / all phases before you start the experiment
-                                phase.
+                                    code.</mark>
 
-                                <em> Once you start the experiment phase you will not be able to return to any of the
-                                    phases.</em>
+                                <br>
+                                <br>
+                                Please note that once you've completed a phase, you can't go back to it. However, you
+                                can go back and forth
+                                within a phase.
+
+
                                 <br>
                                 <br>
 
@@ -285,7 +294,7 @@
                 }
 
                 var blob = new Blob([logstr], { type: "text/csv;charset=utf-8" });
-                saveAs(blob, "ProjectLog.csv");
+                saveAs(blob, "MIHierarchiesLog.csv");
 
             });
 
@@ -611,10 +620,11 @@
             d3.select("#blockquote")
                 .select("blockquote")
                 .append("p")
-                .html("<code style='font-size:25px; color:#155446;'>Thank you for your participation! <br><br> Don't forget to download and email the log file to receive your amazon voucher code.</code>");
+                .html("<code style='font-size:25px; color:#155446;'>Thank you for your participation! <br><br> Don't forget to download and email the MIHierarchiesLog.csv file to receive your amazon voucher code.</code>");
 
 
-
+            d3.select("#btn-downloadlog")
+                .style("display", "block");
 
             for (var i = 0; i < slides.length; i++) {
                 console.log(i + " " + slides[i]);
@@ -806,6 +816,7 @@
             logObject.push({
                 "userID": localStorage.getItem("userID"),
                 "vizID": vizID,
+                "screenSize": window.innerWidth + ";" + window.innerHeight,
                 "pageID": pageID,
                 "elementID": elementID,
                 "elementType": elementType,

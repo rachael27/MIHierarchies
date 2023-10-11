@@ -61,7 +61,7 @@
 </head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
@@ -87,6 +87,8 @@
 
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://kit.fontawesome.com/ae1e2e7d99.js" crossorigin="anonymous"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 <script src="algorithm.js"></script>
 <script src="treeswlinking.html"></script>
 <script src="twl-trainingquestions.js"></script>
@@ -110,7 +112,7 @@
 
 
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="sticky" style="background-color: white;">
             <div class="col-4">
 
                 <fieldset class="border p-2" style="margin-top:150px;">
@@ -119,7 +121,13 @@
                     <button type="button" class="btn btn-md" id="btn-refresh"
                         style="color: white;background-color:#155446;">Refresh the layout</button>
                     <br><br>
-                    <label for="browser">Search:</label>
+                    <div class="form-check form-switch row" id="togglediv"><span><label>Before hierarchy</label><input
+                                class="form-check-input" type="checkbox" name="hierarchy-toggle" id="tog-hierarchy"
+                                style="margin-left:20px; margin-right: 20px;"><label>After hierarchy</label></span>
+                    </div>
+                    <br>
+                    <br>
+                    <label for=" browser">Search:</label>
                     <input list="search-nodes-list" name="search-nodes" id="search-nodes">
                     <button type="button" class="btn btn-md" id="btn-search"
                         style="color: white;background-color:#155446;">Search</button>
@@ -193,6 +201,7 @@
     <script>
 
         var method = "";
+        var tooltip_offset = 100;
 
 
 
@@ -336,20 +345,22 @@
             if (d3.select("#tooltip").empty())
                 d3.select("#content")
                     .append("div")
+                    /*
                     .style("width", "300px")
                     .style("height", "150px")
-                    //.style("width", "850px")
-                    //.style("height", "350px")
-                    .style("position", "absolute")
-                    .style("opacity", 0)
-                    .attr("id", "tooltip")
                     .style("background-color", "white")
                     .style("border", "solid")
                     .style("font-size", "20px")
                     .style("color", "black")
                     .style("border-width", "3px")
                     .style("border-radius", "15px")
-                    .style("padding", "15px");
+                    .style("padding", "15px")
+                    */
+                    .style("position", "absolute")
+
+                    .style("opacity", 0)
+                    .attr("id", "tooltip");
+
 
 
             runScript_treeswlinking(h1, h2);
@@ -362,21 +373,27 @@
                 d3.select("#qandamodule")
                     .style("opacity", 0);
 
-                //twl_guidedtour();
+                twl_guidedtour();
 
 
-                setTimeout(() => {
+                /* setTimeout(() => {
                     twl_guidedtour();
-                }, 4000);
+                }, 4000); */
             }
 
             else if (urlpage == "trainingquestions") {
+                d3.select("#sticky")
+                    .attr("class", "row sticky-top");
+
                 twl_trainingquestions(0);
                 qcounter = -1;
             }
 
             else if (urlpage == "experimentquestions") {
                 d3.select("#btn-hint")
+                    .remove();
+
+                d3.select("#btn-next")
                     .remove();
 
                 d3.select("#collapseElement")
@@ -472,11 +489,7 @@
 
         var tree;
 
-        var h1_xpos = 0;
-        var h1_ypos = 3300;
-
-        var h2_xpos = 50;
-        var h2_ypos = 100;
+        var h1_xpos = 2400, h1_ypos = 170, h2_xpos = 70, h2_ypos = 170;
 
         var ltree_size = [4000, 2000];
         var mtree_size = [1300, 1000];
@@ -529,23 +542,19 @@
 
 
         ///////trees next to each other
-        if (method != "link") {
+        //if (method != "link") {
 
 
-            h1_xpos = 2400;
-            h1_ypos = 70;
 
-            h2_xpos = 70;
-            h2_ypos = 70;
 
-            h1color = "red", h2color = "red", mergedcolor = "green", linkcolor = "blue";
-        }
+        h1color = "red", h2color = "red", mergedcolor = "green", linkcolor = "blue";
+        // }
 
 
         /////////////////
 
 
-        else {
+        /* else {
             ////// left right with leaves facing
 
             h1_xpos = 3000;
@@ -570,14 +579,14 @@
             lab_rot = 180;
 
             lab_scalex = 1;
-            lab_scaley = -1; */
+            lab_scaley = -1; 
 
-            h1color = "red", h2color = "red", linkcolor = "blue";
+        h1color = "red", h2color = "red", linkcolor = "blue";
 
             //////////
 
         }
-
+ */
 
 
         function runScript_treeswlinking(h1, h2) {
@@ -598,6 +607,43 @@
                 .attr("transform", function (d) {
                     return "translate(" + h2_xpos + "," + h2_ypos + ")";
                 });
+
+            d3.select("#treeswlinking_svg")
+                .append("text")
+                .attr("class", "tree_heading")
+                .style("font-size", "40px")
+                .attr("dy", "2em")
+                .attr("x", h1_xpos / 2)
+                .attr("y", 0)
+                .attr("text-anchor", function (d) {
+                    return "start";
+                })
+                .text("Before Hierarchy");
+
+            d3.select("#treeswlinking_svg")
+                .append("rect")
+                .attr("class", "tree_heading_rect")
+                .attr('x', h1_xpos / 2 - 20)
+                .attr('y', 20);
+
+
+            d3.select("#treeswlinking_svg")
+                .append("text")
+                .attr("class", "tree_heading")
+                .style("font-size", "40px")
+                .attr("dy", "2em")
+                .attr("x", h1_xpos)
+                .attr("y", 0)
+                .attr("text-anchor", function (d) {
+                    return "start";
+                })
+                .text("After Hierarchy");
+
+            d3.select("#treeswlinking_svg")
+                .append("rect")
+                .attr("class", "tree_heading_rect")
+                .attr('x', h1_xpos - 20)
+                .attr('y', 20);
 
 
             tree = d3
@@ -640,62 +686,165 @@
 
         }
 
+        d3.select("#tog-hierarchy")
+            .on("change", function () {
+                d3.select("#search-nodes").node().value = "";
+                if (this.checked) {
+                    d3.select("#search-nodes-list")
+                        .selectAll("option")
+                        .remove();
+                    d3.select("#search-nodes-list")
+                        .selectAll("option")
+                        .data(h1_tree.descendants())
+                        .enter()
+                        .append("option")
+                        .attr("value", function (d) {
+                            //console.log(d);
+                            return d.data.data.child;
+                        })
+                        .text(function (d) {
+                            return d.data.data.child;
+                        });
+                }
+                else {
+                    d3.select("#search-nodes-list")
+                        .selectAll("option")
+                        .remove();
+                    d3.select("#search-nodes-list")
+                        .selectAll("option")
+                        .data(h2_tree.descendants())
+                        .enter()
+                        .append("option")
+                        .attr("value", function (d) {
+                            //console.log(d);
+                            return d.data.data.child;
+                        })
+                        .text(function (d) {
+                            return d.data.data.child;
+                        });
+
+                }
+
+            });
 
 
         var path = "", name = "", num_slashes = "", pathname = "";
         d3.select("#btn-search")
             .on("click", function () {
 
-                child = d3.select("#search-nodes").node().value
-                    .replaceAll(".", "")
-                    .replaceAll(" ", "")
-                    .replaceAll("(", "")
-                    .replaceAll(")", "")
-                    .toLowerCase();
-                num_slashes = child.split("/");
-                var root = h2_tree.descendants()[0];
-                console.log(num_slashes);
 
-                h2_tree.descendants().forEach(function (element) {
-                    //console.log(element.depth + " " + num_slashes);
-                    if (element.depth == num_slashes.length - 1) {
-                        name = element.data.data.child
-                            //.replaceAll(/\//g, "")
-                            .replaceAll(".", "")
-                            .replaceAll(" ", "")
-                            .replaceAll("(", "")
-                            .replaceAll(")", "")
-                            .toLowerCase();
-                        //console.log(name);
-                        //console.log(child);
-                        //console.log(name + " " + child);
-                        if (name == child) {
-                            //console.log("ITS A MATCHYY");
+                if (document.getElementById("tog-hierarchy").checked) {
+                    child = d3.select("#search-nodes").node().value
+                        .replaceAll(".", "")
+                        .replaceAll(" ", "")
+                        .replaceAll("(", "")
+                        .replaceAll(")", "")
+                        .toLowerCase();
+                    num_slashes = child.split("/");
+                    var root = h1_tree.descendants()[0];
+                    console.log(num_slashes);
 
-                            path = root.path(element);
+                    h1_tree.descendants().forEach(function (element) {
+                        //console.log(element.depth + " " + num_slashes);
+                        if (element.depth == num_slashes.length - 1) {
+                            name = element.data.data.child
+                                //.replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+                            //console.log(name);
+                            //console.log(child);
+                            //console.log(name + " " + child);
+                            if (name == child) {
+                                //console.log("ITS A MATCHYY");
 
-                            for (var i = 0; i < path.length; i++) {
+                                path = root.path(element);
 
-                                pathname = path[i].data.data.child
-                                    .replaceAll(/\//g, "")
-                                    .replaceAll(".", "")
-                                    .replaceAll(" ", "")
-                                    .replaceAll("(", "")
-                                    .replaceAll(")", "")
-                                    .toLowerCase();
-                                //console.log(pathname);
-                                d3.select("#h2tree_" + pathname)
-                                    .style("radius", radius + 10)
-                                    .style("opacity", "1");
+                                for (var i = 0; i < path.length; i++) {
+
+                                    pathname = path[i].data.data.child
+                                        .replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
+                                        .toLowerCase();
+                                    //console.log(pathname);
+                                    d3.select("#h1tree_" + pathname)
+                                        .style("fill", "#feb000")
+                                        .style("opacity", "1")
+                                        .transition()
+                                        .duration(10000)
+                                        .style("fill", "red")
+                                        .style("opacity", "0.5");
+                                }
                             }
                         }
-                    }
 
 
-                });
+                    });
 
 
+                }
 
+
+                else {
+                    child = d3.select("#search-nodes").node().value
+                        .replaceAll(".", "")
+                        .replaceAll(" ", "")
+                        .replaceAll("(", "")
+                        .replaceAll(")", "")
+                        .toLowerCase();
+                    num_slashes = child.split("/");
+                    var root = h2_tree.descendants()[0];
+                    console.log(num_slashes);
+
+                    h2_tree.descendants().forEach(function (element) {
+                        //console.log(element.depth + " " + num_slashes);
+                        if (element.depth == num_slashes.length - 1) {
+                            name = element.data.data.child
+                                //.replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+                            //console.log(name);
+                            //console.log(child);
+                            //console.log(name + " " + child);
+                            if (name == child) {
+                                //console.log("ITS A MATCHYY");
+
+                                path = root.path(element);
+
+                                for (var i = 0; i < path.length; i++) {
+
+                                    pathname = path[i].data.data.child
+                                        .replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
+                                        .toLowerCase();
+                                    //console.log(pathname);
+                                    d3.select("#h2tree_" + pathname)
+                                        .style("fill", "#feb000")
+                                        .style("opacity", "1")
+                                        .transition()
+                                        .duration(10000)
+                                        .style("fill", "red")
+                                        .style("opacity", "0.5");
+                                }
+                            }
+                        }
+
+
+                    });
+
+
+                }
             });
 
 
@@ -795,13 +944,13 @@
                 })
 
                 .attr("x1", function (d) {
-                    return h1_root_pos - d.source.depth * level_offset;
+                    return h1_root_pos - (d.source.depth - (radius - 4)) * level_offset;
                 })
                 .attr("y1", function (d) {
                     return d.source.x;
                 })
                 .attr("x2", function (d) {
-                    return h1_root_pos - d.target.depth * level_offset;
+                    return h1_root_pos - (d.target.depth - (radius + 4)) * level_offset;
                 })
                 .attr("y2", function (d) {
                     return d.target.x;
@@ -823,13 +972,13 @@
                 .attr("x1", function (d) {
                     //console.log("UPDATE");
                     //console.log(d.source.height);
-                    return h1_root_pos - d.source.depth * level_offset;
+                    return h1_root_pos - d.source.depth * level_offset - (radius - 4);
                 })
                 .attr("y1", function (d) {
                     return d.source.x;
                 })
                 .attr("x2", function (d) {
-                    return h1_root_pos - d.target.depth * level_offset;
+                    return h1_root_pos - d.target.depth * level_offset + (radius - 4);
                 })
                 .attr("y2", function (d) {
                     return d.target.x;
@@ -893,6 +1042,19 @@
                     return h1color;
 
                 })
+                .style("stroke", "green")
+                .style("stroke-width", function (d) {
+                    if (d.data.data.child.includes("."))
+                        return 0;
+                    else
+                        return 6;
+                })
+                /* .style("stroke-dasharray", function (d) {
+                    if (d.data.data.child.includes("."))
+                        return 0;
+                    else
+                        return "8,10";
+                }) */
                 // .style("opacity", 1)
                 .style("opacity", function (d) {
                     return 0.3;
@@ -913,15 +1075,16 @@
                             .style("opacity", 1);
                     }
 
-                    var name = d.data.data.child;
-                    //console.log(name);
-                    //if (name == undefined)
-                    //name = d.data.data.child;
+                    var label = d.data.data.child, child = "root", parent = "";
+                    if (label.includes("/")) {
+                        child = label.substring(label.lastIndexOf("/") + 1, label.length);
+                        parent = label.substring(0, label.lastIndexOf("/"));
+                    }
 
-                    var text = "</b>Common element: <b>" + d.data.data.child + "</b><br>Parent: <b>" + d.data.data.parent + "</b>";
+                    var text = "<b>Common element </b><hr class='border border-danger border-1 opacity-50'>" + parent + " /<b>" + child + "</b>";
                     d3.select("#tooltip")
                         .html(text)
-                        .style("left", parseInt(d3.event.pageX - 200) + "px")
+                        .style("left", parseInt(d3.event.pageX + tooltip_offset) + "px")
                         .style("top", parseInt(d3.event.pageY + 50) + "px")
                         .style("text-align", "left")
                         .style("opacity", 1);
@@ -1169,13 +1332,13 @@
                 .attr("x1", function (d) {
                     //console.log("LINK UPDATE");
                     //console.log(d.source.height);
-                    return d.source.depth * level_offset;
+                    return d.source.depth * level_offset + (radius - 4);
                 })
                 .attr("y1", function (d) {
                     return d.source.x;
                 })
                 .attr("x2", function (d) {
-                    return d.target.depth * level_offset;
+                    return d.target.depth * level_offset - (radius - 4);
                 })
                 .attr("y2", function (d) {
                     return d.target.x;
@@ -1243,6 +1406,13 @@
                     return h2color;
 
                 })
+                .style("stroke", "green")
+                .style("stroke-width", function (d) {
+                    if (d.data.data.child.includes("."))
+                        return 0;
+                    else
+                        return 6;
+                })
                 // .style("opacity", 1)
                 .style("opacity", function (d) {
                     return 0.3;
@@ -1250,7 +1420,7 @@
                 .on("mouseover", function (d, i) {
                     //console.log(d);
                     var root = h2_tree.descendants()[0];
-                    console.log(root.path(d));
+                    //console.log(root.path(d));
                     for (var i = 0; i < root.path(d).length; i++) {
                         var id = root.path(d)[i].data.data.child
                             .replaceAll(/\//g, "")
@@ -1266,14 +1436,16 @@
 
 
                     }
-                    var name = d.data.data.child;
-                    //console.log(name);
-                    //if (name == undefined)
-                    //name = d.data.data.child;
-                    var text = "</b>Common element: <b>" + d.data.data.child + "</b><br>Parent: <b>" + d.data.data.parent + "</b>";
+                    var label = d.data.data.child, child = "root", parent = "";
+                    if (label.includes("/")) {
+                        child = label.substring(label.lastIndexOf("/") + 1, label.length);
+                        parent = label.substring(0, label.lastIndexOf("/"));
+                    }
+
+                    var text = "<b>Common element </b><hr class='border border-danger border-1 opacity-50'>" + parent + "/<b>" + child + "</b>";
                     d3.select("#tooltip")
                         .html(text)
-                        .style("left", parseInt(d3.event.pageX - 200) + "px")
+                        .style("left", parseInt(d3.event.pageX + tooltip_offset) + "px")
                         .style("top", parseInt(d3.event.pageY + 50) + "px")
                         .style("text-align", "left")
                         .style("opacity", 1);
@@ -1473,10 +1645,10 @@
                             //console.log(parseInt(y2) + " " + ctm2.d);
                             //console.log(ctm2.f + " ");
 
-                            var upd_x1 = (parseInt(x1) * ctm1.a) + (parseInt(y1) * ctm1.c) + ctm1.e;
+                            var upd_x1 = ((parseInt(x1) - (radius - 4)) * ctm1.a) + (parseInt(y1) * ctm1.c) + ctm1.e;
                             var upd_y1 = (parseInt(x1) * ctm1.b) + (parseInt(y1) * ctm1.d) + ctm1.f;
 
-                            var upd_x2 = (parseInt(x2) * ctm2.a) + (parseInt(y2) * ctm2.c) + ctm2.e;
+                            var upd_x2 = ((parseInt(x2) + (radius - 4)) * ctm2.a) + (parseInt(y2) * ctm2.c) + ctm2.e;
                             var upd_y2 = (parseInt(x2) * ctm2.b) + (parseInt(y2) * ctm2.d) + ctm2.f;
 
 
@@ -1565,10 +1737,17 @@
                                     //console.log(d3.select(this).attr("id"));
                                     //console.log(h1_desc[h1].data.data.child + " " + h1_desc[h1].data.depth);
 
-                                    var text = "Common Element: <b>" + d3.select(this).attr("id") + "</b>";
+
+                                    var label = d3.select(this).attr("id"), child = "root", parent = "";
+                                    if (label.includes("/")) {
+                                        child = label.substring(label.lastIndexOf("/") + 1, label.length);
+                                        parent = label.substring(0, label.lastIndexOf("/"));
+                                    }
+
+                                    var text = "<b>Link between common element </b><hr class='border border-danger border-1 opacity-50'>" + parent + "/<b>" + child + "</b>";
                                     d3.select("#tooltip")
                                         .html(text)
-                                        .style("left", parseInt(d3.event.pageX - 200) + "px")
+                                        .style("left", parseInt(d3.event.pageX + tooltip_offset) + "px")
                                         .style("top", parseInt(d3.event.pageY + 50) + "px")
                                         .style("text-align", "left")
                                         .style("opacity", 1);
@@ -1645,6 +1824,7 @@
             logObject.push({
                 "userID": localStorage.getItem("userID"),
                 "vizID": vizID,
+                "screenSize": window.innerWidth + ";" + window.innerHeight,
                 "pageID": pageID,
                 "elementID": elementID,
                 "elementType": elementType,

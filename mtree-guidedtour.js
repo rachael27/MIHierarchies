@@ -6,7 +6,7 @@ function guidedtour() {
     var stepsArr = [
         {
             title: " Welcome to the Guided Tour! <hr class='border border-primary border-3 opacity-75'>",
-            intro: "You can also use the left and right arrow keys to move through the tour."
+            intro: "In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour."
         },
         {
             element: document.querySelector("#mergedtree_root"),
@@ -148,6 +148,7 @@ function guidedtour() {
         logObject.push({
             "userID": localStorage.getItem("userID"),
             "vizID": vizID,
+            "screenSize": window.innerWidth + ";" + window.innerHeight,
             "pageID": pageID,
             "elementID": elementID,
             "elementType": "button",
