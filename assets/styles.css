@@ -56,11 +56,22 @@ padding: 0;
             vertical-align: top;
         }
 
-
-      
-
-
+        
        
+
+        
+
+        .form-switch .form-check-input{
+          width:3em;
+          
+        }
+
+        .form-switch .form-check-input:checked{
+          background-color:#155446bc;
+          border:#155446bc;
+
+        }
+
 
         .form-check-input {
             width: 20px;
@@ -256,8 +267,8 @@ padding: 0;
           }
 
           .tree_heading_rect{
-            width: 520px;
-            height:110px;
+            width: 300px;
+            height:50px;
             stroke:#155446;
             fill:none;
             border:solid;
@@ -341,7 +352,7 @@ padding: 0;
             border:white solid 1px;
           } */
 
-          #mihierarchies-btn, #fsystemexample-btn, #fsystemchanges-btn, #mergedtree-btn, #notations-btn, #mergedtreevideo-btn, #treerelationships-btn,#connectinglinks-files-btn,#connectinglinks-folders-btn,#connectinglinks-colors-btn{
+          #mihierarchies-btn, #fsystemexample-btn, #fsystemchanges-btn, #mergedtree-btn, #notations-btn, #mergedtreevideo-btn, #linkedtreevideo-btn, #treerelationships-btn,#connectinglinks-files-btn,#connectinglinks-folders-btn,#connectinglinks-colors-btn{
             all:unset;
             background: #198753;
 	color: white;
@@ -361,7 +372,7 @@ padding: 0;
 
           }
 
-          #mihierarchies-btn[disabled], #fsystemexample-btn[disabled], #fsystemchanges-btn[disabled], #mergedtree-btn[disabled], #notations-btn[disabled], #mergedtreevideo-btn[disabled], #treerelationships-btn[disabled],#connectinglinks-files-btn[disabled],#connectinglinks-folders-btn[disabled],#connectinglinks-colors-btn[disabled]{
+          #mihierarchies-btn[disabled], #fsystemexample-btn[disabled], #fsystemchanges-btn[disabled], #mergedtree-btn[disabled], #linkedtreevideo-btn[disabled], #notations-btn[disabled], #mergedtreevideo-btn[disabled], #treerelationships-btn[disabled],#connectinglinks-files-btn[disabled],#connectinglinks-folders-btn[disabled],#connectinglinks-colors-btn[disabled]{
             all:unset;
             background: #19875468;
 	color: black;
