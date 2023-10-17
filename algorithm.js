@@ -513,7 +513,7 @@ function findDetails(array, element) {
                 parent = array[i].parent.data.data.child;
             else
                 parent = "";
-            return [parent, array[i].depth, array[i].data.data.description];
+            return [parent, array[i].depth, array[i].data.data.description_child];
         }
     }
 }
@@ -521,8 +521,10 @@ function findDetails(array, element) {
 
 function findDescription(array, element) {
     for (var i = 0; i < array.length; i++) {
-        if (array[i].data.data.child == element)
-            return array[i].data.data.description;
+        if (array[i].data.data.child == element) {
+            //console.log(array[i].data.data.description_child);
+            return array[i].data.data.description_child;
+        }
     }
 }
 

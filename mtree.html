@@ -90,6 +90,7 @@
 <script src="mtree-trainingquestions.js"></script>
 <script src="mtree-experimentquestions.js"></script>
 <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+<script src="labeler.js"></script>
 
 
 
@@ -129,6 +130,9 @@
                     <input list="search-nodes-list" name="search-nodes" id="search-nodes">
                     <button type="button" class="btn btn-md" id="btn-search"
                         style="color: white;background-color:#155446;">Search</button>
+
+                    <button type="button" class="btn btn-md" id="btn-clear"
+                        style="color: white;background-color:#155446;">Clear</button>
 
                     <datalist id="search-nodes-list">
                     </datalist>
@@ -462,12 +466,13 @@
 
         //var fileversion = "File0";
 
-        var swapdataset = "h1";
+        var swapdataset = "h2";
 
-        var h1 = "";
         var h2 = "";
+        var h1 = "";
 
 
+        var h2_tree = "", h1_tree = "";
         var mtree = "";
         const vizID = "mergedtree";
         const pageID = "mtree";
@@ -475,9 +480,12 @@
 
         var title = [];
 
-        update_log("", "landed on the mergedtree page");
+        update_log("", "landed on the mergedtree page", "", "");
         var stree_label_size = 10;
         var label_size = 15;
+
+        var mtree_radius = 5;
+        var circle_stroke = 4;
 
 
 
@@ -491,19 +499,19 @@
             .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
             //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
             //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-            .await(function (error, h1, h2) {
+            .await(function (error, h2, h1) {
                 if (error) throw error;
 
                 else
-                    runScript_tabs(h2, h1);
+                    runScript_tabs(h1, h2);
             });
 
         d3.select("#btn-refresh").on("click", function () {
-            update_log("btn-refresh", "button", "refresh the layout");
+            update_log("btn-refresh", "button", "refresh the layout", "click");
             d3.queue()
                 .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
                 .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
-                .await(function (error, h1, h2) {
+                .await(function (error, h2, h1) {
                     if (error) throw error;
 
                     else
@@ -521,31 +529,31 @@
         
         
         
-                    if (swapdataset == "h1") {
+                    if (swapdataset == "h2") {
                         d3.queue()
                             //.defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced.csv")
                             //.defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced.csv")
                             .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
                             .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-                            .await(function (error, h1, h2) {
+                            .await(function (error, h2, h1) {
                                 if (error) throw error;
         
                                 else
-                                    runScript_tabs(h1, h2);
+                                    runScript_tabs(h2, h1);
                             });
-                        swapdataset = "h2";
+                        swapdataset = "h1";
                     }
                     else {
                         d3.queue()
                             .defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
                             .defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
-                            .await(function (error, h1, h2) {
+                            .await(function (error, h2, h1) {
                                 if (error) throw error;
         
                                 else
-                                    runScript_tabs(h1, h2);
+                                    runScript_tabs(h2, h1);
                             });
-                        swapdataset = "h1";
+                        swapdataset = "h2";
                     }
         
                 });
@@ -553,13 +561,13 @@
 
 
 
-        function runScript_tabs(h1, h2) {
+        function runScript_tabs(h2, h1) {
 
-            //console.log(h1);
             //console.log(h2);
+            //console.log(h1);
 
 
-            runScript_mergedtree(h1, h2);
+            runScript_mergedtree(h2, h1);
 
 
             var urlpage = new URLSearchParams(window.location.search).get('page');
@@ -614,8 +622,6 @@
 
                 console.log("click on butn");
                 //console.log(d3.select("#btn-nextquestion")._groups[0][0].disabled);
-
-
 
 
                 d3.select("#btn-nextquestion")._groups[0][0].disabled = true;
@@ -684,11 +690,11 @@
 
 
 
-        function runScript_mergedtree(h1, h2) {
+        function runScript_mergedtree(h2, h1) {
             //console.log("MERGEDTREE");
 
-            //console.log(h1);
             //console.log(h2);
+            //console.log(h1);
 
             //console.log(window.innerWidth + " " + window.innerHeight + " ");
 
@@ -755,8 +761,8 @@
 
             const depthArray = [];
 
-            //console.log(h1);
             //console.log(h2);
+            //console.log(h1);
 
             stratify = d3
                 .stratify()
@@ -769,18 +775,18 @@
                     return d.parent;
                 });
 
-            //console.log(window.h2);
-            var h2_struct = stratify(h2);
-            //console.log(h2_struct.children);
-
-
+            //console.log(window.h1);
             var h1_struct = stratify(h1);
-            //console.log(h1_struct);
+            //console.log(h1_struct.children);
+
+
+            var h2_struct = stratify(h2);
+            //console.log(h2_struct);
 
 
 
-            var h1_root = d3.hierarchy(h1_struct);
             var h2_root = d3.hierarchy(h2_struct);
+            var h1_root = d3.hierarchy(h1_struct);
 
             d3.select("#search-nodes-list")
                 .selectAll("option")
@@ -788,11 +794,11 @@
                 .enter()
                 .append("option")
                 .attr("value", function (d) {
-                    //console.log(d);
+                    //console.log(d.data.data.description_child);
                     return d.data.data.child;
                 })
                 .text(function (d) {
-                    return d.data.data.child;
+                    return d.data.data.description_child;
                 });
 
 
@@ -801,12 +807,13 @@
                 .on("change", function () {
                     d3.select("#search-nodes").node().value = "";
                     if (this.checked) {
+                        update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h2 elements", "click");
                         d3.select("#search-nodes-list")
                             .selectAll("option")
                             .remove();
                         d3.select("#search-nodes-list")
                             .selectAll("option")
-                            .data(h1_tree.descendants())
+                            .data(h2_root.descendants())
                             .enter()
                             .append("option")
                             .attr("value", function (d) {
@@ -814,16 +821,17 @@
                                 return d.data.data.child;
                             })
                             .text(function (d) {
-                                return d.data.data.child;
+                                return d.data.data.description_child;
                             });
                     }
                     else {
+                        update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h1 elements", "click");
                         d3.select("#search-nodes-list")
                             .selectAll("option")
                             .remove();
                         d3.select("#search-nodes-list")
                             .selectAll("option")
-                            .data(h2_tree.descendants())
+                            .data(h1_root.descendants())
                             .enter()
                             .append("option")
                             .attr("value", function (d) {
@@ -831,7 +839,7 @@
                                 return d.data.data.child;
                             })
                             .text(function (d) {
-                                return d.data.data.child;
+                                return d.data.data.description_child;
                             });
 
                     }
@@ -842,13 +850,44 @@
 
             var child = "", parent = "", childsplit = "", parentsplit = "";
 
+            d3.select("#btn-clear")
+                .on("click", function () {
+                    update_log("btn-clear", "button", "Clear the value in the search box", "click")
+                    d3.select("#search-nodes").node().value = "";
+
+                    d3.selectAll(".selected")
+                        .style("stroke", "blue");
+
+
+                    d3.selectAll(".selected").each(function (d) {
+
+                        if (d3.select(this).attr("class").includes("inner")) {
+                            d3.select(this)
+                                .style("stroke-width", mtree_radius);
+                        }
+
+                        d3.select(this)
+                            .classed("selected", false);
+
+                        for (var i = 0; i < this.parentNode.childNodes.length; i++) {
+                            var y = d3.select(this.parentNode).attr("transform").split(", ")[1].replace(")", "");
+                            d3.select(this.parentNode.childNodes[3]).style("fill", "black")
+                                .style("font-size", label_size - parseInt(y) / 50);
+
+                        }
+                    });
+
+
+                });
+
             d3.select("#btn-search")
                 .on("click", function () {
 
 
 
                     //if (document.getElementById("tog-hierarchy").checked) {
-                    child = d3.select("#search-nodes").node().value
+                    child = d3.select("#search-nodes").node().value;
+                    update_log("btn-search", "button", "Search for value in the search box " + child, "click");
 
 
                     //console.log("CHILD " + child);
@@ -857,7 +896,7 @@
                     //console.log(split_element);
 
                     childsplit = split_element[split_element.length - 1];
-                    split_element.pop();
+                    //split_element.pop();
                     //parent = split_element.join("/");
                     //parentsplit = split_element[split_element.length - 1];
                     //console.log(childsplit + " " + parentsplit);
@@ -865,14 +904,14 @@
 
                     var flag = 0;
                     //console.log(mtree.descendants().length);
+
+
+                    /*
                     mtree.descendants().reverse().forEach(function (element) {
                         flag = 0;
-
-
-
-
-
-
+    
+    
+    
                         if ((element.data.data.linkcolor == "blue") || element.children == null) {
                             for (var i = 0; i < element.descendants().length; i++) {
                                 //console.log("entering check" + element.descendants()[i].data.data.child);
@@ -880,18 +919,19 @@
                                     //console.log(element.descendants()[i].data.data.child + " passed check");
                                     flag += 1;
                                 }
-
+    
                             }
                             //console.log(element.data.data.child + " " + flag + " " + (element.descendants().length));
                             if (flag == element.descendants().length - 1 || element.children == null) {
                                 //console.log("collapse " + element.data.data.child);
                                 collapse(element);
                             }
-
+    
                         }
                         //else
                         // console.log("expandedpc  " + element.data.data.child + " " + element.data.data.linkcolor + " " + element.children.length);
                     });
+                    */
 
                     mtree.descendants().forEach(function (element) {
                         split_element = child.split("/");
@@ -899,18 +939,87 @@
                             //console.log(element);
                             //console.log(element.ancestors()[i].data.data.child + " " + split_element.join("/"));
                             //console.log(element.depth);
-                            if (element.ancestors()[i].depth > 2) {
-                                //console.log(element.ancestors()[i].data.data.child);
-                                if (split_element.join("/").includes(element.ancestors()[i].data.data.child)) {
-                                    console.log("MATCH COLLAPSE" + element.ancestors()[i].data.data.child);
-                                    console.log(element.ancestors()[i]);
+                            if (element.ancestors()[i].depth > 1) {
+                                //console.log(split_element.join("/"));
+                                //console.log(element.ancestors()[i].data.data.description);
+                                if (split_element.join("/").includes(element.ancestors()[i].data.data.description)) {
+
+                                    //console.log("MATCH COLLAPSE" + element.ancestors()[i].data.data.description);
+                                    //console.log(element.ancestors()[i].data.data.description);
                                     //if (element.ancestors()[i].data.data.child == "root/projects/hcil/kiddiglib")
                                     // console.log("MATCH ELEMENT");
                                     //flag += 1;
                                     //console.log(element.data.data.child);
                                     //console.log(element.ancestors()[i].data.data.child);
+                                    //console.log(element.ancestors()[i]);
                                     expand(element.ancestors()[i]);
-                                    console.log(element.ancestors()[i]);
+
+
+
+
+                                    /*  if (split_element.join("/") == element.ancestors()[i].data.data.description) {
+                                         console.log("break " + element.ancestors()[i].data.data.description);
+                                         break;
+                                     } */
+
+
+
+                                    setTimeout(() => {
+                                        // console.log(child);
+                                        //console.log("mergedtree_" + split_element[split_element.length - 1]);
+                                        document.getElementById("mergedtree_" + split_element[split_element.length - 1].replaceAll(/\//g, "")
+                                            .replaceAll(".", "")
+                                            .replaceAll(" ", "")
+                                            .replaceAll("(", "")
+                                            .replaceAll(")", "")
+                                            .toLowerCase()).scrollIntoView(true);
+
+                                        for (var ii = split_element.length - 1; ii >= 0; ii--) {
+
+                                            var id = "mergedtree_" + split_element[ii]
+                                                .replaceAll(/\//g, "")
+                                                .replaceAll(".", "")
+                                                .replaceAll(" ", "")
+                                                .replaceAll("(", "")
+                                                .replaceAll(")", "")
+                                                .toLowerCase();
+                                            // console.log(id);
+                                            //console.log(d3.select("#" + id));
+
+                                            if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "gold")
+                                                d3.select("." + id + "_outer")
+                                                    .style("stroke", "gold")
+                                                    .classed("selected", "true");
+                                            //.style("stroke-width", circle_stroke);
+                                            else
+                                                d3.select("." + id + "_inner")
+                                                    .style("stroke", "gold")
+                                                    .style("stroke-width", 4)
+                                                    .classed("selected", "true");
+
+                                            //.transition()
+                                            //.duration(10000)
+                                            //.style("stroke", "blue")
+                                            //.style("stroke-width", 3);
+
+                                            d3.select("." + id + ".text")
+                                                //.style("stroke", "gold")
+                                                //.style("stroke-width", 10)
+                                                .style("fill", "red")
+                                                .style("font-size", 20)
+                                            //.transition()
+                                            //.duration(10000)
+                                            //.style("fill", "black")
+                                            //.style("font-size", 13);
+                                        }
+                                    }, 1000);
+
+
+
+
+                                    //}
+
+
                                     //break;
                                 }
                                 /* else {
@@ -937,48 +1046,48 @@
 
 
 
-            //console.log(h2_root.children);
+            //console.log(h1_root.children);
 
             /* if (d3.select("#filterdatacheck")._groups[0][0].checked == true) {
-                h1_root = filterData(h1_root);
                 h2_root = filterData(h2_root);
+                h1_root = filterData(h1_root);
             } */
 
-            //console.log(h2_root.children);
+            //console.log(h1_root.children);
 
-            //console.log(h1_rootElement.descendants());
             //console.log(h2_rootElement.descendants());
+            //console.log(h1_rootElement.descendants());
 
-            //console.log(h1_root.descendants());
+            //console.log(h2_root.descendants());
 
 
 
-            var h1_dims = findDimensions(h1_root);
             var h2_dims = findDimensions(h2_root);
+            var h1_dims = findDimensions(h1_root);
 
-            //console.log(h1_dims);
+            //console.log(h2_dims);
 
-            var h1color = "blue", h2color = "blue", mergedcolor = "";
-
-
-
+            var h2color = "blue", h1color = "blue", mergedcolor = "";
 
 
 
-            //console.log(h2_root.children);
 
-            //no h1 and h2 trees
-            h1tree(h1_root);
+
+
+            //console.log(h1_root.children);
+
+            //no h2 and h1 trees
             h2tree(h2_root);
+            h1tree(h1_root);
 
 
-            //var arrDims = compareDimensions(h1_dims, h2_dims);
-            //var hier = createHierarchy(arrDims, h1_root.descendants(), h2_root.descendants());
+            //var arrDims = compareDimensions(h2_dims, h1_dims);
+            //var hier = createHierarchy(arrDims, h2_root.descendants(), h1_root.descendants());
 
 
             var hier_arr = [];
-            //hier_arr = compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants());
-            hier_arr = bt_compareDimensions(h1_dims, h2_dims, h1_root.descendants(), h2_root.descendants(), h1color, h2color, mergedcolor);
+            //hier_arr = compareDimensions(h2_dims, h1_dims, h2_root.descendants(), h1_root.descendants());
+            hier_arr = bt_compareDimensions(h2_dims, h1_dims, h2_root.descendants(), h1_root.descendants(), h2color, h1color, mergedcolor);
             //console.log(hier_arr);
 
 
@@ -993,6 +1102,7 @@
 
             var tree = d3
                 .tree();
+
             //.nodeSize([200, 600]);
             //.size([Math.round(window.innerWidth * .75), Math.round(window.innerHeight * .75)]);
 
@@ -1007,6 +1117,10 @@
 
             //if (d3.select("#leavesdiffheightradio")._groups[0][0].checked == true)
             mtree = tree(hier_root);
+            mtree
+                .sort(function (a, b) {
+                    return a.data.data.child.toLowerCase().localeCompare(b.data.data.child.toLowerCase());
+                });
             //else if (d3.select("#leavessameheightradio")._groups[0][0].checked == true)
             //mtree = cluster(hier_root);
 
@@ -1113,28 +1227,33 @@
 
 
 
-            /* START OF H1 TREE */
+            /* START OF h2 TREE */
 
 
-            function h1tree(h1_root, tabname) {
+            function h2tree(h2_root, tabname) {
 
-                //    console.log(h1color + " " + h2color + " " + mergedcolor);
-                //console.log("H1 TREE");
-                d3.select("#h1tree").remove();
+                //console.log(h2_root);
 
-                h1_radius = 3;
+                //    console.log(h2color + " " + h1color + " " + mergedcolor);
+                //console.log("h2 TREE");
+                d3.select("#h2tree").remove();
 
-                var h1tree = d3
+                h2_radius = 3;
+
+                var h2tree = d3
                     .tree()
-                    //.nodeSize([]);
-                    .size([Math.round(.25 * width), Math.round(.10 * height)]);
+                    .size([Math.round(.40 * width), Math.round(.10 * height)]);
+                //.size([Math.round(.25 * width), Math.round(.10 * height)]);
 
 
 
-                var h1_tree = h1tree(h1_root);
+                h2_tree = h2tree(h2_root)
+                    .sort(function (a, b) {
+                        return a.data.data.child.toLowerCase().localeCompare(b.data.data.child.toLowerCase());
+                    });
 
 
-                var data_nodes = h1_tree.descendants();
+                var data_nodes = h2_tree.descendants();
 
                 //console.log(data_nodes);
 
@@ -1142,31 +1261,32 @@
                      //console.log(d.children.length);
                      if (d.data.data.child.includes("A") || d.data.data.child.includes("B") || d.data.data.child.includes("C"))
                          return d;
- 
+     
                  }); */
 
                 //console.log(data_nodes);
 
 
-                var data_links = h1_tree.links();
+                var data_links = h2_tree.links();
 
                 /*  data_links = data_links.filter(function (d) {
                      //console.log(d);
                      if (d.source.data.data.child.includes("A") || d.source.data.data.child.includes("B") || d.source.data.data.child.includes("C"))
                          return d;
- 
+     
                  }); */
 
                 //console.log(width + " " + Math.round(.25 * width));
 
 
-                var h1_node = mergedtree_svg
+                var h2_node = mergedtree_svg
                     .append("g")
-                    .attr("id", "h1tree")
-                    .attr("transform", "translate(" + parseInt(width - Math.round(.25 * width) - 100) + "," + 100 + ")")
-                    .selectAll(".h1_node")
+                    .attr("id", "h2tree")
+                    //.attr("transform", "translate(" + parseInt(width - Math.round(.25 * width) - 100) + "," + 100 + ")")
+                    .attr("transform", "translate(" + parseInt(width - Math.round(.40 * width) - 100) + "," + 100 + ")")
+                    .selectAll(".h2_node")
                     .data(data_nodes)
-                    //.data(h1_tree.descendants())
+                    //.data(h2_tree.descendants())
                     .enter()
                     .append("g")
                     .attr("class", function (d) {
@@ -1174,23 +1294,23 @@
                         return d.child;
                     });
 
-                mergedtree_svg.select("#h1tree")
+                mergedtree_svg.select("#h2tree")
                     .append("rect")
                     .attr('x', -30)
                     .attr('y', -30)
-                    .attr('width', Math.round(.25 * width + 50))
-                    .attr('height', Math.round(.10 * height + 100))
+                    .attr('width', Math.round(.4 * width + 50))
+                    .attr('height', Math.round(.075 * height + 100))
                     .attr('stroke', 'black')
                     .attr('fill', 'none');
 
 
-                var h1_link = h1_node
+                var h2_link = h2_node
                     .append("path")
-                    //.data(h1_tree.links())
+                    //.data(h2_tree.links())
                     .data(data_links)
                     // .enter()
                     .attr("class", function (d) {
-                        return "h1_link";
+                        return "h2_link";
                     })
                     //.classed("link", true)
                     .attr("d", function (d) {
@@ -1207,7 +1327,7 @@
                     .style("fill", "none")
                     .style("stroke-width", "1px");
 
-                h1_node
+                h2_node
                     .append("circle")
                     .attr("cx", function (d) {
                         // console.log(d);
@@ -1220,9 +1340,9 @@
                     .attr("r", function (d) {
                         //        console.log(radius);
                         //if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                        //  return (h1_radius - 3) + "px";
+                        //  return (h2_radius - 3) + "px";
                         //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                        return (h1_radius) + "px";
+                        return (h2_radius) + "px";
                     })
                     .attr("class", function (d) {
                         return (
@@ -1230,7 +1350,7 @@
                         );
                     })
                     .attr("id", function (d) {
-                        return "h1tree_" + d.data.data.child
+                        return "h2tree_" + d.data.data.child
                             .replaceAll(/\//g, "")
                             .replaceAll(".", "")
                             .replaceAll(" ", "")
@@ -1240,9 +1360,9 @@
                     })
                     .style("fill", function (d) {
                         //if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                        //return h2color;
+                        //return h1color;
                         //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                        return h1color;
+                        return h2color;
 
                     })
                     // .style("opacity", 1)
@@ -1251,14 +1371,31 @@
                         return 0.3;
                     })
                     .on("mouseover", function (d, i) {
-                        var name = d.data.data.child;
-                        //console.log(name);
-                        //if (name == undefined)
-                        //name = d.data.data.child;
-                        var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
+                        var label = d.data.data.description_child, child = "root", parent = "";
+                        if (label.includes("/")) {
+                            child = label.substring(label.lastIndexOf("/") + 1, label.length);
+                            parent = label.substring(0, label.lastIndexOf("/"));
+                        }
+
+                        update_log("node " + label, "node", "display tooltip", "mouseover");
+                        //console.log(parent + " " + child);
+
+                        var type = "";
+                        if (d.children || d._children)
+                            type = "Folder";
+                        else {
+                            if (d.data.data.child.includes("."))
+                                type = "File";
+                            else
+                                type = "Folder"
+                        }
+                        type = "AfterH " + type;
+                        var text = "<b> " + type + " </b><hr class='border border-danger border-1 opacity-50'>" + parent + "/<b>" + child + "</b>";
+
+
+
                         d3.select("#tooltip")
                             .html(text)
-
                             .style("left", parseInt(d3.event.pageX - 200) + "px")
                             .style("top", parseInt(d3.event.pageY + 50) + "px")
                             .style("text-align", "left")
@@ -1275,6 +1412,9 @@
                                 .transition()
                                 .attr("r", radius - 3);
                         if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
+                        update_log("node " + label, "node", "hide tooltip", "mouseleave");
+
+
                         d3.select(this)
                             .transition()
                             .attr("r", radius - 6);
@@ -1288,7 +1428,7 @@
 
                     });
 
-                h1_node
+                h2_node
                     .append("text")
                     .style("font-size", function (d) {
                         //if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
@@ -1299,7 +1439,7 @@
                         //return data_nodes[0].height - 1.5 + "em";
                     })
                     .attr("class", function (d) {
-                        return "text " + d.data.data.child
+                        return "text h2tree_" + d.data.data.child
                             .replaceAll(/\//g, "")
                             .replaceAll(".", "")
                             .replaceAll(" ", "")
@@ -1334,7 +1474,7 @@
                              return 0;
                          }
                          //  console.log(d);
- 
+     
                          else return 1; */
                         // if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
                         return 0;
@@ -1353,37 +1493,42 @@
             }
 
 
-            /* END OF H1 TREE*/
+            /* END OF h2 TREE*/
 
 
 
-            /* START OF H2 TREE */
+            /* START OF h1 TREE */
 
-            function h2tree(h2_root) {
+            function h1tree(h1_root) {
 
-                //console.log(h2_root.children);
+                //console.log(h1_root.children);
 
-                d3.select("#h2tree").remove();
+                d3.select("#h1tree").remove();
 
-                var h2_radius = 8;
+                var h1_radius = 8;
 
-                var h2tree = d3
+                h1tree = d3
                     .tree()
                     //.nodeSize([]);
-                    .size([Math.round(.45 * width), Math.round(.10 * height)]);
-
-
-                var h2_tree = h2tree(h2_root);
+                    .size([Math.round(.4 * width), Math.round(.10 * height)]);
 
 
 
+                h1_tree = h1tree(h1_root)
+                    .sort(function (a, b) {
+                        return a.data.data.child.toLowerCase().localeCompare(b.data.data.child.toLowerCase());
+                    });
 
-                var h2_node = mergedtree_svg
+
+
+
+
+                var h1_node = mergedtree_svg
                     .append("g")
-                    .attr("id", "h2tree")
+                    .attr("id", "h1tree")
                     .attr("transform", "translate(" + 50 + "," + 100 + ")")
-                    .selectAll(".h2_node")
-                    .data(h2_tree.descendants())
+                    .selectAll(".h1_node")
+                    .data(h1_tree.descendants())
                     .enter()
                     .append("g")
                     .attr("class", function (d) {
@@ -1391,38 +1536,38 @@
                         return d.child;
                     });
 
-                mergedtree_svg.select("#h2tree")
+                mergedtree_svg.select("#h1tree")
                     .append("rect")
                     .attr('x', -30)
                     .attr('y', -30)
-                    .attr('width', Math.round(.25 * width) + 50)
-                    .attr('height', Math.round(.10 * height + 100))
+                    .attr('width', Math.round(.4 * width) + 50)
+                    .attr('height', Math.round(.075 * height + 100))
                     .attr('stroke', 'black')
                     .attr('fill', 'none');
 
 
-                /*  var len = h2_node._groups[0].length;
+                /*  var len = h1_node._groups[0].length;
      
-                 console.log(h2_node);
+                 console.log(h1_node);
      
-                 var h2_node_sliced = h2_node._groups[0].slice(1, len);
+                 var h1_node_sliced = h1_node._groups[0].slice(1, len);
      
-                 console.log(h2_node_sliced); */
+                 console.log(h1_node_sliced); */
 
-                var h2_link = h2_node
+                var h1_link = h1_node
                     .append("path")
-                    .data(h2_tree.links())
+                    .data(h1_tree.links())
                     // .enter()
                     .attr("class", function (d) {
-                        return "h2_link";
+                        return "h1_link";
                     })
                     //.classed("link", true)
                     .attr("d", function (d) {
-                        //console.log(d.source.y + " " + parseInt(d.source.y + parseInt(h2_radius / 2)));
-                        return "M" + d.source.x + "," + parseInt(d.source.y + parseInt(h2_radius / 2))
-                            + "C" + d.source.x + "," + (d.source.y + d.target.y + parseInt(h2_radius / 2)) / 2
-                            + " " + d.target.x + "," + (d.source.y + d.target.y - parseInt(h2_radius / 2)) / 2
-                            + " " + d.target.x + "," + (d.target.y - parseInt(h2_radius / 2));
+                        //console.log(d.source.y + " " + parseInt(d.source.y + parseInt(h1_radius / 2)));
+                        return "M" + d.source.x + "," + parseInt(d.source.y + parseInt(h1_radius / 2))
+                            + "C" + d.source.x + "," + (d.source.y + d.target.y + parseInt(h1_radius / 2)) / 2
+                            + " " + d.target.x + "," + (d.source.y + d.target.y - parseInt(h1_radius / 2)) / 2
+                            + " " + d.target.x + "," + (d.target.y - parseInt(h1_radius / 2));
                     })
                     .style("opacity", function (d) {
                         return 0.3;
@@ -1432,7 +1577,7 @@
                     .style("fill", "none")
                     .style("stroke-width", "1px");
 
-                h2_node
+                h1_node
                     .append("circle")
                     .attr("cx", function (d) {
                         // console.log(d);
@@ -1444,9 +1589,9 @@
                     })
                     .attr("r", function (d) {
                         //if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                        //  return h2_radius + "px";
+                        //  return h1_radius + "px";
                         //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                        return (h2_radius - 4) + "px";
+                        return (h1_radius - 4) + "px";
                     })
                     .attr("class", function (d) {
                         return (
@@ -1454,7 +1599,7 @@
                         );
                     })
                     .attr("id", function (d) {
-                        return "h2tree_" + d.data.data.child
+                        return "h1tree_" + d.data.data.child
                             .replaceAll(/\//g, "")
                             .replaceAll(".", "")
                             .replaceAll(" ", "")
@@ -1464,16 +1609,16 @@
                     })
                     .style("fill", function (d) {
                         // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                        //return h1color;
+                        //return h2color;
                         //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
                         return "white";
                     })
                     .style("stroke", function (d) {
-                        //console.log(h1color);
+                        //console.log(h2color);
                         // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
                         //   return "none";
                         //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                        return h1color;
+                        return h2color;
 
                     })
                     .style("stroke-width", function (d) {
@@ -1488,14 +1633,32 @@
                         return 0.3;
                     })
                     .on("mouseover", function (d, i) {
-                        var name = d.data.data.child;
-                        //console.log(name);
-                        //if (name == undefined)
-                        //name = d.data.data.child;
-                        var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
+                        var label = d.data.data.description_child, child = "root", parent = "";
+                        update_log("node " + label, "label", "display tooltip", "mouseover");
+
+                        if (label.includes("/")) {
+                            child = label.substring(label.lastIndexOf("/") + 1, label.length);
+                            parent = label.substring(0, label.lastIndexOf("/"));
+                        }
+                        //console.log(parent + " " + child);
+
+                        var type = "";
+                        if (d.children || d._children)
+                            type = "Folder";
+                        else {
+                            if (d.data.data.child.includes("."))
+                                type = "File";
+                            else
+                                type = "Folder"
+                        }
+                        type = "BeforeH " + type;
+                        var text = "<b> " + type + " </b><hr class='border border-danger border-1 opacity-50'>" + parent + "/<b>" + child + "</b>";
+
+
+
+
                         d3.select("#tooltip")
                             .html(text)
-
                             .style("left", parseInt(d3.event.pageX - 200) + "px")
                             .style("top", parseInt(d3.event.pageY + 50) + "px")
                             .style("text-align", "left")
@@ -1521,11 +1684,11 @@
                         /* if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
                             d3.select(this)
                                 .transition()
-                                .attr("r", h2_radius - 3);
+                                .attr("r", h1_radius - 3);
                         if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
                         d3.select(this)
                             .transition()
-                            .attr("r", h2_radius - 6);
+                            .attr("r", h1_radius - 6);
 
 
                         d3.select("#tooltip")
@@ -1538,17 +1701,17 @@
 
 
 
-                h2_node
+                h1_node
                     .append("text")
                     .style("font-size", function (d) {
                         return stree_label_size - d.depth;
                         //  if (d3.select("10px";
                         //else
                         //  return "20px";
-                        //  return (h2_tree.descendants()[0].height + 2) - (d.depth) + "em";
+                        //  return (h1_tree.descendants()[0].height + 2) - (d.depth) + "em";
                     })
                     .attr("class", function (d) {
-                        return "text " + d.data.data.child
+                        return "text h1tree_" + d.data.data.child
                             .replaceAll(/\//g, "")
                             .replaceAll(".", "")
                             .replaceAll(" ", "")
@@ -1585,7 +1748,7 @@
                              return 0;
                          }
                          //  console.log(d);
- 
+     
                          else return 1; */
                         //  if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
                         return 0;
@@ -1604,7 +1767,7 @@
             }
 
 
-            /* END OF H2 TREE*/
+            /* END OF h1 TREE*/
 
 
 
@@ -1621,8 +1784,8 @@
             }
 
             function expand(d) {
-                console.log("EXPAND");
-                console.log(d);
+                //console.log("EXPAND");
+                //console.log(d);
                 if (d._children) {
                     d.children = d._children
                     d.children.forEach(expand)
@@ -1635,13 +1798,14 @@
 
             function mergedtree(source, hier_root) {
 
-                var mtree_radius = 6;
+
 
                 //console.log(hier_root);
                 var tree = d3
                     .tree()
                     //.nodeSize([9, 10]);
                     .size([1.2 * window.innerWidth, .75 * window.innerHeight]);
+
                 //.size([Math.round(width * .9), Math.round(height * .65)]);
                 //.size([Math.round(width * .9), Math.round(height * .75)]);
 
@@ -1682,10 +1846,10 @@
                         return el;
                     }
                 });
- 
+     
                 
- 
- 
+     
+     
                 var links_data = links.filter(function (el) {
                     if (el.target.position == "expand") {
                         return el;
@@ -1693,6 +1857,8 @@
                 }); */
 
                 var duration = 500;
+                var label_array = [];
+                var anchor_array = [];
                 //nodes = source;
                 //nodes_data = nodes;
 
@@ -1714,6 +1880,7 @@
                     .select("#mergedtree")
                     .selectAll(".nodes")
                     .data(nodes, function (d, i) {
+
                         return d.data.data.child;
 
                         //return d.id || (d.id = ++i);
@@ -1737,15 +1904,15 @@
 
                 /*
             // Define the zoom function for the zoomable tree
- 
+     
             function zoom() {
                 svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             }
- 
- 
+     
+     
             // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
             var zoomListener = d3.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
-*/
+    */
 
                 //console.log(node);
 
@@ -1757,14 +1924,16 @@
                     .append("g")
                     .attr("class", "nodes")
                     .attr("transform", function (d, i) {
-                        //console.log("ENTER " + d.data.data.child);
                         //console.log(source);
                         //console.log(source.y);
                         var y = (source.data.data.level === 0 ? 50 : source.data.data.level * level_offset);
+                        //console.log(source);
+                        //console.log("ENTER " + d.data.data.child + " " + source.x + " " + y);
+
                         return "translate(" + source.x + "," + y + ")";
                     })
                     .on("click", function (d) {
-                        update_log(d.data.data.child, "node", "collapse/expand nodes");
+                        update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click");
                         //console.log("click");
                         //console.log(hier_root);
                         click(d, hier_root);
@@ -1824,8 +1993,12 @@
                         //console.log("NODE UPDATE");
                         //console.log(d);
                         //console.log(source.data.data.child);
+                        //label_array.push(d.data.data.child);
+
                         var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
                         //if (source.data.data.child == "root")
+                        anchor_array.push({ "x": d.x, "y": y, "r": 10 });
+                        label_array.push({ x: d.x, y: y, name: d.data.data.child, width: 0.0, height: 0.0 });
                         return "translate(" + d.x + "," + y + ")";
                         //else
                         // return "translate(" + source.x + "," + y + ")";
@@ -1881,7 +2054,7 @@
                     .exit()
                     .transition()
                     .duration(duration)
-                    .attr("r", function (d) {
+                    .attr("r", function () {
                         console.log("NODE EXIT ");
 
                         return 0;
@@ -1904,18 +2077,24 @@
 
 
 
-                var index = nodes.length;
+                var h1index = h1_root.descendants().length;
                 //console.log(nodes);
                 //console.log(nodes[index - 1]);
-                var levels = new Array(nodes[index - 1].depth + 1).fill(0);
+                var h1levels = new Array(h1_root.descendants()[h1index - 1].depth + 1).fill(0);
+
+
+                var h2index = h2_root.descendants().length;
+                //console.log(nodes);
+                //console.log(nodes[index - 1]);
+                var h2levels = new Array(h2_root.descendants()[h2index - 1].depth + 1).fill(0);
 
 
 
                 function click(d) {
-                    console.log("click");
-                    console.log(d);
-                    console.log(d.children + " " + !d.children);
-                    console.log(d._children + " " + !d._children);
+                    //console.log("click");
+                    //console.log(d);
+                    //console.log(d.children + " " + !d.children);
+                    //console.log(d._children + " " + !d._children);
                     if (d.children) {
                         d._children = d.children;
                         d.children = null;
@@ -1978,6 +2157,7 @@
                     .on("mouseover", function (d) {
                         //console.log(this);
                         d3.select(this).style("cursor", "default");
+                        update_log("node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click");
                     });
                    /*  .attr("transform", function (d, i) {
 
@@ -2001,9 +2181,18 @@
                         return (mtree_radius) + "px";
                     })
                     .attr("class", function (d) {
+                        var id = "mergedtree_" + d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
                         return (
-                            "node" + (d.children ? " node--internal" : " node--leaf")
+                            "node" + (d.children ? " node--internal " : " node--leaf ") + id + "_inner"
                         );
+
+
                     })
                     .attr("id", function (d) {
                         return "mergedtree_" + d.data.data.child
@@ -2025,10 +2214,10 @@
 
                         //    else if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
                         //console.log("hollow");
-                        if (d.data.data.shape == "h1")
-                            return "none";
+                        if (d.data.data.shape == "h2")
+                            return "white";
                         else
-                            return h1color;
+                            return h2color;
                         //  }
 
 
@@ -2037,10 +2226,10 @@
                     // .style("opacity", 1)
                     //.style("fill", "yellow")
                     .style("stroke", function (d) {
-                        if (d.data.data.shape == "h1")
-                            return "none";
+                        if (d.data.data.shape == "h2")
+                            return "white";
                         else
-                            return h1color;
+                            return h2color;
                     })
 
                     .style("stroke-dasharray", function (d) {
@@ -2054,18 +2243,55 @@
                     })
 
                     .style("opacity", function (d) {
-                        return 1;
+                        if (d.data.data.shape == "h2")
+                            return 0.1;
+                        else
+                            return 1;
                     })
                     .on("mouseover", function (d) {
                         var circle_id = this.getAttribute("id");
                         circle_id = circle_id.split("_")[1];
 
-                        console.log(circle_id);
+                        //console.log(circle_id);
 
-                        update_log(circle_id, "node", "hovering on a node " + circle_id);
+
+                        update_log("node " + circle_id, "node", "hovering on a node", "mouseover");
 
                         var root = mtree.descendants()[0];
+                        var h2root = h2_tree.descendants()[0];
+                        var h1root = h1_tree.descendants()[0];
+
+                        //console.log(h2_root);
+                        //console.log(h1_root);
+
+                        var path = [];
+                        var h2path = [];
+                        var h1path = [];
+                        var h2text = "";
+                        var h1text = "";
+
+                        for (var i = 0; i < h2_tree.descendants().length; i++) {
+                            if (h2_tree.descendants()[i].data.data.child == d.data.data.child) {
+                                for (var j = 0; j < h2root.path(h2_tree.descendants()[i]).length; j++)
+                                    h2path.push(h2root.path(h2_tree.descendants()[i])[j].data.data.child);
+                            }
+
+                        }
+                        //console.log(h2path);
+
+                        for (var i = 0; i < h1_tree.descendants().length; i++) {
+                            if (h1_tree.descendants()[i].data.data.child == d.data.data.child) {
+                                for (var j = 0; j < h1root.path(h1_tree.descendants()[i]).length; j++)
+                                    h1path.push(h1root.path(h1_tree.descendants()[i])[j].data.data.child);
+                            }
+
+                        }
+                        //console.log(h1path);
+
+
+
                         for (var i = 0; i < root.path(d).length; i++) {
+                            path.push(root.path(d)[i].data.data.child);
                             var id = root.path(d)[i].data.data.child
                                 .replaceAll(/\//g, "")
                                 .replaceAll(".", "")
@@ -2076,20 +2302,65 @@
 
                             //console.log(d3.select("#mergedtree_" + id).style("fill") + " " + d3.select("#mergedtree_" + id).style("stroke"));
 
-                            if ((d3.select("#mergedtree_" + id).style("fill") == "none" && d3.select("#mergedtree_" + id).style("stroke") == "blue") || (d3.select("#mergedtree_" + id).style("fill") == "blue" && d3.select("#mergedtree_" + id).style("stroke") == "blue"))
-                                d3.select("#mergedtree_" + id)
-                                    .style("stroke", "yellow")
-                                    .style("stroke-width", "5px");
+                            if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue")
+                                d3.select(".mergedtree_" + id + "_outer")
+                                    .style("stroke", "red")
+                                    .style("stroke-width", circle_stroke + 3);
+                            else
+                                d3.select(".mergedtree_" + id + "_inner")
+                                    .style("stroke", "red")
+                                    .style("stroke-width", circle_stroke + 3);
+
 
                         }
 
+                        //console.log(path);
+
 
                         var name = d.data.data.child;
+                        var text = "";
+                        //console.log(d);
                         //console.log(name);
                         //if (name == undefined)
                         //  name = d.data.data.child;
-                        var text = "Element: <b>" + name + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>"
-                            + "<br>Description: <b>" + d.data.data.child_description + "</b>";
+                        var label = path, child = "root", parent = "";
+                        //if (label.includes("/")) {
+                        child = path[path.length - 1];
+                        path.pop();
+                        parent = path.join("/");
+                        //child = label.substring(label.lastIndexOf("/") + 1, label.length);
+                        //parent = label.substring(0, label.lastIndexOf("/"));
+                        //}
+                        //console.log(parent + " " + child);
+
+                        var type = "";
+                        if (d.children || d._children)
+                            type = "Folder";
+                        else {
+                            if (d.data.data.child.includes("."))
+                                type = "File";
+                            else
+                                type = "Folder"
+                        }
+                        if (h2path.length == 0)
+                            h2text = "Not available in AfterH";
+                        else
+                            h2text = h2path.join("/");
+
+                        if (h1path.length == 0)
+                            h1text = "Not available in BeforeH";
+                        else
+                            h1text = h1path.join("/");
+
+                        //console.log(h2text == h1text);
+                        //console.log(h2text + " " + h1text);
+
+                        if (h2text == h1text)
+                            text = "<b> " + type + " </b><hr class='border border-danger border-1 opacity-50'><b>Path in BeforeH and AfterH: </b>" + h2text;
+                        else
+                            text = "<b> " + type + " </b><hr class='border border-danger border-1 opacity-50'><b>Path in BeforeH: </b>" + h1text + "<hr class='border border-danger border-1 opacity-50'><b>Path in AfterH: </b>" + h2text;
+
+
                         d3.select("#tooltip")
                             .html(text)
                             .style("left", parseInt(d3.event.pageX + 100) + "px")
@@ -2111,67 +2382,34 @@
 
 
 
-                        d3.select(this)
+                        /* d3.select(this)
                             .transition()
-                            .attr("r", mtree_radius + 5);
+                            .attr("r", mtree_radius + 5); */
 
-
-                        d3.select("#h1tree")
-                            .select("#h1tree_" + circle_id)
-                            .style("opacity", 1);
 
                         d3.select("#h2tree")
                             .select("#h2tree_" + circle_id)
                             .style("opacity", 1);
 
-
-                        // if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
                         d3.select("#h1tree")
-                            .selectAll(".text")
-                            .selectAll("." + circle_id)
+                            .select("#h1tree_" + circle_id)
                             .style("opacity", 1);
 
+
+                        // if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
                         d3.select("#h2tree")
                             .selectAll(".text")
-                            .selectAll("." + circle_id)
+                            .selectAll(".h2tree_" + circle_id)
+                            .style("opacity", 1);
+
+                        d3.select("#h1tree")
+                            .selectAll(".text")
+                            .selectAll(".h1tree_" + circle_id)
                             .style("opacity", 1);
                         //}
 
 
-                        // console.log(h1_root.descendants());
-
-                        for (var i = 1; i < h1_root.descendants().length; i++) {
-                            var name = h1_root.descendants()[i].data.data.child
-                                .replaceAll(/\//g, "")
-                                .replaceAll(".", "")
-                                .replaceAll(" ", "")
-                                .replaceAll("(", "")
-                                .replaceAll(")", "")
-                                .toLowerCase();
-                            if (name == circle_id) {
-                                var children = (h1_root.descendants()[0]).path(h1_root.descendants()[i]);
-                                // console.log(children);
-
-                                var node_id;
-                                for (var j = 0; j < children.length; j++) {
-                                    // console.log(children[j]);
-
-                                    node_id = children[j].data.id
-                                        .replaceAll(/\//g, "")
-                                        .replaceAll(".", "")
-                                        .replaceAll(" ", "")
-                                        .replaceAll("(", "")
-                                        .replaceAll(")", "")
-                                        .toLowerCase();
-                                    //console.log(node_id);
-                                    //console.log(children[j]);
-                                    d3.select("#h1tree").select("#h1tree_" + node_id).style("opacity", "1");
-                                    d3.select("#h1tree").selectAll(".text" + "." + node_id).style("opacity", "1");
-                                }
-
-                            }
-                        }
-
+                        // console.log(h2_root.descendants());
 
                         for (var i = 1; i < h2_root.descendants().length; i++) {
                             var name = h2_root.descendants()[i].data.data.child
@@ -2188,6 +2426,39 @@
                                 var node_id;
                                 for (var j = 0; j < children.length; j++) {
                                     // console.log(children[j]);
+
+                                    node_id = children[j].data.id
+                                        .replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
+                                        .toLowerCase();
+                                    //console.log(node_id);
+                                    //console.log(children[j]);
+                                    d3.select("#h2tree").select("#h2tree_" + node_id).style("opacity", "1");
+                                    d3.select("#h2tree").selectAll(".text" + ".h2tree_" + node_id).style("opacity", "1");
+                                }
+
+                            }
+                        }
+
+
+                        for (var i = 1; i < h1_root.descendants().length; i++) {
+                            var name = h1_root.descendants()[i].data.data.child
+                                .replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+                            if (name == circle_id) {
+                                var children = (h1_root.descendants()[0]).path(h1_root.descendants()[i]);
+                                // console.log(children);
+
+                                var node_id;
+                                for (var j = 0; j < children.length; j++) {
+                                    // console.log(children[j]);
                                     node_id = children[j].data.id
                                         .replaceAll(/\//g, "")
                                         .replaceAll(".", "")
@@ -2198,8 +2469,8 @@
 
                                     //console.log(node_id);
                                     //console.log(children[j]);
-                                    d3.select("#h2tree").select("#h2tree_" + node_id).style("opacity", "1");
-                                    d3.select("#h2tree").selectAll(".text" + "." + node_id).style("opacity", "1");
+                                    d3.select("#h1tree").select("#h1tree_" + node_id).style("opacity", "1");
+                                    d3.select("#h1tree").selectAll(".text" + "." + node_id).style("opacity", "1");
                                 }
 
                             }
@@ -2232,12 +2503,17 @@
                                 .replaceAll(")", "")
                                 .toLowerCase();
 
-                            if (d3.select("#mergedtree_" + id).style("stroke") == "yellow")
-                                d3.select("#mergedtree_" + id)
+                            if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "red")
+                                d3.select(".mergedtree_" + id + "_outer")
                                     .style("stroke", "blue")
-                                    .style("stroke-width", "3px");
+                                    .style("stroke-width", circle_stroke);
+                            else
+                                d3.select(".mergedtree_" + id + "_inner")
+                                    .style("stroke", "none")
+                                    .style("stroke-width", "none");
 
                         }
+
 
 
 
@@ -2247,40 +2523,48 @@
                                 .attr("r", mtree_radius);
                         }
                         if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) { */
-                        d3.select(this)
-                            .transition()
-                            .attr("r", mtree_radius - 1);
+                        /*  d3.select(this)
+                             .transition()
+                             .attr("r", mtree_radius - 1); */
                         //}
 
+
+                        d3.select("#h2tree")
+                            .selectAll(".node")
+                            .style("opacity", 0.3);
 
                         d3.select("#h1tree")
                             .selectAll(".node")
                             .style("opacity", 0.3);
 
                         d3.select("#h2tree")
-                            .selectAll(".node")
-                            .style("opacity", 0.3);
+                            .selectAll(".text")
+                            .style("opacity", 0);
+
+                        d3.select("#h1tree")
+                            .selectAll(".text")
+                            .style("opacity", 0);
 
 
                         /* if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true) {
-                            d3.select("#h1tree")
-                                .selectAll(".text")
-                                .style("opacity", 0);
-
                             d3.select("#h2tree")
                                 .selectAll(".text")
                                 .style("opacity", 0);
-
+     
+                            d3.select("#h1tree")
+                                .selectAll(".text")
+                                .style("opacity", 0);
+     
                         }
                         else {
-                            d3.select("#h1tree")
-                                .selectAll(".text")
-                                .style("opacity", 1);
-
                             d3.select("#h2tree")
                                 .selectAll(".text")
                                 .style("opacity", 1);
-
+     
+                            d3.select("#h1tree")
+                                .selectAll(".text")
+                                .style("opacity", 1);
+     
                         } */
 
 
@@ -2302,8 +2586,15 @@
                         return (mtree_radius + 4) + "px";
                     })
                     .attr("class", function (d) {
+                        var id = "mergedtree_" + d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
                         return (
-                            "node" + (d.children ? " node--internal" : " node--leaf")
+                            "node" + (d.children ? " node--internal " : " node--leaf ") + id + "_outer"
                         );
                     })
                     .attr("id", function (d) {
@@ -2319,16 +2610,16 @@
                         return "none";
                     })
                     .style("stroke", function (d) {
-                        //if (d.data.data.shape == "h1" || d.data.data.shape == "merged")
-                        //  return h1color;
+                        //if (d.data.data.shape == "h2" || d.data.data.shape == "merged")
+                        //  return h2color;
                         //console.log(d);
-                        if (d.data.data.shape == "h1" || d.data.data.shape == "merged")
+                        if (d.data.data.shape == "h2" || d.data.data.shape == "merged")
                             return d.data.data.levelcolor;
-                        //return h1color;
+                        //return h2color;
 
                         else return "none";
                     })
-                    .style("stroke-width", "3px")
+                    .style("stroke-width", circle_stroke)
                     .style("stroke-dasharray", function (d) {
                         /*  if (d.data.data.bordertype == "solid")
                              return "none";
@@ -2349,11 +2640,40 @@
                         //console.log(name);
                         //if (name == undefined)
                         //name = d.data.data.child;
-                        update_log(d.data.data.child, "node", "hovering on a node " + d.data.data.child);
-
-
+                        update_log("node " + d.data.data.child, "node", "hovering on a node", "mouseover");
 
                         var root = mtree.descendants()[0];
+                        var h2root = h2_tree.descendants()[0];
+                        var h1root = h1_tree.descendants()[0];
+
+                        var path = [];
+                        var h2path = [];
+                        var h1path = [];
+                        var h2text = "";
+                        var h1text = "";
+
+                        for (var i = 0; i < h2_tree.descendants().length; i++) {
+                            if (h2_tree.descendants()[i].data.data.child == d.data.data.child) {
+                                for (var j = 0; j < h2root.path(h2_tree.descendants()[i]).length; j++)
+                                    h2path.push(h2root.path(h2_tree.descendants()[i])[j].data.data.child);
+                            }
+
+                        }
+                        //console.log(h2path);
+
+                        for (var i = 0; i < h1_tree.descendants().length; i++) {
+                            if (h1_tree.descendants()[i].data.data.child == d.data.data.child) {
+                                for (var j = 0; j < h1root.path(h1_tree.descendants()[i]).length; j++)
+                                    h1path.push(h1root.path(h1_tree.descendants()[i])[j].data.data.child);
+                            }
+
+                        }
+                        //console.log(h1path);
+
+
+
+
+
                         for (var i = 0; i < root.path(d).length; i++) {
                             var id = root.path(d)[i].data.data.child
                                 .replaceAll(/\//g, "")
@@ -2363,31 +2683,80 @@
                                 .replaceAll(")", "")
                                 .toLowerCase();
 
-                            console.log(d3.select("#mergedtree_" + id).style("fill") + " " + d3.select("#mergedtree_" + id).style("stroke"));
+                            //console.log(d3.select("#mergedtree_" + id).style("fill") + " " + d3.select("#mergedtree_" + id).style("stroke"));
 
-                            if ((d3.select("#mergedtree_" + id).style("fill") == "none" && d3.select("#mergedtree_" + id).style("stroke") == "blue") || (d3.select("#mergedtree_" + id).style("fill") == "blue" && d3.select("#mergedtree_" + id).style("stroke") == "blue"))
-                                d3.select("#mergedtree_" + id)
-                                    .style("stroke", "yellow")
-                                    .style("stroke-width", "5px");
+                            /*  if ((d3.select("#mergedtree_" + id).style("fill") == "none" && d3.select("#mergedtree_" + id).style("stroke") == "blue") || (d3.select("#mergedtree_" + id).style("fill") == "blue" && d3.select("#mergedtree_" + id).style("stroke") == "blue"))
+                                 d3.select("#mergedtree_" + id)
+                                     .style("stroke", "yellow")
+                                     .style("stroke-width", circle_stroke + 2); */
 
                         }
 
-                        var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
+
+                        var label = d.data.data.description_child, child = "root", parent = "";
+                        /* if (label.includes("/")) {
+                            child = label.substring(label.lastIndexOf("/") + 1, label.length);
+                            parent = label.substring(0, label.lastIndexOf("/"));
+                        } */
+                        child = path[path.length - 1];
+                        path.pop();
+                        parent = path.join("/");
+
+                        var text = "";
+
+
+                        var type = "";
+                        if (d.children || d._children)
+                            type = "Folder";
+                        else {
+                            if (d.data.data.child.includes("."))
+                                type = "File";
+                            else
+                                type = "Folder"
+                        }
+
+                        if (h2path.length == 0)
+                            h2text = "Not available in BeforeH";
+                        else
+                            h2text = h2path.join("/");
+
+                        if (h1path.length == 0)
+                            h1text = "Not available in AfterH";
+                        else
+                            h1text = h1path.join("/");
+
+                        //console.log(h2text == h1text);
+                        //console.log(h2text + " " + h1text);
+
+                        if (h2text == h1text)
+                            text = "<b> " + type + " </b><hr class='border border-danger border-1 opacity-50'><b>Path in BeforeH and AfterH: </b>" + h2text;
+                        else
+                            text = "<b> " + type + " </b><hr class='border border-danger border-1 opacity-50'><b>Path in BeforeH: </b>" + h2text + "<hr class='border border-danger border-1 opacity-50'><b>Path in AfterH: </b>" + h1text;
+
+
+
+
+                        //var text = "Element: <b>" + name + "</b><br>Element code: <b>" + d.data.data.child + "</b><br>Parent code: <b>" + d.data.data.parent + "</b>";
                         d3.select("#tooltip")
                             .html(text)
                             .style("left", parseInt(d3.event.pageX + 100) + "px")
                             .style("top", parseInt(d3.event.pageY) + "px")
                             .style("text-align", "left")
-                            .style("opacity", 1);
+                            .style("opacity", 1)
+                            .style("pointer-events", "none");
 
-                        d3.select(this)
-                            .transition()
-                            .attr("r", 20);
+                        /*    d3.select(this)
+                               .transition()
+                               .attr("r", mtree_radius + 9); */
+
+                        //console.log(d3.select(this).attr("id"));
+
+
                     })
                     .on("mouseleave", function (d) {
-                        d3.select(this)
-                            .transition()
-                            .attr("r", mtree_radius + 5);
+                        /*  d3.select(this)
+                             .transition()
+                             .attr("r", mtree_radius + 4); */
 
                         d3.select("#tooltip")
                             .html("")
@@ -2405,12 +2774,14 @@
                                 .replaceAll(")", "")
                                 .toLowerCase();
 
-                            if (d3.select("#mergedtree_" + id).style("stroke") == "yellow")
-                                d3.select("#mergedtree_" + id)
-                                    .style("stroke", "blue")
-                                    .style("stroke-width", "3px");
+                            // if (d3.select("#mergedtree_" + id).style("stroke") == "yellow")
+                            d3.select(".mergedtree_" + id + "_outer")
+                                .style("stroke", "blue")
+                                .style("stroke-width", circle_stroke);
 
                         }
+
+
 
                     });
                 /* .on("click", function (d) {
@@ -2427,9 +2798,12 @@
 
 
 
+                //console.log(label_array);
 
 
-                var labels = nodeEnter
+
+
+                nodeEnter
                     .append("text")
                     .attr("transform", function (d) {
                         // if ((this.previousSibling).getAttribute("class").includes("leaf"))
@@ -2449,7 +2823,10 @@
                     .style("stroke", "none")
                     .style("fill", "black")
                     .attr("class", function (d) {
-                        return d.data.data.child
+                        //return d.name
+                        return "mergedtree_" + d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
                             .replaceAll(" ", "")
                             .replaceAll("(", "")
                             .replaceAll(")", "")
@@ -2483,7 +2860,7 @@
                             if ((this.previousSibling).getAttribute("class").includes("leaf"))
                                 return "3em";
                             else return "0em";
- 
+     
                     }
                      */
 
@@ -2507,43 +2884,111 @@
                     }) */
                     .text(function (d) {
                         // console.log(d);
+                        //var label = d.name;
                         var label = d.data.data.child;
                         if (label.includes("_"))
-                            label = label.substring(label.indexOf("_") + 1, label.length);
+                            label = label.substring(label.indexOf("/") + 1, label.length);
                         if (label.includes("/"))
                             label = label.substring(label.lastIndexOf("/") + 1, label.length);
                         return label;
+                    })
+                    .on("mouseover", function (d) {
+
+                        //console.log();
+                        update_log(d3.select(this).attr("id"), "text label", "emphasize label", "mouseover");
+
+                        if ((document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "blue" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue") || (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "none" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue"))
+                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")
+                                .style("stroke", "red")
+                                .style("stroke-width", circle_stroke + 3);
+                        else
+                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")
+                                .style("stroke", "red");
+                        //.style("stroke-width", circle_stroke + 3);
+
+
+                        /*   d3.select("#" + d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("id"))
+                              .style("stroke", "red")
+                              .style("stroke-width", circle_stroke + 10); */
+
+                        d3.select(this)
+                            //.attr("transform", "rotate(0)")
+                            .style("font-size", 30)
+                            .style("fill", "red")
+                            .style("cursor", "pointer");
+
+
+
+
+                    })
+                    .on("mouseleave", function (d) {
+                        //console.log();
+                        update_log(d3.select(this).attr("id"), "text label", "label default formatting", "mouseleave");
+                        d3.select(this)
+                            .style("font-size", label_size - d.depth)
+                            //.attr("transform", "rotate(65)")
+                            .style("fill", "black")
+                            .style("cursor", "default");
+
+                        if (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "red")
+                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")
+                                .style("stroke", "blue")
+                                .style("stroke-width", circle_stroke);
+                        else
+                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")
+                                .style("stroke", "none");
+                        // .style("stroke-width", circle_stroke);
+
+
+
+                        //console.log(document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.fill);
+                        /*   if (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.fill == "white")
+                              //if (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner").style.fill)
+                              d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")
+                                  .style("stroke", "none");
+     
+                          else
+                              d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")
+                                  .style("stroke", circle_stroke); */
+
+
+
                     });
 
 
-                //console.log(links);
-                //console.log(links_data);
-                /*  console.log(labels);
-                 labels.each(function () {
-                     label_array[index].width = this.getBBox().width;
-                     label_array[index].height = this.getBBox().height;
-                     index += 1;
-                 });
-     
-                 d3.labeler()
-                     .label(nodes, function (d, i) {
-                         return d.data.data.child;
-     
-                         //return d.id || (d.id = ++i);
-                         //return ++i;
-                         //return d.id;
-                     })
-                     .anchor(anchor_array)
-                     .width(width)
-                     .height(height)
-                     .start(100);
-     
-                 labels
-                     .transition()
-                     .duration(800)
-                     .attr("x", function (d) { return (d.x); })
-                     .attr("y", function (d) { return (d.y); });
-      */
+
+
+
+
+                /*
+                                var index = 0;
+                                labels.each(function () {
+                                    //console.log(index);
+                                    label_array[index].width = this.getBBox().width;
+                                    label_array[index].height = this.getBBox().height;
+                                    index += 1;
+                                });
+                
+                                console.log(label_array);
+                                console.log(anchor_array);
+                
+                                d3.labeler()
+                                    .label(label_array)
+                                    .anchor(anchor_array)
+                                    .width(width)
+                                    .height(height)
+                                    .start(100);
+                
+                                labels
+                                    .transition()
+                                    .duration(100)
+                                    .attr("dx", function (d) {
+                                        //console.log(d.x)
+                                        //console.log(d.data.data.child + " " + d.x + " " + d.y);
+                                        return d.x;
+                                    })
+                                    .attr("dy", function (d) { return d.y; });
+                */
 
 
 
@@ -2568,9 +3013,9 @@
                         if (d.target.data.data.linkcolor == "blue")
                             return "link " + "merged";
                         else if (d.target.data.data.linkcolor == "green")
-                            return "link " + "h2parent";
-                        else
                             return "link " + "h1parent";
+                        else
+                            return "link " + "h2parent";
                         //return "link";
 
                     })
@@ -2595,11 +3040,11 @@
                             + " " + targetx + "," + targety;
                     })
                     .style("opacity", function (d) {
-                        /* if (d.parent != "" && d.h1parent == "" && d.h2parent == "")
+                        /* if (d.parent != "" && d.h2parent == "" && d.h1parent == "")
                             return 0.1;
-                        else if (d.h1parent != "" && d.h2parent == "")
+                        else if (d.h2parent != "" && d.h1parent == "")
                             return 0.7;
-                        else if (d.h1parent == "" && d.h2parent != "")
+                        else if (d.h2parent == "" && d.h1parent != "")
                             return 0.7; */
 
                         if (d.target.data.data.linkcolor == "blue")
@@ -2609,7 +3054,7 @@
                     })
                     //.style("stroke", "#ccc")
                     .style("stroke", function (d) {
-                        //if (d.source.data.data.shape == "h1" || (d.source.data.data.shape == "h2" && d.source.data.data.linkcolor != "red" && d.target.data.data.linkcolor != "red"))
+                        //if (d.source.data.data.shape == "h2" || (d.source.data.data.shape == "h1" && d.source.data.data.linkcolor != "red" && d.target.data.data.linkcolor != "red"))
                         //  return "green";
                         //else
                         return d.target.data.data.linkcolor;
@@ -2660,7 +3105,7 @@
                     console.log("hide links");
 
                     d3.selectAll(".merged").style("opacity", 0.3);
-                    d3.selectAll(".h1parent").style("opacity", 0.7);
+                    d3.selectAll(".h2parent").style("opacity", 0.7);
                     d3.selectAll(".altlink").remove();
                 }
 
@@ -2673,17 +3118,17 @@
                         .forEach(function (d, i) {
 
 
-                            d3.selectAll(".h1parent").style("opacity", 0);
+                            d3.selectAll(".h2parent").style("opacity", 0);
 
                             var altparent = d.target.data.data.alternateparent.replaceAll(/\//g, "").replaceAll(".", "");
                             var child = d.target.data.data.child.replaceAll(/\//g, "").replaceAll(".", "");
-                            var h2parent = d.target.data.data.h2parent.replaceAll(/\//g, "").replaceAll(".", "");
+                            var h1parent = d.target.data.data.h1parent.replaceAll(/\//g, "").replaceAll(".", "");
 
-                            console.log("c:" + child + " ap:" + altparent + " h1:" + d.target.data.data.h1parent + " h2:" + h2parent);
+                            console.log("c:" + child + " ap:" + altparent + " h2:" + d.target.data.data.h2parent + " h1:" + h1parent);
 
                             if (altparent != "") {
 
-                                //console.log("c:" + child + " ap:" + altparent + " h1:" + d.target.data.data.h1parent + " h2:" + h2parent);
+                                //console.log("c:" + child + " ap:" + altparent + " h2:" + d.target.data.data.h2parent + " h1:" + h1parent);
 
                                 var sourcex = "";
                                 var sourcey = "";
@@ -2765,9 +3210,14 @@
                     d.y0 = d.y;
                 });
 
+                console.log(h1_root.descendants());
 
-                for (var n = 0; n < nodes.length; n++) {
-                    levels[nodes[n].depth] = nodes[n].depth === 0 ? 50 : nodes[n].depth * level_offset;
+                for (var n = 0; n < h1_root.descendants().length; n++) {
+                    h1levels[h1_root.descendants()[n].depth] = h1_root.descendants()[n].depth === 0 ? 50 : h1_root.descendants()[n].depth * level_offset;
+                }
+
+                for (var n = 0; n < h2_root.descendants().length; n++) {
+                    h2levels[h2_root.descendants()[n].depth] = h2_root.descendants()[n].depth === 0 ? 50 : h2_root.descendants()[n].depth * level_offset;
                 }
 
                 //console.log(nodes[0].height);
@@ -2782,20 +3232,25 @@
 
 
 
-                if (d3.select("#levellines").empty()) {
 
-                    var n = 0;
+
+
+                if (d3.select("#levellines").empty()) {
 
                     var levelg = mergedtree_svg
                         .append("g")
                         .attr("id", "levellines")
                         .attr("transform",
-                            "translate(" + tree_start[0] + "," + tree_start[1] + ")");
+                            "translate(" + tree_start[0] + "," + 400 + ")");
+
+                    var n = 0;
+
+
 
                     d3
                         .select("#levellines")
                         .selectAll("line")
-                        .data(levels)
+                        .data(h1levels)
                         .enter()
                         .append("line")
                         .attr("id", function (d, i) {
@@ -2804,7 +3259,7 @@
                         })
                         .attr("x1", function (d) {
                             //console.log(d);
-                            return 100;
+                            return 10;
 
                         })
                         .attr("y1", function (d) {
@@ -2812,7 +3267,7 @@
                         })
                         .attr("x2", function (d) {
 
-                            return width;
+                            return width * 1.3;
                         })
                         .attr("y2", function (d) {
 
@@ -2828,52 +3283,6 @@
 
 
 
-                    levelg
-                        .selectAll("text")
-                        .data(levels)
-                        .enter()
-                        .append("text")
-                        .attr("class", function (d, i) {
-                            return "text-level" + i;
-                        })
-                        .style("font-size", "15px")
-                        .attr("dy", "4em")
-                        .attr("x", function (d) {
-                            //return -150;
-                            return width * .9;
-
-                        })
-                        .attr("y", function (d) {
-                            //console.log(d);
-                            return d - 75;
-                        })
-                        .attr("text-anchor", function (d) {
-                            return "start";
-                        })
-                        .attr("fill", function (d, i) {
-                            return accent(i);
-                        })
-                        .text(function (d, i) {
-                            return "Level: " + i;
-                        })
-                        .on("mouseover", function (d) {
-                            d3.select(this).style("cursor", "pointer");
-                        })
-                        .on("click", function (d) {
-                            var levelline = d3.select(this).text().split(": ")[1];
-                            //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
-                            if (document.getElementById("line-chart-l" + levelline).style.opacity == 0.7) {
-                                update_log("line-chart-l" + levelline, "level line", "hide level line " + levelline);
-                                d3.select("#line-chart-l" + levelline)
-                                    .style("opacity", 0);
-                            }
-                            else {
-                                update_log("line-chart-l" + levelline, "level line", "show level line " + levelline);
-                                d3.select("#line-chart-l" + levelline)
-                                    .style("opacity", 0.7);
-                            }
-
-                        });
 
 
                     //levels.splice(4, 1);
@@ -2883,7 +3292,7 @@
                         .attr("transform",
                             "translate(" + tree_start[0] + "," + tree_start[1] + ")")
                         .selectAll("text")
-                        .data(levels)
+                        .data(h1levels)
                         .enter()
                         .append("text")
                         .attr("class", function (d, i) {
@@ -2925,7 +3334,58 @@
 
                         });
 
+
+
+                    levelg
+                        .selectAll("text")
+                        .data(h1levels)
+                        .enter()
+                        .append("text")
+                        .attr("class", function (d, i) {
+                            return "text-level" + i;
+                        })
+                        .style("font-size", "15px")
+                        .attr("dy", "4em")
+                        .attr("x", function (d) {
+                            //return -150;
+                            return width * 1.25;
+
+                        })
+                        .attr("y", function (d) {
+                            //console.log(d);
+                            return d - 75;
+                        })
+                        .attr("text-anchor", function (d) {
+                            return "start";
+                        })
+                        .attr("fill", function (d, i) {
+                            return accent(i);
+                        })
+                        .text(function (d, i) {
+                            return "Level: " + i;
+                        })
+                        .on("mouseover", function (d) {
+                            update_log(d3.select(this).attr("id"), "levelline", "emphasize levelline", "mouseover");
+                            d3.select(this).style("cursor", "pointer");
+                        })
+                        .on("click", function (d) {
+                            var levelline = d3.select(this).text().split(": ")[1];
+                            //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
+                            if (document.getElementById("line-chart-l" + levelline).style.opacity == 0.7) {
+                                update_log("line-chart-l" + levelline, "level line", "hide level line ", "click");
+                                d3.select("#line-chart-l" + levelline)
+                                    .style("opacity", 0);
+                            }
+                            else {
+                                update_log("line-chart-l" + levelline, "level line", "show level line ", "click");
+                                d3.select("#line-chart-l" + levelline)
+                                    .style("opacity", 0.7);
+                            }
+
+                        });
                 }
+
+
 
 
                 if (d3.select("#linkbutton").empty()) {
@@ -2933,18 +3393,19 @@
                         .append("g")
                         .attr("id", "linkbutton")
                         .on("mouseover", function (d) {
+                            update_log(d3.select(this).attr("id"), "linkbutton", "show/hide alternate links", "mouseover");
                             d3.select(this).style("cursor", "pointer");
                         })
                         .on("click", function (d) {
                             if (d3.selectAll(".altlink")._groups[0].length == 0) {
                                 console.log("show");
-                                update_log("altlink", "link", "show alternate links");
+                                update_log("altlink", "altlink", "show alternate links", "click");
                                 showlinks();
                             }
 
                             else {
                                 console.log("hide");
-                                update_log("altlink", "link", "hide alternate links");
+                                update_log("altlink", "altlink", "hide alternate links", "click");
                                 hidelinks();
                             }
                         });
@@ -2989,6 +3450,7 @@
                 }
 
 
+
                 if (d3.select("#btn-level-line").empty()) {
                     mergedtree_svg
                         .append("g")
@@ -2999,7 +3461,7 @@
                         .on("click", function (d) {
                             //console.log("hi");
 
-                            for (var l = 0; l < levels.length; l++) {
+                            for (var l = 0; l < h1levels.length; l++) {
                                 if (document.getElementById("line-level-l" + l).style.opacity == 0.6) {
                                     d3.select("#line-level-l" + l)
                                         .style("opacity", 0);
@@ -3038,26 +3500,28 @@
                 }
 
 
+
                 if (d3.select("#btn-level-chart").empty()) {
                     mergedtree_svg
                         .append("g")
                         .attr("id", "btn-level-chart")
                         .on("mouseover", function (d) {
+                            update_log("btn-level-chart " + d3.select(this).attr("id"), "btn-level-chart", "emphasize level chart line", "mouseover");
                             d3.select(this).style("cursor", "pointer");
                         })
                         .on("click", function (d) {
                             //console.log("hi");
 
-                            for (var l = 0; l < levels.length; l++) {
+                            for (var l = 0; l < h2levels.length; l++) {
                                 if (document.getElementById("line-chart-l" + l).style.opacity == 0.5) {
                                     d3.select("#line-chart-l" + l)
                                         .style("opacity", 0);
-                                    update_log("btn-level-chart", "button", "hide level lines");
+                                    update_log("btn-level-chart", "button", "hide level lines", "click");
                                 }
                                 else {
                                     d3.select("#line-chart-l" + l)
                                         .style("opacity", 0.5);
-                                    update_log("btn-level-chart", "button", "show level lines");
+                                    update_log("btn-level-chart", "button", "show level lines", "click");
                                 }
                             }
                         });
@@ -3132,7 +3596,7 @@
                 var lev = 3;
                 //console.log(levels);
                 //for (var l = lev - 1; l < lev; l++) {
-                for (var l = 0; l < levels.length; l++) {
+                for (var l = 0; l < h2levels.length; l++) {
 
 
                     if (!d3.select("#line-chart-l" + l).empty())
@@ -3168,7 +3632,7 @@
                         });
 
 
-                    datapoints.push({ "x": width * .9, "y": levels[l], "node": "dummy" });
+                    datapoints.push({ "x": width * 1.3, "y": h2levels[l], "node": "dummy" });
                     //console.log(node_levels);
 
 
@@ -3192,7 +3656,7 @@
                         //console.log("keeping " + datapoints[d].node);
                         //console.log("removing " + datapoints[d - 1].node);
                         if (datapoints[d - 1].x == datapoints[d].x) {
-                            if (datapoints[d - 1].y == levels[l])
+                            if (datapoints[d - 1].y == h2levels[l])
                                 datapoints.splice(d - 1, 1);
                             else
                                 datapoints.splice(d, 1);
@@ -3250,7 +3714,7 @@
 
         }
 
-        function update_log(elementID, elementType, description) {
+        function update_log(elementID, elementType, elementDescription, eventDescription) {
             var date = new Date();
 
 
@@ -3262,7 +3726,8 @@
                 "pageID": pageID,
                 "elementID": elementID,
                 "elementType": elementType,
-                "description": description,
+                "elementDescription": elementDescription,
+                "eventDescription": eventDescription,
                 "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                 "overall_timestamp": new Date().getMilliseconds(),
                 "phase_timestamp": new Date().getMilliseconds(),

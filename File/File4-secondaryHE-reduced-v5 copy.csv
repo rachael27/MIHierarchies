@@ -933,6 +933,8 @@ ndldemo,columbia,root/hcil/ndl/ndldemo,root/hcil/ndl/ndldemo/columbia
 columbia,frames.html,root/hcil/ndl/ndldemo/columbia,root/hcil/ndl/ndldemo/columbia/frames.html
 ndldemo,coolidge1,root/hcil/ndl/ndldemo,root/hcil/ndl/ndldemo/coolidge1
 coolidge1,home1.html,root/hcil/ndl/ndldemo/coolidge1,root/hcil/ndl/ndldemo/coolidge1/home1.html
+ndldemo,ndldemo-draft11,root/hcil/ndl/ndldemo,root/hcil/ndl/ndldemo/draft11
+draft11,daveloc4.html,root/hcil/ndl/ndldemo/draft11,root/hcil/ndl/ndldemo/draft11/daveloc4.html
 ndldemo,movie2,root/hcil/ndl/ndldemo,root/hcil/ndl/ndldemo/movie2
 movie2,slideframes.html,root/hcil/ndl/ndldemo/movie2,root/hcil/ndl/ndldemo/movie2/slideframes.html
 ndldemo,movieproto1,root/hcil/ndl/ndldemo,root/hcil/ndl/ndldemo/movieproto1
@@ -1038,8 +1040,8 @@ pda,triggersiii.cpt.hqx,root/hcil/pda,root/hcil/pda/triggersiii.cpt.hqx
 pda,demo.gif,root/hcil/pda,root/hcil/pda/demo.gif
 pda,pda-index.html,root/hcil/pda,root/hcil/pda/index.html
 pda,thesis,root/hcil/pda,root/hcil/pda/thesis
-thesis,thesis-draft,root/hcil/pda/thesis,root/hcil/pda/thesis/thesis-draft
-thesis-draft,pda.html,root/hcil/pda/thesis/thesis-draft,root/hcil/pda/thesis/thesis-draft/pda.html
+thesis,thesis-pda,root/hcil/pda/thesis,root/hcil/pda/thesis/pda
+thesis-pda,pda.html,root/hcil/pda/thesis/pda,root/hcil/pda/thesis/pda/pda.html
 thesis,postscript.html,root/hcil/pda/thesis,root/hcil/pda/thesis/postscript.html
 hcil,perseus,root/hcil,root/hcil/perseus
 perseus,perseus-index.html,root/hcil/perseus,root/hcil/perseus/index.html
@@ -1346,7 +1348,7 @@ unpub-96-languages,unpub-96-languages-index.html,root/hcil/piccolo/learn/papers/
 unpub-96-languages,unpub-96-languages.pdf,root/hcil/piccolo/learn/papers/unpub-96-languages,root/hcil/piccolo/learn/papers/unpub-96-languages/unpub-96-languages.pdf
 unpub-96-languages,unpub-96-languages.ps.gz,root/hcil/piccolo/learn/papers/unpub-96-languages,root/hcil/piccolo/learn/papers/unpub-96-languages/unpub-96-languages.ps.gz
 piccolo,newsroom,root/hcil/piccolo,root/hcil/piccolo/newsroom
-newsroom,newsroom-index.shtml,root/hcil/piccolo/newsroom,root/hcil/piccolo/newsroom/newsroom-index.shtml
+newsroom,newsroom-index.shtml,root/hcil/piccolo/newsroom,root/hcil/piccolo/newsroom/index.shtml
 piccolo,play,root/hcil/piccolo,root/hcil/piccolo/play
 play,graphit,root/hcil/piccolo/play,root/hcil/piccolo/play/graphit
 graphit,graphit.html,root/hcil/piccolo/play/graphit,root/hcil/piccolo/play/graphit/graphit.html
@@ -1759,10 +1761,4 @@ west-legal,stv-save.gif,root/hcil/west-legal,root/hcil/west-legal/stv-save.gif
 west-legal,west-6wins.gif,root/hcil/west-legal,root/hcil/west-legal/west-6win.gif
 west-legal,wglogo2.gif,root/hcil/west-legal,root/hcil/west-legal/wglogo2.gif
 hcil,youth-services,root/hcil,root/hcil/youth-services
-youth-services,youth-services-index.html,root/hcil/youth-services,root/hcil/youth-services/index.html
-hcil,project-final,root/hcil,root/hcil/project-final
-project-final,project-demo,root/hcil/project-final,root/hcil/project-final/project-demo
-project-final,proj_index.html,root/hcil/project-final/project-demo,root/hcil/project-final/project-demo/proj_index.html
-project-final,project1,root/hcil/project-final/project-demo,root/hcil/project-final/project-demo/project1
-project-final,project2,root/hcil/project-final/project-demo,root/hcil/project-final/project-demo/project2
-project-final,project3,root/hcil/project-final/project-demo,root/hcil/project-final/project-demo/project3
+youth-services,index.html,root/hcil/youth-services,root/hcil/youth-services/index.html

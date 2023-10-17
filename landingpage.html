@@ -747,6 +747,7 @@
                         .tooltip('_fixTitle')
                         .tooltip('show');
 
+                    update_log("btn-copyemail", "button", "Email has been copied for sending an email.");
 
                     console.log(d3.select("body").select("tooltip"));
 
@@ -772,6 +773,7 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
 
+        /*
         if (d3.select("#progress-overview").style("width") == "100%")
             d3.select("#progress-overview")
                 .on("click", function () {
@@ -789,9 +791,10 @@
                 .on("click", function () {
                     window.location.href = 'mtree.html?page=trainingquestions';
                 });
+                */
 
 
-        function update_log(elementID, elementType, description) {
+        function update_log(elementID, elementType, elementDescription, eventDescription) {
 
 
             logObject = JSON.parse(localStorage.getItem("logObject"));
@@ -802,7 +805,8 @@
                 "pageID": pageID,
                 "elementID": elementID,
                 "elementType": elementType,
-                "description": description,
+                "elementDescription": elementDescription,
+                "eventDescription": eventDescription,
                 "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                 "overall_timestamp": new Date().getMilliseconds(),
                 "phase_timestamp": new Date().getMilliseconds(),

@@ -80,7 +80,7 @@
                         <blockquote>
                             <p>
 
-                                In this study, you will evaluate a novel visualization called the <b>MergedTree
+                                In this study, you will evaluate a visualization called the <b>LinkedTree
                                     visualization
                                 </b>.
 
@@ -262,7 +262,7 @@
 
         //console.log(logObject);
 
-        const vizID = "mergedtree";
+        const vizID = "linkedtree";
         const pageID = "landingpage";
 
         var date = new Date();
@@ -815,7 +815,7 @@
                 });
 
 
-        function update_log(elementID, elementType, description) {
+        function update_log(elementID, elementType, elementDescription, eventDescription) {
 
 
             logObject = JSON.parse(localStorage.getItem("logObject"));
@@ -826,7 +826,8 @@
                 "pageID": pageID,
                 "elementID": elementID,
                 "elementType": elementType,
-                "description": description,
+                "elementDescription": elementDescription,
+                "eventDescription": eventDescription,
                 "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                 "overall_timestamp": new Date().getMilliseconds(),
                 "phase_timestamp": new Date().getMilliseconds(),

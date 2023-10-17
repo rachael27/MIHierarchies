@@ -9,51 +9,69 @@ function twl_guidedtour() {
             intro: "In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour."
         },
         {
-            element: document.querySelector('[id="link_root/projects/hcil/People"]'),
-            title: "A common node <hr class='border border-primary border-3 opacity-75'>",
-            intro: "<p class='text-justify'>If a node belongs to both hierarchies, a line/link is drawn between them. <br> <hr class='border border-danger border-2 opacity-50'> Hovering on the link will highlight the node from both hierarchies and a tooltip displays the node name. <hr class='border border-danger border-2 opacity-50'> The connecting links are drawn based on two requirements.<hr class='border border-danger border-2 opacity-50'>  </p>"
+            element: document.querySelector('[id="h1tree_root"]'),
+            title: "Node with a green border <hr class='border border-primary border-3 opacity-75'>",
+            intro: "<p class='text-justify'>A node may represent a file or folder. <br> <hr class='border border-danger border-2 opacity-50'> If the node has a green border, it is a folder. <hr class='border border-danger border-2 opacity-50'>  </p>"
+        },
+
+        {
+            element: document.querySelector('[id="h1tree_newmainhtml"]'),
+            title: "Node without a green border <hr class='border border-primary border-3 opacity-75'>",
+            intro: "<p class='text-justify'>If the node, doesn't have a border, it is a file. <br> <hr class='border border-danger border-2 opacity-50'> </p>"
         },
         {
-            element: document.querySelector('[id="link_root/projects/hcil/treemap3/index.html"]'),
-            title: "A connecting link between files <hr class='border border-primary border-3 opacity-75'>",
-            intro: "If a link is drawn between 2 files, it means that the file is common to both hierarchies. <hr class='border border-danger border-2 opacity-50'> "
-        },
-        {
-            element: document.querySelector('[id="link_root/projects/hcil/members"]'),
+            element: document.querySelector('[id="link_academics"]'),
             title: "A connecting link between folders <hr class='border border-primary border-3 opacity-75'>",
             intro: "If a link is drawn between 2 folders, it means that the folder along with the files that belong to it are common to both hierarchies. <hr class='border border-danger border-2 opacity-50'>"
         },
         {
-            element: document.querySelector('[id="h2tree_rootprojectshcilanthrophotosindex_filesfilelistxml"]'),
+            element: document.querySelector('[id="link_wordnetviewer"]'),
+            title: "A connecting link between files <hr class='border border-primary border-3 opacity-75'>",
+            intro: "If a link is drawn between 2 files, it means that the file is common to both hierarchies. <hr class='border border-danger border-2 opacity-50'> "
+        },
+
+        {
+            element: document.querySelector('[id="h1tree_postscripthtml"]'),
             title: "Interacting with a node <hr class='border border-primary border-3 opacity-75'>",
             intro: "You can hover on a node to view a tooltip which displays the details about a node. <br><hr class='border border-danger border-2 opacity-50'> It also highlights the path from the node to the root."
         },
         {
-            element: document.querySelector('[id="h2tree_rootprojectshcilmillionvis"]'),
+            element: document.querySelector('[id="h1tree_treemaps"]'),
             title: "Interacting with a node <hr class='border border-primary border-3 opacity-75'>",
             intro: "You can also click on a node to collapse/expand its children. <br><hr class='border border-danger border-2 opacity-50'> "
         },
 
         {
-            element: document.querySelector('[id="h2tree_rootprojectshcilmulti-clusterimage-hce2footerjpg"]'),
+            element: document.querySelector('[id=" h1tree_filelistxml_text"]'),
+            title: "Interacting with a LABEL <hr class='border border-primary border-3 opacity-75'>",
+            intro: "You can hover on a label to magnify the text. <br><hr class='border border-danger border-2 opacity-50'> "
+        },
+
+        {
+            element: document.querySelector('[id="h1tree_muiseum"]'),
             title: "Tree levels <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The level of a node in a tree is the distance of the node from the root. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes in the path to the root node (path nodes are highlighted, when you hover on a node) and subtract 1. Hence, the level of the selected node is 5 (6 highlighted nodes - 1).  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
+            intro: "The level of a node in a tree is the distance of the node from the root. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes in the path to the root node and subtract 1. Hence, the level of the selected node is 2 (3 highlighted nodes - 1).  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
         },
 
         {
             element: document.querySelector('[id="search-nodes"]'),
             title: "Search nodes <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Enter the file/folder name, for e.g. type 'filelist.xml' will give you a list of all files named filelist.xml. <hr class='border border-danger border-2 opacity-50'> Choose the required file based on its <b>path:</b><i>/anthro/photos/index_files/filelist.xml</i>. <hr class='border border-primary border-3 opacity-75'> Please note that several files/folders can have the same name. You can distinguish such files/folders based on their path."
+            intro: "Enter the file/folder name, for e.g. type 'filelist.xml' will give you a list of all files named filelist.xml. <hr class='border border-danger border-2 opacity-50'> Choose the required file based on its <b>path:</b><i>/anthro/photos/index_files/filelist.xml</i>"
         },
         {
             element: document.querySelector('[id="btn-search"]'),
             title: "Search nodes <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Now, click on the search button. The nodes that you searched for are now highlighted."
+            intro: "Now, click on the search button. Automatic scrolling will take you to the nodes that you searched for (now highlighted in gold)."
+        },
+        {
+            element: document.querySelector('[id="btn-clear"]'),
+            title: "Complete your search <hr class='border border-primary border-3 opacity-75'>",
+            intro: "When you click on the clear button, the nodes that you searched for previosuly, are no longer highlighted."
         },
         {
             element: document.querySelector('[id="tog-hierarchy"]'),
-            title: "Search nodes from the before/after hierarchy <hr class='border border-primary border-3 opacity-75'>",
-            intro: "You can search nodes from the before/after hierarchy, by using the toggle switch."
+            title: "Search nodes from the BeforeH/AfterH <hr class='border border-primary border-3 opacity-75'>",
+            intro: "You can search nodes from the BeforeH and AfterH, by using the toggle switch."
         },
 
         {
@@ -132,12 +150,12 @@ function twl_guidedtour() {
 
         })
         .oncomplete(function () {
-            update_log("introjs-nextbutton", "Completed guided tour. Redirect to landing page.")
+            update_log("introjs-nextbutton", "button", "Completed guided tour. Redirect to landing page", "click")
             window.location.href = 'twl-landingpage.html?page=guidedtour';
         })
         .onchange(function () {
             //console.log(this);
-            update_log("introjs-nextbutton", "display tooltip " + this._currentStep);
+            update_log("introjs-nextbutton", "button", "display tooltip " + this._currentStep, "click");
         })
 
         //.setOption("showStepNumbers", true)
@@ -149,7 +167,7 @@ function twl_guidedtour() {
     // console.log(introJs().isActive());
 
 
-    function update_log(elementID, description) {
+    function update_log(elementID, elementType, elementDescription, eventDescription) {
         var date = new Date();
 
 
@@ -160,8 +178,9 @@ function twl_guidedtour() {
             "screenSize": window.innerWidth + ";" + window.innerHeight,
             "pageID": pageID,
             "elementID": elementID,
-            "elementType": "button",
-            "description": description,
+            "elementType": elementType,
+            "elementDescription": elementDescription,
+            "eventDescription": eventDescription,
             "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "overall_timestamp": new Date().getMilliseconds(),
             "phase_timestamp": new Date().getMilliseconds(),

@@ -1,7 +1,7 @@
 function twl_experimentquestions(qcounter) {
     var selected_value = "";
     var pageID = "experiment";
-    var vizID = "mergedtree";
+    var vizID = "linkedtree";
 
     d3.select("#qandamodule")
         .select("br")
@@ -14,26 +14,26 @@ function twl_experimentquestions(qcounter) {
         },
         {
             "qid": "E1.",
-            "question": "How many levels does the after hierarchy have?",
-            "answer": "1",
-            "options": [1, 3, 5, 7]
+            "question": "How many levels does the AfterH have?",
+            "answer": "8",
+            "options": [4, 6, 8]
 
         },
 
         {
             "qid": "E2.",
             "question": "What is the path of the node:<i>treeml.dtd</i>?",
-            "answer": " ",
-            "options": ["<i>root/project/hcil/iv03contest/datasets/treeml.dtd</i>", "<i>root/project/hcil/census/JavaProto/demo_files/treeml.dtd</i>", "<i>root/project/hcil/about/pictures/treeml.dtd</i>", "<i>root/project/hcil/treemap/treeml.dtd</i>"]
+            "answer": "<i>root/hcil/iv03contest/datasets/treeml.dtd</i>",
+            "options": ["<i>root/project/hcil/census/JavaProto/demo_files/treeml.dtd</i>", "<i>root/hcil/iv03contest/datasets/treeml.dtd</i>", "<i>root/project/hcil/about/pictures/treeml.dtd</i>", "<i>root/project/hcil/treemap/treeml.dtd</i>"]
 
         },
 
 
         {
             "qid": "E3.",
-            "question": "What is the level of node filename:<i>root/projects/hcil/piccolo/newsroom/index.shtml</i> in the before and after hierarchies?",
-            "answer": "Level 5 in the before hierarchy and Level 6 in the after hierarchy",
-            "options": ["Level 5 in the before hierarchy and Level 5 in the after hierarchy", "Level 4 in the before hierarchy and Level 5 in the after hierarchy", "Level 5 in the before hierarchy and Level 6 in the after hierarchy"]
+            "question": "What is the level of node filename:<i>root/hcil/piccolo/newsroom/index.shtml</i> in the before and after hierarchies?",
+            "answer": "Level 4 in the BeforeH and Level 4 in the AfterH",
+            "options": ["Level 4 in the BeforeH and Level 4 in the AfterH", "Level 4 in the BeforeH and Level 5 in the AfterH", "Level 5 in the BeforeH and Level 6 in the AfterH"]
 
         },
 
@@ -41,61 +41,61 @@ function twl_experimentquestions(qcounter) {
             "qid": "E4.",
             "question": "Which folder has the maximum number of files deletions?",
             "answer": " ",
-            "options": [" "]
+            "options": ["snap", "oh99", "treemap3", "spacetree"]
 
         },
 
         {
             "qid": "E5.",
-            "question": "Is the element filename:<i>root/projects/hcil/treemap3/images/tm.gif</i> available in both hierarchies?",
-            "answer": "Yes",
-            "options": ["Yes, it is available in both hierarchies.", "No, it is available only in the before hierarchy.", "No, it is available only in the after hierarchy."]
+            "question": "Is the element filename:<i>root/hcil/about/pictures/reddot.gif</i> available in both hierarchies?",
+            "answer": "No, it is available only in the AfterH.",
+            "options": ["Yes, it is available in both hierarchies.", "No, it is available only in the BeforeH.", "No, it is available only in the AfterH."]
 
         },
 
+        /* {
+            "qid": "E6.",
+            "question": "Node file:<i>root/hcil/pda/thesis/thesis-pda/postscript.html</i> in the BeforeH has gone through a change/s. What is/are the change/s?",
+            "answer": "The file has moved up one level in to the folder<i>root/hcil/pda/thesis</i>.",
+            "options": ["The file has moved to a different folder on the same level.", "The file has moved down one level in to a sub-folder inside the parent folder:<i>root/hcil/pda/thesis/thesis-pda/thesis-draft/postscript.html</i>.", "The file has moved up one level in to the folder<i>root/hcil/pda/thesis</i>."]
+
+        },
+ */
         {
             "qid": "E6.",
-            "question": "Node folder:<i>root/pojects/hcil/jazz</i>  belongs to Parent ABC in the before hierarchy. Has the parent changed now (in MT)?",
+            "question": "Has the contents of folder:<i>root/hcil/piccolo/applications</i> changed?",
             "answer": "Yes",
-            "options": ["Yes", "No"]
+            "options": ["Some files have been deleted.", "The folder contents have not changed at all.", "One file has been added."]
 
         },
 
         {
             "qid": "E7.",
-            "question": "Have the contents of folder:<i>root/projects/hcil/timesearcher/docs/graphics</i> changed?",
-            "answer": "Yes",
-            "options": ["Some files have been added.", "Some files have been deleted.", "The folder contents have not changed at all."]
+            "question": "Find the siblings of folder:<i>root/projects/hcil/treemap3/doc</i>",
+            "answer": "[doc3.3,demo.shtml,demo_files]",
+            "options": ["[1.html,2.html,3.html]", "[spotfire,touchscreens,timesearcher]", "[doc3.3,demo.shtml,demo_files]"]
 
         },
-
         {
             "qid": "E8.",
-            "question": "Find the siblings of folder:<i>root/projects/hcil/treemap3/doc</i>",
-            "answer": "Yes",
-            "options": ["[doc3.3,demo_shtml,demo_files]", "[1.html,2.html,3.html]", "[spotfire,touchscreens,timesearcher]"]
+            "question": "Which folder in the BeforeH has grown the most in the AfterH?",
+            "answer": "root/hcil/about/pictures",
+            "options": ["root/hcil/treemaps3", "root/hcil/about/pictures", "root/hcil/agile2d"]
 
         },
         {
             "qid": "E9.",
-            "question": "Which folder in the before hierarchy has grown the most in the after hierarchy?",
-            "answer": "treemaps3",
-            "options": ["treemaps3", "pictures"]
+            "question": "Which folder in the BeforeH was deleted in the AfterH?",
+            "answer": "root/hcil/visumillion",
+            "options": ["root/hcil/treemap", "root/hcil/about", "root/hcil/visumillion"]
 
         },
+
         {
             "qid": "E10.",
-            "question": "Which folder in the before hierarchy was deleted in the after hierarchy?",
-            "answer": "about",
-            "options": ["treemaps3", "about", "treemaps"]
-
-        },
-
-        {
-            "qid": "E11.",
-            "question": "What changes has the folder:<i>root/projects/hcil/piccolo/applications</i> gone through?",
-            "answer": "One file was deleted",
-            "options": ["One file was deleted", "Multiple files were added", "No changes were made"]
+            "question": "What changes are common to folder:root/hcil/members/mvenkatraman and folder:root/hcil/members/rsalter?",
+            "answer": "One file was deleted, one file was added and one file was retained",
+            "options": ["All files were deleted", "One file was added and one file was deleted", "One file was deleted, one file was added and one file was retained", "Two files were retained and the rest were deleted."]
 
         },
 
@@ -105,7 +105,6 @@ function twl_experimentquestions(qcounter) {
         }
 
     ];
-
 
 
     //console.log(list_questions[qcounter]);
@@ -160,7 +159,7 @@ function twl_experimentquestions(qcounter) {
 
 
 
-        update_log("btn-nextquestion", "button", "display next question", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer);
+        update_log("btn-nextquestion", "button", "display next question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer);
 
         /*
     d3.select("#btn-nextquestion")
@@ -206,7 +205,7 @@ function twl_experimentquestions(qcounter) {
 
         });
 
-    function update_log(elementID, elementType, description, questionID, question, useranswer, correctanswer) {
+    function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer) {
         var date = new Date();
 
 
@@ -218,7 +217,8 @@ function twl_experimentquestions(qcounter) {
             "pageID": pageID,
             "elementID": elementID,
             "elementType": elementType,
-            "description": description,
+            "elementDescription": elementDescription,
+            "eventDescription": eventDescription,
             "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "overall_timestamp": new Date().getMilliseconds(),
             "phase_timestamp": new Date().getMilliseconds(),

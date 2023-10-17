@@ -123,12 +123,12 @@ function guidedtour() {
 
         })
         .oncomplete(function () {
-            update_log("introjs-nextbutton", "Completed guided tour. Redirect to landing page.")
+            update_log("introjs-nextbutton", "button", "Completed guided tour. Redirect to landing page.", "click")
             window.location.href = 'landingpage.html?page=guidedtour';
         })
         .onchange(function () {
             //console.log(this);
-            update_log("introjs-nextbutton", "display tooltip " + this._currentStep);
+            update_log("introjs-nextbutton", "display tooltip " + this._currentStep, "click");
         })
 
         //.setOption("showStepNumbers", true)
@@ -140,7 +140,7 @@ function guidedtour() {
     // console.log(introJs().isActive());
 
 
-    function update_log(elementID, description) {
+    function update_log(elementID, elementType, elementDescription, eventDescription) {
         var date = new Date();
 
 
@@ -152,7 +152,8 @@ function guidedtour() {
             "pageID": pageID,
             "elementID": elementID,
             "elementType": "button",
-            "description": description,
+            "elementDescription": elementDescription,
+            "eventDescription": eventDescription,
             "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "overall_timestamp": new Date().getMilliseconds(),
             "phase_timestamp": new Date().getMilliseconds(),
