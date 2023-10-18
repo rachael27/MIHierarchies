@@ -177,19 +177,12 @@
 
             var uniq = (new Date()).getTime();
 
-            //console.log(uniq)
-
-            //const userID = "P" + uniq;
-            //console.log(userID);
-
-            var pageID = "consent";
-            var userID = localStorage.getItem("userID");
 
 
 
             var date = new Date();
 
-            update_log("", "Landed on consent form.");
+            update_log("", "Landed on consent form.", "", "");
 
             /* logObject.push({
 
@@ -234,7 +227,7 @@
                     }
 
                     if (consent_counter == d3.selectAll(".consent-checkbox")._groups[0].length) {
-                        update_log("btn-mtree", "button", "Consent recorded. Redirected to MergedTree");
+                        update_log("btn-mtree", "button", "Consent recorded. Redirected to MergedTree", "click");
                         /* logObject.push({
 
                             "userID": userID,
@@ -266,7 +259,7 @@
                     }
 
                     if (consent_counter == d3.selectAll(".consent-checkbox")._groups[0].length) {
-                        update_log("btn-treeswlinking", "button", "Consent recorded. Redirected to LinkedTree");
+                        update_log("btn-treeswlinking", "button", "Consent recorded. Redirected to LinkedTree", "click");
                         /*  logObject.push({
  
                              "userID": userID,
@@ -308,17 +301,17 @@
 
                 logObject = JSON.parse(localStorage.getItem("logObject"));
                 logObject.push({
+                    "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                     "userID": localStorage.getItem("userID"),
                     "vizID": "",
-                    "screenSize": window.innerWidth + ";" + window.innerHeight,
-                    "pageID": pageID,
+                    "screenSize": localStorage.getItem("screenSize"),
+                    "pageID": "consent",
                     "elementID": elementID,
                     "elementType": elementType,
                     "elementDescription": elementDescription,
                     "eventDescription": eventDescription,
-                    "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                     "overall_timestamp": new Date().getMilliseconds(),
-                    "phase_timestamp": new Date().getMilliseconds(),
+                    //"phase_timestamp": new Date().getMilliseconds(),
                     "questionID": "",
                     "question": "",
                     "useranswer": "",

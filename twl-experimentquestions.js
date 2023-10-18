@@ -1,13 +1,17 @@
+var selected_value = "";
+pageID = "experiment";
+vizID = "linkedtree";
+var score = 0;
+var list_questions = [];
+
 function twl_experimentquestions(qcounter) {
-    var selected_value = "";
-    var pageID = "experiment";
-    var vizID = "linkedtree";
+
 
     d3.select("#qandamodule")
         .select("br")
         .remove();
 
-    var list_questions = [
+    list_questions = [
         {
             "qid": "",
             "question": "Are you ready to start the experiment?",
@@ -72,8 +76,8 @@ function twl_experimentquestions(qcounter) {
         {
             "qid": "E7.",
             "question": "Find the siblings of folder:<i>root/projects/hcil/treemap3/doc</i>",
-            "answer": "[doc3.3,demo.shtml,demo_files]",
-            "options": ["[1.html,2.html,3.html]", "[spotfire,touchscreens,timesearcher]", "[doc3.3,demo.shtml,demo_files]"]
+            "answer": "[doc3.3;demo.shtml;demo_files]",
+            "options": ["[1.html;2.html;3.html]", "[spotfire;touchscreens;timesearcher]", "[doc3.3;demo.shtml;demo_files]"]
 
         },
         {
@@ -196,24 +200,27 @@ function twl_experimentquestions(qcounter) {
     d3.selectAll("input[name='experimentanswer']")
         .on("change", function (d, i) {
 
-            console.log(i);
-            console.log(this.value + " " + list_questions[qcounter].answer);
+            //console.log(i);
+            //console.log(this.value + " " + list_questions[qcounter].answer);
             selected_value = this.value;
-            var score = 0;
+
             if (selected_value == list_questions[qcounter].answer)
                 score = 1;
-            update_log("btn-nextquestion", "button", "display next question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+            else
+                score = 0;
+
+            //update_log("btn-nextquestion", "button", "display next question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
 
 
             d3.select("#btn-nextquestion")._groups[0][0].disabled = false;
 
         });
 
-    function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer) {
+    function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer, score) {
         var date = new Date();
 
-
         var logObject = JSON.parse(localStorage.getItem("logObject"));
+
         logObject.push({
             "userID": localStorage.getItem("userID"),
             "vizID": vizID,
@@ -230,8 +237,9 @@ function twl_experimentquestions(qcounter) {
             "question": question,
             "useranswer": useranswer,
             "correctanswer": correctanswer,
-            "score": ""
+            "score": score
         });
+
         localStorage.removeItem("logObject");
         localStorage.setItem("logObject", JSON.stringify(logObject));
 

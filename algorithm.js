@@ -1,12 +1,12 @@
 
-function bt_compareDimensions(h2, h1, h2_dims, h1_dims, h1color, h2color, mergedcolor) {
-    //console.log(h1);
+function bt_compareDimensions(h1, h2, h1_dims, h2_dims, h2color, h1color, mergedcolor) {
     //console.log(h2);
+    //console.log(h1);
 
-    //console.log(h1_dims);
     //console.log(h2_dims);
+    //console.log(h1_dims);
 
-    //console.log(h1color + " " + h2color + " " + mergedcolor);
+    //console.log(h2color + " " + h1color + " " + mergedcolor);
 
     //var arrDims = [];
 
@@ -14,20 +14,20 @@ function bt_compareDimensions(h2, h1, h2_dims, h1_dims, h1color, h2color, merged
     var hier_flat = [];
     var index = 0;
 
-    var h1_flat = flatten_array(h1);
     var h2_flat = flatten_array(h2);
+    var h1_flat = flatten_array(h1);
 
-    //console.log(h1_flat);
     //console.log(h2_flat);
+    //console.log(h1_flat);
 
-    var maxLevels = Math.max(h1.length, h2.length);
+    var maxLevels = Math.max(h2.length, h1.length);
     var hier = [];
     var hier_obj = [];
     var levelcolor = "";
     var bordertype = "";
     var linkcolor = "";
-    var detailsh1 = "";
     var detailsh2 = "";
+    var detailsh1 = "";
     var level = "";
     var altparent = "";
 
@@ -38,58 +38,58 @@ function bt_compareDimensions(h2, h1, h2_dims, h1_dims, h1color, h2color, merged
     //console.log(hier);
     //console.log(hier.length);
 
-    //var lev1 = level_desc(h1[i][ii], h1);
-    //hier.push({ "child": h1[i][ii], "parent": parent_desc(h1[i][ii], h1_dims), "alternateparent": parent_desc(h1[i][ii], h2_dims), "color": mergedcolor, "shape": "merged", "level": avg_level });
-    //hier_flat.push(h1[i][ii]);
+    //var lev1 = level_desc(h2[i][ii], h2);
+    //hier.push({ "child": h2[i][ii], "parent": parent_desc(h2[i][ii], h2_dims), "alternateparent": parent_desc(h2[i][ii], h1_dims), "color": mergedcolor, "shape": "merged", "level": avg_level });
+    //hier_flat.push(h2[i][ii]);
 
 
-    for (var i = 0; i < h1.length; i++) {
-        //console.log("h1 " + i);
-        for (var ii = 0; ii < h1[i].length; ii++) {
+    for (var i = 0; i < h2.length; i++) {
+        //console.log("h2 " + i);
+        for (var ii = 0; ii < h2[i].length; ii++) {
 
-            //console.log(h1[i][ii] + " " + i);
-            hier[i].push(h1[i][ii]);
-            hier_flat.push(h1[i][ii]);
+            //console.log(h2[i][ii] + " " + i);
+            hier[i].push(h2[i][ii]);
+            hier_flat.push(h2[i][ii]);
 
-            detailsh1 = findDetails(h1_dims, h1[i][ii]);
+            detailsh2 = findDetails(h2_dims, h2[i][ii]);
 
             //console.log(details);
 
 
 
-            //found only in h1
-            if (!h2_flat.includes(h1[i][ii])) {
+            //found only in h2
+            if (!h1_flat.includes(h2[i][ii])) {
                 //levelcolor = "blue";
                 hier_obj.push({
-                    "child": h1[i][ii],
-                    //"parent": parent_desc(h1[i][ii], h1_dims),
-                    //"level": level_desc(h1[i][ii], h1),
+                    "child": h2[i][ii],
+                    //"parent": parent_desc(h2[i][ii], h2_dims),
+                    //"level": level_desc(h2[i][ii], h2),
                     //"bordertype": "solid",
-                    //"description": findDescription(h1_dims, h1[i][ii]),
+                    //"description": findDescription(h2_dims, h2[i][ii]),
 
-                    "parent": detailsh1[0],
-                    "level": detailsh1[1],
-                    "description": detailsh1[2],
+                    "parent": detailsh2[0],
+                    "level": detailsh2[1],
+                    "description": detailsh2[2],
 
 
                     "alternateparent": "",
-                    "color": h1color,
-                    "shape": "h1",
+                    "color": h2color,
+                    "shape": "h2",
 
                     "alternatelevel": "",
-                    "levelcolor": h1color,
+                    "levelcolor": h2color,
 
                     "x": 0,
                     "y": 0,
 
                     "linkcolor": "red",
 
-                    "h1parent": detailsh1[0],
-                    "h2parent": ""
+                    "h2parent": detailsh2[0],
+                    "h1parent": ""
                 });
                 //break;
 
-                h1_flat.splice(h1_flat.indexOf(h1[i][ii]), 1);
+                h2_flat.splice(h2_flat.indexOf(h2[i][ii]), 1);
 
             }
         }
@@ -97,74 +97,74 @@ function bt_compareDimensions(h2, h1, h2_dims, h1_dims, h1color, h2color, merged
 
 
 
-    for (var i = 0; i < h2.length; i++) {
-        //console.log("h2 " + i);
-        for (var ii = 0; ii < h2[i].length; ii++) {
-            //console.log(h2[i][ii]);
-            //console.log("h2 " + i + " " + ii);
-            levelcolor = h1color;
+    for (var i = 0; i < h1.length; i++) {
+        //console.log("h1 " + i);
+        for (var ii = 0; ii < h1[i].length; ii++) {
+            //console.log(h1[i][ii]);
+            //console.log("h1 " + i + " " + ii);
+            levelcolor = h2color;
             altparent = "";
 
-            detailsh1 = findDetails(h1_dims, h2[i][ii]);
-            detailsh2 = findDetails(h2_dims, h2[i][ii]);
+            detailsh2 = findDetails(h2_dims, h1[i][ii]);
+            detailsh1 = findDetails(h1_dims, h1[i][ii]);
 
 
             //found in both
-            if (h1_flat.includes(h2[i][ii])) {
+            if (h2_flat.includes(h1[i][ii])) {
                 //console.log("both");
 
-                //var ancestor = findAncestor(h2[i][ii], h2_dims, h1, h1_dims);
-                //var ancestor_level = level_desc(ancestor, h1);
-                //console.log("element " + h2[i][ii] + " " + level_desc(h2[i][ii], h1));
-                //console.log(h2[i][ii] + " " + ancestor + " " + ancestor_level);
-                hier[i].push(h2[i][ii]);
-                hier_flat.push(h2[i][ii]);
+                //var ancestor = findAncestor(h1[i][ii], h1_dims, h2, h2_dims);
+                //var ancestor_level = level_desc(ancestor, h2);
+                //console.log("element " + h1[i][ii] + " " + level_desc(h1[i][ii], h2));
+                //console.log(h1[i][ii] + " " + ancestor + " " + ancestor_level);
+                hier[i].push(h1[i][ii]);
+                hier_flat.push(h1[i][ii]);
 
 
-                if (detailsh2[1] == detailsh1[1])
-                    levelcolor = h1color;
-                else if (detailsh2[1] < detailsh1[1])
+                if (detailsh1[1] == detailsh2[1])
+                    levelcolor = h2color;
+                else if (detailsh1[1] < detailsh2[1])
                     levelcolor = "#4F7942";
-                else /*if((level_desc(h2[i][ii], h2) > level_desc(h2[i][ii], h1)))*/
+                else /*if((level_desc(h1[i][ii], h1) > level_desc(h1[i][ii], h2)))*/
                     levelcolor = "green";
 
-                //if (parent_desc(h2[i][ii], h1_dims) == parent_desc(h2[i][ii], h2_dims))
+                //if (parent_desc(h1[i][ii], h2_dims) == parent_desc(h1[i][ii], h1_dims))
                 //  bordertype = "solid";
 
 
                 //else bordertype = "dashed";
 
 
-                //console.log(parent_desc(h2[i][ii], h2_dims));
-                if (detailsh1[0] == detailsh2[0])
+                //console.log(parent_desc(h1[i][ii], h1_dims));
+                if (detailsh2[0] == detailsh1[0])
                     linkcolor = "blue";
                 else
                     linkcolor = "red";
 
 
-                if (detailsh1[0] == detailsh2[0])
+                if (detailsh2[0] == detailsh1[0])
                     altparent == "";
                 else
-                    altparent = detailsh2[0];
+                    altparent = detailsh1[0];
 
 
                 hier_obj.push({
-                    "child": h2[i][ii],
+                    "child": h1[i][ii],
 
-                    //"parent": parent_desc(h2[i][ii], h1_dims),
-                    //"level": level_desc(h2[i][ii], h1),
-                    //"description": findDescription(h1_dims, h2[i][ii]),
+                    //"parent": parent_desc(h1[i][ii], h2_dims),
+                    //"level": level_desc(h1[i][ii], h2),
+                    //"description": findDescription(h2_dims, h1[i][ii]),
 
-                    "parent": detailsh1[0],
-                    "level": detailsh1[1],
-                    "description": detailsh1[2],
+                    "parent": detailsh2[0],
+                    "level": detailsh2[1],
+                    "description": detailsh2[2],
 
 
-                    //"alternateparent": parent_desc(h2[i][ii], h2_dims),
-                    //"alternatelevel": level_desc(h2[i][ii], h2),
+                    //"alternateparent": parent_desc(h1[i][ii], h1_dims),
+                    //"alternatelevel": level_desc(h1[i][ii], h1),
 
                     "alternateparent": altparent,
-                    "alternatelevel": detailsh2[1],
+                    "alternatelevel": detailsh1[1],
 
 
                     "color": mergedcolor,
@@ -172,29 +172,29 @@ function bt_compareDimensions(h2, h1, h2_dims, h1_dims, h1color, h2color, merged
 
 
                     //"levelcolor": levelcolor,
-                    "levelcolor": h1color,
+                    "levelcolor": h2color,
                     //"bordertype": bordertype,
                     "x": 0,
                     "y": 0,
 
                     "linkcolor": linkcolor,
 
-                    "h1parent": detailsh1[0],
-                    "h2parent": detailsh2[0]
+                    "h2parent": detailsh2[0],
+                    "h1parent": detailsh1[0]
                 });
 
-                //hier[i].push(h2[i][ii]);
-                //hier_flat.push(h2[i][ii]);
-                // console.log(i + " " + ii + " " + h2[i][ii]);
+                //hier[i].push(h1[i][ii]);
+                //hier_flat.push(h1[i][ii]);
+                // console.log(i + " " + ii + " " + h1[i][ii]);
 
                 // break;
             }
 
             else {
-                //console.log("element not included " + h2[i][ii]);
+                //console.log("element not included " + h1[i][ii]);
                 var ancestor = "";
                 var child = "";
-                var fa_result = findAncestor(h2[i][ii], h2_dims, h1, h1_dims);
+                var fa_result = findAncestor(h1[i][ii], h1_dims, h2, h2_dims);
                 //console.log(fa_result);
                 ancestor = fa_result[0];
                 if (fa_result[1] == 1) {
@@ -204,14 +204,14 @@ function bt_compareDimensions(h2, h1, h2_dims, h1_dims, h1color, h2color, merged
 
                     for (var h = 0; h < hier_obj.length; h++) {
                         // console.log(h + " " + hier_obj[h].child);
-                        /* if (hier_obj[h].child == h2[i][ii]) {
+                        /* if (hier_obj[h].child == h1[i][ii]) {
                             console.log("DO OBJECT UPDATED");
                             hier_obj[h].level = (level_desc(fa_result[0]) + level_desc(fa_result[2])) / 2;
                         } */
                         if (hier_obj[h].child == child) {
                             //console.log("OBJECT UPDATED");
-                            hier_obj[h].parent = h2[i][ii];
-                            hier_obj[h].alternateparent = parent_desc(child, h1_dims);
+                            hier_obj[h].parent = h1[i][ii];
+                            hier_obj[h].alternateparent = parent_desc(child, h2_dims);
 
                         }
 
@@ -220,94 +220,94 @@ function bt_compareDimensions(h2, h1, h2_dims, h1_dims, h1color, h2color, merged
                 }
 
 
-                var ancestor_level = level_desc(ancestor, h2);
-                //console.log(h2[i][ii] + " " + ancestor + " " + ancestor_level);
-                hier[ancestor_level + 1].push(h2[i][ii]);
+                var ancestor_level = level_desc(ancestor, h1);
+                //console.log(h1[i][ii] + " " + ancestor + " " + ancestor_level);
+                hier[ancestor_level + 1].push(h1[i][ii]);
 
-                if (ancestor == parent_desc(h2[i][ii], h2_dims))
+                if (ancestor == parent_desc(h1[i][ii], h1_dims))
                     bordertype = "solid";
                 //else bordertype = "dashed";
 
                 if (fa_result[1] == 1) {
                     //console.log("updt if");
-                    //console.log(h2[i][ii] + ancestor);
+                    //console.log(h1[i][ii] + ancestor);
 
-                    if (ancestor == detailsh2[0])
+                    if (ancestor == detailsh1[0])
                         altparent == "";
                     else
-                        altparent = detailsh2[0];
+                        altparent = detailsh1[0];
 
 
                     hier_obj.push({
-                        "child": h2[i][ii],
+                        "child": h1[i][ii],
 
                         "parent": ancestor,
-                        "description": findDescription(h2_dims, h2[i][ii]),
-                        "level": (level_desc(fa_result[0], h1) + level_desc(fa_result[2], h1)) / 2,
+                        "description": findDescription(h1_dims, h1[i][ii]),
+                        "level": (level_desc(fa_result[0], h2) + level_desc(fa_result[2], h2)) / 2,
 
                         "alternateparent": altparent,
-                        "color": h2color,
-                        "shape": "h2",
+                        "color": h1color,
+                        "shape": "h1",
 
-                        "alternatelevel": detailsh2[1],
+                        "alternatelevel": detailsh1[1],
                         //"levelcolor": levelcolor,
-                        "levelcolor": h1color,
+                        "levelcolor": h2color,
                         //"bordertype": bordertype,
                         "x": 0,
                         "y": 0,
 
                         "linkcolor": "green",
 
-                        "h1parent": "",
-                        "h2parent": ""
+                        "h2parent": "",
+                        "h1parent": ""
 
                     });
                     //break;
                 }
                 else {
                     //console.log("updt else");
-                    //console.log(h2[i][ii] + " " + ancestor + " " + parent_desc(h2[i][ii], h2_dims));
-                    //console.log(level_desc(ancestor, h2) + "" + level_desc(ancestor, h1) + "" + 1)
-                    var anc_h1 = level_desc(ancestor, h1);
+                    //console.log(h1[i][ii] + " " + ancestor + " " + parent_desc(h1[i][ii], h1_dims));
+                    //console.log(level_desc(ancestor, h1) + "" + level_desc(ancestor, h2) + "" + 1)
                     var anc_h2 = level_desc(ancestor, h2);
+                    var anc_h1 = level_desc(ancestor, h1);
 
-                    //detailsh2 = findDetails(h2_dims, h2[i][ii]);
+                    //detailsh1 = findDetails(h1_dims, h1[i][ii]);
 
-                    if (anc_h1 == undefined)
-                        anc_h1 = 0;
                     if (anc_h2 == undefined)
                         anc_h2 = 0;
-                    //console.log(anc_h1 + " " + anc_h2 + (d3.max([anc_h1, anc_h2]) + 1));
+                    if (anc_h1 == undefined)
+                        anc_h1 = 0;
+                    //console.log(anc_h2 + " " + anc_h1 + (d3.max([anc_h2, anc_h1]) + 1));
                     hier_obj.push({
-                        "child": h2[i][ii],
+                        "child": h1[i][ii],
 
-                        //"parent": parent_desc(h2[i][ii], h2_dims),
-                        //"description": findDescription(h2_dims, h2[i][ii]),
-                        //"alternatelevel": level_desc(h2[i][ii], h2),
+                        //"parent": parent_desc(h1[i][ii], h1_dims),
+                        //"description": findDescription(h1_dims, h1[i][ii]),
+                        //"alternatelevel": level_desc(h1[i][ii], h1),
 
-                        "parent": detailsh2[0],
-                        "description": detailsh2[2],
-                        "alternatelevel": detailsh2[1],
+                        "parent": detailsh1[0],
+                        "description": detailsh1[2],
+                        "alternatelevel": detailsh1[1],
 
 
-                        "level": d3.max([anc_h1, anc_h2]) + 1,
+                        "level": d3.max([anc_h2, anc_h1]) + 1,
                         "alternateparent": "",
-                        "color": h2color,
-                        "shape": "h2",
-                        //"level": level_desc(parent_desc(h2[i][ii], h2_dims), h2) + 1,
+                        "color": h1color,
+                        "shape": "h1",
+                        //"level": level_desc(parent_desc(h1[i][ii], h1_dims), h1) + 1,
                         //"level": ancestor_level + 1,
 
 
                         //"levelcolor": levelcolor,
-                        "levelcolor": h1color,
+                        "levelcolor": h2color,
                         //"bordertype": bordertype,
                         "x": 0,
                         "y": 0,
 
                         "linkcolor": "green",
 
-                        "h1parent": "",
-                        "h2parent": detailsh2[0]
+                        "h2parent": "",
+                        "h1parent": detailsh1[0]
                     });
                     //break;
                 }
@@ -337,11 +337,11 @@ function recomputePositions_nodes(descendants) {
 }
 
 
-function createHierarchy(arrDims, h1, h2) {
+function createHierarchy(arrDims, h2, h1) {
 
     /*  console.log(arrDims);
-     console.log(h1);
-     console.log(h2); */
+     console.log(h2);
+     console.log(h1); */
 
     var hier = [];
     hier.push({ "child": "root", "parent": "", "alternateparent": "", "color": mergedcolor, "shape": "merged" });
@@ -352,24 +352,24 @@ function createHierarchy(arrDims, h1, h2) {
             // console.log(arrDims[j][jj]);
 
             if (arrDims[j][jj].color == mergedcolor) {
-                var h1_details = parent(arrDims[j][jj], h1);
                 var h2_details = parent(arrDims[j][jj], h2);
+                var h1_details = parent(arrDims[j][jj], h1);
 
-                if (h1_details[1] < h2_details[1])
-                    hier.push({ "child": arrDims[j][jj].name, "parent": h1_details[0], "alternateparent": h2_details[0], "color": mergedcolor, "shape": "merged" });
+                if (h2_details[1] < h1_details[1])
+                    hier.push({ "child": arrDims[j][jj].name, "parent": h2_details[0], "alternateparent": h1_details[0], "color": mergedcolor, "shape": "merged" });
 
                 else
-                    hier.push({ "child": arrDims[j][jj].name, "parent": h2_details[0], "alternateparent": h1_details[0], "color": mergedcolor, "shape": "merged" });
+                    hier.push({ "child": arrDims[j][jj].name, "parent": h1_details[0], "alternateparent": h2_details[0], "color": mergedcolor, "shape": "merged" });
 
             }
 
-            else if (arrDims[j][jj].color == h2color) {
-                hier.push({ "child": arrDims[j][jj].name, "parent": parent(arrDims[j][jj], h1)[0], "alternateparent": "", "color": h2color, "shape": "h2" });
+            else if (arrDims[j][jj].color == h1color) {
+                hier.push({ "child": arrDims[j][jj].name, "parent": parent(arrDims[j][jj], h2)[0], "alternateparent": "", "color": h1color, "shape": "h1" });
 
             }
 
             else {
-                hier.push({ "child": arrDims[j][jj].name, "parent": parent(arrDims[j][jj], h2)[0], "alternateparent": "", "color": h1color, "shape": "h1" });
+                hier.push({ "child": arrDims[j][jj].name, "parent": parent(arrDims[j][jj], h1)[0], "alternateparent": "", "color": h2color, "shape": "h2" });
             }
 
 
@@ -528,35 +528,35 @@ function findDescription(array, element) {
     }
 }
 
-function findAncestor(element, h2_array, h1_array, h1_dims) {
+function findAncestor(element, h1_array, h2_array, h2_dims) {
 
-    //console.log(flatten_array(h1_array))
-    var flat_h1_array = flatten_array(h1_array);
+    //console.log(flatten_array(h2_array))
+    var flat_h2_array = flatten_array(h2_array);
     var flag_parent = 0;
     var flag_child = 0;
     var child = "";
 
-    var parent = parent_desc(element, h2_array);
+    var parent = parent_desc(element, h1_array);
 
     //console.log(element + " " + parent);
-    //console.log(h2_array);
-    //console.log(flat_h1_array);
-    //console.log(h1_dims);
+    //console.log(h1_array);
+    //console.log(flat_h2_array);
+    //console.log(h2_dims);
 
 
-    if (flat_h1_array.includes(parent)) {
+    if (flat_h2_array.includes(parent)) {
         flag_parent = 1;
 
-        for (var i = 0; i < h2_array.length; i++) {
-            if (element == h2_array[i].data.data.child) {
-                //console.log(h2_array[i].children);
-                if (typeof h2_array[i].children != "undefined") {
+        for (var i = 0; i < h1_array.length; i++) {
+            if (element == h1_array[i].data.data.child) {
+                //console.log(h1_array[i].children);
+                if (typeof h1_array[i].children != "undefined") {
                     //console.log()
-                    for (var c = 0; c < h2_array[i].children.length; c++) {
-                        // console.log(h2_array[i].children[c].data.data.child);
-                        if (flat_h1_array.includes(h2_array[i].children[c].data.data.child)) {
+                    for (var c = 0; c < h1_array[i].children.length; c++) {
+                        // console.log(h1_array[i].children[c].data.data.child);
+                        if (flat_h2_array.includes(h1_array[i].children[c].data.data.child)) {
                             flag_child = 1;
-                            child = h2_array[i].children[c].data.data.child;
+                            child = h1_array[i].children[c].data.data.child;
                         }
                     }
                 }
@@ -574,17 +574,17 @@ function findAncestor(element, h2_array, h1_array, h1_dims) {
 
     else {
         //console.log("entered else");
-        for (var i = 0; i < h2_array.length; i++) {
-            //console.log(h2_array[i]);
-            if (element == h2_array[i].data.data.child) {
-                //console.log(h2_array[i].data.data.parent);
+        for (var i = 0; i < h1_array.length; i++) {
+            //console.log(h1_array[i]);
+            if (element == h1_array[i].data.data.child) {
+                //console.log(h1_array[i].data.data.parent);
                 //return [parent, 0, ""];
-                return [h2_array[i].data.data.parent, 0, ""];
-                /* for (var anc = 0; anc < h2_array[i].ancestors().length; anc++) {
-                    console.log(h2_array[i].ancestors()[anc].data.data.child);
-                    if (flat_h1_array.includes(h2_array[i].ancestors()[anc].data.data.child)) {
-                        console.log("match found " + h2_array[i].ancestors()[anc].data.data.child);
-                        return [h2_array[i].ancestors()[anc].data.data.child, 0, ""];
+                return [h1_array[i].data.data.parent, 0, ""];
+                /* for (var anc = 0; anc < h1_array[i].ancestors().length; anc++) {
+                    console.log(h1_array[i].ancestors()[anc].data.data.child);
+                    if (flat_h2_array.includes(h1_array[i].ancestors()[anc].data.data.child)) {
+                        console.log("match found " + h1_array[i].ancestors()[anc].data.data.child);
+                        return [h1_array[i].ancestors()[anc].data.data.child, 0, ""];
                     }
                 } */
 

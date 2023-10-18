@@ -291,12 +291,12 @@
                 update_log("btn-downloadlog", "button", "download log");
 
 
-                var logstr = "userID,vizID,pageID,elementID,elementType,description,date,overall_timestamp,phase_timestamp,questionID,question,useranswer,correctanswer\n";
+                var logstr = "userID,vizID,pageID,elementID,elementType,description,date,overall_timestamp,phase_timestamp,questionID,question,useranswer,correctanswer,score\n";
 
                 var logarr = JSON.parse(localStorage.getItem("logObject"));
 
                 for (var i = 0; i < logarr.length; i++) {
-                    logstr = logstr + logarr[i].userID + "," + logarr[i].vizID + "," + logarr[i].pageID + "," + logarr[i].elementID + "," + logarr[i].elementType + "," + logarr[i].description + "," + logarr[i].date + "," + logarr[i].overall_timestamp + "," + logarr[i].phase_timestamp + "," + logarr[i].questionID + "," + logarr[i].question + "," + logarr[i].useranswer + "," + logarr[i].correctanswer + "\n";
+                    logstr = logstr + logarr[i].userID + "," + logarr[i].vizID + "," + logarr[i].pageID + "," + logarr[i].elementID + "," + logarr[i].elementType + "," + logarr[i].description + "," + logarr[i].date + "," + logarr[i].overall_timestamp + "," + logarr[i].phase_timestamp + "," + logarr[i].questionID + "," + logarr[i].question + "," + logarr[i].useranswer + "," + logarr[i].correctanswer + "," + logarr[i].score + "\n";
                 }
 
                 var blob = new Blob([logstr], { type: "text/csv;charset=utf-8" });

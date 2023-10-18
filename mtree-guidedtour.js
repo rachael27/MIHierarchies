@@ -2,6 +2,7 @@ function guidedtour() {
 
     var vizID = "mergedtree";
     var pageID = "guidedtour";
+    var screenSize = localStorage.getItem("screenSize");
 
     var stepsArr = [
         {
@@ -30,13 +31,13 @@ function guidedtour() {
         },
         {
             element: document.querySelector("#levellines > line"),
-            title: "BeforeH tree levels (grey level lines) <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The grey level lines show the position of a node as it appears in the BeforeH. <hr class='border border-danger border-2 opacity-50'> To find the level of node in the BeforeH, simply look for the grey line passing through it. The node:<i>root/hcil</i> in the BeforeH is on level 1 and is represented by the Level 1 grey dashed line passing through it."
+            title: "BeforeH tree levels (dotted/dashed grey level lines) <hr class='border border-primary border-3 opacity-75'>",
+            intro: "The grey level lines show the position of a node as it appears in the BeforeH. <hr class='border border-danger border-2 opacity-50'> To find the level of node in the BeforeH, simply look for the grey line passing through it. The node:<i>root/hcil</i> in the BeforeH is on level 1 and is represented by the Level 1 grey dotted/dashed line passing through it."
         },
         {
             element: document.querySelector("#line-chart-l1 > path"),
-            title: "AfterH tree levels (colored level lines) <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The colored level lines show the position of a node as it appears in the AfterH. <hr class='border border-danger border-2 opacity-50'>To find the level of node in the BeforeH, simply look for the solid colored line passing through it. The node:<i>root/hcil</i> in the AfterH and is is on level 1 represented by the Level 1 grey dashed line passing through it. <hr class='border border-danger border-2 opacity-50'> Some nodes might be on different levels in the BeforeH and AfterH."
+            title: "AfterH tree levels (solid multi-colored level lines) <hr class='border border-primary border-3 opacity-75'>",
+            intro: "The solid multi-colored level lines show the position of a node as it appears in the AfterH. <hr class='border border-danger border-2 opacity-50'>To find the level of node in the AfterH, simply look for the solid colored line passing through it. The node:<i>root/hcil</i> in the AfterH and is on level 1 represented by the Level 1 solid orange-colored line passing through it. <hr class='border border-danger border-2 opacity-50'> Some nodes might be on different levels in the BeforeH and AfterH."
         },
         /*  {
              element: document.querySelector("#line-chart-l2 > path"),
@@ -52,6 +53,26 @@ function guidedtour() {
             element: document.querySelector("#btn-level-line"),
             title: "AfterH level lines button <hr class='border border-primary border-3 opacity-75'>",
             intro: "Alternatively, you can click on this button to switch on/off all the level lines."
+        },
+        {
+            element: document.querySelector('[id="search-nodes"]'),
+            title: "Search nodes <hr class='border border-primary border-3 opacity-75'>",
+            intro: "Enter the file/folder name, for e.g. type 'filelist.xml' will give you a list of all files named filelist.xml. <hr class='border border-danger border-2 opacity-50'> Choose the required file based on its <b>path:</b><i>/anthro/photos/index_files/filelist.xml</i>"
+        },
+        {
+            element: document.querySelector('[id="btn-search"]'),
+            title: "Search nodes <hr class='border border-primary border-3 opacity-75'>",
+            intro: "Now, click on the search button. Automatic scrolling will take you to the nodes that you searched for (now highlighted in gold)."
+        },
+        {
+            element: document.querySelector('[id="btn-clear"]'),
+            title: "Complete your search <hr class='border border-primary border-3 opacity-75'>",
+            intro: "When you click on the clear button, the nodes that you searched for previosuly, are no longer highlighted."
+        },
+        {
+            element: document.querySelector('[id="tog-hierarchy"]'),
+            title: "Search nodes from the BeforeH/AfterH <hr class='border border-primary border-3 opacity-75'>",
+            intro: "You can search nodes from the BeforeH and AfterH, by using the toggle switch."
         },
         {
 
@@ -151,17 +172,17 @@ function guidedtour() {
 
         var logObject = JSON.parse(localStorage.getItem("logObject"));
         logObject.push({
+            "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "userID": localStorage.getItem("userID"),
-            "vizID": vizID,
-            "screenSize": window.innerWidth + ";" + window.innerHeight,
-            "pageID": pageID,
+            "vizID": localStorage.getItem("vizID"),
+            "screenSize": localStorage.getItem("screenSize"),
+            "pageID": "guided tour",
             "elementID": elementID,
-            "elementType": "button",
+            "elementType": elementType,
             "elementDescription": elementDescription,
             "eventDescription": eventDescription,
-            "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "overall_timestamp": new Date().getMilliseconds(),
-            "phase_timestamp": new Date().getMilliseconds(),
+            //"phase_timestamp": new Date().getMilliseconds(),
             "questionID": "",
             "question": "",
             "useranswer": "",

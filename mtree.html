@@ -476,11 +476,12 @@
         var mtree = "";
         const vizID = "mergedtree";
         const pageID = "mtree";
+        var screenSize = localStorage.getItem("screenSize");
 
 
         var title = [];
 
-        update_log("", "landed on the mergedtree page", "", "");
+        update_log("", "landed on the mergedtree page", "", "", "", "", "", "", "");
         var stree_label_size = 10;
         var label_size = 15;
 
@@ -507,7 +508,7 @@
             });
 
         d3.select("#btn-refresh").on("click", function () {
-            update_log("btn-refresh", "button", "refresh the layout", "click");
+            update_log("btn-refresh", "button", "refresh the layout", "click", "", "", "", "", "", "");
             d3.queue()
                 .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
                 .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
@@ -625,6 +626,12 @@
 
 
                 d3.select("#btn-nextquestion")._groups[0][0].disabled = true;
+                // console.log("submitted" + document.querySelector(".radiobuttons").checked);
+
+                if (!d3.select(".radiobuttons").empty()) {
+                    console.log(qcounter);
+                    update_log("btn-nextquestion", "button", "display training question", "click", "T" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+                }
 
                 if (qcounter == -1)
                     qcounter = qcounter + 2;
@@ -807,7 +814,7 @@
                 .on("change", function () {
                     d3.select("#search-nodes").node().value = "";
                     if (this.checked) {
-                        update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h2 elements", "click");
+                        update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h2 elements", "click", "", "", "", "", "");
                         d3.select("#search-nodes-list")
                             .selectAll("option")
                             .remove();
@@ -825,7 +832,7 @@
                             });
                     }
                     else {
-                        update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h1 elements", "click");
+                        update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h1 elements", "click", "", "", "", "", "");
                         d3.select("#search-nodes-list")
                             .selectAll("option")
                             .remove();
@@ -852,7 +859,7 @@
 
             d3.select("#btn-clear")
                 .on("click", function () {
-                    update_log("btn-clear", "button", "Clear the value in the search box", "click")
+                    update_log("btn-clear", "button", "Clear the value in the search box", "click", "", "", "", "", "")
                     d3.select("#search-nodes").node().value = "";
 
                     d3.selectAll(".selected")
@@ -887,7 +894,7 @@
 
                     //if (document.getElementById("tog-hierarchy").checked) {
                     child = d3.select("#search-nodes").node().value;
-                    update_log("btn-search", "button", "Search for value in the search box " + child, "click");
+                    update_log("btn-search", "button", "Search for value in the search box " + child, "click", "", "", "", "", "");
 
 
                     //console.log("CHILD " + child);
@@ -1403,7 +1410,7 @@
                             parent = label.substring(0, label.lastIndexOf("/"));
                         }
 
-                        update_log("node " + label, "node", "display tooltip", "mouseover");
+                        update_log("node " + label, "node", "display tooltip", "mouseover", "", "", "", "", "");
                         //console.log(parent + " " + child);
 
                         var type = "";
@@ -1438,7 +1445,7 @@
                                 .transition()
                                 .attr("r", radius - 3);
                         if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
-                        update_log("node " + label, "node", "hide tooltip", "mouseleave");
+                        update_log("node " + label, "node", "hide tooltip", "mouseleave", "", "", "", "", "");
 
 
                         d3.select(this)
@@ -1660,7 +1667,7 @@
                     })
                     .on("mouseover", function (d, i) {
                         var label = d.data.data.description_child, child = "root", parent = "";
-                        update_log("node " + label, "label", "display tooltip", "mouseover");
+                        update_log("node " + label, "label", "display tooltip", "mouseover", "", "", "", "", "");
 
                         if (label.includes("/")) {
                             child = label.substring(label.lastIndexOf("/") + 1, label.length);
@@ -1959,7 +1966,7 @@
                         return "translate(" + source.x + "," + y + ")";
                     })
                     .on("click", function (d) {
-                        update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click");
+                        update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
                         //console.log("click");
                         //console.log(hier_root);
                         click(d, hier_root);
@@ -1974,6 +1981,7 @@
                     //.duration(duration)
 
                     .style("stroke", function (d) {
+                        //console.log(d);
                         if (d.children)
                             return "none";
                         else if (d._children)
@@ -2051,8 +2059,8 @@
                     .style("stroke", function (d) {
                         if (d.children)
                             return "none";
-                        else (d._children)
-                        return "green";
+                        else if (d._children)
+                            return "green";
 
                     })
                     .style("fill", function (d) {
@@ -2081,7 +2089,7 @@
                     .transition()
                     .duration(duration)
                     .attr("r", function () {
-                        console.log("NODE EXIT ");
+                        //console.log("NODE EXIT ");
 
                         return 0;
                     })
@@ -2185,7 +2193,7 @@
                     .on("mouseover", function (d) {
                         //console.log(this);
                         d3.select(this).style("cursor", "default");
-                        update_log("node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click");
+                        update_log("node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click", "", "", "", "", "");
                     });
                    /*  .attr("transform", function (d, i) {
 
@@ -2207,6 +2215,7 @@
                         //     return mtree_radius + "px";
                         // if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
                         return (mtree_radius) + "px";
+
                     })
                     .attr("class", function (d) {
                         var id = "mergedtree_" + d.data.data.child
@@ -2219,7 +2228,6 @@
                         return (
                             "node" + (d.children ? " node--internal " : " node--leaf ") + id + "_inner"
                         );
-
 
                     })
                     .attr("id", function (d) {
@@ -2283,7 +2291,7 @@
                         //console.log(circle_id);
 
 
-                        update_log("node " + circle_id, "node", "hovering on a node", "mouseover");
+                        update_log("node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
 
                         var root = mtree.descendants()[0];
                         var h2root = h2_tree.descendants()[0];
@@ -2668,7 +2676,7 @@
                         //console.log(name);
                         //if (name == undefined)
                         //name = d.data.data.child;
-                        update_log("node " + d.data.data.child, "node", "hovering on a node", "mouseover");
+                        update_log("node " + d.data.data.child, "node", "hovering on a node", "mouseover", "", "", "", "", "");
 
                         var root = mtree.descendants()[0];
                         var h2root = h2_tree.descendants()[0];
@@ -2923,7 +2931,7 @@
                     .on("mouseover", function (d) {
 
                         //console.log();
-                        update_log(d3.select(this).attr("id"), "text label", "emphasize label", "mouseover");
+                        update_log(d3.select(this).attr("id"), "text label", "emphasize label", "mouseover", "", "", "", "", "");
 
                         if ((document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "blue" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue") || (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "none" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue"))
                             d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")
@@ -2951,7 +2959,7 @@
                     })
                     .on("mouseleave", function (d) {
                         //console.log();
-                        update_log(d3.select(this).attr("id"), "text label", "label default formatting", "mouseleave");
+                        update_log(d3.select(this).attr("id"), "text label", "label default formatting", "mouseleave", "", "", "", "", "");
                         d3.select(this)
                             .style("font-size", label_size - d.depth)
                             //.attr("transform", "rotate(65)")
@@ -3350,12 +3358,12 @@
                             console.log(levelline);
                             //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
                             if (document.getElementById("line-level-l" + levelline).style.opacity == 0.6) {
-                                update_log("line-level-l" + levelline, "level line", "hide level line " + levelline);
+                                update_log("line-level-l" + levelline, "level line", "hide level line " + levelline, "click", "", "", "", "", "");
                                 d3.select("#line-level-l" + levelline)
                                     .style("opacity", 0);
                             }
                             else {
-                                update_log("line-level-l" + levelline, "level line", "show level line " + levelline);
+                                update_log("line-level-l" + levelline, "level line", "show level line " + levelline, "click", "", "", "", "", "");
                                 d3.select("#line-level-l" + levelline)
                                     .style("opacity", 0.6);
                             }
@@ -3393,19 +3401,19 @@
                             return "Level: " + i;
                         })
                         .on("mouseover", function (d) {
-                            update_log(d3.select(this).attr("id"), "levelline", "emphasize levelline", "mouseover");
+                            update_log(d3.select(this).attr("id"), "levelline", "emphasize levelline", "mouseover", "", "", "", "", "");
                             d3.select(this).style("cursor", "pointer");
                         })
                         .on("click", function (d) {
                             var levelline = d3.select(this).text().split(": ")[1];
                             //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
                             if (document.getElementById("line-chart-l" + levelline).style.opacity == 0.7) {
-                                update_log("line-chart-l" + levelline, "level line", "hide level line ", "click");
+                                update_log("line-chart-l" + levelline, "level line", "hide level line ", "click", "", "", "", "", "");
                                 d3.select("#line-chart-l" + levelline)
                                     .style("opacity", 0);
                             }
                             else {
-                                update_log("line-chart-l" + levelline, "level line", "show level line ", "click");
+                                update_log("line-chart-l" + levelline, "level line", "show level line ", "click", "", "", "", "", "");
                                 d3.select("#line-chart-l" + levelline)
                                     .style("opacity", 0.7);
                             }
@@ -3421,19 +3429,19 @@
                         .append("g")
                         .attr("id", "linkbutton")
                         .on("mouseover", function (d) {
-                            update_log(d3.select(this).attr("id"), "linkbutton", "show/hide alternate links", "mouseover");
+                            update_log(d3.select(this).attr("id"), "linkbutton", "show/hide alternate links", "mouseover", "", "", "", "", "");
                             d3.select(this).style("cursor", "pointer");
                         })
                         .on("click", function (d) {
                             if (d3.selectAll(".altlink")._groups[0].length == 0) {
                                 console.log("show");
-                                update_log("altlink", "altlink", "show alternate links", "click");
+                                update_log("altlink", "altlink", "show alternate links", "click", "", "", "", "", "");
                                 showlinks();
                             }
 
                             else {
                                 console.log("hide");
-                                update_log("altlink", "altlink", "hide alternate links", "click");
+                                update_log("altlink", "altlink", "hide alternate links", "click", "", "", "", "", "");
                                 hidelinks();
                             }
                         });
@@ -3493,12 +3501,12 @@
                                 if (document.getElementById("line-level-l" + l).style.opacity == 0.6) {
                                     d3.select("#line-level-l" + l)
                                         .style("opacity", 0);
-                                    update_log("btn-level-line", "button", "hide level lines");
+                                    update_log("btn-level-line", "button", "hide level lines", "click", "", "", "", "", "");
                                 }
                                 else {
                                     d3.select("#line-level-l" + l)
                                         .style("opacity", 0.6);
-                                    update_log("btn-level-line", "button", "show level lines");
+                                    update_log("btn-level-line", "button", "show level lines", "click", "", "", "", "", "");
                                 }
                             }
                         });
@@ -3534,7 +3542,7 @@
                         .append("g")
                         .attr("id", "btn-level-chart")
                         .on("mouseover", function (d) {
-                            update_log("btn-level-chart " + d3.select(this).attr("id"), "btn-level-chart", "emphasize level chart line", "mouseover");
+                            update_log("btn-level-chart " + d3.select(this).attr("id"), "btn-level-chart", "emphasize level chart line", "mouseover", "", "", "", "", "");
                             d3.select(this).style("cursor", "pointer");
                         })
                         .on("click", function (d) {
@@ -3544,12 +3552,12 @@
                                 if (document.getElementById("line-chart-l" + l).style.opacity == 0.5) {
                                     d3.select("#line-chart-l" + l)
                                         .style("opacity", 0);
-                                    update_log("btn-level-chart", "button", "hide level lines", "click");
+                                    update_log("btn-level-chart", "button", "hide level lines", "click", "", "", "", "", "");
                                 }
                                 else {
                                     d3.select("#line-chart-l" + l)
                                         .style("opacity", 0.5);
-                                    update_log("btn-level-chart", "button", "show level lines", "click");
+                                    update_log("btn-level-chart", "button", "show level lines", "click", "", "", "", "", "");
                                 }
                             }
                         });
@@ -3742,28 +3750,28 @@
 
         }
 
-        function update_log(elementID, elementType, elementDescription, eventDescription) {
+        function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, answer, score) {
             var date = new Date();
 
 
             var logObject = JSON.parse(localStorage.getItem("logObject"));
             logObject.push({
+                "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                 "userID": localStorage.getItem("userID"),
-                "vizID": vizID,
-                "screenSize": window.innerWidth + ";" + window.innerHeight,
-                "pageID": pageID,
+                "vizID": localStorage.getItem("vizID"),
+                "screenSize": localStorage.getItem("screenSize"),
+                "pageID": "mergedtree viz page",
                 "elementID": elementID,
                 "elementType": elementType,
                 "elementDescription": elementDescription,
                 "eventDescription": eventDescription,
-                "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                 "overall_timestamp": new Date().getMilliseconds(),
-                "phase_timestamp": new Date().getMilliseconds(),
-                "questionID": "",
-                "question": "",
-                "useranswer": "",
-                "correctanswer": "",
-                "score": ""
+                //"phase_timestamp": new Date().getMilliseconds(),
+                "questionID": questionID,
+                "question": question,
+                "useranswer": useranswer,
+                "correctanswer": answer,
+                "score": score
             });
             localStorage.removeItem("logObject");
             localStorage.setItem("logObject", JSON.stringify(logObject));

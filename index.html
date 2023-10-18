@@ -68,25 +68,22 @@
     const userID = "P" + uniq;
     //console.log(userID);
 
-    var pageID = "ParticipantInfo_Sheet";
-
-
-
     var date = new Date();
+    window.localStorage.setItem("userID", userID);
+    window.localStorage.setItem("screenSize", "[" + window.innerWidth + ";" + window.innerHeight + "]");
 
     logObject.push({
-
-        "userID": userID,
+        "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
+        "userID": localStorage.getItem("userID"),
         "vizID": "",
-        "screenSize": window.innerWidth + ";" + window.innerHeight,
-        "pageID": pageID,
+        "screenSize": localStorage.getItem("screenSize"),
+        "pageID": "ParticipantInfo_Sheet",
         "elementID": "",
         "elementType": "",
         "elementDescription": "New user. Landed on consent form.",
         "eventDescription": "",
-        "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
         "overall_timestamp": new Date().getMilliseconds(),
-        "phase_timestamp": new Date().getMilliseconds(),
+        //"phase_timestamp": new Date().getMilliseconds(),
         "questionID": "",
         "question": "",
         "useranswer": "",
@@ -95,7 +92,7 @@
 
     });
     window.localStorage.setItem("logObject", JSON.stringify(logObject));
-    window.localStorage.setItem("userID", userID);
+
 
     d3.select("#pdfviewer")
         .attr("height", window.innerHeight * .65)

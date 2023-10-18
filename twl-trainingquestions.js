@@ -1,13 +1,16 @@
 var selected_value = "";
+pageID = "training";
+vizID = "linkededtree";
+var score = 0;
+var list_questions;
 
 function twl_trainingquestions(qcounter) {
 
-    var pageID = "training";
-    var vizID = "linkededtree";
 
 
 
-    var list_questions = [
+
+    list_questions = [
         {
             "qid": "",
             "question": "Are you ready to start the training?",
@@ -176,7 +179,7 @@ function twl_trainingquestions(qcounter) {
 
 
         //if (list_questions[qcounter].option3)
-        update_log("btn-nextquestion", "button", "display training question", "click", "T" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer);
+        //update_log("btn-nextquestion", "button", "display training question", "click", "T" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer);
 
 
         /* d3.selectAll(".form-check-input")
@@ -202,7 +205,7 @@ function twl_trainingquestions(qcounter) {
             console.log(qcounter + " " + list_questions.length);
 
 
-            var score = 0;
+
 
 
             selected_value = this.value;
@@ -228,7 +231,7 @@ function twl_trainingquestions(qcounter) {
 
 
 
-    function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer) {
+    function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer, score) {
         var date = new Date();
         //console.log(useranswer);
 
@@ -249,7 +252,8 @@ function twl_trainingquestions(qcounter) {
             "questionID": questionID,
             "question": question,
             "useranswer": useranswer,
-            "correctanswer": correctanswer
+            "correctanswer": correctanswer,
+            "score": score
         });
         localStorage.removeItem("logObject");
         localStorage.setItem("logObject", JSON.stringify(logObject));

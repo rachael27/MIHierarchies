@@ -1,13 +1,18 @@
+var selected_value = "";
+pageID = "experiment";
+vizID = "mergedtree";
+var score = 0;
+var list_questions = [];
+screenSize = localStorage.getItem("screenSize");
+
 function experimentquestions(qcounter) {
-    var selected_value = "";
-    var pageID = "experiment";
-    var vizID = "mergedtree";
+
 
     d3.select("#qandamodule")
         .select("br")
         .remove();
 
-    var list_questions = [
+    list_questions = [
         {
             "qid": "",
             "question": "Are you ready to start the experiment?",
@@ -73,8 +78,8 @@ function experimentquestions(qcounter) {
         {
             "qid": "E7.",
             "question": "Find the siblings of folder:root/projects/hcil/treemap3/doc",
-            "answer": "[doc3.3,demo.shtml,demo_files]",
-            "options": ["[1.html,2.html,3.html]", "[spotfire,touchscreens,timesearcher]", "[doc3.3,demo.shtml,demo_files]"]
+            "answer": "[doc3.3;demo.shtml;demo_files]",
+            "options": ["[1.html;2.html;3.html]", "[spotfire;touchscreens;timesearcher]", "[doc3.3;demo.shtmlldemo_files]"]
 
         },
         {
@@ -196,6 +201,12 @@ function experimentquestions(qcounter) {
         window.location.href = 'landingpage.html?page=experimentquestions';
     }
 
+
+    d3.select("#btn-next")
+        .on("change", function () {
+            console.log("selected_value " + selected_value);
+        });
+
     d3.selectAll("input[name='experimentanswer']")
         .on("change", function (d, i) {
 
@@ -203,9 +214,10 @@ function experimentquestions(qcounter) {
             //console.log(this.value + " " + list_questions[qcounter].answer);
             selected_value = this.value;
 
-            var score = 0;
             if (selected_value == list_questions[qcounter].answer)
                 score = 1;
+            else
+                score = 0;
 
             update_log("btn-nextquestion", "button", "display training question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
 
@@ -213,23 +225,23 @@ function experimentquestions(qcounter) {
 
         });
 
-    function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer) {
+    function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer, score) {
         var date = new Date();
 
 
         var logObject = JSON.parse(localStorage.getItem("logObject"));
         logObject.push({
             "userID": localStorage.getItem("userID"),
-            "vizID": vizID,
-            "screenSize": window.innerWidth + ";" + window.innerHeight,
-            "pageID": pageID,
+            "vizID": localStorage.getItem("vizID"),
+            "screenSize": localStorage.getItem("screenSize"),
+            "pageID": "experiment",
             "elementID": elementID,
             "elementType": elementType,
             "elementDescription": elementDescription,
             "eventDescription": eventDescription,
             "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "overall_timestamp": new Date().getMilliseconds(),
-            "phase_timestamp": new Date().getMilliseconds(),
+            //"phase_timestamp": new Date().getMilliseconds(),
             "questionID": questionID,
             "question": question,
             "useranswer": useranswer,

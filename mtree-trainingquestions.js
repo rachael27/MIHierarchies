@@ -1,13 +1,18 @@
 var selected_value = "";
+pageID = "training";
+vizID = "mergedtree";
+var score = 0;
+var list_questions = [];
+screenSize = localStorage.getItem("screenSize");
 
 function trainingquestions(qcounter) {
 
-    var pageID = "training";
-    var vizID = "mergedtree";
 
 
 
-    var list_questions = [
+
+
+    list_questions = [
         {
             "qid": "",
             "question": "Are you ready to start the training?",
@@ -193,6 +198,7 @@ function trainingquestions(qcounter) {
         window.location.href = 'landingpage.html?page=trainingquestions';
     }
 
+
     d3.selectAll("input[name='traininganswer']")
         .on("change", function (d, i) {
             //console.log(d);
@@ -200,10 +206,6 @@ function trainingquestions(qcounter) {
             //console.log(this.value);
             console.log(qcounter + " " + list_questions.length);
 
-
-            var score = 0;
-            if (selected_value == list_questions[qcounter].answer)
-                score = 1;
 
 
             selected_value = this.value;
@@ -223,29 +225,28 @@ function trainingquestions(qcounter) {
                     .select("#option" + i + "_label")
                     .style("background-color", "#F3E8EA");
             }
-            update_log("btn-nextquestion", "button", "display training question", "click", "T" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
 
         });
 
 
 
-    function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, answer) {
+    function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, answer, score) {
         var date = new Date();
         //console.log(useranswer);
 
         logObject = JSON.parse(localStorage.getItem("logObject"));
         logObject.push({
+            "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "userID": localStorage.getItem("userID"),
-            "vizID": vizID,
-            "screenSize": window.innerWidth + ";" + window.innerHeight,
-            "pageID": pageID,
+            "vizID": localStorage.getItem("vizID"),
+            "screenSize": localStorage.getItem("screenSize"),
+            "pageID": "training",
             "elementID": elementID,
             "elementType": elementType,
             "elementDescription": elementDescription,
             "eventDescription": eventDescription,
-            "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "overall_timestamp": new Date().getMilliseconds(),
-            "phase_timestamp": new Date().getMilliseconds(),
+            //"phase_timestamp": new Date().getMilliseconds(),
             "questionID": questionID,
             "question": question,
             "useranswer": useranswer,
