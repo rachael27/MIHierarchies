@@ -28,7 +28,7 @@
 
     <div class="container" style="width:100%;">
         <div class="outer row" style="color:black;">
-            <div style="width:100%;  margin-bottom:3%; float:left; background-color:#155446;; color:white;">
+            <div style="width:100%;  margin-bottom:3%; float:left; background-color:#155446; color:white;">
                 <h1>Tree Visualization</h1>
                 <br>
             </div>
@@ -51,7 +51,7 @@
                 <embed id="pdfviewer" src="File/infosheet.pdf" frameborder="0" width="100%">
                 <br>
                 <button type="button" id="btn-info" class="btn btn-lg btn-outline-primary"
-                    style="margin-top: 2%; margin-bottom: 5%;">Proceed to the
+                    style="margin-top: 2%; margin-bottom: 5%; background-color: #155446; color:white">Proceed to the
                     experiment</button>
             </div>
         </div>
@@ -90,7 +90,8 @@
         "questionID": "",
         "question": "",
         "useranswer": "",
-        "correctanswer": ""
+        "correctanswer": "",
+        "score": ""
 
     });
     window.localStorage.setItem("logObject", JSON.stringify(logObject));

@@ -934,99 +934,125 @@
                     */
 
                     mtree.descendants().forEach(function (element) {
+
                         split_element = child.split("/");
-                        for (var i = 0; i < element.ancestors().length; i++) {
-                            //console.log(element);
-                            //console.log(element.ancestors()[i].data.data.child + " " + split_element.join("/"));
-                            //console.log(element.depth);
-                            if (element.ancestors()[i].depth > 1) {
-                                //console.log(split_element.join("/"));
-                                //console.log(element.ancestors()[i].data.data.description);
-                                if (split_element.join("/").includes(element.ancestors()[i].data.data.description)) {
+                        //console.log(split_element.join("/"));
+                        //console.log(element.data.data.child);
+                        if (split_element.join("/") == (element.data.data.child)) {
+                            //console.log("h1");
+                            for (var i = 0; i < element.ancestors().length; i++) {
+                                var id = "mergedtree_" + element.ancestors()[i].data.data.child.replaceAll(/\//g, "")
+                                    .replaceAll(".", "")
+                                    .replaceAll(" ", "")
+                                    .replaceAll("(", "")
+                                    .replaceAll(")", "")
+                                    .toLowerCase();
+                                document.getElementById(id).scrollIntoView(true);
 
-                                    //console.log("MATCH COLLAPSE" + element.ancestors()[i].data.data.description);
+
+
+                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "gold")
+                                    d3.select("." + id + "_outer")
+                                        .style("stroke", "gold")
+                                        .classed("selected", "true");
+                                //.style("stroke-width", circle_stroke);
+                                else
+                                    d3.select("." + id + "_inner")
+                                        .style("stroke", "gold")
+                                        .style("stroke-width", 4)
+                                        .classed("selected", "true");
+
+                                d3.select("." + id + ".text")
+                                    .style("fill", "red")
+                                    .style("font-size", 20)
+
+
+                            }
+
+                        }
+                        else
+                            for (var i = 0; i < element.ancestors().length; i++) {
+                                //console.log(element);
+                                //console.log(element.ancestors()[i].data.data.child + " " + split_element.join("/"));
+                                //console.log(element.depth);
+                                if (element.ancestors()[i].depth > 1) {
+                                    //console.log(split_element.join("/"));
                                     //console.log(element.ancestors()[i].data.data.description);
-                                    //if (element.ancestors()[i].data.data.child == "root/projects/hcil/kiddiglib")
-                                    // console.log("MATCH ELEMENT");
-                                    //flag += 1;
-                                    //console.log(element.data.data.child);
-                                    //console.log(element.ancestors()[i].data.data.child);
-                                    //console.log(element.ancestors()[i]);
-                                    expand(element.ancestors()[i]);
+                                    if (split_element.join("/").includes(element.ancestors()[i].data.data.child)) {
+
+                                        //console.log("MATCH COLLAPSE" + element.ancestors()[i].data.data.description);
+                                        //console.log(element.ancestors()[i].data.data.description);
+                                        //if (element.ancestors()[i].data.data.child == "root/projects/hcil/kiddiglib")
+                                        // console.log("MATCH ELEMENT");
+                                        //flag += 1;
+                                        //console.log(element.data.data.child);
+                                        //console.log(element.ancestors()[i].data.data.child);
+                                        //console.log(element.ancestors()[i]);
+                                        expand(element.ancestors()[i]);
 
 
 
 
-                                    /*  if (split_element.join("/") == element.ancestors()[i].data.data.description) {
-                                         console.log("break " + element.ancestors()[i].data.data.description);
-                                         break;
-                                     } */
+                                        /*  if (split_element.join("/") == element.ancestors()[i].data.data.description) {
+                                             console.log("break " + element.ancestors()[i].data.data.description);
+                                             break;
+                                         } */
 
 
 
-                                    setTimeout(() => {
-                                        // console.log(child);
-                                        //console.log("mergedtree_" + split_element[split_element.length - 1]);
-                                        document.getElementById("mergedtree_" + split_element[split_element.length - 1].replaceAll(/\//g, "")
-                                            .replaceAll(".", "")
-                                            .replaceAll(" ", "")
-                                            .replaceAll("(", "")
-                                            .replaceAll(")", "")
-                                            .toLowerCase()).scrollIntoView(true);
-
-                                        for (var ii = split_element.length - 1; ii >= 0; ii--) {
-
-                                            var id = "mergedtree_" + split_element[ii]
-                                                .replaceAll(/\//g, "")
+                                        setTimeout(() => {
+                                            // console.log(child);
+                                            //console.log("mergedtree_" + split_element[split_element.length - 1]);
+                                            document.getElementById("mergedtree_" + split_element[split_element.length - 1].replaceAll(/\//g, "")
                                                 .replaceAll(".", "")
                                                 .replaceAll(" ", "")
                                                 .replaceAll("(", "")
                                                 .replaceAll(")", "")
-                                                .toLowerCase();
-                                            // console.log(id);
-                                            //console.log(d3.select("#" + id));
+                                                .toLowerCase()).scrollIntoView(true);
 
-                                            if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "gold")
-                                                d3.select("." + id + "_outer")
-                                                    .style("stroke", "gold")
-                                                    .classed("selected", "true");
-                                            //.style("stroke-width", circle_stroke);
-                                            else
-                                                d3.select("." + id + "_inner")
-                                                    .style("stroke", "gold")
-                                                    .style("stroke-width", 4)
-                                                    .classed("selected", "true");
+                                            for (var ii = split_element.length - 1; ii >= 0; ii--) {
 
-                                            //.transition()
-                                            //.duration(10000)
-                                            //.style("stroke", "blue")
-                                            //.style("stroke-width", 3);
+                                                var id = "mergedtree_" + split_element[ii]
+                                                    .replaceAll(/\//g, "")
+                                                    .replaceAll(".", "")
+                                                    .replaceAll(" ", "")
+                                                    .replaceAll("(", "")
+                                                    .replaceAll(")", "")
+                                                    .toLowerCase();
+                                                // console.log(id);
+                                                //console.log(d3.select("#" + id));
 
-                                            d3.select("." + id + ".text")
-                                                //.style("stroke", "gold")
-                                                //.style("stroke-width", 10)
-                                                .style("fill", "red")
-                                                .style("font-size", 20)
-                                            //.transition()
-                                            //.duration(10000)
-                                            //.style("fill", "black")
-                                            //.style("font-size", 13);
-                                        }
-                                    }, 1000);
+                                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "gold")
+                                                    d3.select("." + id + "_outer")
+                                                        .style("stroke", "gold")
+                                                        .classed("selected", "true");
+                                                //.style("stroke-width", circle_stroke);
+                                                else
+                                                    d3.select("." + id + "_inner")
+                                                        .style("stroke", "gold")
+                                                        .style("stroke-width", 4)
+                                                        .classed("selected", "true");
 
+                                                d3.select("." + id + ".text")
+                                                    .style("fill", "red")
+                                                    .style("font-size", 20)
 
+                                            }
+                                        }, 1000);
 
 
-                                    //}
 
 
-                                    //break;
+                                        //}
+
+
+                                        //break;
+                                    }
+                                    /* else {
+                                        split_element.pop();
+                                    } */
                                 }
-                                /* else {
-                                    split_element.pop();
-                                } */
                             }
-                        }
                     });
 
 
@@ -2113,7 +2139,9 @@
 
                 nodeEnter
                     .append("path")
-                    .attr("class", "triangle")
+                    .attr("class", function (d) {
+                        return "triangle-" + d.data.data.child;
+                    })
                     .attr("d", triangle_shape)
                     .attr("x", function (d) {
                         return d.x;
@@ -3210,7 +3238,7 @@
                     d.y0 = d.y;
                 });
 
-                console.log(h1_root.descendants());
+                //console.log(h1_root.descendants());
 
                 for (var n = 0; n < h1_root.descendants().length; n++) {
                     h1levels[h1_root.descendants()[n].depth] = h1_root.descendants()[n].depth === 0 ? 50 : h1_root.descendants()[n].depth * level_offset;
@@ -3734,7 +3762,8 @@
                 "questionID": "",
                 "question": "",
                 "useranswer": "",
-                "correctanswer": ""
+                "correctanswer": "",
+                "score": ""
             });
             localStorage.removeItem("logObject");
             localStorage.setItem("logObject", JSON.stringify(logObject));

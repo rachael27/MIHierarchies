@@ -19,7 +19,7 @@ function twl_trainingquestions(qcounter) {
         },
         {
             "qid": "T1.",
-            "question": "How many levels does the before hierarchy have?",
+            "question": "How many levels does the  BeforeH have?",
             "hint": "The maximum number of levels in a tree defines the level of a tree. The node at the highest levels are found near the green connecting links.",
             "answer": "8",
             "numoptions": 3,
@@ -53,7 +53,7 @@ function twl_trainingquestions(qcounter) {
         {
             "qid": "T4.",
             "question": "Choose the best description of folder:<i>root/hcil/treemap3</i>",
-            "hint": "You can see that the treemap3 node exists in both hierarchies, but has only a few common links connecting the nodes in the BeforeH and the AfterH. This means that the treemaps3 folder has some common files. However, some files that exist in the treemap3 folder in the BeforeH are not available in the AfterH. Hence, we can conclude that these files were deleted in the AfterH.",
+            "hint": "You can see that the treemap3 node exists in both hierarchies, but has only a few common links connecting the nodes in the BeforeH and the AfterH. This means that the treemap3 folder has some common files. However, some files that exist in the treemap3 folder in the BeforeH are not available in the AfterH. Hence, we can conclude that these files were deleted in the AfterH.",
             "answer": "The folder existed in the BeforeH but many files were deleted",
             "numoptions": 3,
             "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted", "The folder existed in the BeforeH but many files were deleted"]
@@ -202,12 +202,13 @@ function twl_trainingquestions(qcounter) {
             console.log(qcounter + " " + list_questions.length);
 
 
-
+            var score = 0;
 
 
             selected_value = this.value;
 
             if (selected_value == list_questions[qcounter].answer) {
+                score = 1;
                 d3
                     .select("#option" + i + "_label")
                     .style("background-color", "#A0D6B4");
@@ -215,10 +216,14 @@ function twl_trainingquestions(qcounter) {
 
             }
 
-            else
+            else {
+                score = 0;
                 d3
                     .select("#option" + i + "_label")
                     .style("background-color", "#F3E8EA");
+            }
+            update_log("btn-nextquestion", "button", "display training question", "click", "T" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+
         });
 
 

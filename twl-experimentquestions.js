@@ -24,14 +24,14 @@ function twl_experimentquestions(qcounter) {
             "qid": "E2.",
             "question": "What is the path of the node:<i>treeml.dtd</i>?",
             "answer": "<i>root/hcil/iv03contest/datasets/treeml.dtd</i>",
-            "options": ["<i>root/project/hcil/census/JavaProto/demo_files/treeml.dtd</i>", "<i>root/hcil/iv03contest/datasets/treeml.dtd</i>", "<i>root/project/hcil/about/pictures/treeml.dtd</i>", "<i>root/project/hcil/treemap/treeml.dtd</i>"]
+            "options": ["<i>root/project/hcil/census/JavaProto/demo_files/treeml.dtd</i>", "<i>root/hcil/iv03contest/datasets/treeml.dtd</i>", "<i>root/project/hcil/about/pictures/treeml.dtd</i>", "<i>root/project/hcil/treemaps/treeml.dtd</i>"]
 
         },
 
 
         {
             "qid": "E3.",
-            "question": "What is the level of node filename:<i>root/hcil/piccolo/newsroom/index.shtml</i> in the before and after hierarchies?",
+            "question": "What is the level of node filename:<i>root/hcil/piccolo/newsroom/newsroom-index.shtml</i> in the before and after hierarchies?",
             "answer": "Level 4 in the BeforeH and Level 4 in the AfterH",
             "options": ["Level 4 in the BeforeH and Level 4 in the AfterH", "Level 4 in the BeforeH and Level 5 in the AfterH", "Level 5 in the BeforeH and Level 6 in the AfterH"]
 
@@ -40,7 +40,7 @@ function twl_experimentquestions(qcounter) {
         {
             "qid": "E4.",
             "question": "Which folder has the maximum number of files deletions?",
-            "answer": " ",
+            "answer": "treemap3",
             "options": ["snap", "oh99", "treemap3", "spacetree"]
 
         },
@@ -80,14 +80,14 @@ function twl_experimentquestions(qcounter) {
             "qid": "E8.",
             "question": "Which folder in the BeforeH has grown the most in the AfterH?",
             "answer": "root/hcil/about/pictures",
-            "options": ["root/hcil/treemaps3", "root/hcil/about/pictures", "root/hcil/agile2d"]
+            "options": ["root/hcil/treemap3", "root/hcil/about/pictures", "root/hcil/agile2d"]
 
         },
         {
             "qid": "E9.",
             "question": "Which folder in the BeforeH was deleted in the AfterH?",
             "answer": "root/hcil/visumillion",
-            "options": ["root/hcil/treemap", "root/hcil/about", "root/hcil/visumillion"]
+            "options": ["root/hcil/treemaps", "root/hcil/about", "root/hcil/visumillion"]
 
         },
 
@@ -159,7 +159,6 @@ function twl_experimentquestions(qcounter) {
 
 
 
-        update_log("btn-nextquestion", "button", "display next question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer);
 
         /*
     d3.select("#btn-nextquestion")
@@ -200,6 +199,11 @@ function twl_experimentquestions(qcounter) {
             console.log(i);
             console.log(this.value + " " + list_questions[qcounter].answer);
             selected_value = this.value;
+            var score = 0;
+            if (selected_value == list_questions[qcounter].answer)
+                score = 1;
+            update_log("btn-nextquestion", "button", "display next question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+
 
             d3.select("#btn-nextquestion")._groups[0][0].disabled = false;
 
@@ -225,7 +229,8 @@ function twl_experimentquestions(qcounter) {
             "questionID": questionID,
             "question": question,
             "useranswer": useranswer,
-            "correctanswer": correctanswer
+            "correctanswer": correctanswer,
+            "score": ""
         });
         localStorage.removeItem("logObject");
         localStorage.setItem("logObject", JSON.stringify(logObject));

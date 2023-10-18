@@ -20,7 +20,7 @@ function twl_guidedtour() {
             intro: "<p class='text-justify'>If the node, doesn't have a border, it is a file. <br> <hr class='border border-danger border-2 opacity-50'> </p>"
         },
         {
-            element: document.querySelector('[id="link_academics"]'),
+            element: document.getElementById("link_academics"),
             title: "A connecting link between folders <hr class='border border-primary border-3 opacity-75'>",
             intro: "If a link is drawn between 2 folders, it means that the folder along with the files that belong to it are common to both hierarchies. <hr class='border border-danger border-2 opacity-50'>"
         },
@@ -42,8 +42,8 @@ function twl_guidedtour() {
         },
 
         {
-            element: document.querySelector('[id=" h1tree_filelistxml_text"]'),
-            title: "Interacting with a LABEL <hr class='border border-primary border-3 opacity-75'>",
+            element: document.querySelector(".h1tree_filelistxml_text"),
+            title: "Interacting with a label <hr class='border border-primary border-3 opacity-75'>",
             intro: "You can hover on a label to magnify the text. <br><hr class='border border-danger border-2 opacity-50'> "
         },
 
