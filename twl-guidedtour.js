@@ -9,6 +9,10 @@ function twl_guidedtour() {
             intro: "In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour."
         },
         {
+            title: " Arrangement of nodes <hr class='border border-primary border-3 opacity-75'>",
+            intro: "Nodes are arranged in an alphabetical order for easy access."
+        },
+        {
             element: document.querySelector('[id="h1tree_root"]'),
             title: "Node with a green border <hr class='border border-primary border-3 opacity-75'>",
             intro: "<p class='text-justify'>A node may represent a file or folder. <br> <hr class='border border-danger border-2 opacity-50'> If the node has a green border, it is a folder. <hr class='border border-danger border-2 opacity-50'>  </p>"
@@ -61,18 +65,14 @@ function twl_guidedtour() {
         {
             element: document.querySelector('[id="btn-search"]'),
             title: "Search nodes <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Now, click on the search button. Automatic scrolling will take you to the nodes that you searched for (now highlighted in gold)."
+            intro: "Now, click on the search button. Automatic scrolling will take you to the nodes that you searched for (now highlighted in a dark orange color)."
         },
         {
             element: document.querySelector('[id="btn-clear"]'),
             title: "Complete your search <hr class='border border-primary border-3 opacity-75'>",
             intro: "When you click on the clear button, the nodes that you searched for previosuly, are no longer highlighted."
         },
-        {
-            element: document.querySelector('[id="tog-hierarchy"]'),
-            title: "Search nodes from the BeforeH/AfterH <hr class='border border-primary border-3 opacity-75'>",
-            intro: "You can search nodes from the BeforeH and AfterH, by using the toggle switch."
-        },
+
 
         {
 
