@@ -70,19 +70,20 @@
 
     var date = new Date();
     window.localStorage.setItem("userID", userID);
-    window.localStorage.setItem("screenSize", "[" + window.innerWidth + ";" + window.innerHeight + "]");
+    window.localStorage.setItem("screenSize", "" + window.innerWidth + ";" + window.innerHeight + "");
 
     logObject.push({
         "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
         "userID": localStorage.getItem("userID"),
         "vizID": "",
-        "screenSize": localStorage.getItem("screenSize"),
+        "screenWidth": window.innerWidth,
+        "screenHeight": window.innerHeight,
         "pageID": "ParticipantInfo_Sheet",
         "elementID": "",
         "elementType": "",
         "elementDescription": "New user. Landed on consent form.",
         "eventDescription": "",
-        "overall_timestamp": new Date().getMilliseconds(),
+        "overall_timestamp": Math.round(+new Date() / 1000),
         //"phase_timestamp": new Date().getMilliseconds(),
         "questionID": "",
         "question": "",

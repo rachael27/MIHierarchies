@@ -118,14 +118,19 @@
                 <fieldset class="border p-2" style="margin-top:150px;">
                     <!--<legend class="w-auto">Choose layout</legend>-->
                     <br>
-                    <button type="button" class="btn btn-md" id="btn-refresh"
-                        style="color: white;background-color:#155446;">Refresh the layout</button>
+                    <button type="button" class="btn btn-md" id="btn-changeonlylayout"
+                        style="color: white;background-color:#155446;">Changes-only layout</button>
+
+                    <button type="button" class="btn btn-md" id="btn-entirelayout"
+                        style="color: white;background-color:#155446;">Entire layout</button>
                     <br><br>
+                    <!--
                     <div class="form-check form-switch row" id="togglediv"><span><label>Before Hierarchy
                                 &nbsp;</label><input class="form-check-input" type="checkbox" name="hierarchy-toggle"
                                 id="tog-hierarchy" style="margin-left:20px; margin-right: 20px;"
                                 data-offstyle="danger"><label>After Hierarchy</label></span>
                     </div>
+                -->
                     <br>
                     <br>
                     <label for=" browser">Search:</label>
@@ -214,6 +219,7 @@
 
         var qcounter = -1;
         var logObject = [];
+        var commonElementsArr = [];
 
 
 
@@ -230,6 +236,7 @@
         var mtree = "";
         const vizID = "treeswlinking";
         const pageID = "mtree";
+        var layout = "changeonlylayout";
 
 
         var title = [];
@@ -237,7 +244,7 @@
         let h2_root = "", h2_struct = "", h2_tree = "";
         let h1_root = "", h1_struct = "", h1_tree = "";
 
-        update_log("", "landed on the treeswlinking page", "", "");
+        update_log("", "landed on the treeswlinking page", "", "", "", "", "", "", "");
 
 
 
@@ -258,8 +265,11 @@
                 }
             });
 
-        d3.select("#btn-refresh").on("click", function () {
-            update_log("btn-refresh", "button", "refresh the layout", "click");
+
+        d3.select("#btn-changeonlylayout").on("click", function () {
+            layout = "changeonlylayout";
+            update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
+
             d3.queue()
                 .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
                 .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
@@ -271,8 +281,23 @@
                 });
         });
 
+        d3.select("#btn-entirelayout").on("click", function () {
+            layout = "entirelayout";
+            update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
+            d3.queue()
+                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+                .await(function (error, h2, h1) {
+                    if (error) throw error;
+
+                    else
+                        runScript_tabs(h1, h2);
+                });
+        });
+
+
         d3.select("#btn-swapdataset").on("click", function () {
-            update_log("btn-swapdataset", "button", "swapping datasets", "click");
+            update_log("btn-swapdataset", "button", "swapping datasets", "click", "", "", "", "", "");
 
             //console.log("Swapdataset");
 
@@ -405,10 +430,21 @@
                 //console.log("click on butn");
                 //console.log(d3.select("#btn-nextquestion")._groups[0][0].disabled);
 
-                update_log("btn-nextquestion", "button", "click the button to display the next question", "click");
+                //update_log("btn-nextquestion", "button", "click the button to display the next question", "click");
 
 
                 d3.select("#btn-nextquestion")._groups[0][0].disabled = true;
+
+                if (urlpage == "trainingquestions")
+                    qid = "T";
+                else
+                    qid = "E";
+
+                if (!d3.select(".radiobuttons").empty()) {
+                    console.log(qcounter);
+                    update_log("btn-nextquestion", "button", "display question", "click", qid + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+                }
+
 
                 if (qcounter == -1)
                     qcounter = qcounter + 2;
@@ -426,15 +462,14 @@
                     twl_trainingquestions(qcounter);
                 }
                 else {
-                    update_log
-                    //("btn-nextquestion", "button", "display experiment question " + qcounter);
+                    //update_log("btn-nextquestion", "button", "display experiment question " + qcounter, "click");
                     twl_experimentquestions(qcounter);
                 }
             });
 
         d3.select("#btn-backquestion")
             .on("click", function () {
-                update_log("btn-backquestion", "button", "click the button to display the last question", "click");
+                update_log("btn-backquestion", "button", "click the button to display the last question", "click", "", "", "", "", "");
 
                 qcounter--;
                 if (urlpage == "trainingquestions") {
@@ -465,7 +500,7 @@
             return array;
         } */
 
-        var width = Math.round(0.8 * window.innerWidth);
+        var width = Math.round(1.4 * window.innerWidth);
         var height = 3400;
 
 
@@ -474,11 +509,15 @@
         var opacity = 0.3;
         var ltree_size = [3000, 500];
         var h2_xpos = 500, h2_ypos = 250, h1_xpos = 70, h1_ypos = 250;
-        var link_strokewidth = "2";
-        var connectinglink_strokewidth = "2";
+        var link_strokewidth = 1;
+        var link_opacity = 0.2;
+        var label_len = 9;
+        var connectinglink_strokewidth = "1";
         var circle_stroke = "4";
         var label_size = "13";
-        var label_opacity = 0.8;
+        var label_opacity = 1;
+        var label_color = "silver";
+
 
         var margin = { top: 30, right: 30, bottom: 30, left: 120 },
             width = width - margin.left - margin.right,
@@ -496,7 +535,7 @@
             .select("#content")
             .append("svg")
             .attr("id", "treeswlinking_svg")
-            .attr("width", width)
+            .attr("width", 2500)
             .attr("height", height);
 
         /*  var h2_rot = 180;
@@ -589,6 +628,11 @@
         function runScript_treeswlinking(h2, h1) {
 
 
+
+
+
+
+
             d3
                 .select("#treeswlinking_svg")
                 .append("g")
@@ -665,7 +709,7 @@
                 });
 
 
-            h2tree(h2_tree.descendants()[0], h2_root);
+
 
             //console.log(h2_tree.descendants());
 
@@ -677,22 +721,105 @@
                     return a.data.data.child.toLowerCase().localeCompare(b.data.data.child.toLowerCase());
                 });
 
-            h1tree(h1_tree.descendants()[0], h1_root);
+
+            var nodes_list = [];
+            var h1list = [], h2list = [];
+            for (i = 0; i < h2_root.descendants().length; i++) {
+                h2list.push(h2_root.descendants()[i].data.data.description_child);
+            }
+            for (i = 0; i < h1_root.descendants().length; i++) {
+                h1list.push(h1_root.descendants()[i].data.data.description_child);
+            }
+            let intersection = h1list.filter(x => h2list.includes(x));
+            let h1diff = h1list.filter(x => !h2list.includes(x));
+            let h2diff = h2list.filter(x => !h1list.includes(x));
+
+
+            for (var i = 0; i < intersection.length; i++)
+                nodes_list.push(intersection[i]);
+
+            for (var i = 0; i < h1diff.length; i++)
+                nodes_list.push(h1diff[i]);
+
+            for (var i = 0; i < h2diff.length; i++)
+                nodes_list.push(h2diff[i]);
+
+            nodes_list.sort();
 
             d3.select("#search-nodes-list")
                 .selectAll("option")
-                .data(h1_tree.descendants())
+                .data(nodes_list)
                 .enter()
                 .append("option")
                 .attr("value", function (d) {
-                    //console.log(d);
-                    return d.data.data.child;
+                    //console.log(d.data.data.description_child);
+                    return d;
                 })
                 .text(function (d) {
-                    return d.data.data.description_child;
+                    return d;
                 });
+
+
             drawLegend(h1_tree.descendants());
 
+
+
+            //console.log(h2_tree.descendants().length + " " + h1_tree.descendants().length);
+            h2tree(h2_tree.descendants()[0], h2_root);
+            h1tree(h1_tree.descendants()[0], h1_root);
+
+            if (layout == "changeonlylayout") {
+                d3.select("#h1tree")
+                    .selectAll("g")
+                    .remove();
+
+                d3.select("#h2tree")
+                    .selectAll("g")
+                    .remove();
+
+
+                commonElementsList(h2_tree.descendants(), h1_tree.descendants());
+                //console.log(commonElementsArr);
+                var flag = 0;
+                h2_tree.descendants().reverse().forEach(function (element) {
+                    flag = 0;
+                    for (var i = 0; i < commonElementsArr.length; i++) {
+                        if (element.data.data.description_child == commonElementsArr[i]) {
+                            flag = 1;
+
+                        }
+                    }
+                    if (flag == 1) {
+                        //console.log("collapse h2 element " + element.data.data.description_child);
+                        collapse(element);
+                    }
+                });
+                h1_tree.descendants().reverse().forEach(function (element) {
+                    flag = 0;
+                    for (var i = 0; i < commonElementsArr.length; i++) {
+                        if (element.data.data.description_child == commonElementsArr[i]) {
+                            flag = 1;
+
+                        }
+                    }
+                    if (flag == 1) {
+                        //console.log("collapse h2 element " + element.data.data.description_child);
+                        collapse(element);
+                    }
+                });
+                h2tree(h2_tree.descendants()[0], h2_root);
+                h1tree(h1_tree.descendants()[0], h1_root);
+            }
+            /*
+            else {
+                h2tree(h2_tree.descendants()[0], h2_root);
+                h1tree(h1_tree.descendants()[0], h1_root);
+            }
+            */
+
+
+
+            //console.log(h1_tree.descendants());
 
             if (d3.select("#lines")) {
                 d3.select("#lines").remove();
@@ -706,12 +833,13 @@
 
         }
 
+        /*
         d3.select("#tog-hierarchy")
             .on("change", function () {
 
                 d3.select("#search-nodes").node().value = "";
                 if (this.checked) {
-                    update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h2 elements", "click");
+                    update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h2 elements", "click", "", "", "", "", "");
                     d3.select("#search-nodes-list")
                         .selectAll("option")
                         .remove();
@@ -729,7 +857,7 @@
                         });
                 }
                 else {
-                    update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h1 elements", "click");
+                    update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h1 elements", "click", "", "", "", "", "");
                     d3.select("#search-nodes-list")
                         .selectAll("option")
                         .remove();
@@ -749,6 +877,7 @@
                 }
 
             });
+            */
 
 
         var path = "", name = "", num_slashes = "", pathname = "";
@@ -756,7 +885,7 @@
             .on("click", function () {
                 d3.select("#search-nodes").node().value = "";
 
-                update_log("btn-clearr", "button", "clear the node value", "click");
+                update_log("btn-clear", "button", "clear the node value", "click", "", "", "", "", "");
 
 
                 d3.selectAll(".selected").each(function (d) {
@@ -769,7 +898,7 @@
 
                 d3.selectAll(".selected_text").each(function (d) {
                     d3.select(this)
-                        .style("fill", "black")
+                        .style("fill", label_color)
                         .style("opacity", label_opacity)
                         .style("font-size", label_size - d.depth)
                         .classed("selected_text", false);
@@ -781,145 +910,149 @@
         d3.select("#btn-search")
             .on("click", function () {
 
-                if (document.getElementById("tog-hierarchy").checked) {
-                    child = d3.select("#search-nodes").node().value
+
+                child = d3.select("#search-nodes").node().value
+                    .replaceAll(".", "")
+                    .replaceAll(" ", "")
+                    .replaceAll("(", "")
+                    .replaceAll(")", "")
+                    .toLowerCase();
+                num_slashes = child.split("/");
+                var root = h2_tree.descendants()[0];
+                console.log(num_slashes);
+
+                var offsetHeight = document.getElementById('sticky').offsetHeight;
+
+                h2_tree.descendants().forEach(function (element) {
+                    //console.log(element.depth + " " + num_slashes);
+                    //if (element.depth == num_slashes.length - 1) {
+                    name = element.data.data.child
+                        //.replaceAll(/\//g, "")
                         .replaceAll(".", "")
                         .replaceAll(" ", "")
                         .replaceAll("(", "")
                         .replaceAll(")", "")
                         .toLowerCase();
-                    num_slashes = child.split("/");
-                    var root = h2_tree.descendants()[0];
-                    //console.log(num_slashes);
+                    //console.log(name);
+                    //console.log(child);
+                    //console.log(name + " " + num_slashes[num_slashes.length - 1]);
+                    if (name == num_slashes[num_slashes.length - 1]) {
+                        console.log("ITS A MATCHYY");
 
-                    h2_tree.descendants().forEach(function (element) {
-                        //console.log(element.depth + " " + num_slashes);
-                        //if (element.depth == num_slashes.length - 1) {
-                        name = element.data.data.child
-                            //.replaceAll(/\//g, "")
-                            .replaceAll(".", "")
-                            .replaceAll(" ", "")
-                            .replaceAll("(", "")
-                            .replaceAll(")", "")
-                            .toLowerCase();
-                        //console.log(name);
-                        //console.log(child);
-                        //console.log(name + " " + child);
-                        if (name == child) {
-                            //console.log("ITS A MATCHYY");
+                        path = root.path(element);
 
-                            path = root.path(element);
+                        for (var i = 0; i < path.length; i++) {
 
-                            for (var i = 0; i < path.length; i++) {
+                            pathname = path[i].data.data.child
+                                .replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
 
-                                pathname = path[i].data.data.child
-                                    .replaceAll(/\//g, "")
-                                    .replaceAll(".", "")
-                                    .replaceAll(" ", "")
-                                    .replaceAll("(", "")
-                                    .replaceAll(")", "")
-                                    .toLowerCase();
+                            if (d3.select("#h1tree_" + pathname).empty()) {
 
                                 document.getElementById("h2tree_" + pathname)
                                     .scrollIntoView(true);
-                                //console.log(pathname);
-                                // d3.select("#h1tree_" + pathname)
-                                //.style("stroke","gold");
+                                var scrolledY = window.scrollY;
 
-                                d3.select("#h2tree_" + pathname)
-                                    .style("fill", "gold")
-                                    .attr("r", 15)
-                                    .style("opacity", "1")
-                                    .classed("selected", "true");
-
-
-
-
-
-                                d3.select("#h2tree_" + pathname + "_text")
-                                    .style("fill", "red")
-                                    .style("font-size", "15")
-                                    .classed("selected_text", "true");
-
-
+                                if (scrolledY) {
+                                    window.scroll(0, scrolledY - offsetHeight);
+                                }
                             }
+
+                            //console.log(pathname);
+                            // d3.select("#h1tree_" + pathname)
+                            //.style("stroke","darkorange");
+
+                            d3.select("#h2tree_" + pathname)
+                                .style("fill", "darkorange")
+                                .attr("r", 15)
+                                .style("opacity", "1")
+                                .classed("selected", "true");
+
+
+                            d3.select("#h2tree_" + pathname + "_text")
+                                .style("fill", "red")
+                                .style("font-size", "15")
+                                .classed("selected_text", "true");
+
+
                         }
-                        //}
+                    }
+                    //}
 
 
-                    });
+                });
 
-                }
 
-                else {
-                    child = d3.select("#search-nodes").node().value
+
+
+
+                var root = h1_tree.descendants()[0];
+
+
+                h1_tree.descendants().forEach(function (element) {
+                    //console.log(element.depth + " " + num_slashes);
+                    //if (element.depth == num_slashes.length - 1) {
+                    name = element.data.data.child
+                        //.replaceAll(/\//g, "")
                         .replaceAll(".", "")
                         .replaceAll(" ", "")
                         .replaceAll("(", "")
                         .replaceAll(")", "")
                         .toLowerCase();
-                    num_slashes = child.split("/");
-                    var root = h1_tree.descendants()[0];
+                    //console.log(name);
+                    //console.log(child);
+                    //console.log(name + " " + child);
+                    if (name == num_slashes[num_slashes.length - 1]) {
+                        //console.log("ITS A MATCHYY");
 
+                        path = root.path(element);
 
-                    h1_tree.descendants().forEach(function (element) {
-                        //console.log(element.depth + " " + num_slashes);
-                        //if (element.depth == num_slashes.length - 1) {
-                        name = element.data.data.child
-                            //.replaceAll(/\//g, "")
-                            .replaceAll(".", "")
-                            .replaceAll(" ", "")
-                            .replaceAll("(", "")
-                            .replaceAll(")", "")
-                            .toLowerCase();
-                        //console.log(name);
-                        //console.log(child);
-                        //console.log(name + " " + child);
-                        if (name == child) {
-                            //console.log("ITS A MATCHYY");
+                        for (var i = 0; i < path.length; i++) {
 
-                            path = root.path(element);
+                            pathname = path[i].data.data.child
+                                .replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+                            //console.log(pathname);
 
-                            for (var i = 0; i < path.length; i++) {
+                            document.getElementById("h1tree_" + pathname)
+                                .scrollIntoView(true);
+                            var scrolledY = window.scrollY;
 
-                                pathname = path[i].data.data.child
-                                    .replaceAll(/\//g, "")
-                                    .replaceAll(".", "")
-                                    .replaceAll(" ", "")
-                                    .replaceAll("(", "")
-                                    .replaceAll(")", "")
-                                    .toLowerCase();
-                                //console.log(pathname);
-
-                                document.getElementById("h1tree_" + pathname)
-                                    .scrollIntoView(true);
-
-
-                                d3.select("#h1tree_" + pathname)
-                                    .style("fill", "gold")
-                                    .attr("r", 15)
-                                    .style("opacity", "1")
-                                    .classed("selected", "true");
-
-
-
-
-
-                                d3.select(".h1tree_" + pathname + "_text")
-                                    .style("fill", "red")
-                                    .style("font-size", "15")
-                                    .classed("selected_text", "true");
+                            if (scrolledY) {
+                                window.scroll(0, scrolledY - offsetHeight);
                             }
+
+
+                            d3.select("#h1tree_" + pathname)
+                                .style("fill", "darkorange")
+                                .attr("r", 15)
+                                .style("opacity", "1")
+                                .classed("selected", "true");
+
+
+                            d3.select(".h1tree_" + pathname + "_text")
+                                .style("fill", "red")
+                                .style("font-size", "15")
+                                .classed("selected_text", "true");
                         }
-                        //}
+                    }
+                    //}
 
 
-                    });
+                });
 
 
-                }
 
-                update_log("btn-search", "button", "search for a node " + d3.select("#search-nodes").node().value, "click");
+
+                update_log("btn-search", "button", "search for a node " + d3.select("#search-nodes").node().value, "click", "", "", "", "", "");
 
             });
 
@@ -928,9 +1061,18 @@
 
 
         function h2tree(source, h2_root) {
+            var triangleColor = "green";
+            var triangleSize = 15;
+            var triOpacity = 0.6;
+            var verticalTransform = Math.sqrt(triangleSize);
+
+            var triangle_shape = d3.symbol()
+                .type(d3.symbolTriangle)
+                .size(triangleSize);
 
             //console.log(source);
             //console.log(h2);
+            let tri_offset = 20;
 
 
             h2_tree = tree(h2_root)
@@ -949,10 +1091,18 @@
             var h2_node = d3.select("#h2tree")
                 .selectAll(".h2_nodes")
                 .data(data_nodes, function (d) {
-                    //console.log(d.data.id);
+                    //console.log(d.data);
                     //return d.data.id;
                     return d.id;
                 });
+
+            var h2_triangle = d3.select("#h1tree")
+                //.selectAll(".nodes")
+                .selectAll(".triangle")
+                .data(data_nodes, function (d, i) {
+                    return "tri" + d.data.data.child;
+                });
+
 
             var h2_link = d3.select("#h2tree")
                 .selectAll(".h2_link")
@@ -973,7 +1123,7 @@
                     return "h2_nodes";
                 })
                 .on("click", function (d) {
-                    update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click");
+                    update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
                     click(d);
                     d3.select("#lines").remove();
 
@@ -984,11 +1134,25 @@
 
                 });
 
+            var h2_triUpdate = h2_nodeEnter
+                .merge(h2_triangle)
+                .transition()
+                .duration(function (d) {
+                    //console.log("NODE UPDATE");
+                    return duration;
+                });
+
 
             var h2_nodeUpdate = h2_nodeEnter
                 .merge(h2_node)
                 .transition()
-                .duration(duration);
+                .duration(function () {
+                    console.log("NODE UPDATE ");
+                    //if (d.data.data.description_child == "root")
+                    //console.log(d.data.data.description_child + " " + d.x);
+                    return duration;
+                });
+
 
             /*  h2_nodeUpdate
                  .selectAll("text")
@@ -1001,14 +1165,19 @@
                 .transition()
                 .duration(duration)
                 .attr("cx", function (d) {
+
                     return h2_root_pos - source.y;
                 })
                 .attr("cy", function (d) {
+                    //console.log(source.x);
+                    if (d.data.data.description_child == "root")
+                        console.log(d.data.data.description_child + " " + d.x);
                     return source.x;
 
                 })
                 .attr("r", function (d) {
                     //console.log("EXIT ");
+                    //console.log(d);
                     return 0;
                 })
                 .remove();
@@ -1041,7 +1210,7 @@
                 })
 
                 .style("opacity", function (d) {
-                    return 0.5;
+                    return link_opacity;
                 })
                 //.style("stroke", "#ccc")
                 .style("stroke", linkcolor)
@@ -1094,13 +1263,20 @@
             h2_nodeEnter
                 .append("circle")
                 .attr("cx", function (d) {
-                    //console.log("ENTER");
+
                     // console.log(radialPoint(d.x, d.y));
 
-                    //console.log(h2_root_pos - d.y);
+                    //if (d.data.data.description_child == "root")
+                    //console.log(h2_root_pos - d.depth * level_offset);
+
                     return h2_root_pos - d.depth * level_offset;
                 })
                 .attr("cy", function (d) {
+                    //console.log("ENTER");
+                    if (d.data.data.description_child == "root") {
+                        console.log(d.data.data.description_child + " " + d.x);
+                        //return 1800;
+                    }
                     return d.x;
                 })
                 .attr("r", function (d) {
@@ -1160,7 +1336,7 @@
                     }
 
                     var label = d.data.data.description_child, child = "root", parent = "";
-                    update_log("node " + label, "node", "hover on a node", "mouseover");
+                    update_log("node " + label, "node", "hover on a node", "mouseover", "", "", "", "", "");
                     if (label.includes("/")) {
                         child = label.substring(label.lastIndexOf("/") + 1, label.length);
                         parent = label.substring(0, label.lastIndexOf("/"));
@@ -1183,7 +1359,7 @@
                         .style("opacity", 1);
 
 
-                    if (d3.select(this).style("fill") != "gold") {
+                    if (d3.select(this).style("fill") != "darkorange") {
                         d3.select(this)
                             .transition()
                             .attr("r", radius + 10)
@@ -1198,7 +1374,7 @@
                              .attr("r", radius - 3);
                      if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
                     var root = h2_tree.descendants()[0];
-                    update_log("node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave");
+                    update_log("node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave", "", "", "", "", "");
                     for (var i = 0; i < root.path(d).length; i++) {
                         var id = root.path(d)[i].data.data.child
                             .replaceAll(/\//g, "")
@@ -1247,10 +1423,12 @@
                 .classed("text", true)
                 .attr("dy", "2em")
                 .attr("dx", function (d) {
-                    if (d.depth <= 2)
-                        return "3em";
+                    if (d.depth <= 1)
+                        return "0em";
+                    else if (d.depth == 2)
+                        return "2em";
                     else
-                        return "-1em";
+                        return "-2em";
                 })
                 .attr("x", function (d) {
 
@@ -1273,20 +1451,33 @@
                     else
                         return "end";
                 })
+                .style("fill", label_color)
 
                 .style("opacity", function (d) {
-
                     return label_opacity;
                 })
                 .text(function (d) {
                     // console.log(d);
-                    var label = "";
-                    if (d.data.data.description)
-                        label = d.data.data.description;
-                    else
-                        label = d.data.data.child;
+                    var label = d.data.data.child;
+                    if (label.includes("_"))
+                        label = label.substring(label.indexOf("/") + 1, label.length);
                     if (label.includes("/"))
                         label = label.substring(label.lastIndexOf("/") + 1, label.length);
+
+                    if (label.length > label_len) {
+                        if (label.includes(".")) {
+                            var start = label.indexOf(".");
+                            var len = label.length;
+                            var templen = label.substr(start, len).length;
+
+                            label = label.substring(0, label_len - templen) + ".." + label.substr(start, len);
+
+                        }
+                        else {
+                            label = label.substring(0, label_len);
+                        }
+                    }
+
                     return label;
                 })
                 .on("mouseover", function (d) {
@@ -1295,9 +1486,12 @@
                         //.attr("transform", "rotate(0)")
                         .style("font-size", 30)
                         .style("fill", "red")
-                        .style("cursor", "pointer");
+                        .style("cursor", "pointer")
+                        .text(function (d) {
+                            return d.data.data.child;
+                        })
 
-                    update_log("text label " + d3.select(this).attr("id"), "label", "hover on a label", "mouseover");
+                    update_log("text label " + d3.select(this).attr("id"), "label", "hover on a label", "mouseover", "", "", "", "", "");
 
 
 
@@ -1306,10 +1500,73 @@
                     d3.select(this)
                         .style("font-size", label_size - d.depth)
                         //.attr("transform", "rotate(65)")
-                        .style("fill", "black")
-                        .style("cursor", "default");
+                        .style("fill", label_color)
+                        .style("cursor", "default")
+                        .text(function (d) {
+                            var label = d.data.data.child;
+                            if (label.includes("_"))
+                                label = label.substring(label.indexOf("/") + 1, label.length);
+                            if (label.includes("/"))
+                                label = label.substring(label.lastIndexOf("/") + 1, label.length);
 
-                    update_log("text label " + d3.select(this).attr("id"), "label", "leave a label", "mouseleave");
+                            if (label.length > label_len) {
+                                if (label.includes(".")) {
+                                    var start = label.indexOf(".");
+                                    var len = label.length;
+                                    var templen = label.substr(start, len).length;
+
+                                    label = label.substring(0, label_len - templen) + ".." + label.substr(start, len);
+
+                                }
+                                else {
+                                    label = label.substring(0, label_len);
+                                }
+                            }
+
+                            return label;
+                        });
+
+                    update_log("text label " + d3.select(this).attr("id"), "label", "leave a label", "mouseleave", "", "", "", "", "");
+                });
+
+            h2_nodeEnter
+                .append("path")
+                .attr("class", function (d) {
+                    return "triangle-" + d.data.data.child;
+                })
+                .attr("d", triangle_shape)
+                .style("stroke-width", "5px")
+                .style("stroke", function (d) {
+                    //console.log("tri update");
+                    console.log(d);
+                    if (d._children)
+
+                        return triangleColor;
+                    else
+                        return "none";
+
+                })
+                .style("opacity", triOpacity)
+                .style("fill", function (d) {
+                    if (d._children)
+
+                        return triangleColor;
+                    else
+                        return "none";
+                })
+                .attr("transform", function (d) {
+                    /* var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
+                    y = + 25; */
+
+                    var trans = "translate(" + parseInt(parseInt(h2_root_pos - d.depth * level_offset) - parseInt(tri_offset)) + "," + d.x + ") rotate(30)";
+                    //var trans = "";
+
+                    return trans;
+                })
+                .on("mouseover", function (d) {
+                    //console.log(this);
+                    d3.select(this).style("cursor", "default");
+                    update_log("node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click", "", "", "", "", "");
                 });
 
             function click(d) {
@@ -1338,6 +1595,15 @@
             //console.log(h1);
 
             //console.log(h1_root);
+            var triangleColor = "green";
+            var triangleSize = 15;
+            var triOpacity = 0.6;
+            var verticalTransform = Math.sqrt(triangleSize);
+
+            var triangle_shape = d3.symbol()
+                .type(d3.symbolTriangle)
+                .size(triangleSize);
+            let tri_offset = 20;
 
             h1_tree = tree(h1_root)
                 .sort(function (a, b) {
@@ -1348,15 +1614,6 @@
 
             data_nodes = h1_tree.descendants();
             data_links = h1_tree.links();
-
-
-            var triangleSize = 40;
-            var verticalTransform = Math.sqrt(triangleSize);
-
-            var triangle_shape = d3.symbol()
-                .type(d3.symbolTriangle)
-                .size(triangleSize);
-
 
 
             //data_nodes.forEach(function (d) { d.y = d.depth * 250; });
@@ -1372,6 +1629,14 @@
                     //return d.id || (d.id = ++i);
                 });
 
+            var h1_triangle = d3.select("#h1tree")
+                //.selectAll(".nodes")
+                .selectAll(".triangle")
+                .data(data_nodes, function (d, i) {
+                    return "tri" + d.data.data.child;
+                });
+
+
             var h1_link = d3.select("#h1tree")
                 .selectAll(".h1_link")
                 .data(data_links, function (d) {
@@ -1379,10 +1644,6 @@
                     //console.log(d.source.data.id + "-" + d.target.data.id);
                     return d.source.data.id + "-" + d.target.data.id;
                 });
-
-
-
-
 
 
             var h1_root_pos = 1000;
@@ -1395,7 +1656,7 @@
                     return "h1_nodes";
                 })
                 .on("click", function (d) {
-                    update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click");
+                    update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
                     click(d);
                     d3.select("#lines").remove();
 
@@ -1406,6 +1667,63 @@
                 });
 
 
+
+
+
+
+            var h1_triUpdate = h1_nodeEnter
+                .merge(h1_triangle)
+                .transition()
+                .duration(function (d) {
+                    //console.log("NODE UPDATE");
+                    return duration;
+                });
+            /*
+            .attr("transform", function (d) {
+                var x = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
+                x = + 25;
+
+                var trans = "translate(" + x + "," + 0 + ")";
+                return trans;
+
+            })
+            .style("stroke", function (d) {
+                //console.log("tri update");
+                if (source.data.data.child)
+                    d3.select(".triangle-" + source.data.id)
+                        .style("stroke", "none")
+                        .style("fill", "none");
+                else
+                    d3.select(".triangle-" + source.data.id)
+                        .style("stroke", triangleColor)
+                        .style("fill", triangleColor);
+
+
+                if (d.children)
+                    return "none";
+                else
+                    return triangleColor;
+
+            })
+            .style("fill", function (d) {
+                if (source.data.data.child)
+                    d3.select(".triangle-" + source.data.id)
+                        .style("stroke", "none")
+                        .style("fill", "none");
+                else
+                    d3.select(".triangle-" + source.data.id)
+                        .style("stroke", triangleColor)
+                        .style("fill", triangleColor);
+                if (d.children)
+                    return "none";
+                else
+                    return triangleColor;
+
+
+            });
+
+*/
+
             var h1_nodeUpdate = h1_nodeEnter
                 .merge(h1_node)
                 .transition()
@@ -1414,150 +1732,6 @@
                     return duration;
                 });
 
-            /*
-                            var triangle = d3
-                            .select("#treeswlinking_svg")
-                            .select("#h1tree")
-                            //.selectAll(".nodes")
-                            .selectAll(".triangle")
-                            .data(data_nodes, function (d, i) {
-                                return "tri" + d.data.data.child;
-            
-                                //return d.id || (d.id = ++i);
-                                //return ++i;
-                                //return d.id;
-                            });
-            
-            
-                        var triUpdate = h1_nodeEnter
-                            .merge(triangle)
-                            .transition()
-                            //.attr("dx", 0)
-                            //.attr("dy", "2em");
-                            //.duration(duration)
-            
-                            .style("stroke", function (d) {
-                                if (d.children)
-                                    return "none";
-                                else if (d._children)
-                                    return "green";
-                                else
-                                    return "none";
-            
-                            })
-                            .style("fill", function (d) {
-            
-                                if (d.children)
-                                    return "none";
-                                else if (d._children)
-                                    return "green";
-                                else
-                                    return "none";
-            
-                            })
-            
-                            .attr("transform", function (d) {
-                                var x = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
-                                x = + 25;
-            
-                                var trans = "translate(" + x + "," + 0 + ")";
-                                //var trans = "";
-            
-            
-                                if (d._children)
-                                    return trans + "rotate(180)";
-                                else if (d.children)
-                                    return trans;
-            
-                            });
-            
-                            var triExit = h1_node
-                            //.selectAll("circle")
-                            .exit()
-                            .transition()
-                            .duration(duration)
-                            .attr("size", function (d) {
-                                //console.log("EXIT ");
-            
-                                return 0;
-                            })
-            
-                            .style("stroke", function (d) {
-                                if (d.children)
-                                    return "none";
-                                else (d._children)
-                                return "green";
-            
-                            })
-                            .style("fill", function (d) {
-            
-                                if (d.children)
-                                    return "none";
-                                else if (d._children)
-                                    return "green";
-            
-                            })
-            
-                            .attr("transform", function (d) {
-                                //console.log(d);
-                                //var y = (d.parent.data.data.level === 0 ? 50 : d.parent.data.data.level * level_offset);
-                                //return "translate(" + d.parent.x + "," + y + ")";
-            
-                                var y = (source.data.data.level === 0 ? 50 : source.data.data.level * level_offset);
-                                return "translate(" + source.x + "," + y + ")";
-                            })
-                            .remove();
-                            */
-            h1_nodeEnter
-                .append("path")
-                .attr("class", function (d) {
-                    return "triangle-" + d.data.data.child;
-                })
-                .attr("d", triangle_shape)
-                .attr("x", function (d) {
-                    return d.x;
-                })
-                .attr("y", function (d) {
-                    return d.y + 200;
-                })
-                .style("stroke-width", "5px")
-                .style("stroke", function (d) {
-                    if (d.children)
-                        return "none";
-                    else if (d._children)
-                        return "green";
-                    else
-                        return "none";
-
-                })
-                .style("fill", function (d) {
-
-                    if (d.children)
-                        return "none";
-                    else if (d._children)
-                        return "green";
-                    else
-                        return "none";
-
-                })
-                .attr("transform", function (d) {
-                    var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
-                    y = + 25;
-
-                    var trans = "translate(" + 0 + "," + y + ")";
-                    //var trans = "";
-
-
-                    if (d._children)
-                        return trans + "rotate(180)";
-                    else if (d.children)
-                        return trans;
-                })
-                .on("mouseover", function (d) {
-                    //console.log(this);
-                    d3.select(this).style("cursor", "default");
-                    update_log("node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click");
-                });
 
 
             /*  h1_nodeUpdate
@@ -1619,7 +1793,7 @@
                 })
 
                 .style("opacity", function (d) {
-                    return 0.5;
+                    return link_opacity;
                 })
                 //.style("stroke", "#ccc")
                 .style("stroke", linkcolor)
@@ -1740,7 +1914,7 @@
                     }
 
                     var label = d.data.data.description_child, child = "root", parent = "";
-                    update_log("node " + d3.select(this).attr("id"), "node", "hover on a node", "mouseover");
+                    update_log("node " + d3.select(this).attr("id"), "node", "hover on a node", "mouseover", "", "", "", "", "");
                     if (label.includes("/")) {
                         child = label.substring(label.lastIndexOf("/") + 1, label.length);
                         parent = label.substring(0, label.lastIndexOf("/"));
@@ -1767,7 +1941,7 @@
 
 
 
-                    if (d3.select(this).style("fill") === "gold") {
+                    if (d3.select(this).style("fill") === "darkorange") {
                         console.log(d3.select(this).style("fill"));
                         d3.select(this)
                             .transition()
@@ -1799,7 +1973,7 @@
                     }
 
 
-                    if (d3.select(this).style("fill") === "gold") {
+                    if (d3.select(this).style("fill") === "darkorange") {
                         console.log(d3.select(this).style("fill"));
                         d3.select(this)
                             .transition()
@@ -1814,9 +1988,11 @@
                         .style("top", 0)
                         .style("opacity", 0);
 
-                    update_log("node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave");
+                    update_log("node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave", "", "", "", "", "");
 
                 });
+
+
 
 
 
@@ -1844,14 +2020,16 @@
                 })
                 .classed("text", true)
                 .attr("dy", function (d) {
-                    if (d.depth <= 2)
-                        return "3em";
+                    if (d.depth <= 1)
+                        return "0em";
+                    else if (d.depth == 2)
+                        return "2em";
                     else
-                        return "0.1em";
+                        return "0.2em";
                 })
                 .attr("dx", function (d) {
                     if (d.depth <= 2)
-                        return "-3em";
+                        return "-2em";
                     else
                         return "0.1em";
                 })
@@ -1876,22 +2054,34 @@
                     else
                         return "start";
                 })
-
+                .style("fill", label_color)
                 .style("opacity", function (d) {
 
                     return label_opacity;
                 })
                 .text(function (d) {
-                    // console.log(d);
-                    /* var label = "";
-                    if (d.data.data.description)
-                        label = d.data.data.description;
-                    else
-                        label = d.data.data.child;
+                    var label = d.data.data.child;
+                    if (label.includes("_"))
+                        label = label.substring(label.indexOf("/") + 1, label.length);
                     if (label.includes("/"))
                         label = label.substring(label.lastIndexOf("/") + 1, label.length);
-                    return label; */
-                    return d.data.data.child.substr(0, 10);
+
+                    if (label.length > label_len) {
+                        if (label.includes(".")) {
+                            var start = label.indexOf(".");
+                            var len = label.length;
+                            var templen = label.substr(start, len).length;
+
+                            label = label.substring(0, label_len - templen) + ".." + label.substr(start, len);
+
+                        }
+                        else {
+                            label = label.substring(0, label_len);
+                        }
+                    }
+
+                    return label;
+                    //return d.data.data.child.substr(0, 10);
                 })
                 .on("mouseover", function (d) {
 
@@ -1905,18 +2095,70 @@
                             return d.data.data.child;
                         })
 
-                    update_log("node " + d3.select(this).attr("id"), "node", "hover on a node", "mouseover");
+                    update_log("node " + d3.select(this).attr("id"), "node", "hover on a node", "mouseover", "", "", "", "", "");
                 })
                 .on("mouseleave", function (d) {
                     d3.select(this)
                         .attr("dx", "0em")
                         .style("font-size", label_size - d.depth)
                         //.attr("transform", "rotate(65)")
-                        .style("fill", "black")
+                        .style("fill", label_color)
                         .style("cursor", "default");
 
-                    update_log("node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave");
+                    update_log("node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave", "", "", "", "", "");
                 });
+
+
+            h1_nodeEnter
+                .append("path")
+                .attr("class", function (d) {
+                    return "triangle-" + d.data.data.child;
+                })
+                .attr("d", triangle_shape)
+                /*  .attr("x", function (d) {
+                     //console.log("tri enter");
+                     //console.log(source);
+                     return (d.depth * level_offset) + 20;
+                 })
+                 .attr("y", function (d) {
+                     return d.x;
+                 }) */
+                .style("stroke-width", "5px")
+                .style("stroke", function (d) {
+                    //console.log("tri update");
+                    //console.log(d);
+                    if (d._children)
+
+                        return triangleColor;
+                    else
+                        return "none";
+
+                })
+                .style("opacity", triOpacity)
+                .style("fill", function (d) {
+                    if (d._children)
+
+                        return triangleColor;
+                    else
+                        return "none";
+                })
+                .attr("transform", function (d) {
+                    /* var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
+                    y = + 25; */
+
+                    var trans = "translate(" + parseInt(parseInt(d.depth * level_offset) + parseInt(tri_offset)) + "," + d.x + ") rotate(30)";
+                    //var trans = "";
+
+                    return trans;
+                })
+                .on("mouseover", function (d) {
+                    //console.log(this);
+                    d3.select(this).style("cursor", "default");
+                    update_log("node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click", "", "", "", "", "");
+                });
+
+
+
             /* .on("mouseover", function (d) {
                 d3.select(this).style("background-color", "white");
             }); */
@@ -2062,12 +2304,12 @@
                         console.log(levelline);
                         //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
                         if (document.getElementById("line-level-l" + levelline).style.opacity == 0.6) {
-                            update_log("line-level-l" + levelline, "level line", "hide level line " + levelline);
+                            update_log("line-level-l" + levelline, "level line", "hide level line " + levelline, "click", "", "", "", "", "");
                             d3.select("#line-level-l" + levelline)
                                 .style("opacity", 0);
                         }
                         else {
-                            update_log("line-level-l" + levelline, "level line", "show level line " + levelline);
+                            update_log("line-level-l" + levelline, "level line", "show level line " + levelline, "click", "", "", "", "", "");
                             d3.select("#line-level-l" + levelline)
                                 .style("opacity", 0.6);
                         }
@@ -2105,19 +2347,19 @@
                         return "Level: " + i;
                     })
                     .on("mouseover", function (d) {
-                        update_log(d3.select(this).attr("id"), "levelline", "emphasize levelline", "mouseover");
+                        update_log(d3.select(this).attr("id"), "levelline", "emphasize levelline", "mouseover", "", "", "", "", "");
                         d3.select(this).style("cursor", "pointer");
                     })
                     .on("click", function (d) {
                         var levelline = d3.select(this).text().split(": ")[1];
                         //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
                         if (document.getElementById("line-chart-l" + levelline).style.opacity == 0.7) {
-                            update_log("line-chart-l" + levelline, "level line", "hide level line ", "click");
+                            update_log("line-chart-l" + levelline, "level line", "hide level line ", "click", "", "", "", "", "");
                             d3.select("#line-chart-l" + levelline)
                                 .style("opacity", 0);
                         }
                         else {
-                            update_log("line-chart-l" + levelline, "level line", "show level line ", "click");
+                            update_log("line-chart-l" + levelline, "level line", "show level line ", "click", "", "", "", "", "");
                             d3.select("#line-chart-l" + levelline)
                                 .style("opacity", 0.7);
                         }
@@ -2146,7 +2388,7 @@
                     .attr("id", "legend")
                     .attr("transform", "translate(-20,100)");
 
-                console.log(d3.select("#legend").node().getBBox());
+                //console.log(d3.select("#legend").node().getBBox());
 
                 d3.select("#legend")
                     .append("rect")
@@ -2204,6 +2446,36 @@
 
             }
         }
+
+        function commonElementsList(h2_desc, h1_desc) {
+
+            for (h2 = 0; h2 < h2_desc.length; h2++) {
+
+
+                for (h1 = 0; h1 < h1_desc.length; h1++) {
+                    //console.log(h2 + " " + h1);
+
+                    //console.log("STATUS " + h1_tree.descendants()[h1].data.data.child + " " + h1_tree.descendants()[h1].status);
+
+
+                    // console.log("agn_STATUS " + h2_tree.descendants
+                    //    ()[h2].data.data.child + " " + h2_desc[h2].status);
+                    //console.log(h1_desc[h1]);
+                    if (h1_desc[h1].status == "ACCEPT") {
+                        //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
+                        //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
+
+                        if (h2_desc[h2].data.data.description_child == h1_desc[h1].data.data.description_child && h2_desc[h2].descendants().length == h1_desc[h1].descendants().length) {
+                            //console.log("draw line " + h2_desc[h2].data.data.description_child);
+                            commonElementsArr.push(h2_desc[h2].data.data.description_child);
+
+
+                        }
+                    }
+                }
+            }
+        }
+
 
         function commonElements(h2_desc, h1_desc) {
 
@@ -2363,11 +2635,11 @@
                                     //console.log(h2_desc[h2].data.data.child);
 
                                     var child = d3.select(this).attr("id").split("_")[1]
-                                        //.replaceAll(/\//g, "")
-                                        //.replaceAll(".", "")
-                                        //.replaceAll(" ", "")
-                                        //.replaceAll("(", "")
-                                        //.replaceAll(")", "")
+                                        .replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
                                         .toLowerCase();
 
                                     d3.select("#h2tree_" + child)
@@ -2385,7 +2657,7 @@
 
 
                                     var label = d3.select(this).attr("h2child"), child = "root", parent = "";
-                                    update_log("connecting link " + label, "link", "hover on a common link", "mouseover");
+                                    update_log("connecting link " + label, "link", "hover on a common link", "mouseover", "", "", "", "", "");
 
                                     if (label.includes("/")) {
                                         child = label.substring(label.lastIndexOf("/") + 1, label.length);
@@ -2436,7 +2708,7 @@
                                         .attr("r", radius - 4)
                                         .style("opacity", opacity);
 
-                                    update_log("connecting link " + d3.select(this).attr("id"), "link", "leave a link", "mouseleave");
+                                    update_log("connecting link " + d3.select(this).attr("id"), "link", "leave a link", "mouseleave", "", "", "", "", "");
                                 });
 
                             // }
@@ -2467,34 +2739,46 @@
 
         function collapse(d) {
             if (d.children) {
-                d._children = d.children
-                d._children.forEach(collapse)
-                d.children = null
+                d._children = d.children;
+                d._children.forEach(collapse);
+                d.children = null;
+            }
+        }
+
+        function expand(d) {
+            //console.log("EXPAND");
+            //console.log(d);
+            if (d._children) {
+                d.children = d._children;
+                d.children.forEach(expand);
+                d._children = null;
             }
         }
 
 
-        function update_log(elementID, elementType, elementDescription, eventDescription) {
+        function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer, score) {
             var date = new Date();
 
 
             var logObject = JSON.parse(localStorage.getItem("logObject"));
             logObject.push({
+                "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                 "userID": localStorage.getItem("userID"),
-                "vizID": vizID,
-                "screenSize": window.innerWidth + ";" + window.innerHeight,
-                "pageID": pageID,
+                "vizID": "linkedtree",
+                "screenWidth": window.innerWidth,
+                "screenHeight": window.innerHeight,
+                "pageID": "linkedtree viz page",
                 "elementID": elementID,
                 "elementType": elementType,
+                "elementDescription": elementDescription,
                 "eventDescription": eventDescription,
-                "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
-                "overall_timestamp": new Date().getMilliseconds(),
-                "phase_timestamp": new Date().getMilliseconds(),
-                "questionID": "",
-                "question": "",
-                "useranswer": "",
-                "correctanswer": "",
-                "score": ""
+                "overall_timestamp": Math.round(+new Date() / 1000),
+                //"phase_timestamp": new Date().getMilliseconds(),
+                "questionID": questionID,
+                "question": question,
+                "useranswer": useranswer,
+                "correctanswer": correctanswer,
+                "score": score
             });
             localStorage.removeItem("logObject");
             localStorage.setItem("logObject", JSON.stringify(logObject));

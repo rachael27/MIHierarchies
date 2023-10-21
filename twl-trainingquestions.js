@@ -225,7 +225,7 @@ function twl_trainingquestions(qcounter) {
                     .select("#option" + i + "_label")
                     .style("background-color", "#F3E8EA");
             }
-            update_log("btn-nextquestion", "button", "display training question", "click", "T" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+            //update_log("btn-nextquestion", "button", "display training question", "click", "T" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
 
         });
 
@@ -237,18 +237,18 @@ function twl_trainingquestions(qcounter) {
 
         logObject = JSON.parse(localStorage.getItem("logObject"));
         logObject.push({
+            "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "userID": localStorage.getItem("userID"),
-            "vizID": vizID,
-            "screenSize": window.innerWidth + ";" + window.innerHeight,
-            "pageID": pageID,
+            "vizID": "linkedtree",
+            "screenWidth": window.innerWidth,
+            "screenHeight": window.innerHeight,
+            "pageID": "training",
             "elementID": elementID,
             "elementType": elementType,
             "elementDescription": elementDescription,
-            "elementType": elementType,
             "eventDescription": eventDescription,
-            "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
-            "overall_timestamp": new Date().getMilliseconds(),
-            "phase_timestamp": new Date().getMilliseconds(),
+            "overall_timestamp": Math.round(+new Date() / 1000),
+            //"phase_timestamp": new Date().getMilliseconds(),
             "questionID": questionID,
             "question": question,
             "useranswer": useranswer,

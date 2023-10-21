@@ -12,6 +12,7 @@ function experimentquestions(qcounter) {
         .select("br")
         .remove();
 
+
     list_questions = [
         {
             "qid": "",
@@ -19,24 +20,24 @@ function experimentquestions(qcounter) {
         },
         {
             "qid": "E1.",
-            "question": "How many levels does the AfterH have?",
-            "answer": "8",
-            "options": [4, 6, 8]
+            "question": "Does the AfterH have the same number of levels as the Before?",
+            "answer": "No. The AfterH has one level more than the BeforeH",
+            "options": ["Yes", "No. The AfterH has one level more than the BeforeH", "No. The AfterH has one level less than the BeforeH"]
 
         },
 
         {
             "qid": "E2.",
-            "question": "What is the path of the node:treeml.dtd?",
-            "answer": "root/hcil/iv03contest/datasets/treeml.dtd",
-            "options": ["root/hcil/census/JavaProto/demo_files/treeml.dtd", "root/hcil/iv03contest/datasets/treeml.dtd", "root/hcil/about/pictures/treeml.dtd", "project/hcil/treemaps/treeml.dtd"]
+            "question": "What is the path of the node:<i>treeml.dtd</i>?",
+            "answer": "<i>root/hcil/iv03contest/datasets/treeml.dtd</i>",
+            "options": ["<i>root/hcil/census/JavaProto/demo_files/treeml.dtd</i>", "<i>root/hcil/iv03contest/datasets/treeml.dtd</i>", "<i>root/hcil/about/pictures/treeml.dtd</i>", "<i>root/hcil/treemaps/treeml.dtd</i>"]
 
         },
 
 
         {
             "qid": "E3.",
-            "question": "What is the level of node filename:root/hcil/piccolo/newsroom/newsroom-index.shtml in the BeforeH and AfterH hierarchies?",
+            "question": "What is the level of node filename:<i>root/hcil/piccolo/newsroom/newsroom-index.shtml</i> in the before and after hierarchies?",
             "answer": "Level 4 in the BeforeH and Level 4 in the AfterH",
             "options": ["Level 4 in the BeforeH and Level 4 in the AfterH", "Level 4 in the BeforeH and Level 5 in the AfterH", "Level 5 in the BeforeH and Level 6 in the AfterH"]
 
@@ -52,34 +53,33 @@ function experimentquestions(qcounter) {
 
         {
             "qid": "E5.",
-            "question": "Is the element filename:root/hcil/about/pictures/reddot.gif available in both hierarchies?",
+            "question": "Is the element filename:<i>root/hcil/about/pictures/reddot.gif</i> available in both hierarchies?",
             "answer": "No, it is available only in the AfterH.",
             "options": ["Yes, it is available in both hierarchies.", "No, it is available only in the BeforeH.", "No, it is available only in the AfterH."]
 
         },
-        /*
-                {
-                    "qid": "E6.",
-                    "question": "Node file:root/hcil/pda/thesis/thesis-/postscript.html in the BeforeH has gone through a change/s. What is/are the change/s?",
-                    "answer": "The file has moved up one level in to the folderroot/hcil/pda/thesis.",
-                    "options": ["The file has moved to a different folder on the same level.", "The file has moved down one level in to a sub-folder inside the parent folder:root/hcil/pda/thesis/thesis-pda/thesis-draft/postscript.html.", "The file has moved up one level in to the folder:root/hcil/pda/thesis."]
-        
-                },
-                */
 
+        /* {
+            "qid": "E6.",
+            "question": "Node file:<i>root/hcil/pda/thesis/thesis-pda/postscript.html</i> in the BeforeH has gone through a change/s. What is/are the change/s?",
+            "answer": "The file has moved up one level in to the folder<i>root/hcil/pda/thesis</i>.",
+            "options": ["The file has moved to a different folder on the same level.", "The file has moved down one level in to a sub-folder inside the parent folder:<i>root/hcil/pda/thesis/thesis-pda/thesis-draft/postscript.html</i>.", "The file has moved up one level in to the folder<i>root/hcil/pda/thesis</i>."]
+ 
+        },
+ */
         {
             "qid": "E6.",
-            "question": "Have the contents of folder:root/hcil/piccolo/applications changed?",
-            "answer": "Yes",
+            "question": "Has the contents of folder:<i>root/hcil/piccolo/applications</i> changed?",
+            "answer": "One file has been added.",
             "options": ["Some files have been deleted.", "The folder contents have not changed at all.", "One file has been added."]
 
         },
 
         {
             "qid": "E7.",
-            "question": "Find the siblings of folder:root/projects/hcil/treemap3/doc",
+            "question": "Find the siblings of folder:<i>root/hcil/treemap3/doc</i>",
             "answer": "[doc3.3;demo.shtml;demo_files]",
-            "options": ["[1.html;2.html;3.html]", "[spotfire;touchscreens;timesearcher]", "[doc3.3;demo.shtmlldemo_files]"]
+            "options": ["[1.html;2.html;3.html]", "[spotfire;touchscreens;timesearcher]", "[doc3.3;demo.shtml;demo_files]"]
 
         },
         {
@@ -100,8 +100,8 @@ function experimentquestions(qcounter) {
         {
             "qid": "E10.",
             "question": "What changes are common to folder:root/hcil/members/mvenkatraman and folder:root/hcil/members/rsalter?",
-            "answer": "One file was deleted, one file was added and one file was retained",
-            "options": ["All files were deleted", "One file was added and one file was deleted", "One file was deleted, one file was added and one file was retained", "Two files were retained and the rest were deleted."]
+            "answer": "One file was deleted; one file was added and one file was retained",
+            "options": ["All files were deleted", "One file was added and one file was deleted", "One file was deleted; one file was added and one file was retained", "Two files were retained and the rest were deleted."]
 
         },
 
@@ -219,7 +219,7 @@ function experimentquestions(qcounter) {
             else
                 score = 0;
 
-            update_log("btn-nextquestion", "button", "display training question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+            update_log("btn-nextquestion", "button", "display question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
 
             d3.select("#btn-nextquestion")._groups[0][0].disabled = false;
 
@@ -233,19 +233,20 @@ function experimentquestions(qcounter) {
         logObject.push({
             "userID": localStorage.getItem("userID"),
             "vizID": localStorage.getItem("vizID"),
-            "screenSize": localStorage.getItem("screenSize"),
+            "screenWidth": window.innerWidth,
+            "screenHeight": window.innerHeight,
             "pageID": "experiment",
             "elementID": elementID,
             "elementType": elementType,
             "elementDescription": elementDescription,
             "eventDescription": eventDescription,
             "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
-            "overall_timestamp": new Date().getMilliseconds(),
+            "overall_timestamp": Math.round(+new Date() / 1000),
             //"phase_timestamp": new Date().getMilliseconds(),
             "questionID": questionID,
             "question": question,
-            "useranswer": useranswer,
-            "correctanswer": correctanswer,
+            "useranswer": useranswer.replaceAll(",", ""),
+            "correctanswer": correctanswer.replaceAll(",", ""),
             "score": score
         });
         localStorage.removeItem("logObject");

@@ -173,21 +173,23 @@ function twl_guidedtour() {
 
         var logObject = JSON.parse(localStorage.getItem("logObject"));
         logObject.push({
+            "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "userID": localStorage.getItem("userID"),
-            "vizID": vizID,
-            "screenSize": window.innerWidth + ";" + window.innerHeight,
-            "pageID": pageID,
+            "vizID": "",
+            "screenWidth": window.innerWidth,
+            "screenHeight": window.innerHeight,
+            "pageID": "guided tour",
             "elementID": elementID,
             "elementType": elementType,
             "elementDescription": elementDescription,
             "eventDescription": eventDescription,
-            "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
-            "overall_timestamp": new Date().getMilliseconds(),
-            "phase_timestamp": new Date().getMilliseconds(),
+            "overall_timestamp": Math.round(+new Date() / 1000),
+            //"phase_timestamp": new Date().getMilliseconds(),
             "questionID": "",
             "question": "",
             "useranswer": "",
-            "correctanswer": ""
+            "correctanswer": "",
+            "score": ""
         });
         localStorage.removeItem("logObject");
         localStorage.setItem("logObject", JSON.stringify(logObject));

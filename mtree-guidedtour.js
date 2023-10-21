@@ -153,8 +153,8 @@ function guidedtour() {
             window.location.href = 'landingpage.html?page=guidedtour';
         })
         .onchange(function () {
-            //console.log(this);
-            update_log("introjs-nextbutton", "display tooltip " + this._currentStep, "click");
+            console.log(this._currentStep);
+            update_log("introjs-nextbutton", "button", "display tooltip " + this._currentStep, "click");
         })
 
         //.setOption("showStepNumbers", true)
@@ -175,13 +175,14 @@ function guidedtour() {
             "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
             "userID": localStorage.getItem("userID"),
             "vizID": localStorage.getItem("vizID"),
-            "screenSize": localStorage.getItem("screenSize"),
+            "screenWidth": window.innerWidth,
+            "screenHeight": window.innerHeight,
             "pageID": "guided tour",
             "elementID": elementID,
             "elementType": elementType,
             "elementDescription": elementDescription,
             "eventDescription": eventDescription,
-            "overall_timestamp": new Date().getMilliseconds(),
+            "overall_timestamp": Math.round(+new Date() / 1000),
             //"phase_timestamp": new Date().getMilliseconds(),
             "questionID": "",
             "question": "",

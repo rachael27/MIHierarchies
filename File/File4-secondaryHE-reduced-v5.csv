@@ -1229,6 +1229,8 @@ learn,doc-0.5,root/hcil/piccolo/learn,root/hcil/piccolo/learn/doc-0.5
 doc-0.5,doc-0.5-changelog,root/hcil/piccolo/learn/doc-0.5,root/hcil/piccolo/learn/doc-0.5/changelog
 doc-0.5,doc-0.5-api,root/hcil/piccolo/learn/doc-0.5,root/hcil/piccolo/learn/doc-0.5/api
 doc-0.5-api,doc-0.5-api-index.html,root/hcil/piccolo/learn/doc-0.5/api,root/hcil/piccolo/learn/doc-0.5/api/index.html
+doc-0.5-api,api-folder,root/hcil/piccolo/learn/doc-0.5/api,root/hcil/piccolo/learn/doc-0.5/api/api-folder
+api-folder,api-file,root/hcil/piccolo/learn/doc-0.5/api/api-folder,root/hcil/piccolo/learn/doc-0.5/api/api-folder/api-file.js
 doc-0.5,doc-0.5-readme,root/hcil/piccolo/learn/doc-0.5,root/hcil/piccolo/learn/doc-0.5/readme
 doc-0.5,doc-0.5-tutorial,root/hcil/piccolo/learn/doc-0.5,root/hcil/piccolo/learn/doc-0.5/tutorial
 doc-0.5-tutorial,doc-0.5-tutorial-index.html,root/hcil/piccolo/learn/doc-0.5/tutorial,root/hcil/piccolo/learn/doc-0.5/tutorial/index.html

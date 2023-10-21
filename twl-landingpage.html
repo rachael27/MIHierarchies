@@ -273,7 +273,7 @@
 
 
         //console.log(JSON.parse(localStorage.getItem("logObject")));
-        update_log("", "landed on landing page");
+        update_log("", "landed on landing page", "", "");
 
         d3.select("#mihierarchies-btn")
             .style("width", d3.select(".progress-tour")._groups[0][0].offsetWidth + "px");
@@ -288,15 +288,15 @@
         d3.select("#btn-downloadlog")
             .on("click", function () {
 
-                update_log("btn-downloadlog", "button", "download log");
+                update_log("btn-downloadlog", "button", "download log", "click");
 
 
-                var logstr = "userID,vizID,pageID,elementID,elementType,description,date,overall_timestamp,phase_timestamp,questionID,question,useranswer,correctanswer,score\n";
+                var logstr = "userID,vizID,screenWidth,screenHeight,pageID,elementID,elementType,elementDescription,eventDescription, date,overall_timestamp,questionID,question,useranswer,correctanswer,score\n";
 
                 var logarr = JSON.parse(localStorage.getItem("logObject"));
 
                 for (var i = 0; i < logarr.length; i++) {
-                    logstr = logstr + logarr[i].userID + "," + logarr[i].vizID + "," + logarr[i].pageID + "," + logarr[i].elementID + "," + logarr[i].elementType + "," + logarr[i].description + "," + logarr[i].date + "," + logarr[i].overall_timestamp + "," + logarr[i].phase_timestamp + "," + logarr[i].questionID + "," + logarr[i].question + "," + logarr[i].useranswer + "," + logarr[i].correctanswer + "," + logarr[i].score + "\n";
+                    logstr = logstr + logarr[i].userID + "," + logarr[i].vizID + "," + logarr[i].screenWidth + "," + logarr[i].screenHeight + "," + logarr[i].pageID + "," + logarr[i].elementID + "," + logarr[i].elementType + "," + logarr[i].elementDescription + "," + logarr[i].eventDescription + "," + logarr[i].date + "," + logarr[i].overall_timestamp + "," + logarr[i].questionID + "," + logarr[i].question + "," + logarr[i].useranswer + "," + logarr[i].correctanswer + "," + logarr[i].score + "\n";
                 }
 
                 var blob = new Blob([logstr], { type: "text/csv;charset=utf-8" });
@@ -335,9 +335,9 @@
 
 
                     numofclicks++;
-                    console.log(numofclicks + " " + slides.length);
+                    //console.log(numofclicks + " " + slides.length);
                     if (numofclicks >= slides.length) {
-                        update_log("btn-next", "button", "redirect to guided tour");
+                        update_log("btn-next", "button", "redirect to guided tour", "click");
 
                         //window.location.href = 'treeswlinking.html?page=guidedtour';
                         window.location.href = 'treeswlinking.html?page=guidedtour';
@@ -349,8 +349,8 @@
 
 
                     else {
-                        console.log(slides[numofclicks]);
-                        update_log("btn-next", "button", "carousel image on display " + slides[numofclicks]);
+                        //console.log(slides[numofclicks]);
+                        update_log("btn-next", "button", "carousel image on display " + slides[numofclicks], "click");
 
                         d3.select("#" + slides[numofclicks] + "-btn")._groups[0][0].disabled = false;
 
@@ -419,7 +419,7 @@
                     console.log(numofclicks + " " + slides.length);
                     if (numofclicks <= slides.length && numofclicks >= 0) {
                         //console.log(slides[numofclicks]);
-                        update_log("btn-next", "button", "carousel image on display " + slides[numofclicks]);
+                        update_log("btn-next", "button", "carousel image on display " + slides[numofclicks], "click");
 
                         //d3.select("#" + slides[numofclicks] + "-btn")._groups[0][0].disabled = true;
 
@@ -509,7 +509,7 @@
 
             d3.select("#btn-next")
                 .on("click", function (d) {
-                    update_log("btn-next", "button", "redirect to training questions");
+                    update_log("btn-next", "button", "redirect to training questions", "click");
                     window.location.href = 'treeswlinking.html?page=trainingquestions';
                 })
                 .append("span")
@@ -519,7 +519,7 @@
 
             d3.select("#btn-back")
                 .on("click", function (d) {
-                    update_log("btn-next", "button", "redirect to overview");
+                    update_log("btn-next", "button", "redirect to overview", "click");
                     window.location.href = 'twl-landingpage.html?page=landingpage';
                 });
 
@@ -599,7 +599,7 @@
 
             d3.select("#btn-next")
                 .on("click", function (d) {
-                    update_log("btn-next", "button", "redirect to experiment questions");
+                    update_log("btn-next", "button", "redirect to experiment questions", "click");
 
                     window.location.href = 'treeswlinking.html?page=experimentquestions';
                 })
@@ -610,7 +610,7 @@
 
             d3.select("#btn-back")
                 .on("click", function (d) {
-                    update_log("btn-back", "button", "redirect to guided tour");
+                    update_log("btn-back", "button", "redirect to guided tour", "click");
 
                     window.location.href = 'treeswlinking.html?page=guidedtour';
                 });
@@ -821,21 +821,23 @@
 
             logObject = JSON.parse(localStorage.getItem("logObject"));
             logObject.push({
+                "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                 "userID": localStorage.getItem("userID"),
-                "vizID": vizID,
-                "screenSize": window.innerWidth + ";" + window.innerHeight,
-                "pageID": pageID,
+                "vizID": "linkedtree",
+                "screenWidth": window.innerWidth,
+                "screenHeight": window.innerHeight,
+                "pageID": "landingpage",
                 "elementID": elementID,
                 "elementType": elementType,
                 "elementDescription": elementDescription,
                 "eventDescription": eventDescription,
-                "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
-                "overall_timestamp": new Date().getMilliseconds(),
-                "phase_timestamp": new Date().getMilliseconds(),
+                "overall_timestamp": Math.round(+new Date() / 1000),
+                //"phase_timestamp": new Date().getMilliseconds(),
                 "questionID": "",
                 "question": "",
                 "useranswer": "",
-                "correctanswer": ""
+                "correctanswer": "",
+                "score": ""
             });
             localStorage.removeItem("logObject");
             localStorage.setItem("logObject", JSON.stringify(logObject));

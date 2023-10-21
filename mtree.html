@@ -116,14 +116,20 @@
                 <fieldset class="border p-2" style="margin-top:150px;">
                     <!--<legend class="w-auto">Choose layout</legend>-->
                     <br>
-                    <button type="button" class="btn btn-md" id="btn-refresh"
-                        style="color: white;background-color:#155446;">Refresh the layout</button>
+                    <button type="button" class="btn btn-md" id="btn-changeonlylayout"
+                        style="color: white;background-color:#155446;">Changes-only layout</button>
+
+                    <button type="button" class="btn btn-md" id="btn-entirelayout"
+                        style="color: white;background-color:#155446;">Entire layout</button>
+
                     <br><br>
+                    <!--
                     <div class="form-check form-switch row" id="togglediv"><span><label>Before hierarchy</label><input
                                 class="form-check-input" type="checkbox" name="hierarchy-toggle" id="tog-hierarchy"
                                 style="margin-left:20px; margin-right: 20px;" data-offstyle="danger"><label>After
                                 hierarchy</label></span>
                     </div>
+                    -->
                     <br>
                     <br>
                     <label for="browser">Search:</label>
@@ -487,6 +493,7 @@
 
         var mtree_radius = 5;
         var circle_stroke = 4;
+        var layout = "changeonlylayout";
 
 
 
@@ -507,8 +514,10 @@
                     runScript_tabs(h1, h2);
             });
 
-        d3.select("#btn-refresh").on("click", function () {
-            update_log("btn-refresh", "button", "refresh the layout", "click", "", "", "", "", "", "");
+        d3.select("#btn-changeonlylayout").on("click", function () {
+            layout = "changeonlylayout";
+            update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
+
             d3.queue()
                 .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
                 .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
@@ -519,6 +528,21 @@
                         runScript_tabs(h1, h2);
                 });
         });
+
+        d3.select("#btn-entirelayout").on("click", function () {
+            layout = "entirelayout";
+            update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
+            d3.queue()
+                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+                .await(function (error, h2, h1) {
+                    if (error) throw error;
+
+                    else
+                        runScript_tabs(h1, h2);
+                });
+        });
+
 
         /*
                 d3.select("#btn-swapdataset").on("click", function () {
@@ -616,7 +640,7 @@
 
 
 
-
+        var qid = "";
 
         d3.select("#btn-nextquestion")
             .on("click", function () {
@@ -628,9 +652,14 @@
                 d3.select("#btn-nextquestion")._groups[0][0].disabled = true;
                 // console.log("submitted" + document.querySelector(".radiobuttons").checked);
 
+                if (urlpage == "trainingquestions")
+                    qid = "T";
+                else
+                    qid = "E";
+
                 if (!d3.select(".radiobuttons").empty()) {
                     console.log(qcounter);
-                    update_log("btn-nextquestion", "button", "display training question", "click", "T" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+                    update_log("btn-nextquestion", "button", "display question", "click", qid + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
                 }
 
                 if (qcounter == -1)
@@ -795,63 +824,100 @@
             var h2_root = d3.hierarchy(h2_struct);
             var h1_root = d3.hierarchy(h1_struct);
 
+            var nodes_list = [];
+            var h1list = [], h2list = [];
+            for (i = 0; i < h2_root.descendants().length; i++) {
+                h2list.push(h2_root.descendants()[i].data.data.description_child);
+            }
+            for (i = 0; i < h1_root.descendants().length; i++) {
+                h1list.push(h1_root.descendants()[i].data.data.description_child);
+            }
+            let intersection = h1list.filter(x => h2list.includes(x));
+            let h1diff = h1list.filter(x => !h2list.includes(x));
+            let h2diff = h2list.filter(x => !h1list.includes(x));
+
+            for (var i = 0; i < intersection.length; i++)
+                nodes_list.push(intersection[i]);
+
+            for (var i = 0; i < h1diff.length; i++)
+                nodes_list.push(h1diff[i]);
+
+            for (var i = 0; i < h2diff.length; i++)
+                nodes_list.push(h2diff[i]);
+
             d3.select("#search-nodes-list")
                 .selectAll("option")
-                .data(h1_root.descendants())
+                .data(nodes_list)
                 .enter()
                 .append("option")
                 .attr("value", function (d) {
                     //console.log(d.data.data.description_child);
-                    return d.data.data.child;
+                    return d;
                 })
                 .text(function (d) {
-                    return d.data.data.description_child;
+                    return d;
                 });
 
 
+            /* d3.select("#search-nodes-list")
+            .selectAll("option")
+            .data(h1_root.descendants())
+            .enter()
+            .append("option")
+            .attr("value", function (d) {
+                //console.log(d.data.data.description_child);
+                return d.data.data.child;
+            })
+            .text(function (d) {
+                return d.data.data.description_child;
+            }); */
 
-            d3.select("#tog-hierarchy")
-                .on("change", function () {
-                    d3.select("#search-nodes").node().value = "";
-                    if (this.checked) {
-                        update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h2 elements", "click", "", "", "", "", "");
-                        d3.select("#search-nodes-list")
-                            .selectAll("option")
-                            .remove();
-                        d3.select("#search-nodes-list")
-                            .selectAll("option")
-                            .data(h2_root.descendants())
-                            .enter()
-                            .append("option")
-                            .attr("value", function (d) {
-                                //console.log(d);
-                                return d.data.data.child;
-                            })
-                            .text(function (d) {
-                                return d.data.data.description_child;
+
+
+            /*
+                        d3.select("#tog-hierarchy")
+                            .on("change", function () {
+                                d3.select("#search-nodes").node().value = "";
+                                if (this.checked) {
+                                    update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h2 elements", "click", "", "", "", "", "");
+                                    d3.select("#search-nodes-list")
+                                        .selectAll("option")
+                                        .remove();
+                                    d3.select("#search-nodes-list")
+                                        .selectAll("option")
+                                        .data(h2_root.descendants())
+                                        .enter()
+                                        .append("option")
+                                        .attr("value", function (d) {
+                                            //console.log(d);
+                                            return d.data.data.child;
+                                        })
+                                        .text(function (d) {
+                                            return d.data.data.description_child;
+                                        });
+                                }
+                                else {
+                                    update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h1 elements", "click", "", "", "", "", "");
+                                    d3.select("#search-nodes-list")
+                                        .selectAll("option")
+                                        .remove();
+                                    d3.select("#search-nodes-list")
+                                        .selectAll("option")
+                                        .data(h1_root.descendants())
+                                        .enter()
+                                        .append("option")
+                                        .attr("value", function (d) {
+                                            //console.log(d);
+                                            return d.data.data.child;
+                                        })
+                                        .text(function (d) {
+                                            return d.data.data.description_child;
+                                        });
+            
+                                }
+            
                             });
-                    }
-                    else {
-                        update_log("tog-hierarchy", "toggle switch", "value is at " + this.checked + " showing h1 elements", "click", "", "", "", "", "");
-                        d3.select("#search-nodes-list")
-                            .selectAll("option")
-                            .remove();
-                        d3.select("#search-nodes-list")
-                            .selectAll("option")
-                            .data(h1_root.descendants())
-                            .enter()
-                            .append("option")
-                            .attr("value", function (d) {
-                                //console.log(d);
-                                return d.data.data.child;
-                            })
-                            .text(function (d) {
-                                return d.data.data.description_child;
-                            });
-
-                    }
-
-                });
+                            */
 
 
 
@@ -878,7 +944,7 @@
 
                         for (var i = 0; i < this.parentNode.childNodes.length; i++) {
                             var y = d3.select(this.parentNode).attr("transform").split(", ")[1].replace(")", "");
-                            d3.select(this.parentNode.childNodes[3]).style("fill", "black")
+                            d3.select(this.parentNode.childNodes[3]).style("fill", "silver")
                                 .style("font-size", label_size - parseInt(y) / 50);
 
                         }
@@ -958,20 +1024,20 @@
 
 
 
-                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "gold")
+                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "darkorange")
                                     d3.select("." + id + "_outer")
-                                        .style("stroke", "gold")
+                                        .style("stroke", "darkorange")
                                         .classed("selected", "true");
                                 //.style("stroke-width", circle_stroke);
                                 else
                                     d3.select("." + id + "_inner")
-                                        .style("stroke", "gold")
+                                        .style("stroke", "darkorange")
                                         .style("stroke-width", 4)
                                         .classed("selected", "true");
 
                                 d3.select("." + id + ".text")
-                                    .style("fill", "red")
-                                    .style("font-size", 20)
+                                    .style("fill", "darkorange")
+                                    .style("font-size", 20);
 
 
                             }
@@ -1029,14 +1095,14 @@
                                                 // console.log(id);
                                                 //console.log(d3.select("#" + id));
 
-                                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "gold")
+                                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "darkorange")
                                                     d3.select("." + id + "_outer")
-                                                        .style("stroke", "gold")
+                                                        .style("stroke", "darkorange")
                                                         .classed("selected", "true");
                                                 //.style("stroke-width", circle_stroke);
                                                 else
                                                     d3.select("." + id + "_inner")
-                                                        .style("stroke", "gold")
+                                                        .style("stroke", "darkorange")
                                                         .style("stroke-width", 4)
                                                         .classed("selected", "true");
 
@@ -1077,21 +1143,6 @@
 
 
 
-
-
-            //console.log(h1_root.children);
-
-            /* if (d3.select("#filterdatacheck")._groups[0][0].checked == true) {
-                h2_root = filterData(h2_root);
-                h1_root = filterData(h1_root);
-            } */
-
-            //console.log(h1_root.children);
-
-            //console.log(h2_rootElement.descendants());
-            //console.log(h1_rootElement.descendants());
-
-            //console.log(h2_root.descendants());
 
 
 
@@ -1171,32 +1222,30 @@
 
 
 
-
-            //console.log(mtree.descendants());
-
-            var flag = 0;
-            mtree.descendants().reverse().forEach(function (element) {
-                flag = 0;
-                //console.log(element.data.data.child);
-                if ((element.data.data.linkcolor == "blue") || element.children == null) {
-                    for (var i = 0; i < element.descendants().length; i++) {
-                        //console.log("entering check" + element.descendants()[i].data.data.child);
-                        if ((element.descendants()[i].data.data.linkcolor == "blue") && element.descendants()[i].children == null) {
-                            //console.log(element.descendants()[i].data.data.child + " passed check");
-                            flag += 1;
+            if (layout == "changeonlylayout") {
+                var flag = 0;
+                mtree.descendants().reverse().forEach(function (element) {
+                    flag = 0;
+                    //console.log(element.data.data.child);
+                    if ((element.data.data.linkcolor == "blue") || element.children == null) {
+                        for (var i = 0; i < element.descendants().length; i++) {
+                            //console.log("entering check" + element.descendants()[i].data.data.child);
+                            if ((element.descendants()[i].data.data.linkcolor == "blue") && element.descendants()[i].children == null) {
+                                //console.log(element.descendants()[i].data.data.child + " passed check");
+                                flag += 1;
+                            }
                         }
-                    }
-                    //console.log(element.data.data.child + " " + flag + " " + (element.descendants().length));
-                    if (flag == element.descendants().length - 1 || element.children == null) {
-                        //console.log("collapse " + element.data.data.child);
-                        collapse(element);
-                    }
+                        //console.log(element.data.data.child + " " + flag + " " + (element.descendants().length));
+                        if (flag == element.descendants().length - 1 || element.children == null) {
+                            //console.log("collapse " + element.data.data.child);
+                            collapse(element);
+                        }
 
-                }
-                //else
-                // console.log("expandedpc  " + element.data.data.child + " " + element.data.data.linkcolor + " " + element.children.length);
-            });
-
+                    }
+                    //else
+                    // console.log("expandedpc  " + element.data.data.child + " " + element.data.data.linkcolor + " " + element.children.length);
+                });
+            }
 
 
 
@@ -1448,9 +1497,10 @@
                         update_log("node " + label, "node", "hide tooltip", "mouseleave", "", "", "", "", "");
 
 
-                        d3.select(this)
-                            .transition()
-                            .attr("r", radius - 6);
+                        if (d3.select(this).style("font-size") != "20px")
+                            d3.select(this)
+                                .transition()
+                                .attr("r", radius - 6);
 
 
                         d3.select("#tooltip")
@@ -1851,12 +1901,6 @@
 
                 mtree = tree(hier_root);
 
-                //console.log(mtree.descendants()[0]);
-
-
-
-
-
 
 
                 //console.log("MERGED TREE");
@@ -1865,42 +1909,20 @@
                 links = mtree.links();
 
 
-                //console.log(nodes);
-                //console.log(source);
 
-
-                //remove this for temp fix
-
-
-                //d3.select("#mergedtree").selectAll("g").remove();
-
-                /* var nodes_data = nodes.filter(function (el) {
-                    if (el.position == "expand") {
-                        return el;
-                    }
-                });
-     
-                
-     
-     
-                var links_data = links.filter(function (el) {
-                    if (el.target.position == "expand") {
-                        return el;
-                    }
-                }); */
 
                 var duration = 500;
                 var label_array = [];
                 var anchor_array = [];
-                //nodes = source;
-                //nodes_data = nodes;
+                var link_strokewidth = 1;
+                var link_opacity = 0.7;
+                var link_secondaryopacity = 0.2;
+                var label_len = 8;
 
-                //console.log(nodes_data);
-                //for (var i = 0; i < nodes_data.length; i++)
-                //console.log(nodes_data[i].data.data.child + " " + nodes_data[i].position + " " + nodes_data[i].childrenposition);
 
-                var color = "orange";
-                var triangleSize = 40;
+                var triangleColor = "green";
+                var triangleSize = 15;
+                var triOpacity = 0.6;
                 var verticalTransform = Math.sqrt(triangleSize);
 
                 var triangle_shape = d3.symbol()
@@ -1976,43 +1998,50 @@
                 var triUpdate = nodeEnter
                     .merge(triangle)
                     .transition()
-                    //.attr("dx", 0)
-                    //.attr("dy", "2em");
-                    //.duration(duration)
-
-                    .style("stroke", function (d) {
-                        //console.log(d);
-                        if (d.children)
-                            return "none";
-                        else if (d._children)
-                            return "green";
-                        else
-                            return "none";
-
-                    })
-                    .style("fill", function (d) {
-
-                        if (d.children)
-                            return "none";
-                        else if (d._children)
-                            return "green";
-                        else
-                            return "none";
-
-                    })
-
                     .attr("transform", function (d) {
+
                         var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
                         y = + 25;
 
                         var trans = "translate(" + 0 + "," + y + ")";
-                        //var trans = "";
+                        return trans;
+
+                    })
+                    .style("stroke", function (d) {
+                        //console.log("tri update");
 
 
-                        if (d._children)
-                            return trans + "rotate(180)";
-                        else if (d.children)
-                            return trans;
+                        if (source.data.data.child)
+                            d3.select(".triangle-" + source.data.id)
+                                .style("stroke", "none")
+                                .style("fill", "none");
+                        else
+                            d3.select(".triangle-" + source.data.id)
+                                .style("stroke", triangleColor)
+                                .style("fill", triangleColor);
+
+
+                        if (d.children)
+                            return "none";
+                        else
+                            return triangleColor;
+
+
+                    })
+                    .style("fill", function (d) {
+                        if (source.data.data.child)
+                            d3.select(".triangle-" + source.data.id)
+                                .style("stroke", "none")
+                                .style("fill", "none");
+                        else
+                            d3.select(".triangle-" + source.data.id)
+                                .style("stroke", triangleColor)
+                                .style("fill", triangleColor);
+                        if (d.children)
+                            return "none";
+                        else
+                            return triangleColor;
+
 
                     });
 
@@ -2024,18 +2053,8 @@
                     .transition()
                     //.duration(duration)
                     .attr("transform", function (d) {
-                        //console.log("NODE UPDATE");
-                        //console.log(d);
-                        //console.log(source.data.data.child);
-                        //label_array.push(d.data.data.child);
-
                         var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
-                        //if (source.data.data.child == "root")
-                        anchor_array.push({ "x": d.x, "y": y, "r": 10 });
-                        label_array.push({ x: d.x, y: y, name: d.data.data.child, width: 0.0, height: 0.0 });
                         return "translate(" + d.x + "," + y + ")";
-                        //else
-                        // return "translate(" + source.x + "," + y + ")";
                     });
 
 
@@ -2045,42 +2064,43 @@
                     .style("fill-opacity", 1)
                     .style("color", "black");
 
-                var triExit = node
-                    //.selectAll("circle")
-                    .exit()
-                    .transition()
-                    .duration(duration)
-                    .attr("size", function (d) {
-                        //console.log("EXIT ");
+                /*
+            var triExit = triangle
+                //.selectAll(".triangle")
+                .exit()
+                .transition()
+                .duration(duration)
 
-                        return 0;
-                    })
-
-                    .style("stroke", function (d) {
-                        if (d.children)
+                .style("stroke", function (d) {
+                    console.log("tri exit");
+                    //console.log(d);
+                    if (d.parent)
+                        if (d.parent.children)
                             return "none";
-                        else if (d._children)
-                            return "green";
+                        else
+                            return triangleColor;
 
-                    })
-                    .style("fill", function (d) {
-
-                        if (d.children)
+                })
+                .style("fill", function (d) {
+                    if (d.parent)
+                        if (d.parent.children)
                             return "none";
-                        else if (d._children)
-                            return "green";
+                        else
+                            return triangleColor;
 
-                    })
 
-                    .attr("transform", function (d) {
-                        //console.log(d);
-                        //var y = (d.parent.data.data.level === 0 ? 50 : d.parent.data.data.level * level_offset);
-                        //return "translate(" + d.parent.x + "," + y + ")";
+                })
 
-                        var y = (source.data.data.level === 0 ? 50 : source.data.data.level * level_offset);
-                        return "translate(" + source.x + "," + y + ")";
-                    })
-                    .remove();
+                .attr("transform", function (d) {
+                    //console.log(d);
+                    //var y = (d.parent.data.data.level === 0 ? 50 : d.parent.data.data.level * level_offset);
+                    //return "translate(" + d.parent.x + "," + y + ")";
+
+                    var y = (source.data.data.level === 0 ? 50 : source.data.data.level * level_offset);
+                    return "translate(" + source.x + "," + y + ")";
+                })
+                .remove();
+                */
 
 
                 var nodeExit = node
@@ -2088,15 +2108,22 @@
                     .exit()
                     .transition()
                     .duration(duration)
-                    .attr("r", function () {
-                        //console.log("NODE EXIT ");
+                    .attr("r", function (d) {
+                        console.log("NODE EXIT ");
+                        console.log(source);
+                        if (source._children)
+                            d3.select(".triangle-" + source.data.id)
+                                .style("stroke", triangleColor)
+                                .style("fill", triangleColor);
+                        else
+                            d3.select(".triangle-" + source.data.id)
+                                .style("stroke", "none")
+                                .style("fill", "none");
+
 
                         return 0;
                     })
                     .attr("transform", function (d) {
-                        //console.log(d);
-                        //var y = (d.parent.data.data.level === 0 ? 50 : d.parent.data.data.level * level_offset);
-                        //return "translate(" + d.parent.x + "," + y + ")";
 
                         var y = (source.data.data.level === 0 ? 50 : source.data.data.level * level_offset);
                         return "translate(" + source.x + "," + y + ")";
@@ -2152,6 +2179,8 @@
                     })
                     .attr("d", triangle_shape)
                     .attr("x", function (d) {
+                        //console.log("tri enter");
+                        //console.log(source);
                         return d.x;
                     })
                     .attr("y", function (d) {
@@ -2159,24 +2188,25 @@
                     })
                     .style("stroke-width", "5px")
                     .style("stroke", function (d) {
+                        //console.log("tri update");
+                        //console.log(d);
                         if (d.children)
                             return "none";
-                        else if (d._children)
-                            return "green";
                         else
-                            return "none";
+                            return triangleColor;
 
                     })
+                    .style("opacity", triOpacity)
                     .style("fill", function (d) {
 
                         if (d.children)
                             return "none";
-                        else if (d._children)
-                            return "green";
                         else
-                            return "none";
+                            return triangleColor;
+
 
                     })
+
                     .attr("transform", function (d) {
                         var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
                         y = + 25;
@@ -2185,10 +2215,8 @@
                         //var trans = "";
 
 
-                        if (d._children)
-                            return trans + "rotate(180)";
-                        else if (d.children)
-                            return trans;
+
+                        return trans;
                     })
                     .on("mouseover", function (d) {
                         //console.log(this);
@@ -2857,7 +2885,7 @@
                         //   return "20px";
                     })
                     .style("stroke", "none")
-                    .style("fill", "black")
+                    .style("fill", "silver")
                     .attr("class", function (d) {
                         //return d.name
                         return "mergedtree_" + d.data.data.child
@@ -2877,7 +2905,11 @@
                         // if ((this.previousSibling).getAttribute("class").includes("leaf"))
                         //  return 10;
                         //else 
-                        return 20;
+
+                        if (d.children)
+                            return 30;
+                        else
+                            return 30;
 
 
                     })
@@ -2886,10 +2918,13 @@
                         //if ((this.previousSibling).getAttribute("class").includes("leaf"))
                         //return "3em";
                         // else 
-                        if ((this.previousSibling).getAttribute("class").includes("leaf"))
-                            return -0;
-                        else
+                        // if ((this.previousSibling).getAttribute("class").includes("leaf"))
+
+                        if (d.children)
                             return 0;
+                        else
+                            return 20;
+
                         //}
 
                         /* else {
@@ -2926,6 +2961,21 @@
                             label = label.substring(label.indexOf("/") + 1, label.length);
                         if (label.includes("/"))
                             label = label.substring(label.lastIndexOf("/") + 1, label.length);
+
+                        if (label.length > label_len) {
+                            if (label.includes(".")) {
+                                var start = label.indexOf(".");
+                                var len = label.length;
+                                var templen = label.substr(start, len).length;
+
+                                label = label.substring(0, label_len - templen) + label.substr(start, len);
+
+                            }
+                            else {
+                                label = label.substring(0, label_len);
+                            }
+                        }
+
                         return label;
                     })
                     .on("mouseover", function (d) {
@@ -2949,9 +2999,11 @@
 
                         d3.select(this)
                             //.attr("transform", "rotate(0)")
+
                             .style("font-size", 30)
                             .style("fill", "red")
-                            .style("cursor", "pointer");
+                            .style("cursor", "pointer")
+                            .text(d.data.data.child);
 
 
 
@@ -2960,11 +3012,38 @@
                     .on("mouseleave", function (d) {
                         //console.log();
                         update_log(d3.select(this).attr("id"), "text label", "label default formatting", "mouseleave", "", "", "", "", "");
-                        d3.select(this)
-                            .style("font-size", label_size - d.depth)
-                            //.attr("transform", "rotate(65)")
-                            .style("fill", "black")
-                            .style("cursor", "default");
+
+                        console.log(d3.select(this).style("fill"));
+                        if (d3.select(this).style("fill") != "darkorange")
+                            d3.select(this)
+                                .style("font-size", label_size - d.depth)
+                                //.attr("transform", "rotate(65)")
+                                .style("fill", "silver")
+                                .style("cursor", "default")
+                                .text(function (d) {
+                                    var label = d.data.data.child;
+                                    if (label.includes("_"))
+                                        label = label.substring(label.indexOf("/") + 1, label.length);
+                                    if (label.includes("/"))
+                                        label = label.substring(label.lastIndexOf("/") + 1, label.length);
+
+                                    if (label.length > label_len) {
+                                        if (label.includes(".")) {
+                                            var start = label.indexOf(".");
+                                            var len = label.length;
+                                            var templen = label.substr(start, len).length;
+
+                                            label = label.substring(0, label_len - templen) + label.substr(start, len);
+
+                                        }
+                                        else {
+                                            label = label.substring(0, label_len);
+                                        }
+                                    }
+
+                                    return label;
+                                });
+
 
                         if (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "red")
                             d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")
@@ -3068,6 +3147,7 @@
                         var sourcey = source.data.data.level === 0 ? 50 : source.data.data.level * level_offset;
                         var targety = source.data.data.level === 0 ? 50 : source.data.data.level * level_offset;
                         //}
+                        sourcey = sourcey + 25;
 
 
                         return "M" + sourcex + "," + sourcey
@@ -3084,9 +3164,9 @@
                             return 0.7; */
 
                         if (d.target.data.data.linkcolor == "blue")
-                            return 0.3;
+                            return link_secondaryopacity;
                         else
-                            return 0.7;
+                            return link_opacity;
                     })
                     //.style("stroke", "#ccc")
                     .style("stroke", function (d) {
@@ -3096,7 +3176,7 @@
                         return d.target.data.data.linkcolor;
                     })
                     .style("fill", "none")
-                    .style("stroke-width", "3px");
+                    .style("stroke-width", link_strokewidth);
 
 
                 linkEnter
@@ -3264,7 +3344,7 @@
 
                 var accent = d3
                     // .range(0, nodes[0].height)
-                    .scaleOrdinal(d3.schemeCategory10);
+                    .scaleOrdinal(["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#19C5C5", "#ff00ff", "#B13148"]);
 
 
 
@@ -3281,7 +3361,7 @@
 
                     var n = 0;
 
-
+                    //for dashed grey beforeH level line
 
                     d3
                         .select("#levellines")
@@ -3306,15 +3386,13 @@
                             return width * 1.3;
                         })
                         .attr("y2", function (d) {
-
                             return d + 10;
-
-
                         })
                         .style("stroke", "grey")
-                        .style("stroke-width", 6)
-                        .style("stroke-dasharray", "6,60")
+                        .style("stroke-width", 2)
+                        .style("stroke-dasharray", "2,20")
                         .style("opacity", 0.6);
+
 
 
 
@@ -3332,7 +3410,7 @@
                         .enter()
                         .append("text")
                         .attr("class", function (d, i) {
-                            return "text-level" + i;
+                            return "h1-text-level" + i;
                         })
                         .style("font-size", "20px")
                         .attr("dy", "3em")
@@ -3372,13 +3450,14 @@
 
 
 
+
                     levelg
                         .selectAll("text")
-                        .data(h1levels)
+                        .data(h2levels)
                         .enter()
                         .append("text")
                         .attr("class", function (d, i) {
-                            return "text-level" + i;
+                            return "h2-text-level" + i;
                         })
                         .style("font-size", "15px")
                         .attr("dy", "4em")
@@ -3721,7 +3800,7 @@
                         .datum(datapoints)
                         .attr("class", "line")
                         .attr("d", line)
-                        .attr("stroke-width", 2)
+                        .attr("stroke-width", 3)
                         .attr("fill", fill)
                         .attr("stroke", function (d) {
                             //console.log(d);
@@ -3759,13 +3838,14 @@
                 "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                 "userID": localStorage.getItem("userID"),
                 "vizID": localStorage.getItem("vizID"),
-                "screenSize": localStorage.getItem("screenSize"),
+                "screenWidth": window.innerWidth,
+                "screenHeight": window.innerHeight,
                 "pageID": "mergedtree viz page",
                 "elementID": elementID,
                 "elementType": elementType,
                 "elementDescription": elementDescription,
                 "eventDescription": eventDescription,
-                "overall_timestamp": new Date().getMilliseconds(),
+                "overall_timestamp": Math.round(+new Date() / 1000),
                 //"phase_timestamp": new Date().getMilliseconds(),
                 "questionID": questionID,
                 "question": question,

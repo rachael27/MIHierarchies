@@ -261,12 +261,12 @@
                 update_log("btn-downloadlog", "button", "download log", "click");
 
 
-                var logstr = "userID,vizID,screenSize,pageID,elementID,elementType,elementDescription,eventDescription, date,overall_timestamp,phase_timestamp,questionID,question,useranswer,correctanswer,score\n";
+                var logstr = "userID,vizID,screenWidth,screenHeight,pageID,elementID,elementType,elementDescription,eventDescription, date,overall_timestamp,questionID,question,useranswer,correctanswer,score\n";
 
                 var logarr = JSON.parse(localStorage.getItem("logObject"));
 
                 for (var i = 0; i < logarr.length; i++) {
-                    logstr = logstr + logarr[i].userID + "," + logarr[i].vizID + "," + logarr[i].pageID + "," + logarr[i].elementID + "," + logarr[i].elementType + "," + logarr[i].elementDescription + "," + logarr[i].eventDescription + logarr[i].date + "," + logarr[i].overall_timestamp + "," + logarr[i].phase_timestamp + "," + logarr[i].questionID + "," + logarr[i].question + "," + logarr[i].useranswer + "," + logarr[i].correctanswer + "," + logarr[i].score + "\n";
+                    logstr = logstr + logarr[i].userID + "," + logarr[i].vizID + "," + logarr[i].screenWidth + "," + logarr[i].screenHeight + "," + logarr[i].pageID + "," + logarr[i].elementID + "," + logarr[i].elementType + "," + logarr[i].elementDescription + "," + logarr[i].eventDescription + "," + logarr[i].date + "," + logarr[i].overall_timestamp + "," + logarr[i].questionID + "," + logarr[i].question + "," + logarr[i].useranswer + "," + logarr[i].correctanswer + "," + logarr[i].score + "\n";
                 }
 
                 var blob = new Blob([logstr], { type: "text/csv;charset=utf-8" });
@@ -796,13 +796,14 @@
                 "date": date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear(),
                 "userID": localStorage.getItem("userID"),
                 "vizID": localStorage.getItem("vizID"),
-                "screenSize": localStorage.getItem("screenSize"),
+                "screenWidth": window.innerWidth,
+                "screenHeight": window.innerHeight,
                 "pageID": "landing page",
                 "elementID": elementID,
                 "elementType": elementType,
                 "elementDescription": elementDescription,
                 "eventDescription": eventDescription,
-                "overall_timestamp": new Date().getMilliseconds(),
+                "overall_timestamp": Math.round(+new Date() / 1000),
                 //"phase_timestamp": new Date().getMilliseconds(),
                 "questionID": "",
                 "question": "",
