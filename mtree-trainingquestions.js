@@ -25,7 +25,7 @@ function trainingquestions(qcounter) {
         {
             "qid": "T1.",
             "question": "How many levels does the BeforeH have?",
-            "hint": "The maximum number of levels in a tree defines the level of a tree and the node at the highest level is root/hcil/ndl/ndldemo/anita/new/invit/newmain.html. This is represented by the grey dashed lines that represent the level of the BeforeH. The solid colored lines represent the levels of the AfterH.",
+            "hint": "The maximum number of levels in a tree defines the level of a tree and the node at the highest level is root/hcil/piccolo.learn/doc-0.5/api/index.html. This is represented by the grey dashed lines that represent the level of the BeforeH. The solid colored lines represent the levels of the AfterH.",
             "answer": "8",
             "numoptions": 3,
             "options": ["4", "6", "8"]

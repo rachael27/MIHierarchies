@@ -74,7 +74,18 @@ function guidedtour() {
         {
             element: document.querySelector('[id="btn-clear"]'),
             title: "Complete your search <hr class='border border-primary border-3 opacity-75'>",
-            intro: "When you click on the clear button, the nodes that you searched for previosuly, are no longer highlighted."
+            intro: "Only when you click on the clear button, the nodes that you searched for previosuly, are no longer highlighted."
+        },
+        {
+            element: document.querySelector('[id="btn-changeonlylayout"]'),
+            title: "View changes-only layout <hr class='border border-primary border-3 opacity-75'>",
+            intro: "The default layout expands only those folders that has undergone changes."
+        },
+
+        {
+            element: document.querySelector('[id="btn-entirelayout"]'),
+            title: "View the entire layout <hr class='border border-primary border-3 opacity-75'>",
+            intro: "This layout expands all folders - those that have undergone changes and those that have not."
         },
 
         {

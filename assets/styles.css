@@ -178,12 +178,18 @@ padding: 0;
 
            #btn-mtree{
             font-size:25px;
-            background-color: #0469D9;
+            color:black;
+            background-color: #f1c232;
+            border-color: #f1c232;
+            /*background-color: #0469D9;*/
            }
 
            #btn-treeswlinking{
             font-size:25px;
-            background-color: #b43649;
+            color:white;
+            background-color: #198753;
+            border-color: #198753;
+            /*background-color: #b43649;*/
            }
 
 

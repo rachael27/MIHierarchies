@@ -383,12 +383,12 @@
                 d3.select("#qandamodule")
                     .style("opacity", 0);
 
-                twl_guidedtour();
+                // twl_guidedtour();
 
 
-                /* setTimeout(() => {
+                setTimeout(() => {
                     twl_guidedtour();
-                }, 4000); */
+                }, 2000);
             }
 
             else if (urlpage == "trainingquestions") {
@@ -507,12 +507,12 @@
         let level_offset = 100;
         var radius = 10;
         var opacity = 0.3;
-        var ltree_size = [3000, 500];
+        var ltree_size = [width, 500];
         var h2_xpos = 500, h2_ypos = 250, h1_xpos = 70, h1_ypos = 250;
         var link_strokewidth = 1;
         var link_opacity = 0.2;
         var label_len = 9;
-        var connectinglink_strokewidth = "1";
+        var connectinglink_strokewidth = "1.5";
         var circle_stroke = "4";
         var label_size = "13";
         var label_opacity = 1;
@@ -919,7 +919,7 @@
                     .toLowerCase();
                 num_slashes = child.split("/");
                 var root = h2_tree.descendants()[0];
-                console.log(num_slashes);
+                //console.log(num_slashes);
 
                 var offsetHeight = document.getElementById('sticky').offsetHeight;
 
@@ -937,7 +937,7 @@
                     //console.log(child);
                     //console.log(name + " " + num_slashes[num_slashes.length - 1]);
                     if (name == num_slashes[num_slashes.length - 1]) {
-                        console.log("ITS A MATCHYY");
+                        //console.log("ITS A MATCHYY");
 
                         path = root.path(element);
 
@@ -956,9 +956,10 @@
                                 document.getElementById("h2tree_" + pathname)
                                     .scrollIntoView(true);
                                 var scrolledY = window.scrollY;
+                                var scrolledX = window.scrollX;
 
                                 if (scrolledY) {
-                                    window.scroll(0, scrolledY - offsetHeight);
+                                    window.scroll(scrolledX, scrolledY - offsetHeight);
                                 }
                             }
 
@@ -1170,8 +1171,8 @@
                 })
                 .attr("cy", function (d) {
                     //console.log(source.x);
-                    if (d.data.data.description_child == "root")
-                        console.log(d.data.data.description_child + " " + d.x);
+                    //if (d.data.data.description_child == "root")
+                    //console.log(d.data.data.description_child + " " + d.x);
                     return source.x;
 
                 })
@@ -1273,10 +1274,10 @@
                 })
                 .attr("cy", function (d) {
                     //console.log("ENTER");
-                    if (d.data.data.description_child == "root") {
-                        console.log(d.data.data.description_child + " " + d.x);
-                        //return 1800;
-                    }
+                    //if (d.data.data.description_child == "root") {
+                    // console.log(d.data.data.description_child + " " + d.x);
+                    //return 1800;
+                    //}
                     return d.x;
                 })
                 .attr("r", function (d) {
@@ -1330,9 +1331,11 @@
                             .replaceAll("(", "")
                             .replaceAll(")", "")
                             .toLowerCase();
-                        d3.select("#h2tree_" + id)
-                            .attr("r", radius + 10)
-                            .style("opacity", 1);
+
+                        if (!d3.select("#h1tree_" + id).attr("class").includes("selected"))
+                            d3.select("#h2tree_" + id)
+                                .attr("r", radius + 10)
+                                .style("opacity", 1);
                     }
 
                     var label = d.data.data.description_child, child = "root", parent = "";
@@ -1359,12 +1362,12 @@
                         .style("opacity", 1);
 
 
-                    if (d3.select(this).style("fill") != "darkorange") {
+                    /* if (d3.select(this).style("fill") != "darkorange") {
                         d3.select(this)
                             .transition()
                             .attr("r", radius + 10)
                             .style("opacity", 1);
-                    }
+                    } */
                 })
                 .on("mouseleave", function (d) {
 
@@ -1383,15 +1386,17 @@
                             .replaceAll("(", "")
                             .replaceAll(")", "")
                             .toLowerCase();
-                        d3.select("#h2tree_" + id)
-                            .attr("r", radius - 4)
-                            .style("opacity", opacity);
+
+                        if (!d3.select("#h2tree_" + id).attr("class").includes("selected"))
+                            d3.select("#h2tree_" + id)
+                                .attr("r", radius - 4)
+                                .style("opacity", opacity);
                     }
 
-                    d3.select(this)
+                    /* d3.select(this)
                         .transition()
                         .attr("r", radius - 4)
-                        .style("opacity", opacity);
+                        .style("opacity", opacity); */
 
 
                     d3.select("#tooltip")
@@ -1421,14 +1426,14 @@
                         .toLowerCase() + "_text";
                 })
                 .classed("text", true)
-                .attr("dy", "2em")
+                .attr("dy", "1em")
                 .attr("dx", function (d) {
                     if (d.depth <= 1)
                         return "0em";
                     else if (d.depth == 2)
-                        return "2em";
+                        return "1.5em";
                     else
-                        return "-2em";
+                        return "-0em";
                 })
                 .attr("x", function (d) {
 
@@ -1441,7 +1446,7 @@
                 })
                 .attr("y", function (d) {
                     if ((this.previousSibling).getAttribute("class").includes("leaf"))
-                        return d.x - 15;
+                        return d.x - 5;
                     else
                         return d.x;
                 })
@@ -1538,7 +1543,7 @@
                 .style("stroke-width", "5px")
                 .style("stroke", function (d) {
                     //console.log("tri update");
-                    console.log(d);
+                    //console.log(d);
                     if (d._children)
 
                         return triangleColor;
@@ -1905,12 +1910,11 @@
                             .replaceAll("(", "")
                             .replaceAll(")", "")
                             .toLowerCase();
-                        d3.select("#h1tree_" + id)
-                            .attr("r", radius + 10)
-                            .style("opacity", 1);
 
-
-
+                        if (!d3.select("#h1tree_" + id).attr("class").includes("selected"))
+                            d3.select("#h1tree_" + id)
+                                .attr("r", radius + 10)
+                                .style("opacity", 1);
                     }
 
                     var label = d.data.data.description_child, child = "root", parent = "";
@@ -1940,14 +1944,13 @@
 
 
 
-
-                    if (d3.select(this).style("fill") === "darkorange") {
+                    /* if (d3.select(this).style("fill") === "darkorange") {
                         console.log(d3.select(this).style("fill"));
                         d3.select(this)
                             .transition()
                             .attr("r", radius + 10)
                             .style("opacity", 1);
-                    }
+                    } */
 
 
                 })
@@ -1967,19 +1970,23 @@
                             .replaceAll("(", "")
                             .replaceAll(")", "")
                             .toLowerCase();
-                        d3.select("#h1tree_" + id)
-                            .attr("r", radius - 4)
-                            .style("opacity", opacity);
+
+                        if (!d3.select("#h1tree_" + id).attr("class").includes("selected"))
+                            d3.select("#h1tree_" + id)
+                                .attr("r", radius - 4)
+                                .style("opacity", opacity);
                     }
 
 
-                    if (d3.select(this).style("fill") === "darkorange") {
+                    /* if (d3.select(this).style("fill") === "darkorange") {
+                        //console.log(d3.select(this).attr("class").includes("selected"));
+
                         console.log(d3.select(this).style("fill"));
                         d3.select(this)
                             .transition()
                             .attr("r", radius - 4)
                             .style("opacity", opacity);
-                    }
+                    } */
 
 
                     d3.select("#tooltip")
@@ -2023,7 +2030,7 @@
                     if (d.depth <= 1)
                         return "0em";
                     else if (d.depth == 2)
-                        return "2em";
+                        return "0.1em";
                     else
                         return "0.2em";
                 })
@@ -2031,7 +2038,7 @@
                     if (d.depth <= 2)
                         return "-2em";
                     else
-                        return "0.1em";
+                        return "0.4em";
                 })
                 .attr("x", function (d) {
 
@@ -2301,7 +2308,7 @@
                     })
                     .on("click", function (d) {
                         var levelline = d3.select(this).text().split(": ")[1];
-                        console.log(levelline);
+                        //console.log(levelline);
                         //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
                         if (document.getElementById("line-level-l" + levelline).style.opacity == 0.6) {
                             update_log("line-level-l" + levelline, "level line", "hide level line " + levelline, "click", "", "", "", "", "");
@@ -2341,6 +2348,7 @@
                         return "start";
                     })
                     .attr("fill", function (d, i) {
+                        console.log(i);
                         return accent(i);
                     })
                     .text(function (d, i) {
@@ -2601,7 +2609,8 @@
 
                             //else if (d3.select("#curvedlradio")._groups[0][0].checked == true)  {
 
-                            var pathcurve = d3.line().curve(d3.curveNatural);
+                            //var pathcurve = d3.line().curve(d3.curveNatural);
+                            var pathcurve = d3.line().curve(d3.curveCardinal);
 
 
 

@@ -1,6 +1,6 @@
 var selected_value = "";
 pageID = "training";
-vizID = "linkededtree";
+vizID = "linkedtree";
 var score = 0;
 var list_questions;
 
