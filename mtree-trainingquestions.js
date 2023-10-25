@@ -48,7 +48,7 @@ function trainingquestions(qcounter) {
         {
             "qid": "T3.",
             "question": "What is the level of node filename:root/hcil/privacy-policy.shtml in the before and after hierarchies?",
-            "hint": "The grey dashed line and the solid colored line crossing through the given node represents its level in the before and after hierarchies respectively.",
+            "hint": "The grey dotted/dashed line and the solid colored line crossing through the given node represents its level in the before and after hierarchies respectively.",
             "answer": "Level 2 in the BeforeH and Level 2 in the AfterH",
             "numoptions": 3,
             "options": ["Level 2 in the BeforeH and Level 2 in the AfterH", "Level 3 in the BeforeH and Level 2 in the AfterH", "Level 4 in the BeforeH and Level 3 in the AfterH"]
@@ -58,7 +58,7 @@ function trainingquestions(qcounter) {
         {
             "qid": "T4.",
             "question": "Choose the best description of folder:root/hcil/treemap3.",
-            "hint": "The treemap3 folder has several red links which denotes multiple file deletions. But it also has some blue links, which show that some files from the BeforeH are also in the AfterH. ",
+            "hint": "The treemap3 folder has several red links which denotes multiple file deletions. But it also has some blue links, which show that some files from the BeforeH are also available in the AfterH. ",
             "answer": "The folder existed in the BeforeH but many files were deleted",
             "numoptions": 3,
             "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted", "The folder existed in the BeforeH but many files were deleted"]

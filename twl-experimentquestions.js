@@ -52,8 +52,8 @@ function twl_experimentquestions(qcounter) {
         {
             "qid": "E5.",
             "question": "Is the element filename:<i>root/hcil/about/pictures/reddot.gif</i> available in both hierarchies?",
-            "answer": "No, it is available only in the AfterH.",
-            "options": ["Yes, it is available in both hierarchies.", "No, it is available only in the BeforeH.", "No, it is available only in the AfterH."]
+            "answer": "No, it is available only in the AfterH",
+            "options": ["Yes, it is available in both hierarchies", "No, it is available only in the BeforeH", "No, it is available only in the AfterH"]
 
         },
 
@@ -68,8 +68,8 @@ function twl_experimentquestions(qcounter) {
         {
             "qid": "E6.",
             "question": "Has the contents of folder:<i>root/hcil/piccolo/applications</i> changed?",
-            "answer": "One file has been added.",
-            "options": ["Some files have been deleted.", "The folder contents have not changed at all.", "One file has been added."]
+            "answer": "One file has been added",
+            "options": ["Some files have been deleted", "The folder contents have not changed at all", "One file has been added"]
 
         },
 
@@ -99,7 +99,7 @@ function twl_experimentquestions(qcounter) {
             "qid": "E10.",
             "question": "What changes are common to folder:root/hcil/members/mvenkatraman and folder:root/hcil/members/rsalter?",
             "answer": "One file was deleted; one file was added and one file was retained",
-            "options": ["All files were deleted", "One file was added and one file was deleted", "One file was deleted; one file was added and one file was retained", "Two files were retained and the rest were deleted."]
+            "options": ["All files were deleted", "One file was added and one file was deleted", "One file was deleted; one file was added and one file was retained", "Two files were retained and the rest were deleted"]
 
         },
 

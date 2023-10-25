@@ -927,7 +927,7 @@
 
             d3.select("#btn-clear")
                 .on("click", function () {
-                    update_log("btn-clear", "button", "Clear the value in the search box", "click", "", "", "", "", "")
+                    update_log("btn-clear", "button", "clear the value in the search box", "click", "", "", "", "", "")
                     d3.select("#search-nodes").node().value = "";
 
                     d3.selectAll(".selected")
@@ -962,7 +962,7 @@
 
                     //if (document.getElementById("tog-hierarchy").checked) {
                     child = d3.select("#search-nodes").node().value;
-                    update_log("btn-search", "button", "Search for value in the search box " + child, "click", "", "", "", "", "");
+                    update_log("btn-search", "button", "Search for value " + child, "click", "", "", "", "", "");
 
                     var offsetHeight = document.getElementById('sticky').offsetHeight;
                     console.log(offsetHeight);
@@ -1471,7 +1471,7 @@
                             parent = label.substring(0, label.lastIndexOf("/"));
                         }
 
-                        update_log("node " + label, "node", "display tooltip", "mouseover", "", "", "", "", "");
+                        update_log("h2 node " + label, "node", "display tooltip", "mouseover", "", "", "", "", "");
                         //console.log(parent + " " + child);
 
                         var type = "";
@@ -1490,6 +1490,8 @@
 
                         d3.select("#tooltip")
                             .html(text)
+                            .style("width", "300px")
+                            .style("height", "150px")
                             .style("left", parseInt(d3.event.pageX - 200) + "px")
                             .style("top", parseInt(d3.event.pageY + 50) + "px")
                             .style("text-align", "left")
@@ -1506,7 +1508,8 @@
                                 .transition()
                                 .attr("r", radius - 3);
                         if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
-                        update_log("node " + label, "node", "hide tooltip", "mouseleave", "", "", "", "", "");
+
+                        //update_log("h2 node " + label, "node", "hide tooltip", "mouseleave", "", "", "", "", "");
 
 
                         if (d3.select(this).style("font-size") != "20px")
@@ -1517,6 +1520,8 @@
 
                         d3.select("#tooltip")
                             .html("")
+                            .style("width", 0)
+                            .style("height", 0)
                             .style("left", 0)
                             .style("top", 0)
                             .style("opacity", 0);
@@ -1729,7 +1734,7 @@
                     })
                     .on("mouseover", function (d, i) {
                         var label = d.data.data.description_child, child = "root", parent = "";
-                        update_log("node " + label, "label", "display tooltip", "mouseover", "", "", "", "", "");
+                        update_log("h1 node " + label, "label", "display tooltip", "mouseover", "", "", "", "", "");
 
                         if (label.includes("/")) {
                             child = label.substring(label.lastIndexOf("/") + 1, label.length);
@@ -1754,6 +1759,7 @@
 
                         d3.select("#tooltip")
                             .html(text)
+                            .style("width", "300px")
                             .style("left", parseInt(d3.event.pageX - 200) + "px")
                             .style("top", parseInt(d3.event.pageY + 50) + "px")
                             .style("text-align", "left")
@@ -1788,6 +1794,8 @@
 
                         d3.select("#tooltip")
                             .html("")
+                            .style("width", 0)
+                            .style("height", 0)
                             .style("left", 0)
                             .style("top", 0)
                             .style("opacity", 0);
@@ -2001,7 +2009,7 @@
                         return "translate(" + source.x + "," + y + ")";
                     })
                     .on("click", function (d) {
-                        update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
+                        update_log("mtree node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
                         //console.log("click");
                         //console.log(hier_root);
                         click(d, hier_root);
@@ -2234,7 +2242,7 @@
                     .on("mouseover", function (d) {
                         //console.log(this);
                         d3.select(this).style("cursor", "default");
-                        update_log("node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click", "", "", "", "", "");
+                        //update_log("mtree node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click", "", "", "", "", "");
                     });
                    /*  .attr("transform", function (d, i) {
 
@@ -2304,7 +2312,7 @@
                     //.style("fill", "yellow")
                     .style("stroke", function (d) {
                         if (d.data.data.shape == "h2")
-                            return "white";
+                            return "none";
                         else
                             return h2color;
                     })
@@ -2333,7 +2341,7 @@
                         //console.log(circle_id);
 
 
-                        update_log("node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
+                        update_log("mtree inner node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
 
 
 
@@ -2481,7 +2489,7 @@
                                     .replaceAll(")", "")
                                     .toLowerCase();
 
-                                //console.log("others " + id);
+                                console.log("others " + id);
                                 // console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
                                 if ((d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue") || (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "none")) {
                                     //console.log("over red outer " + id);
@@ -2551,6 +2559,7 @@
 
                         d3.select("#tooltip")
                             .html(text)
+                            .style("width", "300px")
                             .style("left", parseInt(d3.event.pageX + 100) + "px")
                             .style("top", parseInt(d3.event.pageY) + "px")
                             .style("text-align", "left")
@@ -2591,6 +2600,8 @@
 
                         d3.select("#tooltip")
                             .html("")
+                            .style("width", 0)
+                            .style("height", 0)
                             .style("left", "0px")
                             .style("top", "0px")
                             .style("opacity", 0);
@@ -2616,8 +2627,8 @@
 
                             if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "red") {
                                 //if (id == circle_id) {
-                                console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
-                                console.log("leave blue outer " + id);
+                                //console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
+                                //console.log("leave blue outer " + id);
                                 //}
                                 d3.select(".mergedtree_" + id + "_outer")
                                     .style("stroke", "blue")
@@ -2625,11 +2636,11 @@
                             }
                             else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "red") {
                                 //if (id == circle_id) {
-                                console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
-                                console.log("leave blue inner " + id);
+                                //console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
+                                //console.log("leave blue inner " + id);
                                 //}
                                 d3.select(".mergedtree_" + id + "_inner")
-                                    .style("stroke", "none")
+                                    .style("stroke", "blue")
                                     .style("stroke-width", "0px");
                             }
 
@@ -2762,7 +2773,7 @@
                         console.log("mover");
 
 
-                        update_log("node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
+                        update_log("mtree outer node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
 
 
 
@@ -2914,7 +2925,7 @@
                                     .replaceAll(")", "")
                                     .toLowerCase();
 
-                                //console.log("others " + id);
+                                console.log("others " + id);
                                 // console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
                                 if ((d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue") || (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "none")) {
                                     //console.log("over red outer " + id);
@@ -2983,6 +2994,7 @@
 
                         d3.select("#tooltip")
                             .html(text)
+                            .style("width", "300px")
                             .style("left", parseInt(d3.event.pageX + 100) + "px")
                             .style("top", parseInt(d3.event.pageY) + "px")
                             .style("text-align", "left")
@@ -3023,6 +3035,8 @@
 
                         d3.select("#tooltip")
                             .html("")
+                            .style("width", 0)
+                            .style("height", 0)
                             .style("left", "0px")
                             .style("top", "0px")
                             .style("opacity", 0);
@@ -3032,7 +3046,7 @@
                         circle_id = circle_id.split("_")[1];
 
 
-                        console.log("mleave");
+                        //console.log("mleave");
 
                         //mlexp-leave
                         var root = mtree.descendants()[0];
@@ -3047,17 +3061,17 @@
 
 
                             if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "red") {
-                                if (id == circle_id)
-                                    console.log("leave blue outer " + id);
+                                //if (id == circle_id)
+                                //console.log("leave blue outer " + id);
                                 d3.select(".mergedtree_" + id + "_outer")
                                     .style("stroke", "blue")
                                     .style("stroke-width", circle_stroke);
                             }
                             else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "red") {
-                                if (id == circle_id)
-                                    console.log("leave blue inner " + id);
+                                //if (id == circle_id)
+                                //console.log("leave blue inner " + id);
                                 d3.select(".mergedtree_" + id + "_inner")
-                                    .style("stroke", "none")
+                                    .style("stroke", "blue")
                                     .style("stroke-width", "0px");
                             }
 
@@ -3241,7 +3255,7 @@
                     .on("mouseover", function (d) {
 
                         //console.log();
-                        update_log(d3.select(this).attr("id"), "text label", "emphasize label", "mouseover", "", "", "", "", "");
+                        update_log("magnify label " + d3.select(this).attr("id"), "text label", "emphasize label", "mouseover", "", "", "", "", "");
 
                         if ((document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "blue" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue") || (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "none" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue"))
                             d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")
@@ -3269,10 +3283,10 @@
                     })
                     .on("mouseleave", function (d) {
 
-                        //console.log();
-                        update_log(d3.select(this).attr("id"), "text label", "label default formatting", "mouseleave", "", "", "", "", "");
 
-                        console.log(d3.select(this).style("fill"));
+                        //update_log(d3.select(this).attr("id"), "text label", "label default formatting", "mouseleave", "", "", "", "", "");
+
+                        //console.log(d3.select(this).style("fill"));
                         if (d3.select(this).style("fill") != "darkorange")
                             d3.select(this)
                                 .style("font-size", label_size - d.depth)
