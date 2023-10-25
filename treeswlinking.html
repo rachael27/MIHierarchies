@@ -922,6 +922,7 @@
                 //console.log(num_slashes);
 
                 var offsetHeight = document.getElementById('sticky').offsetHeight;
+                console.log(offsetHeight);
 
                 h2_tree.descendants().forEach(function (element) {
                     //console.log(element.depth + " " + num_slashes);
@@ -959,8 +960,22 @@
                                 var scrolledX = window.scrollX;
 
                                 if (scrolledY) {
-                                    window.scroll(scrolledX, scrolledY - offsetHeight);
+                                    window.scroll(scrolledX, scrolledY + offsetHeight);
                                 }
+                            }
+
+                            else {
+
+                                document.getElementById("h1tree_" + pathname)
+                                    .scrollIntoView(true);
+                                var scrolledY = window.scrollY;
+                                var scrolledX = window.scrollX;
+
+                                if (scrolledY) {
+                                    window.scroll(scrolledX, scrolledY + offsetHeight);
+                                }
+
+
                             }
 
                             //console.log(pathname);

@@ -964,6 +964,9 @@
                     child = d3.select("#search-nodes").node().value;
                     update_log("btn-search", "button", "Search for value in the search box " + child, "click", "", "", "", "", "");
 
+                    var offsetHeight = document.getElementById('sticky').offsetHeight;
+                    console.log(offsetHeight);
+
 
                     //console.log("CHILD " + child);
 
@@ -1023,6 +1026,13 @@
                                     .replaceAll(")", "")
                                     .toLowerCase();
                                 document.getElementById(id).scrollIntoView(true);
+
+                                var scrolledY = window.scrollY;
+                                var scrolledX = window.scrollX;
+
+                                if (scrolledY) {
+                                    window.scroll(scrolledX, scrolledY + offsetHeight);
+                                }
 
 
 
