@@ -503,8 +503,8 @@
         title = ["Before Hierarchy", "After Hierarchy", "Merged Tree"];
 
         d3.queue()
-            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
-            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
             //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
             //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
             .await(function (error, h2, h1) {
@@ -519,8 +519,8 @@
             update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
 
             d3.queue()
-                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
                 .await(function (error, h2, h1) {
                     if (error) throw error;
 
@@ -533,8 +533,8 @@
             layout = "entirelayout";
             update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
             d3.queue()
-                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
                 .await(function (error, h2, h1) {
                     if (error) throw error;
 
@@ -829,12 +829,14 @@
             var nodes_list = [];
             var h1list = [], h2list = [];
             for (i = 0; i < h2_root.descendants().length; i++) {
+
                 h2list.push(h2_root.descendants()[i].data.data.description_child);
             }
             for (i = 0; i < h1_root.descendants().length; i++) {
                 h1list.push(h1_root.descendants()[i].data.data.description_child);
             }
             let intersection = h1list.filter(x => h2list.includes(x));
+
             let h1diff = h1list.filter(x => !h2list.includes(x));
             let h2diff = h2list.filter(x => !h1list.includes(x));
 
@@ -846,6 +848,13 @@
 
             for (var i = 0; i < h2diff.length; i++)
                 nodes_list.push(h2diff[i]);
+
+            //console.log(nodes_list);
+            nodes_list
+                .sort(function (x, y) {
+                    //console.log(x);
+                    return d3.ascending(x.x, y.x);
+                });
 
             d3.select("#search-nodes-list")
                 .selectAll("option")
@@ -979,37 +988,10 @@
                     //parentsplit = split_element[split_element.length - 1];
                     //console.log(childsplit + " " + parentsplit);
                     //console.log(child + " " + parent);
+                    console.log(childsplit);
 
                     var flag = 0;
                     //console.log(mtree.descendants().length);
-
-
-                    /*
-                    mtree.descendants().reverse().forEach(function (element) {
-                        flag = 0;
-    
-    
-    
-                        if ((element.data.data.linkcolor == "blue") || element.children == null) {
-                            for (var i = 0; i < element.descendants().length; i++) {
-                                //console.log("entering check" + element.descendants()[i].data.data.child);
-                                if ((element.descendants()[i].data.data.linkcolor == "blue") && element.descendants()[i].children == null) {
-                                    //console.log(element.descendants()[i].data.data.child + " passed check");
-                                    flag += 1;
-                                }
-    
-                            }
-                            //console.log(element.data.data.child + " " + flag + " " + (element.descendants().length));
-                            if (flag == element.descendants().length - 1 || element.children == null) {
-                                //console.log("collapse " + element.data.data.child);
-                                collapse(element);
-                            }
-    
-                        }
-                        //else
-                        // console.log("expandedpc  " + element.data.data.child + " " + element.data.data.linkcolor + " " + element.children.length);
-                    });
-                    */
 
                     mtree.descendants().forEach(function (element) {
 
@@ -1019,12 +1001,14 @@
                         if (split_element.join("/") == (element.data.data.child)) {
                             //console.log("h1");
                             for (var i = 0; i < element.ancestors().length; i++) {
-                                var id = "mergedtree_" + element.ancestors()[i].data.data.child.replaceAll(/\//g, "")
+                                var id = "mergedtree_" + element.ancestors()[i].data.data.child
+                                    .replaceAll(/\//g, "")
                                     .replaceAll(".", "")
                                     .replaceAll(" ", "")
                                     .replaceAll("(", "")
                                     .replaceAll(")", "")
                                     .toLowerCase();
+
                                 document.getElementById(id).scrollIntoView(true);
 
                                 var scrolledY = window.scrollY;
@@ -1087,13 +1071,14 @@
 
                                         setTimeout(() => {
                                             // console.log(child);
-                                            //console.log("mergedtree_" + split_element[split_element.length - 1]);
-                                            document.getElementById("mergedtree_" + split_element[split_element.length - 1].replaceAll(/\//g, "")
+                                            var id = split_element[split_element.length - 1].replaceAll(/\//g, "")
                                                 .replaceAll(".", "")
                                                 .replaceAll(" ", "")
                                                 .replaceAll("(", "")
                                                 .replaceAll(")", "")
-                                                .toLowerCase()).scrollIntoView(true);
+                                                .toLowerCase();
+                                            console.log("mergedtree_" + id);
+                                            document.getElementById("mergedtree_" + id).scrollIntoView(true);
 
                                             for (var ii = split_element.length - 1; ii >= 0; ii--) {
 
@@ -2030,14 +2015,20 @@
                     })
                     .style("stroke", function (d) {
                         //console.log("tri update");
-
+                        var id = source.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
 
                         if (source.data.data.child)
-                            d3.select(".triangle-" + source.data.id)
+                            d3.select(".triangle-" + id)
                                 .style("stroke", "none")
                                 .style("fill", "none");
                         else
-                            d3.select(".triangle-" + source.data.id)
+                            d3.select(".triangle-" + id)
                                 .style("stroke", triangleColor)
                                 .style("fill", triangleColor);
 
@@ -2050,12 +2041,19 @@
 
                     })
                     .style("fill", function (d) {
+                        var id = d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
                         if (source.data.data.child)
-                            d3.select(".triangle-" + source.data.id)
+                            d3.select(".triangle-" + id)
                                 .style("stroke", "none")
                                 .style("fill", "none");
                         else
-                            d3.select(".triangle-" + source.data.id)
+                            d3.select(".triangle-" + id)
                                 .style("stroke", triangleColor)
                                 .style("fill", triangleColor);
                         if (d.children)
@@ -2074,6 +2072,7 @@
                     .transition()
                     //.duration(duration)
                     .attr("transform", function (d) {
+                        //console.log("update " + d.data.data.child);
                         var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
                         return "translate(" + d.x + "," + y + ")";
                     });
@@ -2130,14 +2129,22 @@
                     .transition()
                     .duration(duration)
                     .attr("r", function (d) {
-                        console.log("NODE EXIT ");
-                        console.log(source);
+                        //console.log("NODE EXIT ");
+                        //console.log(source);
+                        var id = source.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+
                         if (source._children)
-                            d3.select(".triangle-" + source.data.id)
+                            d3.select(".triangle-" + id)
                                 .style("stroke", triangleColor)
                                 .style("fill", triangleColor);
                         else
-                            d3.select(".triangle-" + source.data.id)
+                            d3.select(".triangle-" + id)
                                 .style("stroke", "none")
                                 .style("fill", "none");
 
@@ -2196,7 +2203,14 @@
                 nodeEnter
                     .append("path")
                     .attr("class", function (d) {
-                        return "triangle-" + d.data.data.child;
+                        var id = d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                        return "triangle-" + id;
                     })
                     .attr("d", triangle_shape)
                     .attr("x", function (d) {
@@ -2211,7 +2225,7 @@
                     .style("stroke", function (d) {
                         //console.log("tri update");
                         //console.log(d);
-                        if (d.children)
+                        if (d.children || (d.children == null && d._children == null))
                             return "none";
                         else
                             return triangleColor;
@@ -2220,7 +2234,7 @@
                     .style("opacity", triOpacity)
                     .style("fill", function (d) {
 
-                        if (d.children)
+                        if (d.children || (d.children == null && d._children == null))
                             return "none";
                         else
                             return triangleColor;
@@ -2335,9 +2349,9 @@
                     })
                     .on("mouseover", function (d) {
                         var circle_id = this.getAttribute("id");
-                        circle_id = circle_id.split("_")[1];
+                        circle_id = circle_id.split("mergedtree_")[1];
 
-                        console.log("mover");
+                        //console.log("mover");
                         //console.log(circle_id);
 
 
@@ -2461,7 +2475,7 @@
                             }
                         }
 
-                        //console.log(circle_id + " " + d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + circle_id + "_inner").style("stroke"));
+                        //console.log(circle_id);
                         //mlexp
                         if (!(d3.select(".mergedtree_" + circle_id + "_outer").attr("class").includes("selected") && d3.select(".mergedtree_" + circle_id + "_inner").attr("class").includes("selected"))) {
                             if (d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "blue") {
@@ -2489,7 +2503,7 @@
                                     .replaceAll(")", "")
                                     .toLowerCase();
 
-                                console.log("others " + id);
+                                //console.log("others " + id);
                                 // console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
                                 if ((d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue") || (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "none")) {
                                     //console.log("over red outer " + id);
@@ -2610,7 +2624,7 @@
                         var circle_id = this.getAttribute("id");
                         circle_id = circle_id.split("_")[1];
 
-                        console.log("mleave");
+                        //console.log("mleave");
 
                         //mlexp-leave
                         var root = mtree.descendants()[0];
@@ -2623,7 +2637,7 @@
                                 .replaceAll(")", "")
                                 .toLowerCase();
 
-                            console.log(id);
+                            //console.log(id);
 
                             if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "red") {
                                 //if (id == circle_id) {
@@ -2767,10 +2781,10 @@
                     })
                     .on("mouseover", function (d) {
                         var circle_id = this.getAttribute("id");
-                        circle_id = circle_id.split("_")[1];
+                        circle_id = circle_id.split("mergedtree_")[1];
 
                         //console.log(circle_id);
-                        console.log("mover");
+                        //console.log("mover");
 
 
                         update_log("mtree outer node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
@@ -2898,7 +2912,8 @@
 
 
                         //mlexp
-                        if (!(d3.select(".mergedtree_" + circle_id + "_outer").attr("class").includes("selected") && d3.select(".mergedtree_" + circle_id + "_inner").attr("class").includes("selected"))) {
+
+                        if (!(d3.select(".mergedtree_" + circle_id + "_outer").attr("class").includes("selected") || d3.select(".mergedtree_" + circle_id + "_inner").attr("class").includes("selected"))) {
                             if (d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "blue") {
                                 //console.log("1 outer is red");
 
@@ -2925,7 +2940,7 @@
                                     .replaceAll(")", "")
                                     .toLowerCase();
 
-                                console.log("others " + id);
+                                //console.log("others " + id);
                                 // console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
                                 if ((d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue") || (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "none")) {
                                     //console.log("over red outer " + id);
@@ -3230,15 +3245,23 @@
                     .text(function (d) {
                         // console.log(d);
                         //var label = d.name;
-                        var label = d.data.data.child;
-                        if (label.includes("_"))
-                            label = label.substring(label.indexOf("/") + 1, label.length);
+                        var label = d.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+
+                        /* if (label.includes("_"))
+                            label = label.substring(label.indexOf("_") + 1, label.length);
+
                         if (label.includes("/"))
-                            label = label.substring(label.lastIndexOf("/") + 1, label.length);
+                            label = label.substring(label.lastIndexOf("/") + 1, label.length); */
 
                         if (label.length > label_len) {
                             if (label.includes(".")) {
-                                var start = label.indexOf(".");
+                                var start = label.lastindexOf(".");
                                 var len = label.length;
                                 var templen = label.substr(start, len).length;
 
@@ -3258,11 +3281,11 @@
                         update_log("magnify label " + d3.select(this).attr("id"), "text label", "emphasize label", "mouseover", "", "", "", "", "");
 
                         if ((document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "blue" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue") || (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "none" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue"))
-                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")
+                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer.text")
                                 .style("stroke", "red")
                                 .style("stroke-width", circle_stroke + 3);
                         else
-                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")
+                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner.text")
                                 .style("stroke", "red");
                         //.style("stroke-width", circle_stroke + 3);
 
@@ -3302,7 +3325,7 @@
 
                                     if (label.length > label_len) {
                                         if (label.includes(".")) {
-                                            var start = label.indexOf(".");
+                                            var start = label.lastindexOf(".");
                                             var len = label.length;
                                             var templen = label.substr(start, len).length;
 
@@ -3319,12 +3342,15 @@
 
 
                         if (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "red")
-                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")
+                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer.text")
                                 .style("stroke", "blue")
                                 .style("stroke-width", circle_stroke);
                         else
-                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")
+                            d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner.text")
                                 .style("stroke", "none");
+
+
+
                         // .style("stroke-width", circle_stroke);
 
 
@@ -3452,6 +3478,7 @@
                         //console.log("update");
                         //console.log(d.source.data.data.child);
                         var sourcex = d.source.x, targetx = d.target.x;
+                        //console.log(sourcex + " " + targetx);
                         var sourcey = d.source.data.data.level === 0 ? 50 : d.source.data.data.level * level_offset;
                         var targety = d.target.data.data.level === 0 ? 50 : d.target.data.data.level * level_offset;
 

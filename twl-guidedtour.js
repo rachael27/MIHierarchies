@@ -59,7 +59,7 @@ function twl_guidedtour() {
         {
             element: document.querySelector('[id="h1tree_muiseum"]'),
             title: "Tree levels <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The level of a node in a tree is the distance of the node from the root. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes in the path to the root node and subtract 1. Hence, the level of the selected node is 2 (3 highlighted nodes - 1).  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
+            intro: "The level of a node is the number of ancestors from the given node until the root node.. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes starting from the root node at level 0. Hence, the level of the selected node is 3.  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
         },
 
         {

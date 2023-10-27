@@ -1108,14 +1108,15 @@
                 .data(data_nodes, function (d) {
                     //console.log(d.data);
                     //return d.data.id;
-                    return d.id;
+                    //console.log(d.data.id);
+                    return "h2_" + d.id;
                 });
 
-            var h2_triangle = d3.select("#h1tree")
+            var h2_triangle = d3.select("#h2tree")
                 //.selectAll(".nodes")
                 .selectAll(".triangle")
                 .data(data_nodes, function (d, i) {
-                    return "tri" + d.data.data.child;
+                    return "h2tri" + d.data.data.child;
                 });
 
 
@@ -1161,29 +1162,63 @@
             var h2_nodeUpdate = h2_nodeEnter
                 .merge(h2_node)
                 .transition()
-                .duration(function () {
-                    console.log("NODE UPDATE ");
+                .duration(function (d) {
+                    //console.log("NODE UPDATE " + d.data.data.child);
+                    //console.log(h2_node);
                     //if (d.data.data.description_child == "root")
                     //console.log(d.data.data.description_child + " " + d.x);
                     return duration;
                 });
 
 
-            /*  h2_nodeUpdate
-                 .selectAll("text")
-                 .style("font-size", "60px");
-             //.style("fill-opacity", 1); */
+            h2_nodeUpdate
+                .selectAll("circle")
+                .attr("cx", function (d) {
+                    //console.log(d.data.data.child);
+                    //console.log(h2_root_pos - d.depth * level_offset);
+                    //console.log(source);
+                    return h2_root_pos - d.depth * level_offset;
+                })
+                .attr("cy", function (d) {
+                    console.log(d.data.data.child + " " + d.x);
+                    //console.log(source.x);
+                    //if (d.data.data.description_child == "root")
+                    //console.log(d.data.data.description_child + " " + d.x);
+                    return d.x;
+
+                });
+
+            h2_nodeUpdate
+                .selectAll("text")
+                .attr("x", function (d) {
+
+                    if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                        // return h2_root_pos - d.y - 8;
+                        return h2_root_pos - d.depth * level_offset - 10;
+                    else
+                        //return h2_root_pos - d.y + 10;
+                        return h2_root_pos - d.depth * level_offset + 10;
+                })
+                .attr("y", function (d) {
+                    if ((this.previousSibling).getAttribute("class").includes("leaf"))
+                        return d.x - 5;
+                    else
+                        return d.x;
+                });
+
 
             var h2_nodeExit = h2_node
-                //.selectAll("circle")
+                //.selectAll(".h2_nodes")
                 .exit()
                 .transition()
                 .duration(duration)
                 .attr("cx", function (d) {
-
+                    //console.log(h2_root_pos - source.x);
+                    //console.log(source);
                     return h2_root_pos - source.y;
                 })
                 .attr("cy", function (d) {
+
                     //console.log(source.x);
                     //if (d.data.data.description_child == "root")
                     //console.log(d.data.data.description_child + " " + d.x);
@@ -1191,7 +1226,7 @@
 
                 })
                 .attr("r", function (d) {
-                    //console.log("EXIT ");
+                    //console.log("EXIT " + d.data.data.child);
                     //console.log(d);
                     return 0;
                 })
@@ -1278,11 +1313,11 @@
             h2_nodeEnter
                 .append("circle")
                 .attr("cx", function (d) {
-
+                    //console.log("ENTER");
                     // console.log(radialPoint(d.x, d.y));
-
-                    //if (d.data.data.description_child == "root")
-                    //console.log(h2_root_pos - d.depth * level_offset);
+                    //console.log(d);
+                    //if (d.data.data.child == "root" || d.data.data.child == "hcil")
+                    //  console.log(d.data.data.description_child + " " + h2_root_pos + " " + d.depth + " " + level_offset);
 
                     return h2_root_pos - d.depth * level_offset;
                 })
@@ -1346,10 +1381,11 @@
                             .replaceAll(")", "")
                             .toLowerCase();
 
-                        if (!d3.select("#h1tree_" + id).attr("class").includes("selected"))
-                            d3.select("#h2tree_" + id)
-                                .attr("r", radius + 10)
-                                .style("opacity", 1);
+                        if (!d3.select("#h2tree_" + id).empty())
+                            if (!d3.select("#h2tree_" + id).attr("class").includes("selected"))
+                                d3.select("#h2tree_" + id)
+                                    .attr("r", radius + 10)
+                                    .style("opacity", 1);
                     }
 
                     var label = d.data.data.description_child, child = "root", parent = "";
@@ -1401,10 +1437,11 @@
                             .replaceAll(")", "")
                             .toLowerCase();
 
-                        if (!d3.select("#h2tree_" + id).attr("class").includes("selected"))
-                            d3.select("#h2tree_" + id)
-                                .attr("r", radius - 4)
-                                .style("opacity", opacity);
+                        if (!d3.select("#h2tree_" + id).empty())
+                            if (!d3.select("#h2tree_" + id).attr("class").includes("selected"))
+                                d3.select("#h2tree_" + id)
+                                    .attr("r", radius - 4)
+                                    .style("opacity", opacity);
                     }
 
                     /* d3.select(this)
@@ -1643,8 +1680,8 @@
                 .selectAll(".h1_nodes")
                 .data(data_nodes, function (d, i) {
                     //console.log(d.data.id);
-                    //console.log(d.id);
-                    return d.id;
+                    //console.log(d.data.id);
+                    return "h1_" + d.id;
                     //return d.id || (d.id = ++i);
                 });
 
@@ -1652,7 +1689,7 @@
                 //.selectAll(".nodes")
                 .selectAll(".triangle")
                 .data(data_nodes, function (d, i) {
-                    return "tri" + d.data.data.child;
+                    return "h1tri" + d.data.data.child;
                 });
 
 
@@ -1925,10 +1962,11 @@
                             .replaceAll(")", "")
                             .toLowerCase();
 
-                        if (!d3.select("#h1tree_" + id).attr("class").includes("selected"))
-                            d3.select("#h1tree_" + id)
-                                .attr("r", radius + 10)
-                                .style("opacity", 1);
+                        if (!d3.select("#h1tree_" + id).empty())
+                            if (!d3.select("#h1tree_" + id).attr("class").includes("selected"))
+                                d3.select("#h1tree_" + id)
+                                    .attr("r", radius + 10)
+                                    .style("opacity", 1);
                     }
 
                     var label = d.data.data.description_child, child = "root", parent = "";
@@ -1985,10 +2023,11 @@
                             .replaceAll(")", "")
                             .toLowerCase();
 
-                        if (!d3.select("#h1tree_" + id).attr("class").includes("selected"))
-                            d3.select("#h1tree_" + id)
-                                .attr("r", radius - 4)
-                                .style("opacity", opacity);
+                        if (!d3.select("#h1tree_" + id).empty())
+                            if (!d3.select("#h1tree_" + id).attr("class").includes("selected"))
+                                d3.select("#h1tree_" + id)
+                                    .attr("r", radius - 4)
+                                    .style("opacity", opacity);
                     }
 
 
