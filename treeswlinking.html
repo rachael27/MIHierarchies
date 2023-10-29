@@ -251,8 +251,8 @@
         title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
 
         d3.queue()
-            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
-            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
             //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
             //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
             .await(function (error, h2, h1) {
@@ -271,8 +271,8 @@
             update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
 
             d3.queue()
-                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
                 .await(function (error, h2, h1) {
                     if (error) throw error;
 
@@ -285,8 +285,8 @@
             layout = "entirelayout";
             update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
             d3.queue()
-                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
-                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+                .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+                .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
                 .await(function (error, h2, h1) {
                     if (error) throw error;
 
@@ -307,8 +307,8 @@
 
             if (swapdataset == "h2") {
                 d3.queue()
-                    .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
-                    .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+                    .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+                    .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
                     //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
                     //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
                     .await(function (error, h2, h1) {
@@ -324,8 +324,8 @@
             }
             else {
                 d3.queue()
-                    .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
-                    .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
+                    .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+                    .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
                     .await(function (error, h2, h1) {
                         if (error) throw error;
 
@@ -505,6 +505,7 @@
 
         let level_offset = 100;
         var radius = 10;
+        var rect_offset = 0;
         var opacity = 0.3;
         var ltree_size = [width, 500];
         var h2_xpos = 500, h2_ypos = 250, h1_xpos = 70, h1_ypos = 250;
@@ -886,14 +887,15 @@
 
                 update_log("btn-clear", "button", "clear the node value", "click", "", "", "", "", "");
 
+                d3.selectAll(".search-rect").remove();
 
-                d3.selectAll(".selected").each(function (d) {
+                /* d3.selectAll(".selected").each(function (d) {
                     d3.select(this)
                         .style("fill", "red")
                         .attr("r", radius - 4)
                         .style("opacity", 0.3)
                         .classed("selected", false);
-                });
+                }); */
 
                 d3.selectAll(".selected_text").each(function (d) {
                     d3.select(this)
@@ -918,16 +920,17 @@
                     .toLowerCase();
                 num_slashes = child.split("/");
                 var root = h2_tree.descendants()[0];
-                //console.log(num_slashes);
+                console.log(num_slashes);
 
                 var offsetHeight = document.getElementById('sticky').offsetHeight;
-                console.log(offsetHeight);
+                //console.log(offsetHeight);
+                var h2flag = 0, h1flag = 0;
 
                 h2_tree.descendants().forEach(function (element) {
                     //console.log(element.depth + " " + num_slashes);
                     //if (element.depth == num_slashes.length - 1) {
                     name = element.data.data.child
-                        //.replaceAll(/\//g, "")
+                        .replaceAll(/\//g, "")
                         .replaceAll(".", "")
                         .replaceAll(" ", "")
                         .replaceAll("(", "")
@@ -935,10 +938,12 @@
                         .toLowerCase();
                     //console.log(name);
                     //console.log(child);
-                    //console.log(name + " " + num_slashes[num_slashes.length - 1]);
+                    //console.log("n " + name + " " + num_slashes[num_slashes.length - 1]);
                     if (name == num_slashes[num_slashes.length - 1]) {
-                        //console.log("ITS A MATCHYY");
-
+                        console.log("ITS A MATCHYY");
+                        console.log(name);
+                        h2flag = 1;
+                        //console.log(name + " " + num_slashes[num_slashes.length - 1]);
                         path = root.path(element);
 
                         for (var i = 0; i < path.length; i++) {
@@ -979,13 +984,27 @@
 
                             //console.log(pathname);
                             // d3.select("#h1tree_" + pathname)
-                            //.style("stroke","darkorange");
+                            //.style("stroke","#FFD700");
 
-                            d3.select("#h2tree_" + pathname)
-                                .style("fill", "darkorange")
+                            /* d3.select("#h2tree_" + pathname)
+                                .style("fill", "#FFD700")
                                 .attr("r", 15)
                                 .style("opacity", "1")
-                                .classed("selected", "true");
+                                .classed("selected", "true"); */
+
+                            console.log("h2 " + pathname);
+
+                            d3.select("#h2tree")
+                                .append("rect")
+                                .attr("class", "search-rect")
+                                .attr("id", "rect-" + pathname)
+                                .attr("width", 20)
+                                .attr("height", 20)
+                                .attr("x", d3.select("#h2tree_" + pathname).attr("cx") - radius - rect_offset)
+                                .attr("y", d3.select("#h2tree_" + pathname).attr("cy") - radius - rect_offset)
+                                .style("fill", "none")
+                                .style("stroke-width", "2px")
+                                .style("stroke", "#FFD700");
 
 
                             d3.select("#h2tree_" + pathname + "_text")
@@ -996,10 +1015,70 @@
 
                         }
                     }
-                    //}
-
-
                 });
+
+                if (h2flag == 0)
+                    for (var j = h2_tree.descendants().length - 1; j >= 0; j--) {
+                        h2flag = 0;
+                        var element = h2_tree.descendants()[j];
+                        name = element.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                        //if (element.ancestors()[i].depth > 1)
+                        console.log(num_slashes.length);
+                        for (var i = num_slashes.length - 1; i >= 2; i--) {
+                            //console.log(i);
+                            if (name == num_slashes[i]) {
+                                console.log(i + " " + name);
+                                //console.log("expand ")
+                                //console.log(element)
+                                expand(element);
+                                h2tree(h2_tree.descendants()[0], h2_root);
+                                h2flag = 1;
+                            }
+
+                        }
+
+                        if (h2flag == 1) {
+                            setTimeout(() => {
+                                console.log(num_slashes);
+                                for (var i = 0; i < num_slashes.length; i++) {
+                                    console.log(i + " " + num_slashes[i]);
+                                    pathname = num_slashes[i].replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
+                                        .toLowerCase();
+                                    d3.select("#h2tree")
+                                        .append("rect")
+                                        .attr("class", "search-rect")
+                                        .attr("id", "rect-" + pathname)
+                                        .attr("width", 20)
+                                        .attr("height", 20)
+                                        .attr("x", d3.select("#h2tree_" + pathname).attr("cx") - radius - rect_offset)
+                                        .attr("y", d3.select("#h2tree_" + pathname).attr("cy") - radius - rect_offset)
+                                        .style("fill", "none")
+                                        .style("stroke-width", "2px")
+                                        .style("stroke", "#FFD700");
+
+
+                                    d3.select("#h2tree_" + pathname + "_text")
+                                        .style("fill", "red")
+                                        .style("font-size", "15")
+                                        .classed("selected_text", "true");
+
+                                }
+                            }, 800);
+                            break;
+                        }
+                    }
+
+
 
 
 
@@ -1023,6 +1102,7 @@
                     //console.log(name + " " + child);
                     if (name == num_slashes[num_slashes.length - 1]) {
                         //console.log("ITS A MATCHYY");
+                        h1flag = 1;
 
                         path = root.path(element);
 
@@ -1046,11 +1126,25 @@
                             }
 
 
-                            d3.select("#h1tree_" + pathname)
-                                .style("fill", "darkorange")
+                            /* d3.select("#h1tree_" + pathname)
+                                .style("fill", "#FFD700")
                                 .attr("r", 15)
                                 .style("opacity", "1")
-                                .classed("selected", "true");
+                                .classed("selected", "true"); */
+
+                            //console.log("h1 " + pathname);
+
+                            d3.select("#h1tree")
+                                .append("rect")
+                                .attr("class", "search-rect")
+                                .attr("id", "rect-" + pathname)
+                                .attr("width", 20)
+                                .attr("height", 20)
+                                .attr("x", d3.select("#h1tree_" + pathname).attr("cx") - radius - rect_offset)
+                                .attr("y", d3.select("#h1tree_" + pathname).attr("cy") - radius - rect_offset)
+                                .style("fill", "none")
+                                .style("stroke-width", "2px")
+                                .style("stroke", "#FFD700");
 
 
                             d3.select(".h1tree_" + pathname + "_text")
@@ -1063,6 +1157,67 @@
 
 
                 });
+
+                if (h1flag == 0)
+                    for (var j = h1_tree.descendants().length - 1; j >= 0; j--) {
+                        h1flag = 0;
+                        var element = h1_tree.descendants()[j];
+                        name = element.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                        //if (element.ancestors()[i].depth > 1)
+                        console.log(num_slashes.length);
+                        for (var i = num_slashes.length - 1; i >= 2; i--) {
+                            //console.log(i);
+                            if (name == num_slashes[i]) {
+                                console.log("match " + i + " " + name);
+                                //console.log("expand ")
+                                //console.log(element)
+                                expand(element);
+                                h1tree(h1_tree.descendants()[0], h1_root);
+                                h1flag = 1;
+                            }
+
+                        }
+
+                        if (h1flag == 1) {
+                            setTimeout(() => {
+                                console.log(num_slashes);
+                                for (var i = 0; i < num_slashes.length; i++) {
+                                    console.log(i + " " + num_slashes[i]);
+                                    pathname = num_slashes[i].replaceAll(/\//g, "")
+                                        .replaceAll(".", "")
+                                        .replaceAll(" ", "")
+                                        .replaceAll("(", "")
+                                        .replaceAll(")", "")
+                                        .toLowerCase();
+                                    d3.select("#h1tree")
+                                        .append("rect")
+                                        .attr("class", "search-rect")
+                                        .attr("id", "rect-" + pathname)
+                                        .attr("width", 20)
+                                        .attr("height", 20)
+                                        .attr("x", d3.select("#h1tree_" + pathname).attr("cx") - radius - rect_offset)
+                                        .attr("y", d3.select("#h1tree_" + pathname).attr("cy") - radius - rect_offset)
+                                        .style("fill", "none")
+                                        .style("stroke-width", "2px")
+                                        .style("stroke", "#FFD700");
+
+
+                                    d3.select("#h1tree_" + pathname + "_text")
+                                        .style("fill", "red")
+                                        .style("font-size", "15")
+                                        .classed("selected_text", "true");
+
+                                }
+                            }, 800);
+                            break;
+                        }
+                    }
 
 
 
@@ -1088,6 +1243,7 @@
             //console.log(source);
             //console.log(h2);
             let tri_offset = 20;
+
 
 
             h2_tree = tree(h2_root)
@@ -1138,6 +1294,16 @@
                 .attr("class", function (d, i) {
                     return "h2_nodes";
                 })
+                .attr("id", function (d) {
+                    var id = d.data.data.child
+                        .replaceAll(/\//g, "")
+                        .replaceAll(".", "")
+                        .replaceAll(" ", "")
+                        .replaceAll("(", "")
+                        .replaceAll(")", "")
+                        .toLowerCase();
+                    return "g-" + id;
+                })
                 .on("click", function (d) {
                     update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
                     click(d);
@@ -1180,7 +1346,7 @@
                     return h2_root_pos - d.depth * level_offset;
                 })
                 .attr("cy", function (d) {
-                    console.log(d.data.data.child + " " + d.x);
+                    //console.log(d.data.data.child + " " + d.x);
                     //console.log(source.x);
                     //if (d.data.data.description_child == "root")
                     //console.log(d.data.data.description_child + " " + d.x);
@@ -1412,7 +1578,7 @@
                         .style("opacity", 1);
 
 
-                    /* if (d3.select(this).style("fill") != "darkorange") {
+                    /* if (d3.select(this).style("fill") != "#FFD700") {
                         d3.select(this)
                             .transition()
                             .attr("r", radius + 10)
@@ -1637,6 +1803,18 @@
                 //if (d.children != null || d._children != null)
                 h2tree(d, h2_root);
 
+                setTimeout(() => {
+                    d3.select("#h2tree").selectAll(".search-rect").each(function (d) {
+                        console.log(d3.select(this).attr("id").replace("rect-", ""));
+                        var x = d3.select("#h2tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cx") - radius - rect_offset;
+                        var y = d3.select("#h2tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cy") - radius - rect_offset;
+                        d3.select(this)
+                            .attr("x", x)
+                            .attr("y", y);
+                    });
+                }, 800);
+
+
             }
 
         }
@@ -1710,6 +1888,16 @@
                 .append("g")
                 .attr("class", function (d, i) {
                     return "h1_nodes";
+                })
+                .attr("id", function (d) {
+                    var id = d.data.data.child
+                        .replaceAll(/\//g, "")
+                        .replaceAll(".", "")
+                        .replaceAll(" ", "")
+                        .replaceAll("(", "")
+                        .replaceAll(")", "")
+                        .toLowerCase();
+                    return "g-" + id;
                 })
                 .on("click", function (d) {
                     update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
@@ -1996,7 +2184,7 @@
 
 
 
-                    /* if (d3.select(this).style("fill") === "darkorange") {
+                    /* if (d3.select(this).style("fill") === "#FFD700") {
                         console.log(d3.select(this).style("fill"));
                         d3.select(this)
                             .transition()
@@ -2031,7 +2219,7 @@
                     }
 
 
-                    /* if (d3.select(this).style("fill") === "darkorange") {
+                    /* if (d3.select(this).style("fill") === "#FFD700") {
                         //console.log(d3.select(this).attr("class").includes("selected"));
 
                         console.log(d3.select(this).style("fill"));
@@ -2239,6 +2427,16 @@
                 //console.log(d);
                 //if (d.children != null || d._children != null)
                 h1tree(d, h1_root);
+                setTimeout(() => {
+                    d3.select("#h1tree").selectAll(".search-rect").each(function (d) {
+                        console.log(d3.select(this).attr("id").replace("rect-", ""));
+                        var x = d3.select("#h1tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cx") - radius - rect_offset;
+                        var y = d3.select("#h1tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cy") - radius - rect_offset;
+                        d3.select(this)
+                            .attr("x", x)
+                            .attr("y", y);
+                    });
+                }, 800);
 
             }
 
