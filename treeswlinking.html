@@ -2569,14 +2569,14 @@
             }
 
             //console.log(nodes[0].height);
-            /* var accent = d3
+            /* var colorScale = d3
                 .scaleSequential()
                 .domain([0, nodes[0].height])
                 .interpolator(d3.interpolateInferno); */
 
-            var accent = d3
-                // .range(0, nodes[0].height)
-                .scaleOrdinal(d3.schemeCategory10);
+            var colorScale =
+                ["#1ABECF", "#E6AB01", "#1D78B4", "#FF7F0F", "#2DA02D", "#D62727", "#9567BD", "#8C564B", "#E377C2", "#BCBD21"];
+
 
 
 
@@ -2707,8 +2707,10 @@
                         return "start";
                     })
                     .attr("fill", function (d, i) {
-                        console.log(i);
-                        return accent(i);
+                        //console.log(d);
+                        //console.log(i);
+                        //console.log(color)
+                        return colorScale[i];
                     })
                     .text(function (d, i) {
                         return "Level: " + i;
@@ -2738,9 +2740,8 @@
 
         function drawLegend(h1_desc) {
             var h1levels = [];
-            var accent = d3
-                // .range(0, nodes[0].height)
-                .scaleOrdinal(d3.schemeCategory10);
+            var colorScale =
+                ["#1ABECF", "#E6AB01", "#1D78B4", "#FF7F0F", "#2DA02D", "#D62727", "#9567BD", "#8C564B", "#E377C2", "#BCBD21"];
 
             for (var n = 0; n < h1_desc.length; n++) {
                 h1levels[h1_desc[n].depth] = h1_desc[n].depth === 0 ? 50 : h1_desc[n].depth * level_offset;
@@ -2794,14 +2795,15 @@
                     .attr("x2", 50)
                     .attr("y2", 100)
                     .style("stroke", function (d, i) {
-                        return accent(i);
+                        console.log(i + " " + colorScale[i]);
+                        return colorScale[i];
                     })
                     .style("stroke-width", "8px");
 
                 levelg.append("text")
                     .attr("y", 80)
                     .style("stroke", function (d, i) {
-                        return accent(i);
+                        return colorScale[i];
                     })
                     .text(function (d, i) {
                         return "Level " + i;
@@ -2852,7 +2854,10 @@
 
             var x1 = 0, x2 = 0, y1 = 0, y2 = 0;
             var h2child = "", h1child = "";
-            var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+            var colorScale =
+                ["#1ABECF", "#E6AB01", "#1D78B4", "#FF7F0F", "#2DA02D", "#D62727", "#9567BD", "#8C564B", "#E377C2", "#BCBD21"]
+
+
 
             d3
                 .select("#treeswlinking_svg")
@@ -2983,8 +2988,8 @@
                                 .attr("h1child", h1_desc[h1].data.data.description_child)
                                 .attr("d", pathcurve(points))
                                 .style("stroke", function () {
-                                    //console.log(h2_desc[h2].data.depth);
-                                    return colorScale(h2_desc[h2].data.depth);
+                                    console.log(h1_desc[h1].data.id + " " + h1_desc[h1].data.depth + " " + colorScale[h1_desc[h1].data.depth]);
+                                    return colorScale[h1_desc[h1].data.depth];
                                 })
                                 .style("fill", "none")
                                 .style("stroke-width", connectinglink_strokewidth)
