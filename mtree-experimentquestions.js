@@ -28,7 +28,7 @@ function experimentquestions(qcounter) {
 
         {
             "qid": "E2.",
-            "question": "What is the path of the node:<i>treeml.dtd</i>?",
+            "question": "What is the path of the node:<i>treeml.dtd</i> to the root node?",
             "answer": "<i>root/hcil/iv03contest/datasets/treeml.dtd</i>",
             "options": ["<i>root/hcil/census/JavaProto/demo_files/treeml.dtd</i>", "<i>root/hcil/iv03contest/datasets/treeml.dtd</i>", "<i>root/hcil/about/pictures/treeml.dtd</i>", "<i>root/hcil/treemaps/treeml.dtd</i>"]
 
@@ -85,21 +85,21 @@ function experimentquestions(qcounter) {
         {
             "qid": "E8.",
             "question": "Which folder in the BeforeH has grown the most in the AfterH?",
-            "answer": "root/hcil/about/pictures",
-            "options": ["root/hcil/treemap3", "root/hcil/about/pictures", "root/hcil/agile2d"]
+            "answer": "<i>root/hcil/about/pictures</i>",
+            "options": ["<i>root/hcil/treemap3</i>", "<i>root/hcil/about/pictures</i>", "<i>root/hcil/agile2d</i>"]
 
         },
         {
             "qid": "E9.",
             "question": "Which folder in the BeforeH was deleted in the AfterH?",
-            "answer": "root/hcil/visumillion",
-            "options": ["root/hcil/treemaps", "root/hcil/about", "root/hcil/visumillion"]
+            "answer": "<i>root/hcil/visumillion</i>",
+            "options": ["<i>root/hcil/treemaps</i>", "<i>root/hcil/about</i>", "<i>root/hcil/visumillion</i>"]
 
         },
 
         {
             "qid": "E10.",
-            "question": "What changes are common to folder:root/hcil/members/mvenkatraman and folder:root/hcil/members/rsalter?",
+            "question": "What changes are common to folder:<i>root/hcil/members/mvenkatraman</i> and folder:<i>root/hcil/members/rsalter</i>?",
             "answer": "One file was deleted; one file was added and one file was retained",
             "options": ["All files were deleted", "One file was added and one file was deleted", "One file was deleted; one file was added and one file was retained", "Two files were retained and the rest were deleted"]
 

@@ -461,6 +461,8 @@
                 d3.select("#sticky")
                     .attr("class", "row sticky-top");
 
+                d3.select("#btn-backquestion").remove();
+
                 twl_trainingquestions(0);
                 qcounter = -1;
             }
@@ -987,7 +989,7 @@
                     .toLowerCase();
                 num_slashes = child.split("/");
                 var root = h2_tree.descendants()[0];
-                console.log(num_slashes);
+                //console.log(num_slashes);
 
                 var offsetHeight = document.getElementById('sticky').offsetHeight;
                 //console.log(offsetHeight);
@@ -1007,8 +1009,8 @@
                     //console.log(child);
                     //console.log("n " + name + " " + num_slashes[num_slashes.length - 1]);
                     if (name == num_slashes[num_slashes.length - 1]) {
-                        console.log("ITS A MATCHYY");
-                        console.log(name);
+                        //console.log("ITS A MATCHYY");
+                        //console.log(name);
                         h2flag = 1;
                         //console.log(name + " " + num_slashes[num_slashes.length - 1]);
                         path = root.path(element);
@@ -1059,7 +1061,7 @@
                                 .style("opacity", "1")
                                 .classed("selected", "true"); */
 
-                            console.log("h2 " + pathname);
+                            //console.log("h2 " + pathname);
 
                             d3.select("#h2tree")
                                 .append("rect")
@@ -1100,15 +1102,15 @@
                             .replaceAll(")", "")
                             .toLowerCase();
                         //if (element.ancestors()[i].depth > 1)
-                        console.log(num_slashes.length);
+                        //console.log(num_slashes.length);
                         for (var i = num_slashes.length - 1; i >= 2; i--) {
                             //console.log(i);
                             if (name == num_slashes[i]) {
-                                console.log("match " + i + " " + name);
+                                //console.log("match " + i + " " + name);
                                 //console.log("expand ")
                                 //console.log(element)
-                                if (element._children != null && element._children.length > 1) {
-                                    console.log(element);
+                                if (element._children != null && element._children.length >= 1) {
+                                    //console.log(element);
                                     for (var c = 0; c < element._children.length; c++) {
                                         if (element._children[c].data.data.child.replaceAll(/\//g, "")
                                             .replaceAll(".", "")
@@ -1132,9 +1134,9 @@
 
                         if (h2flag == 1) {
                             setTimeout(() => {
-                                console.log(num_slashes);
+                                //console.log(num_slashes);
                                 for (var i = 0; i < num_slashes.length; i++) {
-                                    console.log(i + " " + num_slashes[i]);
+                                    //console.log(i + " " + num_slashes[i]);
                                     pathname = num_slashes[i].replaceAll(/\//g, "")
                                         .replaceAll(".", "")
                                         .replaceAll(" ", "")
@@ -1261,15 +1263,15 @@
                             .replaceAll(")", "")
                             .toLowerCase();
                         //if (element.ancestors()[i].depth > 1)
-                        console.log(num_slashes.length);
+                        //console.log(num_slashes.length);
                         for (var i = num_slashes.length - 1; i >= 2; i--) {
                             //console.log(i);
                             if (name == num_slashes[i]) {
-                                console.log("match " + i + " " + name);
+                                //console.log("match " + i + " " + name);
                                 //console.log("expand ")
-                                //console.log(element)
-                                if (element._children != null && element._children.length > 1) {
-                                    console.log(element);
+                                //console.log(element + " " + element._children.length);
+                                if (element._children != null && element._children.length >= 1) {
+                                    //console.log(element);
                                     for (var c = 0; c < element._children.length; c++) {
                                         if (element._children[c].data.data.child.replaceAll(/\//g, "")
                                             .replaceAll(".", "")
@@ -1277,6 +1279,7 @@
                                             .replaceAll("(", "")
                                             .replaceAll(")", "")
                                             .toLowerCase() == num_slashes[i + 1]) {
+                                            //console.log("exp " + element)
                                             expand(element);
                                             h1tree(h1_tree.descendants()[0], h1_root);
                                             h1flag = 1;
@@ -1293,9 +1296,9 @@
 
                         if (h1flag == 1) {
                             setTimeout(() => {
-                                console.log(num_slashes);
+                                //console.log(num_slashes);
                                 for (var i = 0; i < num_slashes.length; i++) {
-                                    console.log(i + " " + num_slashes[i]);
+                                    //console.log(i + " " + num_slashes[i]);
                                     pathname = num_slashes[i].replaceAll(/\//g, "")
                                         .replaceAll(".", "")
                                         .replaceAll(" ", "")
@@ -2795,7 +2798,7 @@
                     .attr("x2", 50)
                     .attr("y2", 100)
                     .style("stroke", function (d, i) {
-                        console.log(i + " " + colorScale[i]);
+                        //console.log(i + " " + colorScale[i]);
                         return colorScale[i];
                     })
                     .style("stroke-width", "8px");
@@ -2988,7 +2991,7 @@
                                 .attr("h1child", h1_desc[h1].data.data.description_child)
                                 .attr("d", pathcurve(points))
                                 .style("stroke", function () {
-                                    console.log(h1_desc[h1].data.id + " " + h1_desc[h1].data.depth + " " + colorScale[h1_desc[h1].data.depth]);
+                                    //console.log(h1_desc[h1].data.id + " " + h1_desc[h1].data.depth + " " + colorScale[h1_desc[h1].data.depth]);
                                     return colorScale[h1_desc[h1].data.depth];
                                 })
                                 .style("fill", "none")

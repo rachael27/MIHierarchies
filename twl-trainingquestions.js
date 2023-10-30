@@ -23,7 +23,7 @@ function twl_trainingquestions(qcounter) {
         {
             "qid": "T1.",
             "question": "How many levels does the BeforeH (starting from the root at level 0) have?",
-            "hint": "The maximum number of levels in a tree defines the level of a tree. The node at the highest levels are found near the green connecting links.",
+            "hint": "The level of a tree is defined by the node at the deepest/highest level. <br>The nodes at the deepest level in the BeforeH are <i>root/hcil/piccolo/learn/doc-0.5/doc-0.5-api/doc-0.5-api-index.html</i> and <i>root/hcil/piccolo/learn/doc-0.5/doc-0.5-tutorial/doc-0.5-api-tutorial-index.html</i>.",
             "answer": "6",
             "numoptions": 3,
             "options": ["4", "6", "8"]
@@ -32,8 +32,8 @@ function twl_trainingquestions(qcounter) {
 
         {
             "qid": "T2.",
-            "question": 'What is the path of the node:<i>collaborators.shtml</i>?',
-            "hint": "The path refers to the shortest set of parent nodes that need to be traversed to reach the root node from the given node.",
+            "question": 'What is the path of the node:<i>collaborators.shtml</i> to the <i>root node</i>?',
+            "hint": "The path (these nodes are highlighted when you hover on the given node) refers to the shortest set of parent nodes that need to be traversed to reach the root node from the given node.",
             "answer": "<i>root/hcil/members/collaborators.shtml</i>",
             "numoptions": 3,
             "options": ["<i>root/hcil/collaborators.shtml</i>", "<i>root/hcil/members/collaborators.shtml</i>", "<i>root/hcil/collaborators/collaborators.shtml</i>"]
@@ -46,7 +46,7 @@ function twl_trainingquestions(qcounter) {
         {
             "qid": "T3.",
             "question": "What is the level of node filename:<i>root/hcil/privacy-policy.shtml</i> in the before and after hierarchies?",
-            "hint": "Count the number of parent nodes (these nodes are highlighted when you hover on the privacy-policy.shtml node) it takes to reach the root node.",
+            "hint": "Count the number of parent nodes (these nodes are highlighted when you hover on the <i>privacy-policy.shtml</i> node) it takes to reach the root node (the root node is at level 0).",
             "answer": "Level 2 in the BeforeH and Level 2 in the AfterH",
             "numoptions": 3,
             "options": ["Level 3 in the BeforeH and Level 2 in the AfterH", "Level 2 in the BeforeH and Level 2 in the AfterH", "Level 4 in the BeforeH and Level 3 in the AfterH"]
@@ -56,7 +56,7 @@ function twl_trainingquestions(qcounter) {
         {
             "qid": "T4.",
             "question": "Choose the best description of folder:<i>root/hcil/treemap3</i>",
-            "hint": "You can see that the treemap3 node exists in both hierarchies, but has only a few common links connecting the nodes in the BeforeH and the AfterH. This means that the treemap3 folder has some common files. However, some files that exist in the treemap3 folder in the BeforeH are not available in the AfterH. Hence, we can conclude that these files were deleted in the AfterH.",
+            "hint": "You can see that the node:<i>treemap3</i> exists in both hierarchies, but has no common links connecting the nodes in the BeforeH and the AfterH. The absence of connecting links shows that all the files in the BeforeH were deleted and that new files were created in the AfterH.",
             "answer": "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH",
             "numoptions": 4,
             "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted and no new files were added", "The folder existed in the BeforeH but some files were deleted", "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH"]
@@ -67,7 +67,7 @@ function twl_trainingquestions(qcounter) {
         {
             "qid": "T5.",
             "question": "What happened to the file:<i>jrexxlab.jpg</i>?",
-            "hint": "When you search for the file, it is not available in the BeforeH but available in the AfterH. Also, there is no link connecting the node:jrexxlab.jpg from the BeforeH, indicating that it was newly created in the AfterH.",
+            "hint": "When you search for the file, it is not available in the BeforeH but available in the AfterH. Also, there is no link connecting the node:<i>jrexxlab.jpg</i> from the BeforeH, indicating that it was newly created in the AfterH.",
             "answer": "The file was not present in the BeforeH but was newly created in the AfterH",
             "numoptions": 3,
             "options": ["The file was present in the BeforeH but deleted in the AfterH", "The file was not present in the BeforeH but was newly created in the AfterH", "The file is present in the BeforeH and the AfterH"]
@@ -143,7 +143,7 @@ function twl_trainingquestions(qcounter) {
 
 
         d3.select("#hint")
-            .text(list_questions[qcounter].hint);
+            .html(list_questions[qcounter].hint);
 
 
         if (list_questions[qcounter].options)

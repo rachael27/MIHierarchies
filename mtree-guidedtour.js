@@ -41,44 +41,39 @@ function guidedtour() {
             title: "Interacting with a node - collapse/expand <hr class='border border-primary border-3 opacity-75'>",
             intro: "You can click on a node (with a green triangle) to expand its children. <br><hr class='border border-danger border-2 opacity-50'> Click on the node again to collapse it."
         },
-        /*  {
-             element: document.querySelector("#levellines > line"),
-             title: "BeforeH tree levels (dotted/dashed grey level lines) <hr class='border border-primary border-3 opacity-75'>",
-             intro: "The grey level lines show the position of a node as it appears in the BeforeH. <hr class='border border-danger border-2 opacity-50'> To find the level of node in the BeforeH, simply look for the grey line passing through it. The node:<i>root/hcil</i> in the BeforeH is on level 1 and is represented by the Level 1 grey dotted/dashed line passing through it."
-         }, */
-
         {
-            element: document.querySelector('[id="mergedtree_visumillion"]'),
-            title: "Level of a node in the BeforeH <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The level of a node in the BeforeH is the number of ancestors from the given node until the root node. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes starting from the root node at level 0. Hence, the level of the selected node is 2.  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
+            element: document.querySelector("#levellines > line"),
+            title: "Level of a node in the BeforeH (dotted/dashed grey level lines) <hr class='border border-primary border-3 opacity-75'>",
+            intro: "The grey level lines show the position of a node as it appears in the BeforeH. <hr class='border border-danger border-2 opacity-50'> These lines run from <b>left-to-right</b>. <hr class='border border-danger border-2 opacity-50'> To find the level of node in the BeforeH, simply look for the grey line passing through it. The node:<i>root/hcil</i> in the BeforeH is on level 1 and is represented by the Level 1 grey dotted/dashed line passing through it."
         },
 
+        /*  {
+             element: document.querySelector('[id="mergedtree_visumillion"]'),
+             title: "Level of a node in the BeforeH <hr class='border border-primary border-3 opacity-75'>",
+             intro: "The level of a node in the BeforeH is the number of ancestors from the given node until the root node. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes starting from the root node at level 0. Hence, the level of the selected node is 2.  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
+         }, */
         {
             element: document.querySelector("#line-chart-l1 .line"),
             title: "Level of a node in the AfterH (solid multi-colored level lines) <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The solid multi-colored level lines show the position of a node as it appears in the AfterH. <hr class='border border-danger border-2 opacity-50'>To find the level of node in the AfterH, simply look for the solid colored line passing through it. <hr class='border border-danger border-2 opacity-50'> The node:<i>root/hcil</i> in the AfterH and is on level 1 represented by the Level 1 solid orange-colored line passing through it. <hr class='border border-danger border-2 opacity-50'> <b>Some nodes might be on different levels in the BeforeH and AfterH.</b>"
+            intro: "The solid multi-colored level lines show the position of a node as it appears in the AfterH. <hr class='border border-danger border-2 opacity-50'> These lines run from <b>right-to-left</b>. <hr class='border border-danger border-2 opacity-50'>To find the level of node in the AfterH, simply look for the solid colored line passing through it. <hr class='border border-danger border-2 opacity-50'> The node:<i>root/hcil</i> in the AfterH and is on level 1 represented by the Level 1 solid orange-colored line passing through it. <hr class='border border-danger border-2 opacity-50'> <b>Some nodes might be on different levels in the BeforeH and AfterH.</b>"
         },
-        /*  {
-             element: document.querySelector("#line-chart-l2 > path"),
-             title: "AfterH tree level 2 <hr class='border border-primary border-3 opacity-75'>",
-             intro: "This Level 2 line dips down to node L1 to show that node L1 belongs on Level 2 in the AfterH and on Level 3 in the BeforeH.  <hr class='border border-danger border-2 opacity-50'> It then goes back up to meet Node C. Node C has the grey line and the colored line passing through it. This shows that it belongs to Level 2 in both the BeforeH and AfterH hierarchies. "
-         }, */
-        /*  {
-             element: document.querySelector(".text-level1"),
-             title: "BeforeH (dashed, grey colored line) and AfterH tree levels (colored level lines) <hr class='border border-primary border-3 opacity-75'>",
-             intro: "Clicking on a level label will switch the line on/off."
-         }, */
-
+        /*
+                {
+                    element: document.querySelector("#line-chart-l1 .line"),
+                    title: "Level of a node in the AfterH (solid multi-colored level lines) <hr class='border border-primary border-3 opacity-75'>",
+                    intro: "The solid multi-colored level lines show the position of a node as it appears in the AfterH. These lines run from right-to-left <hr class='border border-danger border-2 opacity-50'>To find the level of node in the AfterH, simply look for the solid colored line passing through it. <hr class='border border-danger border-2 opacity-50'> The node:<i>root/hcil</i> in the AfterH and is on level 1 represented by the Level 1 solid orange-colored line passing through it. <hr class='border border-danger border-2 opacity-50'> <b>Some nodes might be on different levels in the BeforeH and AfterH.</b>"
+                },
+                */
 
         {
             element: document.querySelector(".h2-text-level0"),
-            title: "Level of a node in the AfterH (solid colored level lines) <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Clicking on a level label will show/hide the level line."
+            title: "AfterH level lines <hr class='border border-primary border-3 opacity-75'>",
+            intro: "Clicking on a level label will show/hide the level line. <hr class='border border-danger border-2 opacity-50'> Clicking on the BeforeH level labels does the same for the dotted/dashed grey level lines."
         },
         {
             element: document.querySelector("#btn-level-chart"),
             title: "AfterH level lines button <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Alternatively, you can click on this button to show/hide all level lines."
+            intro: "Alternatively, you can click on the button to show/hide all level lines. <hr class='border border-danger border-2 opacity-50'> Clicking on the button on the left does the same for the BeforeH level lines. "
         },
 
         {
@@ -165,6 +160,18 @@ function guidedtour() {
             .attr("data-title", "AfterH level lines button")
             .attr("data-intro", "Alternatively, you can click on this button to switch on/off all the level lines.")
             .attr("data-step", 8);
+
+
+              {
+             element: document.querySelector("#line-chart-l2 > path"),
+             title: "AfterH tree level 2 <hr class='border border-primary border-3 opacity-75'>",
+             intro: "This Level 2 line dips down to node L1 to show that node L1 belongs on Level 2 in the AfterH and on Level 3 in the BeforeH.  <hr class='border border-danger border-2 opacity-50'> It then goes back up to meet Node C. Node C has the grey line and the colored line passing through it. This shows that it belongs to Level 2 in both the BeforeH and AfterH hierarchies. "
+         },
+         {
+             element: document.querySelector(".text-level1"),
+             title: "BeforeH (dashed, grey colored line) and AfterH tree levels (colored level lines) <hr class='border border-primary border-3 opacity-75'>",
+             intro: "Clicking on a level label will switch the line on/off."
+         }, 
     */
 
 

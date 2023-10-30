@@ -6,7 +6,7 @@ function twl_guidedtour() {
     var stepsArr = [
         {
             title: "Welcome to the Guided Tour! <hr class='border border-primary border-3 opacity-75'>",
-            intro: "You can interact with each highlighted element in the tour to see it in action. <hr class='border border-danger border-2 opacity-50'> Pop-up boxes will guide you through every step of the tour. If at times the boxes are hidden, scroll the screen to find them. <hr class='border border-danger border-2 opacity-50'>In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour."
+            intro: "<p class='text-left'>You can interact with each highlighted element in the tour to see it in action. <hr class='border border-danger border-2 opacity-50'> Pop-up boxes will guide you through every step of the tour. If at times the boxes are hidden, scroll the screen to find them. <hr class='border border-danger border-2 opacity-50'>In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour.</p>"
         },
         {
             title: " Arrangement of nodes in the BeforeH and AfterH<hr class='border border-primary border-3 opacity-75'>",
@@ -21,7 +21,7 @@ function twl_guidedtour() {
         {
             element: document.querySelector('[id="h1tree_privacy-policyshtml"]'),
             title: "Node without a green border <hr class='border border-primary border-3 opacity-75'>",
-            intro: "<p class='text-justify'>If the node, doesn't have a border, it is a file. </p>"
+            intro: "<p class='text-justify'>If the node doesn't have a border, it is a file. </p>"
         },
         {
             element: document.querySelector("#link_academics"),
@@ -32,6 +32,12 @@ function twl_guidedtour() {
             element: document.querySelector('[id="link_treemaps-index.html"]'),
             title: "A connecting link between files <hr class='border border-primary border-3 opacity-75'>",
             intro: "Consider the orange links for this step of the tour. <hr class='border border-danger border-2 opacity-50'>  If a link is drawn between 2 files, it means that the file is common to both hierarchies."
+        },
+
+        {
+            element: document.querySelector('[id="legend"]'),
+            title: "Color of the links connecting the common elements <hr class='border border-primary border-3 opacity-75'>",
+            intro: "This legend shows the colors of the connecting links which is based on the level of the node in the BeforeH."
         },
 
         {

@@ -25,7 +25,7 @@ function trainingquestions(qcounter) {
         {
             "qid": "T1.",
             "question": "How many levels does the BeforeH (starting from the root at level 0) have?",
-            "hint": "The maximum number of levels in a tree defines the level of a tree and the node at the highest level is root/hcil/piccolo.learn/doc-0.5/api/index.html. This is represented by the grey dashed lines that represent the level of the BeforeH. The solid colored lines represent the levels of the AfterH.",
+            "hint": "The level of a tree is defined by the node at the deepest/highest level. The highest BeforeH level line is the Level 6 dotted/dashed grey line. <br>The nodes at the deepest level are <i>root/hcil/piccolo/learn/doc-0.5/doc-0.5-api/doc-0.5-api-index.html</i> and <i>root/hcil/piccolo/learn/doc-0.5/doc-0.5-tutorial/doc-0.5-api-tutorial-index.html</i>. <br> (The solid colored lines represent the levels of the AfterH.)",
             "answer": "6",
             "numoptions": 3,
             "options": ["4", "6", "8"]
@@ -34,11 +34,11 @@ function trainingquestions(qcounter) {
 
         {
             "qid": "T2.",
-            "question": "What is the path of the node:collaborators.shtml?",
+            "question": 'What is the path of the node:<i>collaborators.shtml</i> to the <i>root node</i>?',
             "hint": "The path refers to the shortest set of parent nodes that need to be traversed to reach the root node from the given node. Hover, on a node to see its path highlighted to the root node.",
-            "answer": "root/hcil/about/press",
+            "answer": "<i>root/hcil/about/press</i>",
             "numoptions": 3,
-            "options": ["root/hcil/members/press", "root/hcil/about/press", "root/hcil/collaborators/press"]
+            "options": ["<i>root/hcil/members/press</i>", "<i>root/hcil/about/press</i>", "<i>root/hcil/collaborators/press</i>"]
 
 
         },
@@ -47,7 +47,7 @@ function trainingquestions(qcounter) {
 
         {
             "qid": "T3.",
-            "question": "What is the level of node filename:root/hcil/privacy-policy.shtml in the before and after hierarchies?",
+            "question": "What is the level of node filename:<i>root/hcil/privacy-policy.shtml</i> in the before and after hierarchies?",
             "hint": "The grey dotted/dashed line and the solid colored line crossing through the given node represents its level in the before and after hierarchies respectively.",
             "answer": "Level 2 in the BeforeH and Level 2 in the AfterH",
             "numoptions": 3,
@@ -57,8 +57,8 @@ function trainingquestions(qcounter) {
 
         {
             "qid": "T4.",
-            "question": "Choose the best description of folder:root/hcil/treemap3.",
-            "hint": "The treemap3 folder has several red links which denotes multiple file deletions. But it also has some blue links, which show that some files from the BeforeH are also available in the AfterH. ",
+            "question": "Choose the best description of folder:<i>root/hcil/treemap3</i>.",
+            "hint": "The folder:<i>treemap3</i> has only red and green links. The red links show that all the files in the BeforeH were deleted. The green links show that some files were newly added in the AfterH. ",
             "answer": "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH",
             "numoptions": 4,
             "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted and no new files were added", "The folder existed in the BeforeH but some files were deleted", "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH"]
@@ -67,8 +67,8 @@ function trainingquestions(qcounter) {
 
         {
             "qid": "T5.",
-            "question": "What happened to the file:jrexxlab.jpg?",
-            "hint": "When you search for the file, it is unavailable in the BeforeH but available in the AfterH. Also, there is no link connecting the node from the AfterH, indicating that it does not belong to the BeforeH.",
+            "question": "What happened to the file:<i>jrexxlab.jpg</i>?",
+            "hint": "When you search for the file, it is unavailable in the BeforeH but available in the AfterH. The node is a dot/filled circle with a green link which shows that the file was newly created.",
             "answer": "The file was not present in the BeforeH but was newly created in the AfterH",
             "numoptions": 3,
             "options": ["The file was present in the BeforeH but deleted in the AfterH", "The file was not present in the BeforeH but was newly created in the AfterH", "The file is present in the BeforeH and the AfterH"]
@@ -140,11 +140,11 @@ function trainingquestions(qcounter) {
         }
 
         d3.select("#question")
-            .text(list_questions[qcounter].qid + " " + list_questions[qcounter].question);
+            .html(list_questions[qcounter].qid + " " + list_questions[qcounter].question);
 
 
         d3.select("#hint")
-            .text(list_questions[qcounter].hint);
+            .html(list_questions[qcounter].hint);
 
 
         if (list_questions[qcounter].options)
@@ -164,7 +164,7 @@ function trainingquestions(qcounter) {
                     .attr("form", "option")
                     .attr("id", "option" + i + "_label")
                     .attr("style", "text-align: left; margin-left: 10px; margin-top:0px; border-radius:5px; text-indent:10px; ")
-                    .text(list_questions[qcounter].options[i]);
+                    .html(list_questions[qcounter].options[i]);
 
             }
 
