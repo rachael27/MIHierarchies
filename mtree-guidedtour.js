@@ -18,17 +18,17 @@ function guidedtour() {
         {
             element: document.querySelector("#mergedtree_root"),
             title: "A Merged Node <hr class='border border-primary border-3 opacity-75'>",
-            intro: "<p class='text-justify'>The root node is a merged node (i.e.) it belongs to both - BeforeH (left) and AfterH (right) hierarchies.  <hr class='border border-danger border-2 opacity-50'> A merged node is represented by a dot within a hollow circle.</p>"
+            intro: "<p class='text-justify'>The root node is a merged node (i.e.) it belongs to both - BeforeH (left) and AfterH (right) hierarchies.  <hr class='border border-danger border-2 opacity-50'> A merged node is represented by a blue dot within a blue hollow circle.</p>"
         },
         {
             element: document.querySelector("#mergedtree_mftv-indexhtml"),
             title: "A node that belongs to only the BeforeH (left) hierarchy <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Node:<i>root/hcil/piccolo/applications/mftv/ mftv-index.html</i> belongs only to the BeforeH. <hr class='border border-danger border-2 opacity-50'> It is represented by a hollow circle. The link is colored in red to show that it was deleted in the AfterH."
+            intro: "Node:<i>root/hcil/piccolo/applications/mftv/ mftv-index.html</i> belongs only to the BeforeH. <hr class='border border-danger border-2 opacity-50'> It is represented by a red hollow circle. The link is also colored in red to show that it was deleted in the AfterH."
         },
         {
             element: document.querySelector("#mergedtree_about"),
             title: "A node that belongs to only the AfterH (right) hierarchy <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Node:<i>root/hcil/about</i> about belongs only to the AfterH. <hr class='border border-danger border-2 opacity-50'> It is represented by a dot (filled circle). The link is colored in green to show that it was newly created in the AfterH.<hr class='border border-danger border-2 opacity-50'>"
+            intro: "Node:<i>root/hcil/about</i> about belongs only to the AfterH. <hr class='border border-danger border-2 opacity-50'> It is represented by a green dot (filled circle). The link is also colored in green to show that it was newly created in the AfterH.<hr class='border border-danger border-2 opacity-50'>"
         },
         {
             element: document.querySelector(".triangle-academics"),
@@ -101,6 +101,12 @@ function guidedtour() {
             element: document.querySelector('[id="btn-entirelayout"]'),
             title: "View the entire layout <hr class='border border-primary border-3 opacity-75'>",
             intro: "This layout expands all folders - those that have undergone changes and those that have not. <hr class='border border-danger border-2 opacity-50'> You can toogle between the two layouts depending on the task."
+        },
+
+        {
+            element: document.querySelector('[id="notations-key"]'),
+            title: "Notations <hr class='border border-primary border-3 opacity-75'>",
+            intro: "Here is a reference to the notations."
         },
 
         {

@@ -217,7 +217,7 @@
             method = "highlight";
         else method = "link"; */
 
-        var qcounter = -1;
+        var qcounter = 0;
         var logObject = [];
         var commonElementsArr = [];
 
@@ -235,7 +235,7 @@
 
         var mtree = "";
         const vizID = "treeswlinking";
-        const pageID = "mtree";
+        var pageID = "ltree";
         var layout = "changeonlylayout";
 
 
@@ -244,7 +244,7 @@
         let h2_root = "", h2_struct = "", h2_tree = "";
         let h1_root = "", h1_struct = "", h1_tree = "";
 
-        update_log("", "landed on the treeswlinking page", "", "", "", "", "", "", "");
+        update_log("ltree", "", "landed on the treeswlinking page", "", "", "", "", "", "", "");
 
 
 
@@ -268,7 +268,7 @@
 
         d3.select("#btn-changeonlylayout").on("click", function () {
             layout = "changeonlylayout";
-            update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
+            update_log("ltree", "btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
             d3.select("#h2tree").selectAll("g").remove();
             d3.select("#h1tree").selectAll("g").remove();
 
@@ -328,7 +328,7 @@
         d3.select("#btn-entirelayout").on("click", function () {
 
             layout = "entirelayout";
-            update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
+            update_log("ltree", "btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
             d3.select("#h2tree").selectAll("g").remove();
             d3.select("#h1tree").selectAll("g").remove();
             h1_tree.descendants().forEach(function (element) {
@@ -364,7 +364,7 @@
 
 
         d3.select("#btn-swapdataset").on("click", function () {
-            update_log("btn-swapdataset", "button", "swapping datasets", "click", "", "", "", "", "");
+            update_log("ltree", "btn-swapdataset", "button", "swapping datasets", "click", "", "", "", "", "");
 
             //console.log("Swapdataset");
 
@@ -454,7 +454,7 @@
 
                 setTimeout(() => {
                     twl_guidedtour();
-                }, 2000);
+                }, 800);
             }
 
             else if (urlpage == "trainingquestions") {
@@ -464,7 +464,7 @@
                 d3.select("#btn-backquestion").remove();
 
                 twl_trainingquestions(0);
-                qcounter = -1;
+                qcounter = 0;
             }
 
             else if (urlpage == "experimentquestions") {
@@ -503,21 +503,26 @@
 
                 d3.select("#btn-nextquestion")._groups[0][0].disabled = true;
 
-                if (urlpage == "trainingquestions")
+                if (urlpage == "trainingquestions") {
                     qid = "T";
-                else
+                    pageID = "training";
+                }
+                else {
                     qid = "E";
-
-                if (!d3.select(".radiobuttons").empty()) {
-                    console.log(qcounter);
-                    update_log("btn-nextquestion", "button", "display question", "click", qid + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+                    pageID = "experiment";
                 }
 
-
-                if (qcounter == -1)
-                    qcounter = qcounter + 2;
+                if (!d3.select(".radiobuttons").empty()) {
+                    //console.log(qcounter);
+                    update_log(pageID, "btn-nextquestion", "button", "display question", "click", qid + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+                }
                 else
-                    qcounter++;
+                    update_log(pageID, "btn-nextquestion", "button", "display question", "click", qid + qcounter, list_questions[qcounter].question, "yes", "yes", 0);
+
+
+
+
+                qcounter++;
 
                 //console.log("QC " + qcounter);
 
@@ -537,7 +542,7 @@
 
         d3.select("#btn-backquestion")
             .on("click", function () {
-                update_log("btn-backquestion", "button", "click the button to display the last question", "click", "", "", "", "", "");
+                update_log("ltree", "btn-backquestion", "button", "click the button to display the last question", "click", "", "", "", "", "");
 
                 qcounter--;
                 if (urlpage == "trainingquestions") {
@@ -954,7 +959,7 @@
             .on("click", function () {
                 d3.select("#search-nodes").node().value = "";
 
-                update_log("btn-clear", "button", "clear the node value", "click", "", "", "", "", "");
+                update_log("ltree", "btn-clear", "button", "clear the node value", "click", "", "", "", "", "");
 
                 d3.selectAll(".search-rect").remove();
 
@@ -1053,10 +1058,10 @@
 
                             //console.log(pathname);
                             // d3.select("#h1tree_" + pathname)
-                            //.style("stroke","#FFD700");
+                            //.style("stroke","gold");
 
                             /* d3.select("#h2tree_" + pathname)
-                                .style("fill", "#FFD700")
+                                .style("fill", "gold")
                                 .attr("r", 15)
                                 .style("opacity", "1")
                                 .classed("selected", "true"); */
@@ -1073,7 +1078,7 @@
                                 .attr("y", d3.select("#h2tree_" + pathname).attr("cy") - radius - rect_offset)
                                 .style("fill", "none")
                                 .style("stroke-width", "3px")
-                                .style("stroke", "#FFD700");
+                                .style("stroke", "gold");
 
 
                             d3.select("#h2tree_" + pathname + "_text")
@@ -1153,7 +1158,7 @@
                                         .attr("y", d3.select("#h2tree_" + pathname).attr("cy") - radius - rect_offset)
                                         .style("fill", "none")
                                         .style("stroke-width", "3px")
-                                        .style("stroke", "#FFD700");
+                                        .style("stroke", "gold");
 
 
                                     d3.select("#h2tree_" + pathname + "_text")
@@ -1216,7 +1221,7 @@
 
 
                             /* d3.select("#h1tree_" + pathname)
-                                .style("fill", "#FFD700")
+                                .style("fill", "gold")
                                 .attr("r", 15)
                                 .style("opacity", "1")
                                 .classed("selected", "true"); */
@@ -1233,7 +1238,7 @@
                                 .attr("y", d3.select("#h1tree_" + pathname).attr("cy") - radius - rect_offset)
                                 .style("fill", "none")
                                 .style("stroke-width", "3px")
-                                .style("stroke", "#FFD700");
+                                .style("stroke", "gold");
 
 
                             d3.select(".h1tree_" + pathname + "_text")
@@ -1315,7 +1320,7 @@
                                         .attr("y", d3.select("#h1tree_" + pathname).attr("cy") - radius - rect_offset)
                                         .style("fill", "none")
                                         .style("stroke-width", "3px")
-                                        .style("stroke", "#FFD700");
+                                        .style("stroke", "gold");
 
 
                                     d3.select("#h1tree_" + pathname + "_text")
@@ -1333,7 +1338,7 @@
 
 
 
-                update_log("btn-search", "button", "search for a node " + d3.select("#search-nodes").node().value, "click", "", "", "", "", "");
+                update_log("ltree", "btn-search", "button", "search for a node " + d3.select("#search-nodes").node().value, "click", "", "", "", "", "");
 
             });
 
@@ -1416,7 +1421,7 @@
                     return "g-" + id;
                 })
                 .on("click", function (d) {
-                    update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
+                    update_log("ltree", "node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
                     click(d);
                     d3.select("#lines").remove();
 
@@ -1433,6 +1438,25 @@
                 .duration(function (d) {
                     //console.log("NODE UPDATE");
                     return duration;
+                })
+                .style("stroke", function (d) {
+                    if (d.parent) {
+                        //console.log(d.parent);
+                        var pid = d.parent.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+
+                        if (d.parent.children) {
+                            d3.select("#h2tree")
+                                .select(".triangle-" + pid)
+                                .style("stroke", "none")
+                                .style("fill", "none");
+                        }
+                    }
                 });
 
 
@@ -1666,7 +1690,7 @@
                     }
 
                     var label = d.data.data.description_child, child = "root", parent = "";
-                    update_log("node " + label, "node", "hover on a node", "mouseover", "", "", "", "", "");
+                    update_log("ltree", "node " + label, "node", "hover on a node", "mouseover", "", "", "", "", "");
                     if (label.includes("/")) {
                         child = label.substring(label.lastIndexOf("/") + 1, label.length);
                         parent = label.substring(0, label.lastIndexOf("/"));
@@ -1689,7 +1713,7 @@
                         .style("opacity", 1);
 
 
-                    /* if (d3.select(this).style("fill") != "#FFD700") {
+                    /* if (d3.select(this).style("fill") != "gold") {
                         d3.select(this)
                             .transition()
                             .attr("r", radius + 10)
@@ -1704,7 +1728,7 @@
                              .attr("r", radius - 3);
                      if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) */
                     var root = h2_tree.descendants()[0];
-                    update_log("node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave", "", "", "", "", "");
+                    update_log("ltree", "node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave", "", "", "", "", "");
                     for (var i = 0; i < root.path(d).length; i++) {
                         var id = root.path(d)[i].data.data.child
                             .replaceAll(/\//g, "")
@@ -1824,7 +1848,7 @@
                             return d.data.data.child;
                         })
 
-                    update_log("text label " + d3.select(this).attr("id"), "label", "hover on a label", "mouseover", "", "", "", "", "");
+                    update_log("ltree", "text label " + d3.select(this).attr("id"), "label", "hover on a label", "mouseover", "", "", "", "", "");
 
 
 
@@ -1859,7 +1883,7 @@
                             return label;
                         });
 
-                    update_log("text label " + d3.select(this).attr("id"), "label", "leave a label", "mouseleave", "", "", "", "", "");
+                    update_log("ltree", "text label " + d3.select(this).attr("id"), "label", "leave a label", "mouseleave", "", "", "", "", "");
                 });
 
             h2_nodeEnter
@@ -1899,7 +1923,7 @@
                 .on("mouseover", function (d) {
                     //console.log(this);
                     d3.select(this).style("cursor", "default");
-                    update_log("node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click", "", "", "", "", "");
+                    update_log("ltree", "node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click", "", "", "", "", "");
                 });
 
             function click(d) {
@@ -2011,7 +2035,7 @@
                     return "g-" + id;
                 })
                 .on("click", function (d) {
-                    update_log("node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
+                    update_log("ltree", "node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
                     click(d);
                     d3.select("#lines").remove();
 
@@ -2032,6 +2056,25 @@
                 .duration(function (d) {
                     //console.log("NODE UPDATE");
                     return duration;
+                })
+                .style("stroke", function (d) {
+                    if (d.parent) {
+                        //console.log(d.parent);
+                        var pid = d.parent.data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+
+                        if (d.parent.children) {
+                            d3.select("#h1tree")
+                                .select(".triangle-" + pid)
+                                .style("stroke", "none")
+                                .style("fill", "none");
+                        }
+                    }
                 });
             /*
             .attr("transform", function (d) {
@@ -2269,7 +2312,7 @@
                     }
 
                     var label = d.data.data.description_child, child = "root", parent = "";
-                    update_log("node " + d3.select(this).attr("id"), "node", "hover on a node", "mouseover", "", "", "", "", "");
+                    update_log("ltree", "node " + d3.select(this).attr("id"), "node", "hover on a node", "mouseover", "", "", "", "", "");
                     if (label.includes("/")) {
                         child = label.substring(label.lastIndexOf("/") + 1, label.length);
                         parent = label.substring(0, label.lastIndexOf("/"));
@@ -2295,7 +2338,7 @@
 
 
 
-                    /* if (d3.select(this).style("fill") === "#FFD700") {
+                    /* if (d3.select(this).style("fill") === "gold") {
                         console.log(d3.select(this).style("fill"));
                         d3.select(this)
                             .transition()
@@ -2330,7 +2373,7 @@
                     }
 
 
-                    /* if (d3.select(this).style("fill") === "#FFD700") {
+                    /* if (d3.select(this).style("fill") === "gold") {
                         //console.log(d3.select(this).attr("class").includes("selected"));
 
                         console.log(d3.select(this).style("fill"));
@@ -2347,7 +2390,7 @@
                         .style("top", 0)
                         .style("opacity", 0);
 
-                    update_log("node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave", "", "", "", "", "");
+                    update_log("ltree", "node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave", "", "", "", "", "");
 
                 });
 
@@ -2454,7 +2497,7 @@
                             return d.data.data.child;
                         })
 
-                    update_log("node " + d3.select(this).attr("id"), "node", "hover on a node", "mouseover", "", "", "", "", "");
+                    update_log("ltree", "node " + d3.select(this).attr("id"), "node", "hover on a node", "mouseover", "", "", "", "", "");
                 })
                 .on("mouseleave", function (d) {
                     d3.select(this)
@@ -2464,7 +2507,7 @@
                         .style("fill", label_color)
                         .style("cursor", "default");
 
-                    update_log("node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave", "", "", "", "", "");
+                    update_log("ltree", "node " + d3.select(this).attr("id"), "node", "leave a node", "mouseleave", "", "", "", "", "");
                 });
 
 
@@ -2513,7 +2556,7 @@
                 .on("mouseover", function (d) {
                     //console.log(this);
                     d3.select(this).style("cursor", "default");
-                    update_log("node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click", "", "", "", "", "");
+                    update_log("ltree", "node " + d.data.data.description_child, "triangle", "expand/collapse triangle", "click", "", "", "", "", "");
                 });
 
 
@@ -2540,9 +2583,13 @@
                 h1tree(d, h1_root);
                 setTimeout(() => {
                     d3.select("#h1tree").selectAll(".search-rect").each(function (d) {
+                        var x = 0, y = 0;
                         console.log(d3.select(this).attr("id").replace("rect-", ""));
-                        var x = d3.select("#h1tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cx") - radius - rect_offset;
-                        var y = d3.select("#h1tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cy") - radius - rect_offset;
+
+                        x = d3.select("#h1tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cx") - radius - rect_offset;
+                        y = d3.select("#h1tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cy") - radius - rect_offset;
+
+
                         d3.select(this)
                             .attr("x", x)
                             .attr("y", y);
@@ -2673,12 +2720,12 @@
                         //console.log(levelline);
                         //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
                         if (document.getElementById("line-level-l" + levelline).style.opacity == 0.6) {
-                            update_log("line-level-l" + levelline, "level line", "hide level line " + levelline, "click", "", "", "", "", "");
+                            update_log("ltree", "line-level-l" + levelline, "level line", "hide level line " + levelline, "click", "", "", "", "", "");
                             d3.select("#line-level-l" + levelline)
                                 .style("opacity", 0);
                         }
                         else {
-                            update_log("line-level-l" + levelline, "level line", "show level line " + levelline, "click", "", "", "", "", "");
+                            update_log("ltree", "line-level-l" + levelline, "level line", "show level line " + levelline, "click", "", "", "", "", "");
                             d3.select("#line-level-l" + levelline)
                                 .style("opacity", 0.6);
                         }
@@ -2719,19 +2766,19 @@
                         return "Level: " + i;
                     })
                     .on("mouseover", function (d) {
-                        update_log(d3.select(this).attr("id"), "levelline", "emphasize levelline", "mouseover", "", "", "", "", "");
+                        update_log("ltree", d3.select(this).attr("id"), "levelline", "emphasize levelline", "mouseover", "", "", "", "", "");
                         d3.select(this).style("cursor", "pointer");
                     })
                     .on("click", function (d) {
                         var levelline = d3.select(this).text().split(": ")[1];
                         //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
                         if (document.getElementById("line-chart-l" + levelline).style.opacity == 0.7) {
-                            update_log("line-chart-l" + levelline, "level line", "hide level line ", "click", "", "", "", "", "");
+                            update_log("ltree", "line-chart-l" + levelline, "level line", "hide level line ", "click", "", "", "", "", "");
                             d3.select("#line-chart-l" + levelline)
                                 .style("opacity", 0);
                         }
                         else {
-                            update_log("line-chart-l" + levelline, "level line", "show level line ", "click", "", "", "", "", "");
+                            update_log("ltree", "line-chart-l" + levelline, "level line", "show level line ", "click", "", "", "", "", "");
                             d3.select("#line-chart-l" + levelline)
                                 .style("opacity", 0.7);
                         }
@@ -2976,8 +3023,8 @@
 
                             //else if (d3.select("#curvedlradio")._groups[0][0].checked == true)  {
 
-                            //var pathcurve = d3.line().curve(d3.curveNatural);
-                            var pathcurve = d3.line().curve(d3.curveCardinal);
+                            var pathcurve = d3.line().curve(d3.curveNatural);
+                            //var pathcurve = d3.line().curve(d3.curveStep);
 
 
 
@@ -3033,7 +3080,7 @@
 
 
                                     var label = d3.select(this).attr("h2child"), child = "root", parent = "";
-                                    update_log("connecting link " + label, "link", "hover on a common link", "mouseover", "", "", "", "", "");
+                                    update_log("ltree", "connecting link " + label, "link", "hover on a common link", "mouseover", "", "", "", "", "");
 
                                     if (label.includes("/")) {
                                         child = label.substring(label.lastIndexOf("/") + 1, label.length);
@@ -3084,7 +3131,7 @@
                                         .attr("r", radius - 4)
                                         .style("opacity", opacity);
 
-                                    update_log("connecting link " + d3.select(this).attr("id"), "link", "leave a link", "mouseleave", "", "", "", "", "");
+                                    update_log("ltree", "connecting link " + d3.select(this).attr("id"), "link", "leave a link", "mouseleave", "", "", "", "", "");
                                 });
 
                             // }
@@ -3132,7 +3179,7 @@
         }
 
 
-        function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer, score) {
+        function update_log(pageID, elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, correctanswer, score) {
             var date = new Date();
 
 
@@ -3143,7 +3190,7 @@
                 "vizID": "linkedtree",
                 "screenWidth": window.innerWidth,
                 "screenHeight": window.innerHeight,
-                "pageID": "linkedtree viz page",
+                "pageID": pageID,
                 "elementID": elementID,
                 "elementType": elementType,
                 "elementDescription": elementDescription,

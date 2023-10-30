@@ -52,8 +52,8 @@ function twl_experimentquestions(qcounter) {
         {
             "qid": "E5.",
             "question": "Is the element filename:<i>root/hcil/about/pictures/reddot.gif</i> available in both hierarchies?",
-            "answer": "No, it is available only in the AfterH",
-            "options": ["Yes, it is available in both hierarchies", "No, it is available only in the BeforeH", "No, it is available only in the AfterH"]
+            "answer": "No. It is available only in the AfterH",
+            "options": ["Yes. It is available in both hierarchies", "No. It is available only in the BeforeH", "No. It is available only in the AfterH"]
 
         },
 
@@ -62,12 +62,12 @@ function twl_experimentquestions(qcounter) {
             "question": "Node file:<i>root/hcil/pda/thesis/thesis-pda/postscript.html</i> in the BeforeH has gone through a change/s. What is/are the change/s?",
             "answer": "The file has moved up one level in to the folder<i>root/hcil/pda/thesis</i>.",
             "options": ["The file has moved to a different folder on the same level.", "The file has moved down one level in to a sub-folder inside the parent folder:<i>root/hcil/pda/thesis/thesis-pda/thesis-draft/postscript.html</i>.", "The file has moved up one level in to the folder<i>root/hcil/pda/thesis</i>."]
-
+ 
         },
  */
         {
             "qid": "E6.",
-            "question": "Has the contents of folder:<i>root/hcil/piccolo/applications</i> changed?",
+            "question": "Choose the best description for the folder:<i>root/hcil/piccolo/applications</i> changed?",
             "answer": "One folder and a file have been retained",
             "options": ["Some files have been deleted", "The folder contents have not changed at all", "One folder and a file have been retained", "One file has been added"]
 
@@ -111,6 +111,8 @@ function twl_experimentquestions(qcounter) {
     ];
 
 
+
+
     //console.log(list_questions[qcounter]);
     //console.log(document.getElementsByName("traininganswer").length);
     d3.select(".btn-warning")
@@ -144,7 +146,7 @@ function twl_experimentquestions(qcounter) {
             for (var i = 0; i < list_questions[qcounter].options.length; i++) {
                 d3.select("#qanda_options")
                     .append("input")
-                    .attr("class", "form-check-input")
+                    .attr("class", "form-check-input radiobuttons")
                     .attr("type", "radio")
                     .attr("name", "experimentanswer")
                     .attr("id", "option" + i)
@@ -209,7 +211,7 @@ function twl_experimentquestions(qcounter) {
             else
                 score = 0;
 
-            update_log("btn-nextquestion", "button", "display question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+            //update_log("btn-nextquestion", "button", "display question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
 
 
             d3.select("#btn-nextquestion")._groups[0][0].disabled = false;

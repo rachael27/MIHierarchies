@@ -113,7 +113,9 @@
         <div class="row" id="sticky" style="background-color: white;">
             <div class="col-4">
 
-                <fieldset class="border p-2" style="margin-top:150px;">
+                <!--<img src="Images/notations-key.png" style="margin-top: 2%; margin-left: 2%;" width="70%">-->
+
+                <fieldset class="border p-2" style="margin-top:2%;">
                     <!--<legend class="w-auto">Choose layout</legend>-->
                     <br>
                     <button type="button" class="btn btn-md" id="btn-changeonlylayout"
@@ -463,7 +465,7 @@
 
 
 
-        var qcounter = -1;
+        var qcounter = 0;
         var logObject = [];
 
 
@@ -483,13 +485,13 @@
         var h2_tree = "", h1_tree = ""; hier_root = "";
         var mtree = "";
         const vizID = "mergedtree";
-        const pageID = "mtree";
+        var pageID = "mtree";
         var screenSize = localStorage.getItem("screenSize");
 
 
         var title = [];
 
-        update_log("", "landed on the mergedtree page", "", "", "", "", "", "", "");
+        update_log("mtree", "", "landed on the mergedtree page", "", "", "", "", "", "", "");
         var stree_label_size = 10;
         var label_size = 15;
 
@@ -519,7 +521,7 @@
 
         d3.select("#btn-changeonlylayout").on("click", function () {
             layout = "changeonlylayout";
-            update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
+            update_log("mtree", "btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
             var flag = 0;
             mtree.descendants().reverse().forEach(function (element) {
                 flag = 0;
@@ -558,7 +560,7 @@
 
         d3.select("#btn-entirelayout").on("click", function () {
             layout = "entirelayout";
-            update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
+            update_log("mtree", "btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
 
             mtree.descendants().forEach(function (element) {
                 expand(element);
@@ -648,8 +650,10 @@
 
                 d3.select("#btn-backquestion").remove();
 
+
                 trainingquestions(0);
-                qcounter = -1;
+                qcounter = 0;
+
 
 
             }
@@ -663,7 +667,9 @@
 
                 d3.select("#btn-backquestion").remove();
 
+
                 experimentquestions(0);
+
             }
 
         }
@@ -688,30 +694,44 @@
 
         d3.select("#btn-nextquestion")
             .on("click", function () {
+                //console.log("QC " + qcounter);
 
-                console.log("click on butn");
+
+
+
+                //console.log("QC " + qcounter);
+
+                //console.log("click on butn");
                 //console.log(d3.select("#btn-nextquestion")._groups[0][0].disabled);
 
 
                 d3.select("#btn-nextquestion")._groups[0][0].disabled = true;
                 // console.log("submitted" + document.querySelector(".radiobuttons").checked);
 
-                if (urlpage == "trainingquestions")
+                if (urlpage == "trainingquestions") {
+                    pageID = "training";
                     qid = "T";
-                else
+                }
+                else {
+                    pageID = "experiment";
                     qid = "E";
-
-                if (!d3.select(".radiobuttons").empty()) {
-                    console.log(qcounter);
-                    update_log("btn-nextquestion", "button", "display question", "click", qid + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
                 }
 
-                if (qcounter == -1)
-                    qcounter = qcounter + 2;
+                if (!d3.select(".radiobuttons").empty()) {
+                    //console.log("hi");
+                    //console.log(list_questions[qcounter].question);
+                    update_log(pageID, "btn-nextquestion", "button", "display question", "click", qid + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+                    //update_log("btn-nextquestion", "button", "display question", "click", qid + qcounter, list_questions[qcounter].question, "yes", "yes", 0);
+                }
                 else
-                    qcounter++;
+                    update_log(pageID, "btn-nextquestion", "button", "display question", "click", qid + qcounter, list_questions[qcounter].question, "yes", "yes", 0);
 
-                //console.log("QC " + qcounter);
+
+                qcounter++;
+
+                //console.log(list_questions[qcounter].question);
+
+
 
                 if (urlpage == "trainingquestions") {
                     //update_log("btn-nextquestion", "button", "display training question " + qcounter);
@@ -978,7 +998,7 @@
 
             d3.select("#btn-clear")
                 .on("click", function () {
-                    update_log("btn-clear", "button", "clear the value in the search box", "click", "", "", "", "", "")
+                    update_log("mtree", "btn-clear", "button", "clear the value in the search box", "click", "", "", "", "", "")
 
                     d3.select("#search-nodes").node().value = "";
 
@@ -1018,7 +1038,7 @@
 
                     //if (document.getElementById("tog-hierarchy").checked) {
                     child = d3.select("#search-nodes").node().value;
-                    update_log("btn-search", "button", "Search for value " + child, "click", "", "", "", "", "");
+                    update_log("mtree", "btn-search", "button", "Search for value " + child, "click", "", "", "", "", "");
 
                     var offsetHeight = document.getElementById('sticky').offsetHeight;
                     console.log(offsetHeight);
@@ -1197,7 +1217,7 @@
 
             d3.select("#btn-changeonlylayout").on("click", function () {
                 layout = "changeonlylayout";
-                update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
+                update_log("mtree", "btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
                 var flag = 0;
                 d3.select("#mergedtree").selectAll("g").remove();
                 mtree.descendants().reverse().forEach(function (element) {
@@ -1237,7 +1257,7 @@
 
             d3.select("#btn-entirelayout").on("click", function () {
                 layout = "entirelayout";
-                update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
+                update_log("mtree", "btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
                 d3.select("#mergedtree").selectAll("g").remove();
                 mtree.descendants().forEach(function (element) {
                     expand(element);
@@ -1443,7 +1463,7 @@
 
                 var h2tree = d3
                     .tree()
-                    .size([Math.round(.40 * width), Math.round(.10 * height)]);
+                    .size([Math.round(.3 * width), Math.round(.10 * height)]);
                 //.size([Math.round(.25 * width), Math.round(.10 * height)]);
 
 
@@ -1484,7 +1504,7 @@
                     .append("g")
                     .attr("id", "h2tree")
                     //.attr("transform", "translate(" + parseInt(width - Math.round(.25 * width) - 100) + "," + 100 + ")")
-                    .attr("transform", "translate(" + parseInt(width - Math.round(.40 * width) - 100) + "," + 100 + ")")
+                    .attr("transform", "translate(" + parseInt(width - Math.round(.3 * width) - 100) + "," + 100 + ")")
                     .selectAll(".h2_node")
                     .data(data_nodes)
                     //.data(h2_tree.descendants())
@@ -1499,7 +1519,7 @@
                     .append("rect")
                     .attr('x', -30)
                     .attr('y', -30)
-                    .attr('width', Math.round(.4 * width + 50))
+                    .attr('width', Math.round(.3 * width + 50))
                     .attr('height', Math.round(.075 * height + 100))
                     .attr('stroke', 'black')
                     .attr('fill', 'none');
@@ -1523,8 +1543,8 @@
                     .style("opacity", function (d) {
                         return 0.5;
                     })
-                    //.style("stroke", "#ccc")
-                    .style("stroke", "green")
+                    .style("stroke", "grey")
+                    //.style("stroke", "green")
                     .style("fill", "none")
                     .style("stroke-width", "1px");
 
@@ -1560,12 +1580,10 @@
                             .toLowerCase();
                     })
                     .style("fill", function (d) {
-                        //if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                        //return h1color;
-                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
                         return h2color;
 
                     })
+                    .style("fill", "grey")
                     // .style("opacity", 1)
 
                     .style("opacity", function (d) {
@@ -1578,7 +1596,7 @@
                             parent = label.substring(0, label.lastIndexOf("/"));
                         }
 
-                        update_log("h2 node " + label, "node", "display tooltip", "mouseover", "", "", "", "", "");
+                        update_log("mtree", "h2 node " + label, "node", "display tooltip", "mouseover", "", "", "", "", "");
                         //console.log(parent + " " + child);
 
                         var type = "";
@@ -1638,12 +1656,7 @@
                 h2_node
                     .append("text")
                     .style("font-size", function (d) {
-                        //if (d3.select("#fileversion3radio")._groups[0][0].checked == true)
-                        //  return "10px";
-                        //else
                         return stree_label_size - d.depth;
-                        //console.log(data_nodes[0]);
-                        //return data_nodes[0].height - 1.5 + "em";
                     })
                     .attr("class", function (d) {
                         return "text h2tree_" + d.data.data.child
@@ -1654,10 +1667,8 @@
                             .replaceAll(")", "")
                             .toLowerCase();
                     })
-
                     .attr("dy", "2em")
                     .attr("x", function (d) {
-
                         if ((this.previousSibling).getAttribute("class").includes("leaf"))
                             return d.x - 8;
                         else
@@ -1672,22 +1683,8 @@
                     .attr("text-anchor", function (d) {
                         return "start";
                     })
-
-                    .style("opacity", function (d) {
-                        /*  if (d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion2radio")._groups[0][0].checked == true) {
-                             if (d.depth <= 1)
-                                 return 1;
-                             else
-                             return 0;
-                         }
-                         //  console.log(d);
-     
-                         else return 1; */
-                        // if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                        return 0;
-                        // else
-                        //   return 1;
-                    })
+                    .style("color", "red")
+                    .style("opacity", 0)
                     .text(function (d) {
                         // console.log(d);
                         var label = d.data.data.child;
@@ -1701,6 +1698,29 @@
 
 
             /* END OF h2 TREE*/
+
+            mergedtree_svg
+                .append("g")
+                .attr("id", "notations-key")
+                .attr("transform", "translate(" + Math.round(.38 * width) + ",100)")
+                .append("image")
+                .attr("id", "img-key")
+                //.attr('x', -9)
+                //.attr('y', -12)
+                .attr('width', width * .2)
+                .attr('height', height * .1)
+                .attr("xlink:href", "Images/notations-key-light.png");
+
+            d3.select("#notations-key")
+                .append("rect")
+                .attr("width", parseInt(d3.select("#img-key").attr("width")) + 5)
+                .attr("height", parseInt(d3.select("#img-key").attr("height")) + 10)
+                .style("fill", "none")
+                .style("stroke-width", "3px")
+                .style("stroke", "gold");
+
+
+
 
 
 
@@ -1717,7 +1737,7 @@
                 h1tree = d3
                     .tree()
                     //.nodeSize([]);
-                    .size([Math.round(.4 * width), Math.round(.10 * height)]);
+                    .size([Math.round(.3 * width), Math.round(.10 * height)]);
 
 
 
@@ -1747,7 +1767,7 @@
                     .append("rect")
                     .attr('x', -30)
                     .attr('y', -30)
-                    .attr('width', Math.round(.4 * width) + 50)
+                    .attr('width', Math.round(.3 * width) + 50)
                     .attr('height', Math.round(.075 * height + 100))
                     .attr('stroke', 'black')
                     .attr('fill', 'none');
@@ -1779,8 +1799,8 @@
                     .style("opacity", function (d) {
                         return 0.3;
                     })
-                    //.style("stroke", "#ccc")
-                    .style("stroke", "red")
+                    .style("stroke", "grey")
+                    //.style("stroke", "red")
                     .style("fill", "none")
                     .style("stroke-width", "1px");
 
@@ -1794,12 +1814,7 @@
                     .attr("cy", function (d) {
                         return d.y;
                     })
-                    .attr("r", function (d) {
-                        //if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                        //  return h1_radius + "px";
-                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                        return (h1_radius - 4) + "px";
-                    })
+                    .attr("r", (h1_radius - 4) + "px")
                     .attr("class", function (d) {
                         return (
                             "node" + (d.children ? " node--internal" : " node--leaf")
@@ -1814,20 +1829,8 @@
                             .replaceAll(")", "")
                             .toLowerCase();
                     })
-                    .style("fill", function (d) {
-                        // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                        //return h2color;
-                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                        return "white";
-                    })
-                    .style("stroke", function (d) {
-                        //console.log(h2color);
-                        // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
-                        //   return "none";
-                        //if (d3.select("#hollowshaperadio")._groups[0][0].checked == true)
-                        return h2color;
-
-                    })
+                    .style("fill", "white")
+                    .style("stroke", "grey")
                     .style("stroke-width", function (d) {
                         // if (d3.select("#solidshaperadio")._groups[0][0].checked == true)
                         //    return "0px";
@@ -1841,7 +1844,7 @@
                     })
                     .on("mouseover", function (d, i) {
                         var label = d.data.data.description_child, child = "root", parent = "";
-                        update_log("h1 node " + label, "label", "display tooltip", "mouseover", "", "", "", "", "");
+                        update_log("mtree", "h1 node " + label, "label", "display tooltip", "mouseover", "", "", "", "", "");
 
                         if (label.includes("/")) {
                             child = label.substring(label.lastIndexOf("/") + 1, label.length);
@@ -1915,10 +1918,6 @@
                     .append("text")
                     .style("font-size", function (d) {
                         return stree_label_size - d.depth;
-                        //  if (d3.select("10px";
-                        //else
-                        //  return "20px";
-                        //  return (h1_tree.descendants()[0].height + 2) - (d.depth) + "em";
                     })
                     .attr("class", function (d) {
                         return "text h1tree_" + d.data.data.child
@@ -1945,27 +1944,13 @@
                         if (d3.select(this.parentNode)._groups[0][0].children[1].getAttribute("class").includes("leaf"))
                             return d.y - 10;
                         else
-                            return d.y - 30;
+                            return d.y - 20;
                     })
                     .attr("text-anchor", function (d) {
                         return "start";
                     })
-
-                    .style("opacity", function (d) {
-                        /*  if (d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion2radio")._groups[0][0].checked == true) {
-                             if (d.depth <= 1)
-                                 return 1;
-                             else
-                             return 0;
-                         }
-                         //  console.log(d);
-     
-                         else return 1; */
-                        //  if (d3.select("#fileversion2radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion3radio")._groups[0][0].checked == true || d3.select("#fileversion6radio")._groups[0][0].checked == true)
-                        return 0;
-                        //else
-                        //  return 1;
-                    })
+                    .style("color", "red")
+                    .style("opacity", 0)
                     .text(function (d) {
                         // console.log(d);
                         var label = d.data.data.child;
@@ -2126,7 +2111,7 @@
                         return "translate(" + source.x + "," + y + ")";
                     })
                     .on("click", function (d) {
-                        update_log("mtree node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
+                        update_log("mtree", "mtree node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
                         //console.log("click");
                         //console.log(hier_root);
                         click(d, hier_root);
@@ -2147,6 +2132,9 @@
                     })
                     .style("stroke", function (d) {
                         //console.log("tri update");
+                        //console.log(source);
+                        //console.log(d);
+
                         var id = source.data.data.child
                             .replaceAll(/\//g, "")
                             .replaceAll(".", "")
@@ -2164,11 +2152,33 @@
                                 .style("stroke", triangleColor)
                                 .style("fill", triangleColor);
 
+                        if (d.parent) {
+                            //console.log(d.parent);
+                            var pid = d.parent.data.data.child
+                                .replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+
+                            if (d.parent.children) {
+                                d3.select(".triangle-" + pid)
+                                    .style("stroke", "none")
+                                    .style("fill", "none");
+                            }
+                        }
+
 
                         if (d.children)
                             return "none";
                         else
                             return triangleColor;
+
+
+
+
+
 
 
                     })
@@ -2188,10 +2198,31 @@
                             d3.select(".triangle-" + id)
                                 .style("stroke", triangleColor)
                                 .style("fill", triangleColor);
+
                         if (d.children)
                             return "none";
                         else
                             return triangleColor;
+
+                        if (d.parent) {
+
+                            var pid = d.parent.data.data.child
+                                .replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+
+                            console.log("pid " + pid);
+
+                            if (d.parent.children) {
+                                d3.select(".triangle-" + pid)
+                                    .style("stroke", "none")
+                                    .style("fill", "none");
+                            }
+
+                        }
 
 
                     });
@@ -2456,10 +2487,24 @@
 
                         //    else if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
                         //console.log("hollow");
-                        if (d.data.data.shape == "h2")
+                        //console.log(d);
+
+                        /*  if (d.data.data.shape == "h2")
+                             return "white";
+                         else
+                             return h2color; */
+                        //solid
+
+
+                        if (d.data.data.shape == "h1")
+                            return "green";
+                        else if (d.data.data.shape == "h2")
                             return "white";
                         else
-                            return h2color;
+                            return "blue";
+
+
+
                         //  }
 
 
@@ -2468,10 +2513,24 @@
                     // .style("opacity", 1)
                     //.style("fill", "yellow")
                     .style("stroke", function (d) {
-                        if (d.data.data.shape == "h2")
+                        /*  if (d.data.data.shape == "h2")
+                             return "none";
+                         else
+                             return h2color; */
+
+
+                        if (d.data.data.shape == "h1")
+                            return "green";
+                        else if (d.data.data.shape == "h2")
                             return "none";
                         else
-                            return h2color;
+                            return "blue";
+
+
+
+                        //return "none";
+
+
                     })
 
                     .style("stroke-dasharray", function (d) {
@@ -2485,10 +2544,11 @@
                     })
 
                     .style("opacity", function (d) {
-                        if (d.data.data.shape == "h2")
+                        /* if (d.data.data.shape == "h2")
                             return 0.1;
                         else
-                            return 1;
+                            return 1; */
+                        return 1;
                     })
                     .on("mouseover", function (d) {
                         var circle_id = this.getAttribute("id");
@@ -2498,7 +2558,7 @@
                         //console.log(circle_id);
 
 
-                        update_log("mtree inner node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
+                        update_log("mtree", "mtree inner node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
 
 
 
@@ -2558,7 +2618,7 @@
                                     //console.log(node_id);
                                     //console.log(children[j]);
                                     d3.select("#h2tree").select("#h2tree_" + node_id).style("opacity", "1");
-                                    d3.select("#h2tree").selectAll(".text" + ".h2tree_" + node_id).style("opacity", "1");
+                                    d3.select("#h2tree").selectAll(".text.h2tree_" + node_id).style("opacity", "1");
                                 }
 
                             }
@@ -2612,7 +2672,7 @@
                                     //console.log(node_id);
                                     //console.log(children[j]);
                                     d3.select("#h1tree").select("#h1tree_" + node_id).style("opacity", "1");
-                                    d3.select("#h1tree").selectAll(".text" + "." + node_id).style("opacity", "1");
+                                    d3.select("#h1tree").selectAll(".text.h1tree_" + node_id).style("opacity", "1");
                                 }
 
                             }
@@ -2622,20 +2682,18 @@
 
                         //mlexp
                         //if (!(d3.select(".mergedtree_" + circle_id + "_outer").attr("class").includes("selected") && d3.select(".mergedtree_" + circle_id + "_inner").attr("class").includes("selected"))) {
-                        if (d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "blue") {
+                        if (d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "blue" || d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "red") {
                             //console.log("1 outer is red");
-
                             d3.select(".mergedtree_" + circle_id + "_outer")
-                                .style("stroke", "red")
+                                .style("stroke", "gold")
                                 .style("stroke-width", circle_stroke + 3);
                         }
-                        else if (d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "none" && d3.select(".mergedtree_" + circle_id + "_inner").style("stroke") == "blue") {
-                            //console.log("1 inner is red");
-
+                        else if (d3.select(".mergedtree_" + circle_id + "_inner").style("stroke") == "green") {
                             d3.select(".mergedtree_" + circle_id + "_inner")
-                                .style("stroke", "red")
+                                .style("stroke", "gold")
                                 .style("stroke-width", circle_stroke + 3);
                         }
+
 
                         for (var i = 0; i < root.path(d).length - 1; i++) {
                             path.push(root.path(d)[i].data.data.child);
@@ -2649,16 +2707,16 @@
 
                             //console.log("others " + id);
                             // console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
-                            if ((d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue") || (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "none")) {
+                            if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" || d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "red") {
                                 //console.log("over red outer " + id);
                                 d3.select(".mergedtree_" + id + "_outer")
-                                    .style("stroke", "red")
+                                    .style("stroke", "gold")
                                     .style("stroke-width", circle_stroke + 3);
                             }
-                            else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_outer").style("stroke") == "none") {
+                            else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "green") {
                                 //console.log("over red inner " + id);
                                 d3.select(".mergedtree_" + id + "_inner")
-                                    .style("stroke", "red")
+                                    .style("stroke", "gold")
                                     .style("stroke-width", circle_stroke + 3);
                             }
 
@@ -2783,22 +2841,19 @@
 
                             //console.log(id);
 
-                            if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "red") {
-                                //if (id == circle_id) {
-                                //console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
-                                //console.log("leave blue outer " + id);
-                                //}
+                            if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "gold" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue") {
                                 d3.select(".mergedtree_" + id + "_outer")
                                     .style("stroke", "blue")
                                     .style("stroke-width", circle_stroke);
                             }
-                            else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "red") {
-                                //if (id == circle_id) {
-                                //console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
-                                //console.log("leave blue inner " + id);
-                                //}
+                            else if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "gold" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "none") {
+                                d3.select(".mergedtree_" + id + "_outer")
+                                    .style("stroke", "red")
+                                    .style("stroke-width", circle_stroke);
+                            }
+                            else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "gold") {
                                 d3.select(".mergedtree_" + id + "_inner")
-                                    .style("stroke", "blue")
+                                    .style("stroke", "green")
                                     .style("stroke-width", "0px");
                             }
 
@@ -2904,12 +2959,21 @@
                     .style("stroke", function (d) {
                         //if (d.data.data.shape == "h2" || d.data.data.shape == "merged")
                         //  return h2color;
-                        //console.log(d);
-                        if (d.data.data.shape == "h2" || d.data.data.shape == "merged")
-                            return d.data.data.levelcolor;
-                        //return h2color;
+                        //console.log(" outer stroke" + d.data.data.shape + " " + d.data.data.child + " " + d.data.data.linkcolor);
 
-                        else return "none";
+                        /*  if (d.data.data.shape == "h2" || d.data.data.shape == "merged")
+                             return d.data.data.levelcolor;
+ 
+                         else return "none"; */
+
+                        if (d.data.data.shape == "h1")
+                            return "none";
+                        else if (d.data.data.shape == "h2")
+                            return "red";
+                        else
+                            return "blue";
+
+
                     })
                     .style("stroke-width", circle_stroke)
                     .style("stroke-dasharray", function (d) {
@@ -2932,7 +2996,7 @@
                         //console.log("mover");
 
 
-                        update_log("mtree outer node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
+                        update_log("mtree", "mtree outer node " + circle_id, "node", "hovering on a node", "mouseover", "", "", "", "", "");
 
 
 
@@ -2995,7 +3059,7 @@
                                     //console.log(node_id);
                                     //console.log(children[j]);
                                     d3.select("#h2tree").select("#h2tree_" + node_id).style("opacity", "1");
-                                    d3.select("#h2tree").selectAll(".text" + ".h2tree_" + node_id).style("opacity", "1");
+                                    d3.select("#h2tree").selectAll(".text.h2tree_" + node_id).style("opacity", "1");
                                 }
 
                             }
@@ -3017,8 +3081,8 @@
                             .style("opacity", 1);
 
                         d3.select("#h1tree")
-                            .selectAll(".text")
-                            .selectAll(".h1tree_" + circle_id)
+                            // .selectAll(".text")
+                            .selectAll(".text.h1tree_" + circle_id)
                             .style("opacity", 1);
                         //console.log(h1path);
 
@@ -3049,7 +3113,7 @@
                                     //console.log(node_id);
                                     //console.log(children[j]);
                                     d3.select("#h1tree").select("#h1tree_" + node_id).style("opacity", "1");
-                                    d3.select("#h1tree").selectAll(".text" + "." + node_id).style("opacity", "1");
+                                    d3.select("#h1tree").selectAll(".text.h1tree_" + node_id).style("opacity", "1");
                                 }
 
                             }
@@ -3059,18 +3123,16 @@
                         //mlexp
 
                         //if (!(d3.select(".mergedtree_" + circle_id + "_outer").attr("class").includes("selected") || d3.select(".mergedtree_" + circle_id + "_inner").attr("class").includes("selected"))) {
-                        if (d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "blue") {
-                            //console.log("1 outer is red");
-
-                            d3.select(".mergedtree_" + circle_id + "_outer")
-                                .style("stroke", "red")
+                        if (d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "blue" || d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "red") {
+                            //console.log("over red outer " + id);
+                            d3.select(".mergedtree_" + id + "_outer")
+                                .style("stroke", "gold")
                                 .style("stroke-width", circle_stroke + 3);
                         }
-                        else if (d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "none" && d3.select(".mergedtree_" + circle_id + "_inner").style("stroke") == "blue") {
-                            //console.log("1 inner is red");
-
-                            d3.select(".mergedtree_" + circle_id + "_inner")
-                                .style("stroke", "red")
+                        else if (d3.select(".mergedtree_" + circle_id + "_inner").style("stroke") == "green") {
+                            //console.log("over red inner " + id);
+                            d3.select(".mergedtree_" + id + "_inner")
+                                .style("stroke", "gold")
                                 .style("stroke-width", circle_stroke + 3);
                         }
 
@@ -3087,16 +3149,16 @@
 
                             //console.log("others " + id);
                             // console.log(d3.select(".mergedtree_" + id + "_outer").style("stroke") + " " + d3.select(".mergedtree_" + id + "_inner").style("stroke"));
-                            if ((d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue") || (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "none")) {
+                            if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "blue" || d3.select(".mergedtree_" + circle_id + "_outer").style("stroke") == "red") {
                                 //console.log("over red outer " + id);
                                 d3.select(".mergedtree_" + id + "_outer")
-                                    .style("stroke", "red")
+                                    .style("stroke", "gold")
                                     .style("stroke-width", circle_stroke + 3);
                             }
-                            else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue" && d3.select(".mergedtree_" + id + "_outer").style("stroke") == "none") {
+                            else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "green") {
                                 //console.log("over red inner " + id);
                                 d3.select(".mergedtree_" + id + "_inner")
-                                    .style("stroke", "red")
+                                    .style("stroke", "gold")
                                     .style("stroke-width", circle_stroke + 3);
                             }
 
@@ -3221,18 +3283,19 @@
                                 .toLowerCase();
 
 
-                            if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "red") {
-                                //if (id == circle_id)
-                                //console.log("leave blue outer " + id);
+                            if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "gold" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "blue") {
                                 d3.select(".mergedtree_" + id + "_outer")
                                     .style("stroke", "blue")
                                     .style("stroke-width", circle_stroke);
                             }
-                            else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "red") {
-                                //if (id == circle_id)
-                                //console.log("leave blue inner " + id);
+                            else if (d3.select(".mergedtree_" + id + "_outer").style("stroke") == "gold" && d3.select(".mergedtree_" + id + "_inner").style("stroke") == "none") {
+                                d3.select(".mergedtree_" + id + "_outer")
+                                    .style("stroke", "red")
+                                    .style("stroke-width", circle_stroke);
+                            }
+                            else if (d3.select(".mergedtree_" + id + "_inner").style("stroke") == "gold") {
                                 d3.select(".mergedtree_" + id + "_inner")
-                                    .style("stroke", "blue")
+                                    .style("stroke", "green")
                                     .style("stroke-width", "0px");
                             }
 
@@ -3424,7 +3487,7 @@
                     .on("mouseover", function (d) {
 
                         //console.log();
-                        update_log("magnify label " + d3.select(this).attr("id"), "text label", "emphasize label", "mouseover", "", "", "", "", "");
+                        update_log("mtree", "magnify label " + d3.select(this).attr("class"), "text label", "emphasize label", "mouseover", "", "", "", "", "");
 
                         if ((document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "blue" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue") || (document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_inner")[0].style.stroke == "none" && document.getElementsByClassName(d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer")[0].style.stroke == "blue"))
                             d3.select("." + d3.select(this.parentNode)._groups[0][0].children[2].getAttribute("id") + "_outer.text")
@@ -3874,12 +3937,12 @@
                             console.log(levelline);
                             //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
                             if (document.getElementById("line-level-l" + levelline).style.opacity == 0.6) {
-                                update_log("line-level-l" + levelline, "level line", "hide level line " + levelline, "click", "", "", "", "", "");
+                                update_log("mtree", "line-level-l" + levelline, "level line", "hide level line " + levelline, "click", "", "", "", "", "");
                                 d3.select("#line-level-l" + levelline)
                                     .style("opacity", 0);
                             }
                             else {
-                                update_log("line-level-l" + levelline, "level line", "show level line " + levelline, "click", "", "", "", "", "");
+                                update_log("mtree", "line-level-l" + levelline, "level line", "show level line " + levelline, "click", "", "", "", "", "");
                                 d3.select("#line-level-l" + levelline)
                                     .style("opacity", 0.6);
                             }
@@ -3918,19 +3981,19 @@
                             return "Level: " + i;
                         })
                         .on("mouseover", function (d) {
-                            update_log(d3.select(this).attr("id"), "levelline", "emphasize levelline", "mouseover", "", "", "", "", "");
+                            //update_log(d3.select(this).attr("id"), "levelline", "emphasize levelline", "mouseover", "", "", "", "", "");
                             d3.select(this).style("cursor", "pointer");
                         })
                         .on("click", function (d) {
                             var levelline = d3.select(this).text().split(": ")[1];
                             //alert(document.getElementById("line-chart-l" + levelline).style.opacity);
                             if (document.getElementById("line-chart-l" + levelline).style.opacity == 0.7) {
-                                update_log("line-chart-l" + levelline, "level line", "hide level line ", "click", "", "", "", "", "");
+                                update_log("mtree", "line-chart-l" + levelline, "level line", "hide level line ", "click", "", "", "", "", "");
                                 d3.select("#line-chart-l" + levelline)
                                     .style("opacity", 0);
                             }
                             else {
-                                update_log("line-chart-l" + levelline, "level line", "show level line ", "click", "", "", "", "", "");
+                                update_log("mtree", "line-chart-l" + levelline, "level line", "show level line ", "click", "", "", "", "", "");
                                 d3.select("#line-chart-l" + levelline)
                                     .style("opacity", 0.7);
                             }
@@ -3946,19 +4009,19 @@
                         .append("g")
                         .attr("id", "linkbutton")
                         .on("mouseover", function (d) {
-                            update_log(d3.select(this).attr("id"), "linkbutton", "show/hide alternate links", "mouseover", "", "", "", "", "");
+                            update_log("mtree", d3.select(this).attr("id"), "linkbutton", "show/hide alternate links", "mouseover", "", "", "", "", "");
                             d3.select(this).style("cursor", "pointer");
                         })
                         .on("click", function (d) {
                             if (d3.selectAll(".altlink")._groups[0].length == 0) {
                                 console.log("show");
-                                update_log("altlink", "altlink", "show alternate links", "click", "", "", "", "", "");
+                                update_log("mtree", "altlink", "altlink", "show alternate links", "click", "", "", "", "", "");
                                 showlinks();
                             }
 
                             else {
                                 console.log("hide");
-                                update_log("altlink", "altlink", "hide alternate links", "click", "", "", "", "", "");
+                                update_log("mtree", "altlink", "altlink", "hide alternate links", "click", "", "", "", "", "");
                                 hidelinks();
                             }
                         });
@@ -4016,7 +4079,7 @@
 
                             //if (document.getElementById("line-level-l" + l).style.opacity == 0.6) {
                             if (flag_levelline == 1) {
-                                update_log("btn-level-line", "button", "hide level lines", "click", "", "", "", "", "");
+                                update_log("mtree", "btn-level-line", "button", "hide level lines", "click", "", "", "", "", "");
                                 flag_levelline = 0;
                                 for (var l = 0; l < h1levels.length; l++) {
                                     d3.select("#line-level-l" + l)
@@ -4025,7 +4088,7 @@
                             }
                             else {
                                 flag_levelline = 1;
-                                update_log("btn-level-line", "button", "show level lines", "click", "", "", "", "", "");
+                                update_log("mtree", "btn-level-line", "button", "show level lines", "click", "", "", "", "", "");
                                 for (var l = 0; l < h1levels.length; l++) {
 
                                     d3.select("#line-level-l" + l)
@@ -4067,7 +4130,7 @@
                         .append("g")
                         .attr("id", "btn-level-chart")
                         .on("mouseover", function (d) {
-                            update_log("btn-level-chart " + d3.select(this).attr("id"), "btn-level-chart", "emphasize level chart line", "mouseover", "", "", "", "", "");
+                            //update_log("btn-level-chart " + d3.select(this).attr("id"), "btn-level-chart", "emphasize level chart line", "mouseover", "", "", "", "", "");
                             d3.select(this).style("cursor", "pointer");
                         })
                         .on("click", function (d) {
@@ -4076,7 +4139,7 @@
                             //if (document.getElementById("line-chart-l" + l).style.opacity == 0.5) {
                             if (flag_levelchart == 1) {
                                 flag_levelchart = 0;
-                                update_log("btn-level-chart", "button", "hide level lines", "click", "", "", "", "", "");
+                                update_log("mtree", "btn-level-chart", "button", "hide level lines", "click", "", "", "", "", "");
                                 for (var l = 0; l < h2levels.length; l++) {
                                     d3.select("#line-chart-l" + l)
                                         .style("opacity", 0);
@@ -4085,7 +4148,7 @@
                             }
                             else {
                                 flag_levelchart = 1;
-                                update_log("btn-level-chart", "button", "show level lines", "click", "", "", "", "", "");
+                                update_log("mtree", "btn-level-chart", "button", "show level lines", "click", "", "", "", "", "");
                                 for (var l = 0; l < h2levels.length; l++) {
                                     d3.select("#line-chart-l" + l)
                                         .style("opacity", 0.5);
@@ -4282,7 +4345,7 @@
 
         }
 
-        function update_log(elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, answer, score) {
+        function update_log(pageID, elementID, elementType, elementDescription, eventDescription, questionID, question, useranswer, answer, score) {
             var date = new Date();
 
 
@@ -4293,7 +4356,7 @@
                 "vizID": localStorage.getItem("vizID"),
                 "screenWidth": window.innerWidth,
                 "screenHeight": window.innerHeight,
-                "pageID": "mergedtree viz page",
+                "pageID": pageID,
                 "elementID": elementID,
                 "elementType": elementType,
                 "elementDescription": elementDescription,

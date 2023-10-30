@@ -112,12 +112,12 @@ function twl_trainingquestions(qcounter) {
             d3.timeout(function () {
 
                 if (d3.select("#collapseElement").attr("class").includes("show")) {
-                    update_log("btn-hint", "button", "hide hint", "click");
+                    update_log(pageID, "btn-hint", "button", "hide hint", "click", "", "", "", "", "");
                     d3.select("#btn-hint")
                         .html("<i class='fa-regular fa-lightbulb'></i> Hide hint");
                 }
                 else {
-                    update_log("btn-hint", "button", "show hint", "click");
+                    update_log(pageID, "btn-hint", "button", "show hint", "click", "", "", "", "", "");
                     d3.select("#btn-hint")
                         .html("<i class='fa-solid fa-lightbulb' style='color:rgb(244, 166, 11);'></i> Show hint");
                 }
@@ -202,7 +202,7 @@ function twl_trainingquestions(qcounter) {
             //console.log(d);
             //console.log(this);
             //console.log(this.value);
-            console.log(qcounter + " " + list_questions.length);
+            //console.log(qcounter + " " + list_questions.length);
 
 
 

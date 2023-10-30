@@ -90,7 +90,7 @@ function trainingquestions(qcounter) {
     ];
 
 
-    //console.log(qcounter);
+    console.log(qcounter);
     //console.log(list_questions[qcounter]);
     //console.log(document.getElementsByName("traininganswer").length);
 
@@ -113,12 +113,12 @@ function trainingquestions(qcounter) {
             d3.timeout(function () {
 
                 if (d3.select("#collapseElement").attr("class").includes("show")) {
-                    update_log("btn-hint", "button", "hide hint", "click");
+                    update_log(pageID, "btn-hint", "button", "hide hint", "click", "", "", "", "", "");
                     d3.select("#btn-hint")
                         .html("<i class='fa-regular fa-lightbulb'> Hide hint");
                 }
                 else {
-                    update_log("btn-hint", "button", "show hint", "click");
+                    update_log(pageID, "btn-hint", "button", "show hint", "click", "", "", "", "", "");
                     d3.select("#btn-hint")
                         .html("<i class='fa-solid fa-lightbulb' style='color:rgb(244, 166, 11);'> Show hint");
                 }

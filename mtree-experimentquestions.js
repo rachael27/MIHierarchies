@@ -54,8 +54,8 @@ function experimentquestions(qcounter) {
         {
             "qid": "E5.",
             "question": "Is the element filename:<i>root/hcil/about/pictures/reddot.gif</i> available in both hierarchies?",
-            "answer": "No, it is available only in the AfterH",
-            "options": ["Yes, it is available in both hierarchies", "No, it is available only in the BeforeH", "No, it is available only in the AfterH"]
+            "answer": "No. It is available only in the AfterH",
+            "options": ["Yes. It is available in both hierarchies", "No. It is available only in the BeforeH", "No. It is available only in the AfterH"]
 
         },
 
@@ -147,7 +147,7 @@ function experimentquestions(qcounter) {
             for (var i = 0; i < list_questions[qcounter].options.length; i++) {
                 d3.select("#qanda_options")
                     .append("input")
-                    .attr("class", "form-check-input")
+                    .attr("class", "form-check-input radiobuttons")
                     .attr("type", "radio")
                     .attr("name", "experimentanswer")
                     .attr("id", "option" + i)
@@ -219,7 +219,7 @@ function experimentquestions(qcounter) {
             else
                 score = 0;
 
-            update_log("btn-nextquestion", "button", "display question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
+            //update_log("btn-nextquestion", "button", "display question", "click", "E" + qcounter, list_questions[qcounter].question, selected_value, list_questions[qcounter].answer, score);
 
             d3.select("#btn-nextquestion")._groups[0][0].disabled = false;
 
