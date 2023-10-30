@@ -138,6 +138,7 @@ lifelines,yidemo,root/hcil/lifelines,root/hcil/lifelines/yidemo
 yidemo,unix,root/hcil/lifelines/yidemo,root/hcil/lifelines/yidemo/unix
 unix,record.html,root/hcil/lifelines/yidemo/unix,root/hcil/lifelines/yidemo/unix/record.html
 hcil,members,root/hcil,root/hcil/members
+members,collaborators.shtml,root/hcil/members,root/hcil/members/collaborators.shtml
 members,mteittinen,root/hcil/members,root/hcil/members/mteittinen
 mteittinen,mteittinen-index.html,root/hcil/members/mteittinen,root/hcil/members/mteittinen/mteittinen-index.html
 mteittinen,mteittinen.gif,root/hcil/members/mteittinen,root/hcil/members/mteittinen/mteittinen.gif

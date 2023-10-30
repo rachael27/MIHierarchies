@@ -22,9 +22,9 @@ function twl_trainingquestions(qcounter) {
         },
         {
             "qid": "T1.",
-            "question": "How many levels does the  BeforeH have?",
+            "question": "How many levels does the BeforeH (starting from the root at level 0) have?",
             "hint": "The maximum number of levels in a tree defines the level of a tree. The node at the highest levels are found near the green connecting links.",
-            "answer": "8",
+            "answer": "6",
             "numoptions": 3,
             "options": ["4", "6", "8"]
 
@@ -49,7 +49,7 @@ function twl_trainingquestions(qcounter) {
             "hint": "Count the number of parent nodes (these nodes are highlighted when you hover on the privacy-policy.shtml node) it takes to reach the root node.",
             "answer": "Level 2 in the BeforeH and Level 2 in the AfterH",
             "numoptions": 3,
-            "options": ["Level 2 in the BeforeH and Level 2 in the AfterH", "Level 3 in the BeforeH and Level 2 in the AfterH", "Level 4 in the BeforeH and Level 3 in the AfterH"]
+            "options": ["Level 3 in the BeforeH and Level 2 in the AfterH", "Level 2 in the BeforeH and Level 2 in the AfterH", "Level 4 in the BeforeH and Level 3 in the AfterH"]
 
         },
 
@@ -57,9 +57,9 @@ function twl_trainingquestions(qcounter) {
             "qid": "T4.",
             "question": "Choose the best description of folder:<i>root/hcil/treemap3</i>",
             "hint": "You can see that the treemap3 node exists in both hierarchies, but has only a few common links connecting the nodes in the BeforeH and the AfterH. This means that the treemap3 folder has some common files. However, some files that exist in the treemap3 folder in the BeforeH are not available in the AfterH. Hence, we can conclude that these files were deleted in the AfterH.",
-            "answer": "The folder existed in the BeforeH but many files were deleted",
-            "numoptions": 3,
-            "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted", "The folder existed in the BeforeH but many files were deleted"]
+            "answer": "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH",
+            "numoptions": 4,
+            "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted and no new files were added", "The folder existed in the BeforeH but some files were deleted", "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH"]
         },
 
 

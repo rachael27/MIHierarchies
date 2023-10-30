@@ -69,17 +69,17 @@ function experimentquestions(qcounter) {
  */
         {
             "qid": "E6.",
-            "question": "Has the contents of folder:<i>root/hcil/piccolo/applications</i> changed?",
-            "answer": "One file has been added",
-            "options": ["Some files have been deleted", "The folder contents have not changed at all", "One file has been added"]
+            "question": "Choose the best description for the folder:<i>root/hcil/piccolo/applications</i> changed?",
+            "answer": "One folder and a file have been retained",
+            "options": ["Some files have been deleted", "The folder contents have not changed at all", "One folder and a file have been retained", "One file has been added"]
 
         },
 
         {
             "qid": "E7.",
-            "question": "Find the siblings of folder:<i>root/hcil/treemap3/doc</i>",
-            "answer": "[doc3.3;demo.shtml;demo_files]",
-            "options": ["[1.html;2.html;3.html]", "[spotfire;touchscreens;timesearcher]", "[doc3.3;demo.shtml;demo_files]"]
+            "question": "Find the siblings of folder:<i>root/hcil/photomesa/help.html</i>",
+            "answer": "[licensing.shtml;hand-button.gif;hcil-logo-small.gif]",
+            "options": ["[figure01.jpg;figure02.jpg;figure03.jpg]", "[spotfire;touchscreens;timesearcher]", "[licensing.shtml;hand-button.gif;hcil-logo-small.gif]"]
 
         },
         {

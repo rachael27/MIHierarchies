@@ -207,6 +207,13 @@
                         background-color:#155446; color: white; ">Next <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
+            <div class="alert alert-warning alert-dismissible fade show" id="alert" role="alert"
+                style="opacity:0;width:50%;margin-left: 25%;margin-top: 20px;">
+                <strong>Please pause and play as required.</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
         </div>
     </div>
@@ -253,6 +260,14 @@
 
         //console.log(logObject);
         //console.log(JSON.parse(localStorage.getItem("logObject")));
+
+        function displayAlert() {
+
+            d3.select("#alert")
+                .style("opacity", 1);
+
+
+        }
 
         d3.select("#btn-downloadlog")
             .on("click", function () {
@@ -324,6 +339,7 @@
                         d3.select("#" + slides[numofclicks] + "-btn")._groups[0][0].disabled = false;
 
                         if (slides[numofclicks] == "mergedtreevideo") {
+                            displayAlert();
                             d3.select("#image").remove();
                             d3.select("#imgvid-div")
                                 .append("video")
@@ -338,7 +354,8 @@
                         }
                         else {
                             d3.select("#video").remove();
-
+                            d3.select("#alert")
+                                .style("opacity", 0);
                             if (d3.select("#image").empty())
                                 d3.select("#imgvid-div")
                                     .append("img")

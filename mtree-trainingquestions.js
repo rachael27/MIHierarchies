@@ -24,9 +24,9 @@ function trainingquestions(qcounter) {
         },
         {
             "qid": "T1.",
-            "question": "How many levels does the BeforeH have?",
+            "question": "How many levels does the BeforeH (starting from the root at level 0) have?",
             "hint": "The maximum number of levels in a tree defines the level of a tree and the node at the highest level is root/hcil/piccolo.learn/doc-0.5/api/index.html. This is represented by the grey dashed lines that represent the level of the BeforeH. The solid colored lines represent the levels of the AfterH.",
-            "answer": "8",
+            "answer": "6",
             "numoptions": 3,
             "options": ["4", "6", "8"]
 
@@ -36,9 +36,9 @@ function trainingquestions(qcounter) {
             "qid": "T2.",
             "question": "What is the path of the node:collaborators.shtml?",
             "hint": "The path refers to the shortest set of parent nodes that need to be traversed to reach the root node from the given node. Hover, on a node to see its path highlighted to the root node.",
-            "answer": "root/hcil/members/collaborators.shtml",
+            "answer": "root/hcil/about/press",
             "numoptions": 3,
-            "options": ["root/hcil/collaborators.shtml", "root/hcil/members/collaborators.shtml", "root/hcil/collaborators/collaborators.shtml"]
+            "options": ["root/hcil/members/press", "root/hcil/about/press", "root/hcil/collaborators/press"]
 
 
         },
@@ -51,7 +51,7 @@ function trainingquestions(qcounter) {
             "hint": "The grey dotted/dashed line and the solid colored line crossing through the given node represents its level in the before and after hierarchies respectively.",
             "answer": "Level 2 in the BeforeH and Level 2 in the AfterH",
             "numoptions": 3,
-            "options": ["Level 2 in the BeforeH and Level 2 in the AfterH", "Level 3 in the BeforeH and Level 2 in the AfterH", "Level 4 in the BeforeH and Level 3 in the AfterH"]
+            "options": ["Level 3 in the BeforeH and Level 2 in the AfterH", "Level 2 in the BeforeH and Level 2 in the AfterH", "Level 4 in the BeforeH and Level 3 in the AfterH"]
 
         },
 
@@ -59,9 +59,9 @@ function trainingquestions(qcounter) {
             "qid": "T4.",
             "question": "Choose the best description of folder:root/hcil/treemap3.",
             "hint": "The treemap3 folder has several red links which denotes multiple file deletions. But it also has some blue links, which show that some files from the BeforeH are also available in the AfterH. ",
-            "answer": "The folder existed in the BeforeH but many files were deleted",
-            "numoptions": 3,
-            "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted", "The folder existed in the BeforeH but many files were deleted"]
+            "answer": "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH",
+            "numoptions": 4,
+            "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted and no new files were added", "The folder existed in the BeforeH but some files were deleted", "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH"]
         },
 
 

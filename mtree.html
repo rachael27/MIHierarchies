@@ -478,7 +478,9 @@
         var h1 = "";
 
 
-        var h2_tree = "", h1_tree = "";
+
+
+        var h2_tree = "", h1_tree = ""; hier_root = "";
         var mtree = "";
         const vizID = "mergedtree";
         const pageID = "mtree";
@@ -518,7 +520,30 @@
         d3.select("#btn-changeonlylayout").on("click", function () {
             layout = "changeonlylayout";
             update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
+            var flag = 0;
+            mtree.descendants().reverse().forEach(function (element) {
+                flag = 0;
+                //console.log(element.data.data.child);
+                if ((element.data.data.linkcolor == "blue") || element.children == null) {
+                    for (var i = 0; i < element.descendants().length; i++) {
+                        //console.log("entering check" + element.descendants()[i].data.data.child);
+                        if ((element.descendants()[i].data.data.linkcolor == "blue") && element.descendants()[i].children == null) {
+                            //console.log(element.descendants()[i].data.data.child + " passed check");
+                            flag += 1;
+                        }
+                    }
+                    //console.log(element.data.data.child + " " + flag + " " + (element.descendants().length));
+                    if (flag == element.descendants().length - 1 || element.children == null) {
+                        //console.log("collapse " + element.data.data.child);
+                        collapse(element);
+                    }
 
+                }
+                //else
+                // console.log("expandedpc  " + element.data.data.child + " " + element.data.data.linkcolor + " " + element.children.length);
+            });
+            mergedtree(mtree.descendants()[0], hier_root);
+            /*
             d3.queue()
                 .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
                 .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
@@ -528,11 +553,20 @@
                     else
                         runScript_tabs(h1, h2);
                 });
+                */
         });
 
         d3.select("#btn-entirelayout").on("click", function () {
             layout = "entirelayout";
             update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
+
+            mtree.descendants().forEach(function (element) {
+                expand(element);
+            });
+
+            mergedtree(mtree.descendants()[0], hier_root);
+
+            /*
             d3.queue()
                 .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
                 .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
@@ -542,7 +576,10 @@
                     else
                         runScript_tabs(h1, h2);
                 });
+                */
         });
+
+
 
 
         /*
@@ -1031,24 +1068,24 @@
                                     .attr("x", -12)
                                     .attr("y", -13)
                                     .style("fill", "none")
-                                    .style("stroke-width", "2px")
-                                    .style("stroke", "goldenyellow");
+                                    .style("stroke-width", "3px")
+                                    .style("stroke", "#FFD700");
 
                                 /*
-                                                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "goldenyellow")
+                                                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "#FFD700")
                                                                     d3.select("." + id + "_outer")
-                                                                        .style("stroke", "goldenyellow")
+                                                                        .style("stroke", "#FFD700")
                                                                         .classed("selected", "true");
                                                                 //.style("stroke-width", circle_stroke);
                                                                 else
                                                                     d3.select("." + id + "_inner")
-                                                                        .style("stroke", "goldenyellow")
+                                                                        .style("stroke", "#FFD700")
                                                                         .style("stroke-width", 4)
                                                                         .classed("selected", "true");
                                                                         */
 
                                 d3.select("." + id + ".text")
-                                    .style("fill", "goldenyellow")
+                                    .style("fill", "#FFD700")
                                     .style("font-size", 20);
 
 
@@ -1088,8 +1125,8 @@
                                                 .attr("x", -12)
                                                 .attr("y", -13)
                                                 .style("fill", "none")
-                                                .style("stroke-width", "2px")
-                                                .style("stroke", "goldenyellow");
+                                                .style("stroke-width", "3px")
+                                                .style("stroke", "#FFD700");
 
                                             document.getElementById("mergedtree_" + id).scrollIntoView(true);
 
@@ -1113,18 +1150,18 @@
                                                     .attr("x", -12)
                                                     .attr("y", -13)
                                                     .style("fill", "none")
-                                                    .style("stroke-width", "2px")
-                                                    .style("stroke", "goldenyellow");
+                                                    .style("stroke-width", "3px")
+                                                    .style("stroke", "#FFD700");
 
                                                 /*
-                                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "goldenyellow")
+                                                if (document.getElementsByClassName(id + "_outer")[0].style.stroke == "blue" || document.getElementsByClassName(id + "_outer")[0].style.stroke == "#FFD700")
                                                     d3.select("." + id + "_outer")
-                                                        .style("stroke", "goldenyellow")
+                                                        .style("stroke", "#FFD700")
                                                         .classed("selected", "true");
                                                 //.style("stroke-width", circle_stroke);
                                                 else
                                                     d3.select("." + id + "_inner")
-                                                        .style("stroke", "goldenyellow")
+                                                        .style("stroke", "#FFD700")
                                                         .style("stroke-width", 4)
                                                         .classed("selected", "true");
                                                         */
@@ -1154,6 +1191,70 @@
 
 
                 });
+
+            d3.select("#btn-changeonlylayout").on("click", function () {
+                layout = "changeonlylayout";
+                update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
+                var flag = 0;
+                d3.select("#mergedtree").selectAll("g").remove();
+                mtree.descendants().reverse().forEach(function (element) {
+                    flag = 0;
+                    //console.log(element.data.data.child);
+                    if ((element.data.data.linkcolor == "blue") || element.children == null) {
+                        for (var i = 0; i < element.descendants().length; i++) {
+                            //console.log("entering check" + element.descendants()[i].data.data.child);
+                            if ((element.descendants()[i].data.data.linkcolor == "blue") && element.descendants()[i].children == null) {
+                                //console.log(element.descendants()[i].data.data.child + " passed check");
+                                flag += 1;
+                            }
+                        }
+                        //console.log(element.data.data.child + " " + flag + " " + (element.descendants().length));
+                        if (flag == element.descendants().length - 1 || element.children == null) {
+                            //console.log("collapse " + element.data.data.child);
+                            collapse(element);
+                        }
+
+                    }
+                    //else
+                    // console.log("expandedpc  " + element.data.data.child + " " + element.data.data.linkcolor + " " + element.children.length);
+                });
+                mergedtree(mtree.descendants()[0], hier_root);
+                /*
+                d3.queue()
+                    .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+                    .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
+                    .await(function (error, h2, h1) {
+                        if (error) throw error;
+    
+                        else
+                            runScript_tabs(h1, h2);
+                    });
+                    */
+            });
+
+            d3.select("#btn-entirelayout").on("click", function () {
+                layout = "entirelayout";
+                update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
+                d3.select("#mergedtree").selectAll("g").remove();
+                mtree.descendants().forEach(function (element) {
+                    expand(element);
+                });
+
+                mergedtree(mtree.descendants()[0], hier_root);
+
+                /*
+                d3.queue()
+                    .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+                    .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
+                    .await(function (error, h2, h1) {
+                        if (error) throw error;
+    
+                        else
+                            runScript_tabs(h1, h2);
+                    });
+                    */
+            });
+
 
 
 
@@ -1195,7 +1296,7 @@
             //mergedtree size
             //width = 1500, height = 1000;
 
-            var hier_root = d3.hierarchy(hier_struct);
+            hier_root = d3.hierarchy(hier_struct);
 
             //console.log(hier_root);
 
@@ -3352,7 +3453,7 @@
                         //update_log(d3.select(this).attr("id"), "text label", "label default formatting", "mouseleave", "", "", "", "", "");
 
                         //console.log(d3.select(this).style("fill"));
-                        if (d3.select(this).style("fill") != "goldenyellow")
+                        if (d3.select(this).style("fill") != "#FFD700")
                             d3.select(this)
                                 .style("font-size", label_size - d.depth)
                                 //.attr("transform", "rotate(65)")

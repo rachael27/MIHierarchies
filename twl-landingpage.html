@@ -388,7 +388,8 @@
                         }
                         else {
                             d3.select("#video").remove();
-
+                            d3.select("#alert")
+                                .style("opacity", 0);
                             if (d3.select("#image").empty())
                                 d3.select("#imgvid-div")
                                     .append("img")

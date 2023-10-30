@@ -269,7 +269,50 @@
         d3.select("#btn-changeonlylayout").on("click", function () {
             layout = "changeonlylayout";
             update_log("btn-changeonlylayout", "button", "display changes-only layout", "click", "", "", "", "", "", "");
+            d3.select("#h2tree").selectAll("g").remove();
+            d3.select("#h1tree").selectAll("g").remove();
 
+            var flag = 0;
+            h2_tree.descendants().reverse().forEach(function (element) {
+                flag = 0;
+                for (var i = 0; i < commonElementsArr.length; i++) {
+                    if (element.data.data.description_child == commonElementsArr[i]) {
+                        flag = 1;
+
+                    }
+                }
+                if (flag == 1) {
+                    //console.log("collapse h2 element " + element.data.data.description_child);
+                    collapse(element);
+                }
+            });
+            h1_tree.descendants().reverse().forEach(function (element) {
+                flag = 0;
+                for (var i = 0; i < commonElementsArr.length; i++) {
+                    if (element.data.data.description_child == commonElementsArr[i]) {
+                        flag = 1;
+
+                    }
+                }
+                if (flag == 1) {
+                    //console.log("collapse h2 element " + element.data.data.description_child);
+                    collapse(element);
+                }
+            });
+            h2tree(h2_tree.descendants()[0], h2_root);
+            h1tree(h1_tree.descendants()[0], h1_root);
+
+            commonElementsList(h2_tree.descendants(), h1_tree.descendants());
+            if (d3.select("#lines")) {
+                d3.select("#lines").remove();
+                setTimeout(() => {
+                    commonElements(h2_tree.descendants(), h1_tree.descendants());
+                }, 1000);
+            }
+            else
+                commonElements(h2_tree.descendants(), h1_tree.descendants());
+
+            /*
             d3.queue()
                 .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
                 .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
@@ -279,11 +322,34 @@
                     else
                         runScript_tabs(h1, h2);
                 });
+                */h1_root
         });
 
         d3.select("#btn-entirelayout").on("click", function () {
+
             layout = "entirelayout";
             update_log("btn-entirelayout", "button", "display the entire layout", "click", "", "", "", "", "", "");
+            d3.select("#h2tree").selectAll("g").remove();
+            d3.select("#h1tree").selectAll("g").remove();
+            h1_tree.descendants().forEach(function (element) {
+                expand(element);
+            });
+            h2_tree.descendants().forEach(function (element) {
+                expand(element);
+            });
+            h2tree(h2_tree.descendants()[0], h2_root);
+            h1tree(h1_tree.descendants()[0], h1_root);
+
+            commonElementsList(h2_tree.descendants(), h1_tree.descendants());
+            if (d3.select("#lines")) {
+                d3.select("#lines").remove();
+                setTimeout(() => {
+                    commonElements(h2_tree.descendants(), h1_tree.descendants());
+                }, 1000);
+            }
+            else
+                commonElements(h2_tree.descendants(), h1_tree.descendants());
+            /*
             d3.queue()
                 .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
                 .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
@@ -293,6 +359,7 @@
                     else
                         runScript_tabs(h1, h2);
                 });
+                */
         });
 
 
@@ -1003,7 +1070,7 @@
                                 .attr("x", d3.select("#h2tree_" + pathname).attr("cx") - radius - rect_offset)
                                 .attr("y", d3.select("#h2tree_" + pathname).attr("cy") - radius - rect_offset)
                                 .style("fill", "none")
-                                .style("stroke-width", "2px")
+                                .style("stroke-width", "3px")
                                 .style("stroke", "#FFD700");
 
 
@@ -1017,9 +1084,13 @@
                     }
                 });
 
-                if (h2flag == 0)
+                if (h2flag == 0) {
+                    d3.select("#lines").remove();
+                    setTimeout(() => {
+                        commonElements(h2_tree.descendants(), h1_tree.descendants());
+                    }, 1000);
+                    h2flag = 0;
                     for (var j = h2_tree.descendants().length - 1; j >= 0; j--) {
-                        h2flag = 0;
                         var element = h2_tree.descendants()[j];
                         name = element.data.data.child
                             .replaceAll(/\//g, "")
@@ -1033,12 +1104,28 @@
                         for (var i = num_slashes.length - 1; i >= 2; i--) {
                             //console.log(i);
                             if (name == num_slashes[i]) {
-                                console.log(i + " " + name);
+                                console.log("match " + i + " " + name);
                                 //console.log("expand ")
                                 //console.log(element)
-                                expand(element);
-                                h2tree(h2_tree.descendants()[0], h2_root);
-                                h2flag = 1;
+                                if (element._children != null && element._children.length > 1) {
+                                    console.log(element);
+                                    for (var c = 0; c < element._children.length; c++) {
+                                        if (element._children[c].data.data.child.replaceAll(/\//g, "")
+                                            .replaceAll(".", "")
+                                            .replaceAll(" ", "")
+                                            .replaceAll("(", "")
+                                            .replaceAll(")", "")
+                                            .toLowerCase() == num_slashes[i + 1]) {
+                                            expand(element);
+                                            h2tree(h2_tree.descendants()[0], h2_root);
+                                            h2flag = 1;
+                                            break;
+                                        }
+                                    }
+                                }
+
+
+
                             }
 
                         }
@@ -1063,7 +1150,7 @@
                                         .attr("x", d3.select("#h2tree_" + pathname).attr("cx") - radius - rect_offset)
                                         .attr("y", d3.select("#h2tree_" + pathname).attr("cy") - radius - rect_offset)
                                         .style("fill", "none")
-                                        .style("stroke-width", "2px")
+                                        .style("stroke-width", "3px")
                                         .style("stroke", "#FFD700");
 
 
@@ -1077,7 +1164,7 @@
                             break;
                         }
                     }
-
+                }
 
 
 
@@ -1143,7 +1230,7 @@
                                 .attr("x", d3.select("#h1tree_" + pathname).attr("cx") - radius - rect_offset)
                                 .attr("y", d3.select("#h1tree_" + pathname).attr("cy") - radius - rect_offset)
                                 .style("fill", "none")
-                                .style("stroke-width", "2px")
+                                .style("stroke-width", "3px")
                                 .style("stroke", "#FFD700");
 
 
@@ -1158,9 +1245,13 @@
 
                 });
 
-                if (h1flag == 0)
+                if (h1flag == 0) {
+                    d3.select("#lines").remove();
+                    setTimeout(() => {
+                        commonElements(h2_tree.descendants(), h1_tree.descendants());
+                    }, 1000);
+                    h1flag = 0;
                     for (var j = h1_tree.descendants().length - 1; j >= 0; j--) {
-                        h1flag = 0;
                         var element = h1_tree.descendants()[j];
                         name = element.data.data.child
                             .replaceAll(/\//g, "")
@@ -1177,9 +1268,25 @@
                                 console.log("match " + i + " " + name);
                                 //console.log("expand ")
                                 //console.log(element)
-                                expand(element);
-                                h1tree(h1_tree.descendants()[0], h1_root);
-                                h1flag = 1;
+                                if (element._children != null && element._children.length > 1) {
+                                    console.log(element);
+                                    for (var c = 0; c < element._children.length; c++) {
+                                        if (element._children[c].data.data.child.replaceAll(/\//g, "")
+                                            .replaceAll(".", "")
+                                            .replaceAll(" ", "")
+                                            .replaceAll("(", "")
+                                            .replaceAll(")", "")
+                                            .toLowerCase() == num_slashes[i + 1]) {
+                                            expand(element);
+                                            h1tree(h1_tree.descendants()[0], h1_root);
+                                            h1flag = 1;
+                                            break;
+                                        }
+                                    }
+                                }
+
+
+
                             }
 
                         }
@@ -1204,7 +1311,7 @@
                                         .attr("x", d3.select("#h1tree_" + pathname).attr("cx") - radius - rect_offset)
                                         .attr("y", d3.select("#h1tree_" + pathname).attr("cy") - radius - rect_offset)
                                         .style("fill", "none")
-                                        .style("stroke-width", "2px")
+                                        .style("stroke-width", "3px")
                                         .style("stroke", "#FFD700");
 
 
@@ -1218,6 +1325,7 @@
                             break;
                         }
                     }
+                }
 
 
 

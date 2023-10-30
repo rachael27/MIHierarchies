@@ -6,60 +6,62 @@ function twl_guidedtour() {
     var stepsArr = [
         {
             title: "Welcome to the Guided Tour! <hr class='border border-primary border-3 opacity-75'>",
-            intro: "In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour."
+            intro: "You can interact with each highlighted element in the tour to see it in action. <hr class='border border-danger border-2 opacity-50'> Pop-up boxes will guide you through every step of the tour. If at times the boxes are hidden, scroll the screen to find them. <hr class='border border-danger border-2 opacity-50'>In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour."
         },
         {
-            title: " Arrangement of nodes <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Nodes are arranged in an alphabetical order from top-to-bottom for easy access."
+            title: " Arrangement of nodes in the BeforeH and AfterH<hr class='border border-primary border-3 opacity-75'>",
+            intro: "Nodes are arranged in an alphabetical order from top-to-bottom for easy access in each tree and sub-tree."
         },
         {
             element: document.querySelector('[id="h1tree_root"]'),
             title: "Node with a green border <hr class='border border-primary border-3 opacity-75'>",
-            intro: "<p class='text-justify'>A node may represent a file or folder. <br> <hr class='border border-danger border-2 opacity-50'> If the node has a green border, it is a folder. <hr class='border border-danger border-2 opacity-50'>  </p>"
+            intro: "<p class='text-justify'>A node may represent a file or folder. <br> <hr class='border border-danger border-2 opacity-50'> If the node has a green border, it is a folder.</p>"
         },
 
         {
             element: document.querySelector('[id="h1tree_privacy-policyshtml"]'),
             title: "Node without a green border <hr class='border border-primary border-3 opacity-75'>",
-            intro: "<p class='text-justify'>If the node, doesn't have a border, it is a file. <br> <hr class='border border-danger border-2 opacity-50'> </p>"
+            intro: "<p class='text-justify'>If the node, doesn't have a border, it is a file. </p>"
         },
         {
-            element: document.querySelector("#link_youth-services"),
+            element: document.querySelector("#link_academics"),
             title: "A connecting link between folders <hr class='border border-primary border-3 opacity-75'>",
-            intro: "If a link is drawn between 2 folders, it means that the folder along with the files that belong to it are common to both hierarchies. <hr class='border border-danger border-2 opacity-50'>"
+            intro: "Consider the blue links for this step of the tour. <hr class='border border-danger border-2 opacity-50'> If a link is drawn between 2 folders, it means that the folder along with the files that belong to it are common to both hierarchies."
         },
         {
             element: document.querySelector('[id="link_treemaps-index.html"]'),
             title: "A connecting link between files <hr class='border border-primary border-3 opacity-75'>",
-            intro: "If a link is drawn between 2 files, it means that the file is common to both hierarchies. <hr class='border border-danger border-2 opacity-50'> "
-        },
-        {
-            element: document.querySelector(".triangle-academics"),
-            title: "The green triangle <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The green triangle indicates that a node has been collapsed. Click on the triangle to reveal the children of that node. <hr class='border border-danger border-2 opacity-50'> You can expand the children again, by clicking on the triangle or node."
+            intro: "Consider the orange links for this step of the tour. <hr class='border border-danger border-2 opacity-50'>  If a link is drawn between 2 files, it means that the file is common to both hierarchies."
         },
 
         {
-            element: document.querySelector('[id="h1tree_treemaps"]'),
+            element: document.querySelector('[id="h1tree_spotfire"]'),
             title: "Interacting with a node - tooltip <hr class='border border-primary border-3 opacity-75'>",
             intro: "You can hover on a node to view a tooltip which displays the details about a node. <br><hr class='border border-danger border-2 opacity-50'> It also highlights the path from the node to the root."
         },
         {
-            element: document.querySelector('[id="h1tree_treemaps"]'),
-            title: "Interacting with a node - collapse/expand <hr class='border border-primary border-3 opacity-75'>",
-            intro: "You can also click on a node to collapse/expand its children. <br><hr class='border border-danger border-2 opacity-50'> "
+            element: document.querySelector("#h1tree .triangle-agile2d"),
+            title: "The green triangle <hr class='border border-primary border-3 opacity-75'>",
+            intro: "The green triangle indicates that a node has been collapsed (i.e. the children of that node are hidden)."
         },
+
+        {
+            element: document.querySelector('[id="h1tree_agile2d"]'),
+            title: "Interacting with a node - collapse/expand <hr class='border border-primary border-3 opacity-75'>",
+            intro: "You can click on a node (with a green triangle) to expand its children. <br><hr class='border border-danger border-2 opacity-50'> Click on the node again to collapse it."
+        },
+
 
         {
             element: document.querySelector(".h1tree_academics_text"),
             title: "Interacting with a label <hr class='border border-primary border-3 opacity-75'>",
-            intro: "You can hover on a label to magnify the text. <br><hr class='border border-danger border-2 opacity-50'> "
+            intro: "You can hover on a label to magnify the text."
         },
 
         {
-            element: document.querySelector('[id="h1tree_muiseum"]'),
+            element: document.querySelector('[id="h1tree_applet"]'),
             title: "Tree levels <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The level of a node is the number of ancestors from the given node until the root node.. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes starting from the root node at level 0. Hence, the level of the selected node is 3.  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
+            intro: "The level of a node is the number of ancestors from the given node until the root node. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes starting from the root node at level 0. Hence, the level of the selected node is 3.  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
         },
 
         {
@@ -70,24 +72,23 @@ function twl_guidedtour() {
         {
             element: document.querySelector('[id="btn-search"]'),
             title: "Search nodes <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Now, click on the search button. Automatic scrolling will take you to the nodes that you searched for (now highlighted in a dark orange color)."
+            intro: "Now, click on the search button. Automatic scrolling will take you to the node that you searched for. <hr class='border border-danger border-2 opacity-50'> The searched node and the nodes on its path (found just below this pop-up box) to the root node are surrounded by yellow squares."
         },
         {
             element: document.querySelector('[id="btn-clear"]'),
             title: "Complete your search <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Only when you click on the clear button, the nodes that you searched for previosuly, are no longer highlighted."
+            intro: "ONLY when you click on the clear button, the highlighted squares are removed."
         },
-
         {
             element: document.querySelector('[id="btn-changeonlylayout"]'),
             title: "View changes-only layout <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The default layout expands only those folders that has undergone changes."
+            intro: "The default layout expands only those folders that have undergone changes while hiding the children of those nodes that did not change from BeforeH to AfterH."
         },
 
         {
             element: document.querySelector('[id="btn-entirelayout"]'),
             title: "View the entire layout <hr class='border border-primary border-3 opacity-75'>",
-            intro: "This layout expands all folders - those that have undergone changes and those that have not."
+            intro: "This layout expands all folders - those that have undergone changes and those that have not. <hr class='border border-danger border-2 opacity-50'> You can toogle between the two layouts depending on the task."
         },
 
         {

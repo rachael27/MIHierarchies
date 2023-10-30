@@ -98,12 +98,13 @@ lifelines,yidemo,root/hcil/lifelines,root/hcil/lifelines/yidemo
 yidemo,unix,root/hcil/lifelines/yidemo,root/hcil/lifelines/yidemo/unix
 unix,record.html,root/hcil/lifelines/yidemo/unix,root/hcil/lifelines/yidemo/unix/record.html
 hcil,members,root/hcil,root/hcil/members
+members,collaborators.shtml,root/hcil/members,root/hcil/members/collaborators.shtml
 members,mteittinen,root/hcil/members,root/hcil/members/mteittinen
 mteittinen,mteittinen-index.html,root/hcil/members/mteittinen,root/hcil/members/mteittinen/mteittinen-index.html
 mteittinen,mteittinen.gif,root/hcil/members/mteittinen,root/hcil/members/mteittinen/mteittinen.gif
 members,mvenkatraman,root/hcil/members,root/hcil/members/mvenkatraman
-mvenkatraman,mvenkatraman-index.html,root/hcil/members/mvenkatraman,root/hcil/members/mvenkatraman/mvenkatraman-index.html
 mvenkatraman,main_fin.html,root/hcil/members/mvenkatraman,root/hcil/members/mvenkatraman/main_fin.html
+mvenkatraman,profile.html,root/hcil/members/mvenkatraman,root/hcil/members/mvenkatraman/profile.html
 members,ndang4.jpg,root/hcil/members,root/hcil/members/ndang4.jpg
 members,not-avail.gif,root/hcil/members,root/hcil/members/not-avail.gif
 members,past-members.shtml,root/hcil/members,root/hcil/members/past-members.shtml
