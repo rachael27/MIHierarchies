@@ -582,7 +582,8 @@
         var rect_offset = 0;
         var opacity = 0.3;
         var ltree_size = [width, 500];
-        var h2_xpos = 500, h2_ypos = 250, h1_xpos = 70, h1_ypos = 250;
+        var h1_xpos = 170, h1_ypos = 250, h2_ypos = 250, h2_xpos = 250;
+        console.log(h2_xpos);
         var link_strokewidth = 1;
         var link_opacity = 0.2;
         var label_len = 9;
@@ -1080,10 +1081,10 @@
                                 .style("stroke-width", "3px")
                                 .style("stroke", "gold");
 
-
-                            d3.select("#h2tree_" + pathname + "_text")
+                            //console.log("#h2tree_" + pathname + "_text");
+                            d3.select(".h2tree_" + pathname + "_text")
                                 .style("fill", "red")
-                                .style("font-size", "15")
+                                .style("font-size", "20")
                                 .classed("selected_text", "true");
 
 
@@ -1160,10 +1161,10 @@
                                         .style("stroke-width", "3px")
                                         .style("stroke", "gold");
 
-
-                                    d3.select("#h2tree_" + pathname + "_text")
+                                    //console.log("#h2tree_" + pathname + "_text");
+                                    d3.select(".h2tree_" + pathname + "_text")
                                         .style("fill", "red")
-                                        .style("font-size", "15")
+                                        .style("font-size", "20")
                                         .classed("selected_text", "true");
 
                                 }
@@ -1243,7 +1244,7 @@
 
                             d3.select(".h1tree_" + pathname + "_text")
                                 .style("fill", "red")
-                                .style("font-size", "15")
+                                .style("font-size", "20")
                                 .classed("selected_text", "true");
                         }
                     }
@@ -1323,9 +1324,9 @@
                                         .style("stroke", "gold");
 
 
-                                    d3.select("#h1tree_" + pathname + "_text")
+                                    d3.select(".h1tree_" + pathname + "_text")
                                         .style("fill", "red")
-                                        .style("font-size", "15")
+                                        .style("font-size", "20")
                                         .classed("selected_text", "true");
 
                                 }

@@ -84,7 +84,7 @@ function guidedtour() {
         {
             element: document.querySelector('[id="btn-search"]'),
             title: "Search nodes <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Now, click on the search button. Automatic scrolling will take you to the node that you searched for. <hr class='border border-danger border-2 opacity-50'> The searched node and the nodes on its path to the root node are surrounded by yellow squares."
+            intro: "Now, click on the search button. Automatic scrolling will take you to the node that you searched for. <hr class='border border-danger border-2 opacity-50'> The searched node and the nodes on its path to the root node are surrounded by gold squares and have red-colored labels."
         },
         {
             element: document.querySelector('[id="btn-clear"]'),
