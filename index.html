@@ -107,6 +107,21 @@
         });
 
 
+    function KeyPress(e) {
+        var evtobj = window.event ? event : e
+        if ((evtobj.keyCode == 77 || evtobj.keyCode == 109) && evtobj.ctrlKey) {
+            window.location.href = 'mtree.html';
+        }
+        else if ((evtobj.keyCode == 76 || evtobj.keyCode == 108) && evtobj.ctrlKey) {
+            window.location.href = 'treeswlinking.html';
+        }
+    }
+
+    document.onkeydown = KeyPress;
+
+
+
+
 
 </script>
 
