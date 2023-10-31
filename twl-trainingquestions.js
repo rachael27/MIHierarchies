@@ -32,11 +32,11 @@ function twl_trainingquestions(qcounter) {
 
         {
             "qid": "T2.",
-            "question": 'What is the path of the node:<i>collaborators.shtml</i> to the <i>root node</i>?',
-            "hint": "The path (these nodes are highlighted when you hover on the given node) refers to the shortest set of parent nodes that need to be traversed to reach the root node from the given node.",
-            "answer": "<i>root/hcil/members/collaborators.shtml</i>",
+            "question": 'What is the path of the folder:<i>press</i> to the <i>root node</i>?',
+            "hint": "The path refers to the shortest set of parent nodes that need to be traversed to reach the root node from the given node. Hover, on a node to see its path highlighted to the root node.",
+            "answer": "<i>root/hcil/about/press</i>",
             "numoptions": 3,
-            "options": ["<i>root/hcil/collaborators.shtml</i>", "<i>root/hcil/members/collaborators.shtml</i>", "<i>root/hcil/collaborators/collaborators.shtml</i>"]
+            "options": ["<i>root/hcil/members/press</i>", "<i>root/hcil/about/press</i>", "<i>root/hcil/collaborators/press</i>"]
 
 
         },
