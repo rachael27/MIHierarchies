@@ -450,11 +450,12 @@
                     .style("opacity", 0);
 
                 // twl_guidedtour();
+                alert("Please wait for the guided tour pop-up box to appear!");
 
 
                 setTimeout(() => {
                     twl_guidedtour();
-                }, 2000);
+                }, 1000);
             }
 
             else if (urlpage == "trainingquestions") {
@@ -583,7 +584,7 @@
         var opacity = 0.3;
         var ltree_size = [width, 500];
         var h1_xpos = 170, h1_ypos = 250, h2_ypos = 250, h2_xpos = 250;
-        console.log(h2_xpos);
+        //console.log(h2_xpos);
         var link_strokewidth = 1;
         var link_opacity = 0.2;
         var label_len = 9;
@@ -878,7 +879,7 @@
                         }
                     }
                     if (flag == 1) {
-                        //console.log("collapse h2 element " + element.data.data.description_child);
+                        //console.log("collapse h1 element " + element.data.data.description_child);
                         collapse(element);
                     }
                 });
@@ -2586,7 +2587,7 @@
                 setTimeout(() => {
                     d3.select("#h1tree").selectAll(".search-rect").each(function (d) {
                         var x = 0, y = 0;
-                        console.log(d3.select(this).attr("id").replace("rect-", ""));
+                        //console.log(d3.select(this).attr("id").replace("rect-", ""));
 
                         x = d3.select("#h1tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cx") - radius - rect_offset;
                         y = d3.select("#h1tree_" + d3.select(this).attr("id").replace("rect-", "")).attr("cy") - radius - rect_offset;
@@ -2868,338 +2869,337 @@
             }
         }
 
+        /*
+                function commonElementsList(h2_desc, h1_desc) {
+        
+                    for (h2 = 0; h2 < h2_desc.length; h2++) {
+        
+                        for (h1 = 0; h1 < h1_desc.length; h1++) {
+        
+                            if (h1_desc[h1].status == "ACCEPT") {
+        
+                                if (h2_desc[h2].data.data.description_child == h1_desc[h1].data.data.description_child && h2_desc[h2].descendants().length == h1_desc[h1].descendants().length) {
+                                    //console.log("draw line " + h2_desc[h2].data.data.description_child);
+                                    commonElementsArr.push(h2_desc[h2].data.data.description_child);
+        
+        
+                                }
+                            }
+                        }
+                    }
+                    console.log(commonElementsArr);
+                }
+        
+        */
+
         function commonElementsList(h2_desc, h1_desc) {
+            var arr = [];
 
-            for (h2 = 0; h2 < h2_desc.length; h2++) {
+            for (h1 = h1_desc.length - 1; h1 > 0; h1--) {
+                for (h2 = h2_desc.length - 1; h2 > 0; h2--) {
 
-
-                for (h1 = 0; h1 < h1_desc.length; h1++) {
                     //console.log(h2 + " " + h1);
+                    if (h1_desc[h1].depth >= 2 && h2_desc[h2].depth >= 2)
+                        if (h1_desc[h1].status == "ACCEPT" && h1_desc[h1].data.data.child == h2_desc[h2].data.data.child) {
+                            // if (h1_desc[h1].data.data.description_child == "root/hcil/members")
+                            //console.log("members " + checkElements(h1_desc[h1], h2_desc[h2]));
+                            if (checkElements(h1_desc[h1], h2_desc[h2])) {
+                                //console.log("draw line " + h1_desc[h1].data.data.description_child);
+                                if (!commonElementsArr.includes(h1_desc[h1].data.data.description_child)) {
+                                    commonElementsArr.push(h1_desc[h1].data.data.description_child);
+                                    break;
+                                }
+                            }
+                            else {
+                                //console.log("ignore " + h1_desc[h1].data.data.description_child);
+                                h1_desc[h1].status == "ignore";
+                                if (!arr.includes(h1_desc[h1].data.data.description_child))
+                                    arr.push(h1_desc[h1].data.data.description_child);
+                                //break;
+                            }
 
-                    //console.log("STATUS " + h1_tree.descendants()[h1].data.data.child + " " + h1_tree.descendants()[h1].status);
+                        }
+                }
+            }
+
+            //console.log("expand");
+            //console.log(arr);
+            //console.log("collapse");
+            //console.log(commonElementsArr);
 
 
-                    // console.log("agn_STATUS " + h2_tree.descendants
-                    //    ()[h2].data.data.child + " " + h2_desc[h2].status);
-                    //console.log(h1_desc[h1]);
-                    if (h1_desc[h1].status == "ACCEPT") {
-                        //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
-                        //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
 
-                        if (h2_desc[h2].data.data.description_child == h1_desc[h1].data.data.description_child && h2_desc[h2].descendants().length == h1_desc[h1].descendants().length) {
-                            //console.log("draw line " + h2_desc[h2].data.data.description_child);
-                            commonElementsArr.push(h2_desc[h2].data.data.description_child);
+
+
+        }
+
+
+        function checkElements(el_h1, el_h2) {
+            var flag = 0;
+            /* if (el_h1.data.data.description_child == "root/hcil/members") {
+                console.log(el_h1.descendants());
+                console.log(el_h2.descendants());
+            } */
+
+            //
+            if (el_h1.descendants().length == el_h2.descendants().length) {
+                if (el_h1.status == "ACCEPT")
+                    for (var h1 = 0; h1 < el_h1.descendants().length; h1++) {
+
+                        for (var h2 = 0; h2 < el_h2.descendants().length; h2++) {
+                            if (el_h1.descendants()[h1].data.data.child == el_h2.descendants()[h2].data.data.child) {
+                                flag++;
+                            }
 
 
                         }
+
+
                     }
-                }
+
             }
+
+            //console.log(el_h1.descendants());
+            //console.log(el_h2.descendants());
+            if (el_h1.descendants().length == flag) {
+                //console.log("accept " + el_h1.data.data.description_child + " " + flag + " " + el_h1.descendants().length);
+                return true;
+            }
+            else {
+                //console.log("reject " + el_h1.data.data.description_child + " " + flag + " " + el_h1.descendants().length);
+                return false;
+            }
+
         }
 
 
-        /*
-function commonElementsList(h2_desc, h1_desc) {
-    var arr = [];
-    for (h2 = 0; h2 < h2_desc.length; h2++) {
-
-
-        for (h1 = 0; h1 < h1_desc.length; h1++) {
-            //console.log(h2 + " " + h1);
-
-
-            if (h1_desc[h1].status == "ACCEPT") {
-                //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
-                //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
-
-                if (checkElements(h1_desc[h1], h2_desc[h2])) {
-                    console.log("draw line " + h2_desc[h2].data.data.description_child);
-                    commonElementsArr.push(h2_desc[h2].data.data.description_child);
-                }
-            }
-        }
-    }
-}
-
-function checkElements(el_h1, el_h2) {
-    //console.log(el_h1.descendants());
-    //console.log(el_h2.descendants());
-    if (el_h1.descendants().length == el_h2.descendants().length) {
-        for (var h1 = 0; h1 < el_h1.descendants().length; h1++) {
-            for (var h2 = 0; h2 < el_h2.descendants().length; h2++) {
-                if (el_h1.descendants()[h1].data.data.child != el_h2.descendants()[h2].data.data.child) {
-                    //el_h2.status = "ignore";
-                    //el_h1.status = "ignore";
-                    return false;
-                }
-            }
-        }
-        //console.log(el_h1.data.data.child + " true");
-        return true;
-    }
-    else
-        return false;
-}
-
-*/
 
         function commonElements(h2_desc, h1_desc) {
 
-            //console.log(h2_desc);
-            //console.log(h1_desc);
 
+            //console.log(h1_desc);
+            //console.log(commonElementsArr);
 
             var x1 = 0, x2 = 0, y1 = 0, y2 = 0;
             var h2child = "", h1child = "";
             var colorScale =
-                ["#1ABECF", "#E6AB01", "#1D78B4", "#FF7F0F", "#2DA02D", "#D62727", "#9567BD", "#8C564B", "#E377C2", "#BCBD21"]
-
-
+                ["#1ABECF", "#E6AB01", "#1D78B4", "#FF7F0F", "#2DA02D", "#D62727", "#9567BD", "#8C564B", "#E377C2", "#BCBD21"];
 
             d3
                 .select("#treeswlinking_svg")
                 .append("g")
                 .attr("id", "lines");
-            // console.log(h2_desc.length + " " + h1_tree.descendants().length);
-
-
-
 
             var loop_counter = 0;
-            //console.log(h2_desc.length);
 
-            for (h2 = 0; h2 < h2_desc.length; h2++) {
 
 
-                for (h1 = 0; h1 < h1_desc.length; h1++) {
-                    //console.log(h2 + " " + h1);
+            for (var h1 = 0; h1 < h1_desc.length; h1++) {
+                //console.log(h1_desc[h1].data.data.description_child);
 
-                    //console.log("STATUS " + h1_tree.descendants()[h1].data.data.child + " " + h1_tree.descendants()[h1].status);
+                if (h1_desc[h1].status == "ACCEPT") {
+                    if (commonElementsArr.includes(h1_desc[h1].data.data.description_child)) {
 
+                        //console.log("ITS A MATCH" + " " + h1_desc[h1].data.data.description_child);
 
-                    // console.log("agn_STATUS " + h2_tree.descendants
-                    //    ()[h2].data.data.child + " " + h2_desc[h2].status);
-                    //console.log(h1_desc[h1]);
-                    if (h1_desc[h1].status == "ACCEPT") {
-                        //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
-                        //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
 
-                        if (h2_desc[h2].data.data.description_child == h1_desc[h1].data.data.description_child && h2_desc[h2].descendants().length == h1_desc[h1].descendants().length) {
-                            //console.log("ITS A MATCH" + h2_desc[h2].data.data.description_child + " " + h1_desc[h1].data.data.description_child);
+                        h1child = h1_desc[h1].data.data.child
+                            .replaceAll(/\//g, "")
+                            .replaceAll(".", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("(", "")
+                            .replaceAll(")", "")
+                            .toLowerCase();
+                        //h1child = h1_tree.descendants()[h1].data.data.child.toLowerCase().replaceAll("/", "");
 
+                        //console.log(h2child);
 
-                            h2child = h2_desc[h2].data.data.child
-                                .replaceAll(/\//g, "")
-                                .replaceAll(".", "")
-                                .replaceAll(" ", "")
-                                .replaceAll("(", "")
-                                .replaceAll(")", "")
-                                .toLowerCase();
-                            //h1child = h1_tree.descendants()[h1].data.data.child.toLowerCase().replaceAll("/", "");
 
-                            //console.log(h2child);
+                        x1 = document.getElementById("h2tree_" + h1child).getAttribute("cx");
+                        y1 = document.getElementById("h2tree_" + h1child).getAttribute("cy");
 
+                        //console.log("h1tree_" + h2child);
+                        x2 = document.getElementById("h1tree_" + h1child).getAttribute("cx");
+                        y2 = document.getElementById("h1tree_" + h1child).getAttribute("cy");
 
-                            x1 = document.getElementById("h2tree_" + h2child).getAttribute("cx");
-                            y1 = document.getElementById("h2tree_" + h2child).getAttribute("cy");
 
-                            //console.log("h1tree_" + h2child);
-                            x2 = document.getElementById("h1tree_" + h2child).getAttribute("cx");
-                            y2 = document.getElementById("h1tree_" + h2child).getAttribute("cy");
 
+                        //console.log(x2 + " , " + y2);
 
+                        var ctm1 = document.getElementById("h2tree_" + h1child).getCTM();
+                        var ctm2 = document.getElementById("h1tree_" + h1child).getCTM();
 
-                            //console.log(x2 + " , " + y2);
 
-                            var ctm1 = document.getElementById("h2tree_" + h2child).getCTM();
-                            var ctm2 = document.getElementById("h1tree_" + h2child).getCTM();
+                        //console.log(ctm2.a + " " + ctm2.b + " " + ctm2.c + " " + ctm2.d + " " + ctm2.e + " " + ctm2.f);
 
+                        // if (d3.select("#lrradio")._groups[0][0].checked == true) {
 
-                            //console.log(ctm2.a + " " + ctm2.b + " " + ctm2.c + " " + ctm2.d + " " + ctm2.e + " " + ctm2.f);
+                        //console.log(parseInt(x2) + " " + ctm2.b);
+                        //console.log(parseInt(y2) + " " + ctm2.d);
+                        //console.log(ctm2.f + " ");
 
-                            // if (d3.select("#lrradio")._groups[0][0].checked == true) {
+                        var upd_x1 = ((parseInt(x1) - (radius - 4)) * ctm1.a) + (parseInt(y1) * ctm1.c) + ctm1.e;
+                        var upd_y1 = (parseInt(x1) * ctm1.b) + (parseInt(y1) * ctm1.d) + ctm1.f;
 
-                            //console.log(parseInt(x2) + " " + ctm2.b);
-                            //console.log(parseInt(y2) + " " + ctm2.d);
-                            //console.log(ctm2.f + " ");
+                        var upd_x2 = ((parseInt(x2) + (radius - 4)) * ctm2.a) + (parseInt(y2) * ctm2.c) + ctm2.e;
+                        var upd_y2 = (parseInt(x2) * ctm2.b) + (parseInt(y2) * ctm2.d) + ctm2.f;
 
-                            var upd_x1 = ((parseInt(x1) - (radius - 4)) * ctm1.a) + (parseInt(y1) * ctm1.c) + ctm1.e;
-                            var upd_y1 = (parseInt(x1) * ctm1.b) + (parseInt(y1) * ctm1.d) + ctm1.f;
 
-                            var upd_x2 = ((parseInt(x2) + (radius - 4)) * ctm2.a) + (parseInt(y2) * ctm2.c) + ctm2.e;
-                            var upd_y2 = (parseInt(x2) * ctm2.b) + (parseInt(y2) * ctm2.d) + ctm2.f;
 
+                        points = [];
+                        points.push([upd_x1, upd_y1]);
+                        //points.push([(upd_x1 + upd_x2) / 2, (upd_y1 + upd_y2) / 2 - 200]);
+                        points.push([upd_x2, upd_y2]);
 
 
-                            points = [];
-                            points.push([upd_x1, upd_y1]);
-                            //points.push([(upd_x1 + upd_x2) / 2, (upd_y1 + upd_y2) / 2 - 200]);
-                            points.push([upd_x2, upd_y2]);
 
+                        // if (d3.select("#straightlradio")._groups[0][0].checked == true) {
+                        //    var pathline = d3.line(points);
 
-
-                            // if (d3.select("#straightlradio")._groups[0][0].checked == true) {
-                            //    var pathline = d3.line(points);
-
-                            //console.log("PARENT " + h1_tree.descendants()[h1].data.data.child + " " + h1_tree.descendants()[h1].descendants().length);
-                            for (var i = 1; i < h1_tree.descendants()[h1].descendants().length; i++) {
-                                //console.log("changing " + h1_tree.descendants()[h1].descendants()[i].data.data.child);
-                                //console.log(h1_tree.descendants()[h1].descendants()[i].status);
-                                h1_tree.descendants()[h1].descendants()[i].status = "ignore";
-                                //console.log(h1_tree.descendants()[h1].descendants()[i].status);
-                            }
-
-
-                            //  d3
-                            //    .select("#treeswlinking_svg")
-                            //  .select("#lines")
-                            //  .append("line")
-                            // .style("stroke", "blue")
-                            //.style("fill", "none")
-                            //.style("stroke-width", 7)
-                            //.style("opacity", 0.3)
-                            ////.attr("x1", "transform(" + points[0] + "," + [0] + ")")
-                            //.attr("x1", upd_x1)
-                            //.attr("y1", upd_y1)
-                            //.attr("x2", upd_x2)
-                            //.attr("y2", upd_y2);
-
-                            //}
-
-
-
-                            //else if (d3.select("#curvedlradio")._groups[0][0].checked == true)  {
-
-                            var pathcurve = d3.line().curve(d3.curveNatural);
-                            //var pathcurve = d3.line().curve(d3.curveStep);
-
-
-
-
-                            d3
-                                .select("#treeswlinking_svg")
-                                .select("#lines")
-                                .append("path")
-                                .attr("id", "link_" + h2_desc[h2].data.data.child)
-                                .attr("h2child", h2_desc[h2].data.data.description_child)
-                                .attr("h1child", h1_desc[h1].data.data.description_child)
-                                .attr("d", pathcurve(points))
-                                .style("stroke", function () {
-                                    //console.log(h1_desc[h1].data.id + " " + h1_desc[h1].data.depth + " " + colorScale[h1_desc[h1].data.depth]);
-                                    return colorScale[h1_desc[h1].data.depth];
-                                })
-                                .style("fill", "none")
-                                .style("stroke-width", connectinglink_strokewidth)
-                                .style("opacity", 0.5)
-                                .on("mouseover", function (e, d, i) {
-                                    //console.log(i);
-                                    //console.log(h2);
-
-                                    //console.log(h2_desc[h2]);
-                                    //console.log(e);
-                                    //console.log(d);
-
-
-                                    d3.select(this).style("opacity", 1);
-
-                                    //console.log(h2_desc[h2].data.data.child);
-
-                                    var child = d3.select(this).attr("id").split("_")[1]
-                                        .replaceAll(/\//g, "")
-                                        .replaceAll(".", "")
-                                        .replaceAll(" ", "")
-                                        .replaceAll("(", "")
-                                        .replaceAll(")", "")
-                                        .toLowerCase();
-
-                                    d3.select("#h2tree_" + child)
-                                        .transition()
-                                        .attr("r", radius + 10)
-                                        .style("opacity", 1);
-
-                                    d3.select("#h1tree_" + child)
-                                        .transition()
-                                        .attr("r", radius + 10)
-                                        .style("opacity", 1);
-
-                                    //console.log(d3.select(this).attr("id"));
-                                    //console.log(h2_desc[h2].data.data.child + " " + h2_desc[h2].data.depth);
-
-
-                                    var label = d3.select(this).attr("h2child"), child = "root", parent = "";
-                                    update_log("ltree", "connecting link " + label, "link", "hover on a common link", "mouseover", "", "", "", "", "");
-
-                                    if (label.includes("/")) {
-                                        child = label.substring(label.lastIndexOf("/") + 1, label.length);
-                                        parent = label.substring(0, label.lastIndexOf("/"));
-                                    }
-
-                                    var type = "";
-
-                                    if (label.includes("."))
-                                        type = "file";
-                                    else
-                                        type = "folder"
-
-
-                                    var text = "<b>Link between common " + type + "  </b><hr class='border border-danger border-1 opacity-50'>" + parent + "/" + "<b>" + child + "</b>";
-                                    d3.select("#tooltip")
-                                        .html(text)
-                                        .style("left", parseInt(d3.event.pageX + tooltip_offset) + "px")
-                                        .style("top", parseInt(d3.event.pageY + 50) + "px")
-                                        .style("text-align", "left")
-                                        .style("opacity", 1);
-
-                                })
-                                .on("mouseout", function (d) {
-                                    d3.select(this).style("opacity", 0.5);
-
-                                    var child = d3.select(this).attr("id").split("_")[1]
-                                        .replaceAll(/\//g, "")
-                                        .replaceAll(".", "")
-                                        .replaceAll(" ", "")
-                                        .replaceAll("(", "")
-                                        .replaceAll(")", "")
-                                        .toLowerCase();
-
-                                    // d3.select("#tooltip")
-                                    //     .html("")
-                                    //     .style("left", 0)
-                                    //     .style("top", 0)
-                                    //     .style("opacity", 0); 
-
-                                    d3.select("#h2tree_" + child)
-                                        .transition()
-                                        .attr("r", radius - 4)
-                                        .style("opacity", opacity);
-
-                                    d3.select("#h1tree_" + child)
-                                        .transition()
-                                        .attr("r", radius - 4)
-                                        .style("opacity", opacity);
-
-                                    update_log("ltree", "connecting link " + d3.select(this).attr("id"), "link", "leave a link", "mouseleave", "", "", "", "", "");
-                                });
-
-                            // }
-
-
-
-
-                            //console.log(d3.select("h2tree_" + h2_desc[h2].data.data.child).attr("cx"));
-                            loop_counter = h1 + 1;
-                            break;
-
+                        //console.log("PARENT " + h1_tree.descendants()[h1].data.data.child + " " + h1_tree.descendants()[h1].descendants().length);
+                        for (var i = 1; i < h1_tree.descendants()[h1].descendants().length; i++) {
+                            //console.log("changing " + h1_tree.descendants()[h1].descendants()[i].data.data.child);
+                            //console.log(h1_tree.descendants()[h1].descendants()[i].status);
+                            h1_tree.descendants()[h1].descendants()[i].status = "ignore";
+                            //console.log(h1_tree.descendants()[h1].descendants()[i].status);
                         }
 
+
+
+
+                        var pathcurve = d3.line().curve(d3.curveNatural);
+                        //var pathcurve = d3.line().curve(d3.curveStep);
+
+
+
+
+                        d3
+                            .select("#treeswlinking_svg")
+                            .select("#lines")
+                            .append("path")
+                            .attr("id", "link_" + h1_desc[h1].data.data.child)
+                            //.attr("h2child", h2_desc[h2].data.data.description_child)
+                            .attr("h1child", h1_desc[h1].data.data.description_child)
+                            .attr("d", pathcurve(points))
+                            .style("stroke", function () {
+                                //console.log(h1_desc[h1].data.id + " " + h1_desc[h1].data.depth + " " + colorScale[h1_desc[h1].data.depth]);
+                                return colorScale[h1_desc[h1].data.depth];
+                            })
+                            .style("fill", "none")
+                            .style("stroke-width", connectinglink_strokewidth)
+                            .style("opacity", 0.5)
+                            .on("mouseover", function (e, d, i) {
+                                //console.log(i);
+                                //console.log(h2);
+
+                                //console.log(h2_desc[h2]);
+                                //console.log(e);
+                                //console.log(d);
+
+
+
+                                d3.select(this).style("opacity", 1);
+
+                                //console.log(h2_desc[h2].data.data.child);
+
+                                var child = d3.select(this).attr("id").split("_")[1]
+                                    .replaceAll(/\//g, "")
+                                    .replaceAll(".", "")
+                                    .replaceAll(" ", "")
+                                    .replaceAll("(", "")
+                                    .replaceAll(")", "")
+                                    .toLowerCase();
+
+                                console.log(child);
+
+                                d3.select("#h2tree_" + child)
+                                    .transition()
+                                    .attr("r", radius + 10)
+                                    .style("opacity", 1);
+
+                                d3.select("#h1tree_" + child)
+                                    .transition()
+                                    .attr("r", radius + 10)
+                                    .style("opacity", 1);
+
+                                //console.log(d3.select(this).attr("id"));
+                                //console.log(h2_desc[h2].data.data.child + " " + h2_desc[h2].data.depth);
+
+
+                                var label = d3.select(this).attr("h1child"), child = "root", parent = "";
+                                update_log("ltree", "connecting link " + label, "link", "hover on a common link", "mouseover", "", "", "", "", "");
+
+                                if (label.includes("/")) {
+                                    child = label.substring(label.lastIndexOf("/") + 1, label.length);
+                                    parent = label.substring(0, label.lastIndexOf("/"));
+                                }
+
+                                var type = "";
+
+                                if (label.includes("."))
+                                    type = "file";
+                                else
+                                    type = "folder"
+
+
+                                var text = "<b>Link between common " + type + "  </b><hr class='border border-danger border-1 opacity-50'>" + parent + "/" + "<b>" + child + "</b>";
+                                d3.select("#tooltip")
+                                    .html(text)
+                                    .style("left", parseInt(d3.event.pageX + tooltip_offset) + "px")
+                                    .style("top", parseInt(d3.event.pageY + 50) + "px")
+                                    .style("text-align", "left")
+                                    .style("opacity", 1);
+
+                            })
+                            .on("mouseout", function (d) {
+                                d3.select(this).style("opacity", 0.5);
+
+                                var child = d3.select(this).attr("id").split("_")[1]
+                                    .replaceAll(/\//g, "")
+                                    .replaceAll(".", "")
+                                    .replaceAll(" ", "")
+                                    .replaceAll("(", "")
+                                    .replaceAll(")", "")
+                                    .toLowerCase();
+
+                                // d3.select("#tooltip")
+                                //     .html("")
+                                //     .style("left", 0)
+                                //     .style("top", 0)
+                                //     .style("opacity", 0); 
+
+                                d3.select("#h2tree_" + child)
+                                    .transition()
+                                    .attr("r", radius - 4)
+                                    .style("opacity", opacity);
+
+                                d3.select("#h1tree_" + child)
+                                    .transition()
+                                    .attr("r", radius - 4)
+                                    .style("opacity", opacity);
+
+                                update_log("ltree", "connecting link " + d3.select(this).attr("id"), "link", "leave a link", "mouseleave", "", "", "", "", "");
+                            });
+
+                        // }
+
+
+
+
+                        //console.log(d3.select("h2tree_" + h2_desc[h2].data.data.child).attr("cx"));
+                        //loop_counter = h1 + 1;
+                        //break;
 
                     }
 
 
-                } //////////// h1 LOOP
+                }
 
-                //console.log("break out of h1 loop");
-            } //////////// h2 LOOP
+
+            } //////////// h1 LOOP
+
+            //console.log("break out of h1 loop");
+            //} //////////// h2 LOOP
 
 
         }
