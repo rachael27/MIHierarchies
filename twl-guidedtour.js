@@ -6,7 +6,7 @@ function twl_guidedtour() {
     var stepsArr = [
         {
             title: "Welcome to the Guided Tour! <hr class='border border-primary border-3 opacity-75'>",
-            intro: "<p class='text-left'>You can interact with each highlighted element in the tour to see it in action. <hr class='border border-danger border-2 opacity-50'> Pop-up boxes will guide you through every step of the tour. If at times the boxes are hidden, scroll the screen to find them. <hr class='border border-danger border-2 opacity-50'>In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour.</p>"
+            intro: "<p class='text-left'>You can interact with each highlighted element in the tour to see it in action. <hr class='border border-danger border-2 opacity-50'> Pop-up boxes will guide you through every step of the tour. If at times the boxes are hidden, please scroll the screen to find them. <hr class='border border-danger border-2 opacity-50'>In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour.</p>"
         },
         {
             title: " Arrangement of nodes in the BeforeH and AfterH<hr class='border border-primary border-3 opacity-75'>",
@@ -26,7 +26,7 @@ function twl_guidedtour() {
         {
             element: document.querySelector("#link_academics"),
             title: "A connecting link between folders <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Consider the blue links for this step of the tour. <hr class='border border-danger border-2 opacity-50'> If a link is drawn between 2 folders, it means that the folder along with the files that belong to it are common to both hierarchies."
+            intro: "Consider the blue links for this step of the tour. <hr class='border border-danger border-2 opacity-50'> If a link is drawn between 2 folders, it means that the folder along with the files that belong to it are common to both hierarchies. <hr class='border border-danger border-2 opacity-50'> Hovering on a link (hover on the first blue link) highlights the BeforeH and AfterH nodes that the link connects and display the node details."
         },
         {
             element: document.querySelector('[id="link_treemaps-index.html"]'),
@@ -46,6 +46,11 @@ function twl_guidedtour() {
             intro: "You can hover on a node to view a tooltip which displays the details about a node. <br><hr class='border border-danger border-2 opacity-50'> It also highlights the path from the node to the root."
         },
         {
+            element: document.querySelector('[id="h1tree_applet"]'),
+            title: "Tree levels <hr class='border border-primary border-3 opacity-75'>",
+            intro: "The level of a node is the number of ancestors from the given node until the root node. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes starting from the root node at level 0. Hence, the level of the selected node is 3.  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
+        },
+        {
             element: document.querySelector("#h1tree .triangle-agile2d"),
             title: "The green triangle <hr class='border border-primary border-3 opacity-75'>",
             intro: "The green triangle indicates that a node has been collapsed (i.e. the children of that node are hidden)."
@@ -57,18 +62,12 @@ function twl_guidedtour() {
             intro: "You can click on a node (with a green triangle) to expand its children. <br><hr class='border border-danger border-2 opacity-50'> Click on the node again to collapse it."
         },
 
-
         {
-            element: document.querySelector(".h1tree_academics_text"),
+            element: document.querySelector(".h2tree_oh99-indexshtml_text"),
             title: "Interacting with a label <hr class='border border-primary border-3 opacity-75'>",
             intro: "You can hover on a label to magnify the text."
         },
 
-        {
-            element: document.querySelector('[id="h1tree_applet"]'),
-            title: "Tree levels <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The level of a node is the number of ancestors from the given node until the root node. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes starting from the root node at level 0. Hence, the level of the selected node is 3.  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
-        },
 
         {
             element: document.querySelector('[id="search-nodes"]'),
@@ -88,7 +87,7 @@ function twl_guidedtour() {
         {
             element: document.querySelector('[id="btn-changeonlylayout"]'),
             title: "View changes-only layout <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The default layout expands only those folders that have undergone changes while hiding the children of those nodes that did not change from BeforeH to AfterH."
+            intro: "The default layout expands only those folders that have undergone changes while hiding the children of those nodes that did not change from the BeforeH to AfterH."
         },
 
         {

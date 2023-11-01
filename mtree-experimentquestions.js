@@ -70,8 +70,8 @@ function experimentquestions(qcounter) {
         {
             "qid": "E6.",
             "question": "Choose the best description for the folder:<i>root/hcil/piccolo/applications</i> changed?",
-            "answer": "One folder and a file have been retained",
-            "options": ["Some files have been deleted", "The folder contents have not changed at all", "One folder and a file have been retained", "One file has been added"]
+            "answer": "One folder and a file that belongs to it have been retained",
+            "options": ["Some files have been deleted", "The folder contents have not changed at all", "One folder and a file that belongs to it have been retained", "One file has been added"]
 
         },
 
@@ -84,8 +84,8 @@ function experimentquestions(qcounter) {
         },
         {
             "qid": "E8.",
-            "question": "Which folder in the BeforeH has grown the most in the AfterH?",
-            "answer": "<i>root/hcil/about/pictures</i>",
+            "question": "Which folder in the BeforeH has the most number of newly created files in the AfterH?",
+            "answer": "<i>root/hcil/treemap3</i>",
             "options": ["<i>root/hcil/treemap3</i>", "<i>root/hcil/about/pictures</i>", "<i>root/hcil/agile2d</i>"]
 
         },

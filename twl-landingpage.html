@@ -78,45 +78,46 @@
 
 
                         <blockquote>
-                            Before you start the study, please make sure to do the following:
-                            <br>
-                            1. Close all other tabs. Chrome is the preferred browser for this study. <br>
-                            2. Maximize your browser. <br>
-                            3. DO NOT use the back button in your browser. <br>
+                            <p>
+                                Before you start the study, please make sure to do the following:
+                                <br>
+                                1. Close all other tabs. Chrome is the preferred browser for this study. <br>
+                                2. Maximize your browser. <br>
+                                3. DO NOT use the back button in your browser. <br>
 
-                            <br>
+                                <br>
 
-                            In this study, you will evaluate a visualization called the <b>LinkedTree
-                                visualization
-                            </b>.
+                                In this study, you will evaluate a visualization called the <b>LinkedTree
+                                    visualization
+                                </b>.
 
-                            <br>
-                            <br>
-                            The study will be carried out in <b> 4 phases: Overview, Guided Tour, Training and
-                                Experiment,</b> and will take approximately <em>40 minutes </em> to complete.
-                            <br>
-                            <br>
-                            We will analyse the profile of your answers to eliminate those that are flagged as
-                            guesswork. At the end of the study, <b> don't forget to download and
-                                email
-                                your
-                                log files. </b>
-                            <mark>Only those profiles with complete answers and not flagged as guesswork will
-                                receive an amazon
-                                voucher
-                                code.</mark>
+                                <br>
+                                <br>
+                                The study will be carried out in <b> 4 phases: Overview, Guided Tour, Training and
+                                    Experiment,</b> and will take approximately <em>40 minutes </em> to complete.
+                                <br>
+                                <br>
+                                We will analyse the profile of your answers to eliminate those that are flagged as
+                                guesswork. At the end of the study, <b> don't forget to download and
+                                    email
+                                    your
+                                    log files. </b>
+                                <mark>Only those profiles with complete answers and not flagged as guesswork will
+                                    receive an amazon
+                                    voucher
+                                    code.</mark>
 
-                            <br>
-                            <br>
-                            Please note that once you've completed a phase, you can't go back to it. However, you
-                            can go back and forth
-                            within a phase.
+                                <br>
+                                <br>
+                                Please note that once you've completed a phase, you can't go back to it. However, you
+                                can go back and forth
+                                within a phase.
 
 
-                            <br>
-                            <br>
+                                <br>
+                                <br>
 
-                            <mark>Instructions for every phase will appear here.</mark>
+                                <mark>Instructions for every phase will appear here.</mark>
 
                             </p>
                         </blockquote>
@@ -130,7 +131,7 @@
 
                     <br>
                     <br>
-                    <span style="color: black; height:50px; font-size:x-large; font-weight: bold; margin-top: 20px; ">
+                    <span style="color: black; height:50px; font-size:x-large; font-weight: bold; margin-top: 1%; ">
                         Phases of the study
                     </span>
                 </div>
@@ -240,8 +241,10 @@
                         background-color:#155446; color: white; ">Next <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
+            <text id="scrolldown" style="color:#155446;;font-size: 30px;margin-left: 10px;">Scroll down <i
+                    class="fa-solid fa-arrow-down"></i> <i class="fa-solid fa-arrow-down"></i></text>
             <div class="alert alert-warning alert-dismissible fade show" id="alert" role="alert"
-                style="opacity:0;width:50%;margin-left: 25%;margin-top: 20px;">
+                style="opacity:0;width:50%;margin-left: 25%;margin-top: 1%;">
                 <strong>Please pause and play as required.</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -354,11 +357,21 @@
 
             d3.select("#btn-next")
                 .on("click", function (d) {
-
-
-
                     numofclicks++;
+
+                    if (numofclicks == 1) {
+                        d3.select("#scrolldown")
+                            .transition()
+                            .duration(1000)
+                            .style("opacity", 0)
+                            .remove();
+                        //document.getElementById("slidescarousel").scrollIntoView(true);
+                    }
+
+
+
                     //console.log(numofclicks + " " + slides.length);
+
                     if (numofclicks >= slides.length) {
                         update_log("btn-next", "button", "redirect to guided tour", "click");
 
@@ -490,10 +503,14 @@
                 .select("p")
                 .remove();
 
+
+
             d3.select("#blockquote")
                 .append("p")
                 .html("The next phase (i.e.) the <b>training phase </b> is designed to help you evaluate your understanding of the visualization. <br><br> <b>Hints</b> will be available throughout this phase to guide you. <br><br><mark>You must choose the correct answer to proceed to the next question.</mark>")
 
+            d3.select("#slidescarousel").remove();
+            d3.select("#scrolldown").remove();
 
 
             for (var i = 0; i < slides.length; i++) {
@@ -569,6 +586,8 @@
                 .append("p")
                 .html("The last phase (i.e.) the <b>experiment phase</b> is designed to evaluate your understanding of the visualization. <br><br> <b> Hints </b> will NOT be available. <br><br> <mark>You must choose an option/answer to proceed to the next question. </mark>")
 
+            d3.select("#slidescarousel").remove();
+            d3.select("#scrolldown").remove();
 
             for (var i = 0; i < slides.length; i++) {
                 d3.select("#" + slides[i] + "-btn")._groups[0][0].disabled = false;
@@ -654,6 +673,8 @@
                 .append("p")
                 .html("<code style='font-size:25px; color:#155446;'>Thank you for your participation! <br><br> Don't forget to download and email the MIHierarchiesLog.csv file to receive your amazon voucher code.</code>");
 
+            d3.select("#slidescarousel").remove();
+            d3.select("#scrolldown").remove();
 
             d3.select("#btn-downloadlog")
                 .style("display", "block");
@@ -787,9 +808,6 @@
             d3.select("#btn-copyemail")
                 .on("click", function () {
                     navigator.clipboard.writeText("rf312@sussex.ac.uk");
-
-                    /* d3.select("#btn-copyemail")
-                        .attr("title", "Copied!"); */
 
                     $("#btn-copyemail")
                         .attr('title', 'Copied!')

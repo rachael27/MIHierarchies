@@ -36,7 +36,7 @@ function twl_trainingquestions(qcounter) {
             "hint": "The path refers to the shortest set of parent nodes that need to be traversed to reach the root node from the given node. Hover, on a node to see its path highlighted to the root node.",
             "answer": "<i>root/hcil/about/press</i>",
             "numoptions": 3,
-            "options": ["<i>root/hcil/members/press</i>", "<i>root/hcil/about/press</i>", "<i>root/hcil/collaborators/press</i>"]
+            "options": ["<i>root/hcil/about/press</i>", "<i>root/hcil/members/press</i>", "<i>root/hcil/collaborators/press</i>"]
 
 
         },
@@ -56,7 +56,7 @@ function twl_trainingquestions(qcounter) {
         {
             "qid": "T4.",
             "question": "Choose the best description of folder:<i>root/hcil/treemap3</i>",
-            "hint": "You can see that the node:<i>treemap3</i> exists in both hierarchies, but has no common links connecting the nodes in the BeforeH and the AfterH. The absence of connecting links shows that all the files in the BeforeH were deleted and that new files were created in the AfterH.",
+            "hint": "You can see that the node:<i>treemap3</i> exists in both hierarchies, but it has no common links connecting the nodes in the BeforeH and the AfterH. The absence of connecting links shows that all the files in the BeforeH were deleted and that new files were created in the AfterH.",
             "answer": "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH",
             "numoptions": 4,
             "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted and no new files were added", "The folder existed in the BeforeH but some files were deleted", "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH"]

@@ -454,7 +454,7 @@
 
                 setTimeout(() => {
                     twl_guidedtour();
-                }, 800);
+                }, 2000);
             }
 
             else if (urlpage == "trainingquestions") {
@@ -734,7 +734,7 @@
                 .attr("text-anchor", function (d) {
                     return "start";
                 })
-                .text("BeforeH");
+                .html("BeforeH");
 
             d3.select("#treeswlinking_svg")
                 .append("rect")
@@ -1424,6 +1424,7 @@
                 .on("click", function (d) {
                     update_log("ltree", "node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
                     click(d);
+                    // console.log(d)
                     d3.select("#lines").remove();
 
                     setTimeout(() => {
@@ -2825,7 +2826,7 @@
                     .append("text")
                     .attr("x", 100)
                     .attr("y", 40)
-                    .text("LEGEND: The colors of the connecting links depend on the level of the node in the BeforeH");
+                    .text("LEGEND: The colors of the connecting links depending on the level of the node in the BeforeH");
 
                 var levelg = d3.select("#legend")
                     .selectAll("g")
@@ -2896,6 +2897,51 @@
             }
         }
 
+
+        /*
+function commonElementsList(h2_desc, h1_desc) {
+    var arr = [];
+    for (h2 = 0; h2 < h2_desc.length; h2++) {
+
+
+        for (h1 = 0; h1 < h1_desc.length; h1++) {
+            //console.log(h2 + " " + h1);
+
+
+            if (h1_desc[h1].status == "ACCEPT") {
+                //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
+                //console.log(h2_desc[h2].data.data.child + " " + h1_desc[h1].data.data.child);
+
+                if (checkElements(h1_desc[h1], h2_desc[h2])) {
+                    console.log("draw line " + h2_desc[h2].data.data.description_child);
+                    commonElementsArr.push(h2_desc[h2].data.data.description_child);
+                }
+            }
+        }
+    }
+}
+
+function checkElements(el_h1, el_h2) {
+    //console.log(el_h1.descendants());
+    //console.log(el_h2.descendants());
+    if (el_h1.descendants().length == el_h2.descendants().length) {
+        for (var h1 = 0; h1 < el_h1.descendants().length; h1++) {
+            for (var h2 = 0; h2 < el_h2.descendants().length; h2++) {
+                if (el_h1.descendants()[h1].data.data.child != el_h2.descendants()[h2].data.data.child) {
+                    //el_h2.status = "ignore";
+                    //el_h1.status = "ignore";
+                    return false;
+                }
+            }
+        }
+        //console.log(el_h1.data.data.child + " true");
+        return true;
+    }
+    else
+        return false;
+}
+
+*/
 
         function commonElements(h2_desc, h1_desc) {
 

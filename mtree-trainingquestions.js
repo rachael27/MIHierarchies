@@ -38,7 +38,7 @@ function trainingquestions(qcounter) {
             "hint": "The path refers to the shortest set of parent nodes that need to be traversed to reach the root node from the given node. Hover, on a node to see its path highlighted to the root node.",
             "answer": "<i>root/hcil/about/press</i>",
             "numoptions": 3,
-            "options": ["<i>root/hcil/members/press</i>", "<i>root/hcil/about/press</i>", "<i>root/hcil/collaborators/press</i>"]
+            "options": ["<i>root/hcil/about/press</i>", "<i>root/hcil/members/press</i>", "<i>root/hcil/collaborators/press</i>"]
 
 
         },
@@ -58,7 +58,7 @@ function trainingquestions(qcounter) {
         {
             "qid": "T4.",
             "question": "Choose the best description of folder:<i>root/hcil/treemap3</i>.",
-            "hint": "The folder:<i>treemap3</i> has only red and green links. The red links show that all the files in the BeforeH were deleted. The green links show that some files were newly added in the AfterH. ",
+            "hint": "The folder:<i>treemap3</i> has only red and green links. The absence of blue links show that no files were retained. Consequently, the red links indicate that all the files in the BeforeH were deleted. The green links show that some files were newly added in the AfterH. ",
             "answer": "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH",
             "numoptions": 4,
             "options": ["It was newly created in the AfterH", "The folder existed in the BeforeH but all files were deleted and no new files were added", "The folder existed in the BeforeH but some files were deleted", "The folder existed in the BeforeH but all files were deleted and some were newly added in the AfterH"]
@@ -68,7 +68,7 @@ function trainingquestions(qcounter) {
         {
             "qid": "T5.",
             "question": "What happened to the file:<i>jrexxlab.jpg</i>?",
-            "hint": "When you search for the file, it is unavailable in the BeforeH but available in the AfterH. The node is a dot/filled circle with a green link which shows that the file was newly created.",
+            "hint": "The node is a green dot/filled-circle with a green link which shows that the file was newly created in the AfterH.",
             "answer": "The file was not present in the BeforeH but was newly created in the AfterH",
             "numoptions": 3,
             "options": ["The file was present in the BeforeH but deleted in the AfterH", "The file was not present in the BeforeH but was newly created in the AfterH", "The file is present in the BeforeH and the AfterH"]

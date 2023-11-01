@@ -117,7 +117,7 @@
 
                     <br>
                     <br>
-                    <span style="color: black; height:50px; font-size:x-large; font-weight: bold; margin-top: 20px; ">
+                    <span style="color: black; height:50px; font-size:x-large; font-weight: bold; margin-top: 1%; ">
                         Phases of the study
                     </span>
                 </div>
@@ -207,15 +207,21 @@
 
     <div class="row">
         <div class="col-12">
+
+
             <div class="btn-group btn-group-lg" role="group" aria-label="Second group">
-                <button id="btn-back" type="button" class="btn" style="background-color:#155446; color: white;">
+                <button id="btn-back" type="button" class="btn"
+                    style="background-color:#155446; color: white;margin-left: 20px;">
                     <i class="fa-solid fa-arrow-left"></i> Back</button>
                 <button id="btn-next" type="button" class="btn" style="margin-left: 2px; 
                         background-color:#155446; color: white; ">Next <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
+
+            <text id="scrolldown" style="color:#155446;;font-size: 30px;margin-left: 10px;">Scroll down <i
+                    class="fa-solid fa-arrow-down"></i> <i class="fa-solid fa-arrow-down"></i></text>
             <div class="alert alert-warning alert-dismissible fade show" id="alert" role="alert"
-                style="opacity:0;width:50%;margin-left: 25%;margin-top: 20px;">
+                style="opacity:0;width:50%;margin-left: 25%;margin-top: 1%;">
                 <strong>Please pause and play as required.</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -323,10 +329,19 @@
             d3.select("#btn-next")
                 .on("click", function (d) {
 
-
-
                     numofclicks++;
-                    console.log(numofclicks + " " + slides.length);
+
+                    if (numofclicks == 1) {
+                        d3.select("#scrolldown")
+                            .transition()
+                            .duration(1000)
+                            .style("opacity", 0)
+                            .remove();
+                        //document.getElementById("slidescarousel").scrollIntoView(true);
+                    }
+
+
+                    //console.log(numofclicks + " " + slides.length);
                     if (numofclicks >= slides.length) {
                         update_log("btn-next", "button", "redirect to guided tour", "click");
 
@@ -452,7 +467,6 @@
         else if (urlpage == "guidedtour") {
             console.log("entered gt");
 
-
             d3.select("#blockquote")
                 .select("p")
                 .remove();
@@ -461,7 +475,8 @@
                 .append("p")
                 .html("The next phase (i.e.) the <b>training phase </b> is designed to help you evaluate your understanding of the visualization. <br><br> <b>Hints</b> will be available throughout this phase to guide you. <br><br><mark>You must choose the correct answer to proceed to the next question.</mark>")
 
-
+            d3.select("#slidescarousel").remove();
+            d3.select("#scrolldown").remove();
 
             for (var i = 0; i < slides.length; i++) {
                 d3.select("#" + slides[i] + "-btn")._groups[0][0].disabled = false;
@@ -525,7 +540,7 @@
         }
 
         else if (urlpage == "trainingquestions") {
-            console.log("entered tq");
+            //console.log("entered tq");
 
 
             d3.select("#blockquote")
@@ -536,6 +551,8 @@
                 .append("p")
                 .html("The last phase (i.e.) the <b>experiment phase</b> is designed to evaluate your understanding of the visualization. <br><br> <b> Hints </b> will NOT be available. <br><br> <mark>You must choose an option/answer to proceed to the next question. </mark>")
 
+            d3.select("#slidescarousel").remove();
+            d3.select("#scrolldown").remove();
 
             for (var i = 0; i < slides.length; i++) {
                 d3.select("#" + slides[i] + "-btn")._groups[0][0].disabled = false;
@@ -609,7 +626,9 @@
         }
 
         else if (urlpage == "experimentquestions") {
-            console.log("entered eq");
+            //console.log("entered eq");
+            d3.select("#slidescarousel").remove();
+            d3.select("#scrolldown").remove();
 
             d3.select("#blockquote")
                 .select("blockquote")

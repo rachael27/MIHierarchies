@@ -7,7 +7,7 @@ function guidedtour() {
     var stepsArr = [
         {
             title: " Welcome to the Guided Tour! <hr class='border border-primary border-3 opacity-75'>",
-            intro: "You can interact with each highlighted element in the tour to see it in action. <hr class='border border-danger border-2 opacity-50'> Pop-up boxes will guide you through every step of the tour. If at times the boxes are hidden, scroll to find them. <hr class='border border-danger border-2 opacity-50'>In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour."
+            intro: "You can interact with each highlighted element in the tour to see it in action. <hr class='border border-danger border-2 opacity-50'> Pop-up boxes will guide you through every step of the tour. If at times the boxes are hidden, please scroll to find them. <hr class='border border-danger border-2 opacity-50'>In addition to the back and next buttons, you can also use the left and right arrow keys to move through the tour."
         },
 
         {
@@ -23,12 +23,12 @@ function guidedtour() {
         {
             element: document.querySelector("#mergedtree_mftv-indexhtml"),
             title: "A node that belongs to only the BeforeH (left) hierarchy <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Node:<i>root/hcil/piccolo/applications/mftv/ mftv-index.html</i> belongs only to the BeforeH. <hr class='border border-danger border-2 opacity-50'> It is represented by a red hollow circle. The link is also colored in red to show that it was deleted in the AfterH."
+            intro: "Node:<i>root/hcil/piccolo/applications/mftv/ mftv-index.html</i> belongs only to the BeforeH. <hr class='border border-danger border-2 opacity-50'> It is represented by a red hollow circle. The link is also colored in red to show that it was deleted in the BeforeH."
         },
         {
             element: document.querySelector("#mergedtree_about"),
             title: "A node that belongs to only the AfterH (right) hierarchy <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Node:<i>root/hcil/about</i> about belongs only to the AfterH. <hr class='border border-danger border-2 opacity-50'> It is represented by a green dot (filled circle). The link is also colored in green to show that it was newly created in the AfterH.<hr class='border border-danger border-2 opacity-50'>"
+            intro: "Node:<i>root/hcil/about</i> about belongs only to the AfterH. <hr class='border border-danger border-2 opacity-50'> It is represented by a green dot (filled circle). The link is also colored in green to show that it was newly created in the AfterH."
         },
         {
             element: document.querySelector(".triangle-academics"),
@@ -53,9 +53,9 @@ function guidedtour() {
              intro: "The level of a node in the BeforeH is the number of ancestors from the given node until the root node. <hr class='border border-danger border-2 opacity-50'> To calculate the level, simply count the number of highlighted nodes starting from the root node at level 0. Hence, the level of the selected node is 2.  <hr class='border border-danger border-2 opacity-50'> The root node is at level 0."
          }, */
         {
-            element: document.querySelector("#line-chart-l1 .line"),
+            element: document.querySelector("#line-chart-l1"),
             title: "Level of a node in the AfterH (solid multi-colored level lines) <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The solid multi-colored level lines show the position of a node as it appears in the AfterH. <hr class='border border-danger border-2 opacity-50'> These lines run from <b>right-to-left</b>. <hr class='border border-danger border-2 opacity-50'>To find the level of node in the AfterH, simply look for the solid colored line passing through it. <hr class='border border-danger border-2 opacity-50'> The node:<i>root/hcil</i> in the AfterH and is on level 1 represented by the Level 1 solid orange-colored line passing through it. <hr class='border border-danger border-2 opacity-50'> <b>Some nodes might be on different levels in the BeforeH and AfterH.</b>"
+            intro: "The solid multi-colored level lines show the position of a node as it appears in the AfterH. <hr class='border border-danger border-2 opacity-50'> These lines run from <b>right-to-left</b>. Scroll to the right to see the matching colored label. <hr class='border border-danger border-2 opacity-50'>To find the level of node in the AfterH, simply look for the solid colored line passing through it. <hr class='border border-danger border-2 opacity-50'> The node:<i>root/hcil</i> in the AfterH is on level 1 represented by the Level 1 solid orange-colored line passing through it. <hr class='border border-danger border-2 opacity-50'> <b>Some nodes might be on different levels in the BeforeH and AfterH.</b>"
         },
         /*
                 {
@@ -68,7 +68,7 @@ function guidedtour() {
         {
             element: document.querySelector(".h2-text-level0"),
             title: "AfterH level lines <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Clicking on a level label will show/hide the level line. <hr class='border border-danger border-2 opacity-50'> Clicking on the BeforeH level labels does the same for the dotted/dashed grey level lines."
+            intro: "Clicking on a AfterH level label will show/hide the level line. <hr class='border border-danger border-2 opacity-50'> Clicking on the BeforeH level labels (grey colored label on the left) does the same for the dotted/dashed grey level lines."
         },
         {
             element: document.querySelector("#btn-level-chart"),
@@ -79,7 +79,7 @@ function guidedtour() {
         {
             element: document.querySelector('[id="search-nodes"]'),
             title: "Search nodes <hr class='border border-primary border-3 opacity-75'>",
-            intro: "Enter the file/folder name, for e.g. type 'filelist.xml' will give you a list of all files named filelist.xml. <hr class='border border-danger border-2 opacity-50'> Choose the required file based on its <b>path:</b><i>/anthro/photos/index_files/filelist.xml</i>"
+            intro: "Enter the file/folder name, for e.g. type 'filelist.xml' will give you a list of all files named filelist.xml. <hr class='border border-danger border-2 opacity-50'> Choose the <b>file:</b><i>filelist.xml</i> based on its <b>path:</b><i>root/hcil/anthro/photos/index_files/ <b>filelist.xml</b></i>"
         },
         {
             element: document.querySelector('[id="btn-search"]'),
@@ -94,7 +94,7 @@ function guidedtour() {
         {
             element: document.querySelector('[id="btn-changeonlylayout"]'),
             title: "View changes-only layout <hr class='border border-primary border-3 opacity-75'>",
-            intro: "The default layout expands only those folders that have undergone changes while hiding the children of those nodes that did not change from BeforeH to AfterH."
+            intro: "The default layout expands only those folders that have undergone changes while hiding the children of those nodes that did not change from the BeforeH to AfterH."
         },
 
         {
