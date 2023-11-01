@@ -75,6 +75,11 @@ function guidedtour() {
             title: "AfterH level lines button <hr class='border border-primary border-3 opacity-75'>",
             intro: "Alternatively, you can click on the button to show/hide all level lines. <hr class='border border-danger border-2 opacity-50'> Clicking on the button on the left does the same for the BeforeH level lines. "
         },
+        {
+            element: document.querySelector(".mergedtree_privacy-policyshtml"),
+            title: "Interacting with a label <hr class='border border-primary border-3 opacity-75'>",
+            intro: "The label displays the truncated file/folder name along with the extension (of the file). <hr class='border border-danger border-2 opacity-50'> You can hover on a label to magnify the text and to view the entire file/folder name."
+        },
 
         {
             element: document.querySelector('[id="search-nodes"]'),

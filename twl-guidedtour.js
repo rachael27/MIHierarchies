@@ -65,7 +65,7 @@ function twl_guidedtour() {
         {
             element: document.querySelector(".h2tree_oh99-indexshtml_text"),
             title: "Interacting with a label <hr class='border border-primary border-3 opacity-75'>",
-            intro: "You can hover on a label to magnify the text."
+            intro: "The label displays the truncated file/folder name along with the extension (of the file). <hr class='border border-danger border-2 opacity-50'> You can hover on a label to magnify the text and to view the entire file/folder name."
         },
 
 
