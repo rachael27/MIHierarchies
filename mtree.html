@@ -199,251 +199,8 @@
 
 
         <div class="row">
-            <!--
-            <div class="col-2" style=" margin-left: 20px; color:black;">
-
-                <fieldset class="border p-2" style="margin-top:150px;">
-                    <legend class="w-auto">Dataset</legend>
-                    <button type="button" id="btn-swapdataset" class="btn btn-primary" style="margin-top:50px;">
-                        <i class="fa-solid fa-right-left"></i>
-                        <h5>Swap primary and secondary datasets</h5>
-                    </button>
 
 
-                    <span class="form-check" style="margin-top:20px;">
-                        <label class="form-check-label" for="fileversion0radio">
-                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion0radio"
-                                checked>
-                            Default
-                        </label>
-                    </span>
-
-                    <span class="form-check" style=" margin-top:10px;">
-                        <label class="form-check-label" for="fileversion1radio">
-                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion1radio">
-                            <span style="float:left;">Default 2</span>
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:10px;">
-                        <label class="form-check-label" for="fileversion5radio">
-                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion5radio">
-                            <span style="float:left;">Project Team</span>
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:10px;">
-                        <label class="form-check-label" for="fileversion2radio">
-                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion2radio">
-
-                            <span style="float:left;">Log Files</span>
-
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:10px;">
-                        <label class="form-check-label" for="fileversion6radio">
-                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion6radio">
-
-                            <span style="float:left;">Book Classification</span>
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:10px; ">
-                        <label class="form-check-label" for="fileversion3radio">
-                            <input class="form-check-input" type="radio" name="fileversionradio" id="fileversion3radio">
-
-                            <span style="float:left;">UK SIC - v4 and v3.1</span>
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:10px;">
-                        <label class="form-check-label" for="filterdata">
-                            <input class="form-check-input" type="checkbox" id="filterdatacheck" name="filterdata"
-                                value="yes">
-
-                            <span style="float:left;">Filter Data - (A,B,C)</span>
-                        </label>
-
-                    </span>
-                    <br>
-                </fieldset>
-
-
-                <fieldset class="border p-2" style="margin-top:100px;">
-                    <legend class="w-auto">Styling level lines</legend>
-                    <span class="form-check" style="margin-top:10px;">
-                        <label class="form-check-label" for="fillcolorradio">
-                            <input class="form-check-input" type="radio" name="levelcolorradio" id="fillcolorradio">
-                            <span>Fill level lines with color
-                                <span class="dot"
-                                    style="background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);">
-                                </span>
-                            </span>
-                        </label>
-                    </span>
-
-
-                    <span class="form-check" style="margin-top:10px;">
-                        <label class="form-check-label" for="fillnoneradio">
-                            <input class="form-check-input" type="radio" name="levelcolorradio" id="fillnoneradio"
-                                checked>
-                            <span>No color
-                                <span class="dot" style="background-color: blue;"></span>
-                            </span>
-                        </label>
-                    </span>
-
-
-                </fieldset>
-
-
-
-                <fieldset class="border p-2" style="margin-top:100px;">
-                    <legend class="w-auto">Change color theme</legend>
-                    <div class="form-check" style="margin-top:50px;">
-                        <label class="form-check-label" for="blueredradio">
-                            <input class="form-check-input" type="radio" name="nodecolorradio" id="blueredradio"
-                                checked>
-                            Blue/Red Theme (default)
-                            <br>
-                            <span class="dot" style="background-color: blue;"></span> +
-                            <span class="dot" style="background-color: red;"></span> =
-                            <span class="dot" style="background-color: purple;"></span>
-                        </label>
-                    </div>
-                    <div class="form-check" style="margin-top:20px;">
-                        <label class="form-check-label" for="orangeblueradio">
-                            <input class="form-check-input" type="radio" name="nodecolorradio" id="orangeblueradio">
-                            Orange/blue Theme
-                            <br>
-                            <span class="dot" style="background-color: orange;"></span> +
-                            <span class="dot" style="background-color: blue;"></span> =
-                            <span class="dot" style="background-color: yellowgreen;"></span>
-                        </label>
-                    </div>
-
-                </fieldset>
-
-
-                <fieldset class="border p-2" style="margin-top:100px;">
-                    <legend class="w-auto">Change node shape</legend>
-                    <div class="form-check" style="margin-top:50px; ">
-                        <label class="form-check-label" for="solidshaperadio">
-                            <input class="form-check-input" type="radio" name="nodeshaperadio" id="solidshaperadio">
-                            Solid Circles in different colors
-                            <br>
-                            <span class="dot" style="background-color: blue;"></span> +
-                            <span class="dot" style="background-color: red;"></span> =
-                            <span class="dot" style="background-color: purple;"></span>
-
-                        </label>
-                    </div>
-                    <div class="form-check" style=" margin-top:20px;">
-                        <label class="form-check-label" for="hollowshaperadio">
-                            <input class="form-check-input" type="radio" name="nodeshaperadio" id="hollowshaperadio"
-                                checked>
-                            A combination of hollow and solid circles
-                            <br>
-                            <span style="background-color: white;  border-color:blue; border-style:solid; border-width: 5px; height: 25px;
-                        width: 25px; border-radius: 50%; display: inline-block;"></span> +
-                            <span class="dot" style="background-color: blue;"></span> =
-                            <i style="color:blue;" class="fa-regular fa-circle-dot fa-2xl"></i>
-                        </label>
-
-                    </div>
-                </fieldset>
-
-
-
-
-                <fieldset class="border p-2" style="margin-top:100px;">
-                    <legend class="w-auto">Layout</legend>
-
-                    <span class="form-check" style="margin-top:20px; ">
-                        <label class="form-check-label" for="sideradio">
-                            <input class="form-check-input" type="radio" name="layoutradio" id="sideradio">
-                            <span class="text-justify"> Trees are laid side-by-side</span>
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:20px;">
-                        <label class=" form-check-label" for="def_tbradio">
-                            <input class="form-check-input" type="radio" name="layoutradio" id="def_tbradio">
-                            <span class="text-justify">
-                                Default Top-bottom layout
-                            </span>
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:20px;">
-                        <label class=" form-check-label" for="tbradio">
-                            <input class="form-check-input" type="radio" name="layoutradio" id="tbradio">
-                            <span class="text-justify">
-                                Top-bottom layout</span>
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:20px;">
-                        <label class=" form-check-label" for="lrradio">
-                            <input class="form-check-input" type="radio" name="layoutradio" id="lrradio">
-                            <span class="text-justify"> Left-right layout</span>
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:20px;">
-                        <label class=" form-check-label" for="lrleavesradio">
-                            <input class="form-check-input" type="radio" name="layoutradio" id="lrleavesradio" checked>
-                            <span class="text-justify">
-                                Left-right leaves facing-first layout</span>
-                        </label>
-                    </span>
-
-
-                    <span class="form-check" style="margin-top:20px;">
-                        <label class=" form-check-label" for="tlbrradio">
-                            <input class="form-check-input" type="radio" name="layoutradio" id="tlbrradio">
-                            <span class="text-justify"> Top-left and bottom right layout</span>
-                        </label>
-                    </span>
-
-
-                    <span class=" form-check" style="margin-top:20px;">
-                        <label class=" form-check-label" for="ang_tlbrradio">
-                            <input class="form-check-input" type="radio" name="layoutradio" id="ang_tlbrradio">
-                            <span class="text-justify">Angled top-left and bottom-right layout</span>
-                        </label>
-                    </span>
-
-
-                </fieldset>
-
-
-                <fieldset class="border p-2" style="margin-top:100px;">
-                    <legend class="w-auto">Type of links</legend>
-                    <span class="form-check" style="margin-top:50px; ">
-                        <label class="form-check-label" for="straightlradio">
-                            <input class="form-check-input" type="radio" name="linesradio" id="straightlradio" checked>
-
-                            Straight lines
-                        </label>
-                    </span>
-
-                    <span class="form-check" style="margin-top:20px;">
-                        <label class=" form-check-label" for="curvedlradio">
-                            <input class="form-check-input" type="radio" name="linesradio" id="curvedlradio">
-
-                            <span style="width:100%;">Curved links</span>
-                        </label>
-                    </span>
-
-                </fieldset>
-
-            </div>
- -->
-
-            <!--  <div class="col-1">
-            </div> -->
             <div id="content" class="col-12">
 
 
@@ -479,7 +236,8 @@
         var h2 = "";
         var h1 = "";
 
-
+        let sel_toolbox = "";
+        var anc_desc = [];
 
 
         var h2_tree = "", h1_tree = ""; hier_root = "";
@@ -503,6 +261,8 @@
         var flag_levelline = 1;
         var flag_levelchart = 1;
 
+        var zoomfactor = 0;
+        var toolbox_opacity = 1;
 
 
         title = ["Before Hierarchy", "After Hierarchy", "Merged Tree"];
@@ -829,13 +589,9 @@
                 .select("#content")
                 .append("svg")
                 .attr("id", "mergedtree_svg")
-
-                /*  .call(d3.zoom().on("zoom", function () {
-                     mergedtree_svg.attr("transform", d3.event.transform)
-                 })) */
-
                 .attr("width", window.innerWidth * 1.5)
-                .attr("height", height);
+                .attr("height", height)
+                .append("g");
 
 
 
@@ -1038,7 +794,7 @@
 
                     //if (document.getElementById("tog-hierarchy").checked) {
                     child = d3.select("#search-nodes").node().value;
-                    update_log("mtree", "btn-search", "button", "Search for value " + child, "click", "", "", "", "", "");
+                    update_log("mtree", "btn-search", "button", "search for a node " + child, "click", "", "", "", "", "");
 
                     var offsetHeight = document.getElementById('sticky').offsetHeight;
                     console.log(offsetHeight);
@@ -1424,7 +1180,7 @@
                     if (i == 0 || i == 1)
                         return -30;
                     else
-                        return tree_start[1] - 70;
+                        return tree_start[1] - 100;
 
                 })
                 .attr("text-anchor", function (d) {
@@ -1972,6 +1728,8 @@
             /* START OF MERGED TREE */
 
             function collapse(d) {
+                //console.log("COLLAPSE " + d.data.data.child);
+
                 if (d.children) {
                     d._children = d.children
                     d._children.forEach(collapse)
@@ -1980,14 +1738,28 @@
             }
 
             function expand(d) {
-                //console.log("EXPAND");
-                //console.log(d);
+                //console.log("EXPAND NORMAL" + d.data.data.child);
+
                 if (d._children) {
                     d.children = d._children
                     d.children.forEach(expand)
                     d._children = null
                 }
             }
+
+            function expand_folder(d) {
+                if (d.children) {
+                    d.children.forEach(expand_folder);
+                }
+
+                if (d._children) {
+                    d.children = d._children;
+                    d._children = null;
+                    d.children.forEach(expand_folder)
+
+                }
+            }
+
 
 
 
@@ -2051,9 +1823,6 @@
 
                         return d.data.data.child;
 
-                        //return d.id || (d.id = ++i);
-                        //return ++i;
-                        //return d.id;
                     });
 
                 var triangle = mergedtree_svg
@@ -2063,24 +1832,13 @@
                     .data(nodes, function (d, i) {
                         return "tri" + d.data.data.child;
 
-                        //return d.id || (d.id = ++i);
-                        //return ++i;
-                        //return d.id;
                     });
 
 
 
-                /*
-            // Define the zoom function for the zoomable tree
-     
-            function zoom() {
-                svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-            }
-     
-     
-            // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
-            var zoomListener = d3.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
-    */
+
+
+
 
                 //console.log(node);
 
@@ -2111,10 +1869,86 @@
                         return "translate(" + source.x + "," + y + ")";
                     })
                     .on("click", function (d) {
-                        update_log("mtree", "mtree node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
-                        //console.log("click");
-                        //console.log(hier_root);
-                        click(d, hier_root);
+                        //console.log("Sel_toolbox " + sel_toolbox);
+                        if (sel_toolbox == "") {
+                            //console.log("click folder");
+                            update_log("mtree", "mtree node " + d.data.data.child, "node", "collapse/expand nodes", "click", "", "", "", "", "");
+                            click(d, hier_root);
+                        }
+                        else if (sel_toolbox == "btn-expand-folder") {
+
+                            update_log("mtree", "mtree node " + d.data.data.child, "node", "expand nodes of ", "click", "", "", "", "", "");
+                            //console.log(mtree.descendants());
+                            //console.log(mtree.ancestors());
+
+
+                            d.ancestors().forEach(function (element) {
+                                anc_desc.push(element.data.data.child);
+
+                                if (element.depth == 2)
+                                    anc_desc.push(element.descendants().forEach(function (childelement) {
+                                        if (!anc_desc.includes(childelement.data.data.child))
+                                            anc_desc.push(childelement.data.data.child);
+                                    }));
+                            });
+
+                            /* d.descendants().forEach(function (element) {
+
+                                if (!anc_desc.includes(element.data.data.child))
+                                    anc_desc.push(element.data.data.child);
+
+
+
+                            }); */
+
+                            mtree.descendants().forEach(function (element) {
+                                if (anc_desc.includes(element.data.data.child))
+                                    expand(element);
+                                else
+                                    collapse(element);
+                            });
+
+
+
+
+                            //console.log(mtree.descendants());
+                            mergedtree(mtree.descendants()[0], hier_root);
+                        }
+                        else if (sel_toolbox == "btn-collapse-folder") {
+
+                            update_log("mtree", "mtree node " + d.data.data.child, "node", "collapse nodes of", "click", "", "", "", "", "");
+
+                            /* mtree.descendants().forEach(function (element) {
+                                if (element.depth > 1)
+                                    expand(element);
+
+                                if (element.data.data.child == d.data.data.child) {
+                                    collapse(element);
+                                }
+
+                            }); */
+
+                            d.ancestors().forEach(function (element) {
+                                if (element.depth > 1)
+                                    anc_desc.push(element.data.data.child);
+
+                                if (element.depth == 2)
+                                    anc_desc.push(element.descendants().forEach(function (childelement) {
+                                        if (!anc_desc.includes(childelement.data.data.child))
+                                            anc_desc.push(childelement.data.data.child);
+                                    }));
+                            });
+
+                            mtree.descendants().forEach(function (element) {
+                                if (anc_desc.includes(element.data.data.child))
+                                    collapse(element);
+                                else
+                                    expand(element);
+                            });
+
+                            mergedtree(mtree.descendants()[0], hier_root);
+
+                        }
                     });
 
 
@@ -2122,18 +1956,14 @@
                     .merge(triangle)
                     .transition()
                     .attr("transform", function (d) {
-
+                        // console.log(nodeEnter);
                         var y = (d.data.data.level === 0 ? 50 : d.data.data.level * level_offset);
                         y = + 25;
 
                         var trans = "translate(" + 0 + "," + y + ")";
                         return trans;
-
                     })
                     .style("stroke", function (d) {
-                        //console.log("tri update");
-                        //console.log(source);
-                        //console.log(d);
 
                         var id = source.data.data.child
                             .replaceAll(/\//g, "")
@@ -2153,7 +1983,7 @@
                                 .style("fill", triangleColor);
 
                         if (d.parent) {
-                            //console.log(d.parent);
+                            //console.log(d.data.data.child);
                             var pid = d.parent.data.data.child
                                 .replaceAll(/\//g, "")
                                 .replaceAll(".", "")
@@ -2169,61 +1999,10 @@
                             }
                         }
 
-
                         if (d.children)
                             return "none";
                         else
                             return triangleColor;
-
-
-
-
-
-
-
-                    })
-                    .style("fill", function (d) {
-                        var id = d.data.data.child
-                            .replaceAll(/\//g, "")
-                            .replaceAll(".", "")
-                            .replaceAll(" ", "")
-                            .replaceAll("(", "")
-                            .replaceAll(")", "")
-                            .toLowerCase();
-                        if (source.data.data.child)
-                            d3.select(".triangle-" + id)
-                                .style("stroke", "none")
-                                .style("fill", "none");
-                        else
-                            d3.select(".triangle-" + id)
-                                .style("stroke", triangleColor)
-                                .style("fill", triangleColor);
-
-                        if (d.children)
-                            return "none";
-                        else
-                            return triangleColor;
-
-                        if (d.parent) {
-
-                            var pid = d.parent.data.data.child
-                                .replaceAll(/\//g, "")
-                                .replaceAll(".", "")
-                                .replaceAll(" ", "")
-                                .replaceAll("(", "")
-                                .replaceAll(")", "")
-                                .toLowerCase();
-
-                            console.log("pid " + pid);
-
-                            if (d.parent.children) {
-                                d3.select(".triangle-" + pid)
-                                    .style("stroke", "none")
-                                    .style("fill", "none");
-                            }
-
-                        }
-
 
                     });
 
@@ -2247,52 +2026,17 @@
                     .style("fill-opacity", 1)
                     .style("color", "black");
 
-                /*
-            var triExit = triangle
-                //.selectAll(".triangle")
-                .exit()
-                .transition()
-                .duration(duration)
-
-                .style("stroke", function (d) {
-                    console.log("tri exit");
-                    //console.log(d);
-                    if (d.parent)
-                        if (d.parent.children)
-                            return "none";
-                        else
-                            return triangleColor;
-
-                })
-                .style("fill", function (d) {
-                    if (d.parent)
-                        if (d.parent.children)
-                            return "none";
-                        else
-                            return triangleColor;
 
 
-                })
 
-                .attr("transform", function (d) {
-                    //console.log(d);
-                    //var y = (d.parent.data.data.level === 0 ? 50 : d.parent.data.data.level * level_offset);
-                    //return "translate(" + d.parent.x + "," + y + ")";
-
-                    var y = (source.data.data.level === 0 ? 50 : source.data.data.level * level_offset);
-                    return "translate(" + source.x + "," + y + ")";
-                })
-                .remove();
-                */
 
 
                 var nodeExit = node
-                    //.selectAll("circle")
                     .exit()
                     .transition()
                     .duration(duration)
                     .attr("r", function (d) {
-                        //console.log("NODE EXIT ");
+
                         //console.log(source);
                         var id = source.data.data.child
                             .replaceAll(/\//g, "")
@@ -2302,6 +2046,9 @@
                             .replaceAll(")", "")
                             .toLowerCase();
 
+                        //console.log("TRI EXIT " + id);
+                        //console.log("TRI EXIT " + d.data.data.child);
+
                         if (source._children)
                             d3.select(".triangle-" + id)
                                 .style("stroke", triangleColor)
@@ -2310,6 +2057,36 @@
                             d3.select(".triangle-" + id)
                                 .style("stroke", "none")
                                 .style("fill", "none");
+
+
+                        if (d.parent) {
+                            //console.log(d);
+                            var pid = d.parent.data.data.child
+                                .replaceAll(/\//g, "")
+                                .replaceAll(".", "")
+                                .replaceAll(" ", "")
+                                .replaceAll("(", "")
+                                .replaceAll(")", "")
+                                .toLowerCase();
+
+                            if (d.parent.children) {
+                                d3.select(".triangle-" + pid)
+                                    .style("stroke", "none")
+                                    .style("fill", "none");
+                            }
+
+                            else if (d.parent._children) {
+                                d3.select(".triangle-" + pid)
+                                    .style("stroke", "green")
+                                    .style("fill", "green");
+                            }
+                        }
+
+
+                        /*  if (d.children)
+                             return "none";
+                         else
+                             return triangleColor; */
 
 
                         return 0;
@@ -2388,7 +2165,8 @@
                     })
                     .attr("d", triangle_shape)
                     .attr("x", function (d) {
-                        //console.log("tri enter");
+                        //console.log("tri enter " + d.data.data.child);
+
                         //console.log(source);
                         return d.x;
                     })
@@ -3858,7 +3636,7 @@
                         .append("g")
                         .attr("id", "levellines")
                         .attr("transform",
-                            "translate(" + tree_start[0] + "," + 400 + ")");
+                            "translate(" + tree_start[0] + "," + tree_start[1] + ")");
 
                     var n = 0;
 
@@ -4014,7 +3792,7 @@
                         })
                         .on("click", function (d) {
                             if (d3.selectAll(".altlink")._groups[0].length == 0) {
-                                console.log("show");
+                                //console.log("show");
                                 update_log("mtree", "altlink", "altlink", "show alternate links", "click", "", "", "", "", "");
                                 showlinks();
                             }
@@ -4067,6 +3845,433 @@
 
 
 
+
+
+
+                // Define the zoom function for the zoomable tree
+
+                function zoomed(e) {
+                    //console.log("zoom");
+                    console.log(d3.event.transform);
+
+                    /* zoom
+                        .scaleTo(
+                            mergedtree_svg
+                                .transition()
+                                .duration(750), zoomfactor); */
+
+
+                    mergedtree_svg
+                        .select("#mergedtree")
+                        .attr("transform", d3.event.transform);
+
+                }
+
+
+                // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
+                let zoom = d3.zoom()
+                    .scaleExtent([0.25, 3])
+                    //.translateTo([100, 400])
+                    //.translateExtent([[100, 400], [200, 600]])
+                    .on("zoom", zoomed);
+                console.log(width + " " + height);
+
+
+                mergedtree_svg
+                    .select("#mergedtree")
+                    .call(d3.zoom().on('zoom', zoom))
+                    .on("wheel.zoom", null);
+
+                if (d3.select("#btn-toolbox").empty()) {
+                    mergedtree_svg
+                        .append("g")
+                        .attr("id", "btn-toolbox")
+                        .attr("transform", "translate(50," + tree_start[1] + ")")
+                        .on("mouseover", function (d) {
+                            d3.select(this).style("cursor", "pointer");
+                        })
+                        .on("click", function (d) {
+                        });
+
+                    var btns_toolbox = ["btn-zoom-in", "btn-zoom-out", "btn-pan-left", "btn-pan-right", "btn-center", "btn-folder-expand", "btn-folder-collapse"];
+                    var icon_offset = 50;
+                    var icon_width = 10;
+                    var bt = 0;
+                    var bt_start = 200;
+                    var cal = 0;
+                    cal = bt_start + (bt * icon_offset);
+
+                    d3.select("#btn-toolbox")
+                        .append("rect")
+                        .attr('x', 50)
+                        .attr('y', 0)
+                        .attr("rx", 15)
+                        .attr("ry", 15)
+                        //.attr("class", "rounded")
+                        .attr("height", btn_height)
+                        .attr("width", 80)
+                        .style("fill", "#155446")
+                        .style("border-radius", "15px")
+                        .on("click", function () {
+
+                            console.log("TOOLBOX");
+                            toolbox_opacity = Math.abs(toolbox_opacity - 1)
+                            d3.select("#btn-toolbox")
+                                .selectAll("g")
+                                .transition()
+                                .duration(750)
+                                .attr("transform", function (d, i) {
+                                    console.log(i);
+                                    if (toolbox_opacity == 0)
+                                        return "translate(50,0)"
+                                    else {
+                                        cal = bt_start + (i * icon_offset);
+                                        return "translate(" + cal + ",0)"
+                                    }
+                                })
+                                .style("opacity", toolbox_opacity);
+                        });
+
+
+                    cal = bt_start + (bt * icon_offset);
+
+                    d3.select("#btn-toolbox")
+                        .append("text")
+                        .attr('x', 56)
+                        .attr('y', 20)
+                        .attr("dy", ".40em")
+                        .style("font-size", "18px")
+                        .style("fill", "white")
+                        .text("Toolbox");
+
+                    d3.select("#btn-toolbox")
+                        .append("g")
+                        .attr("id", btns_toolbox[bt])
+                        .on("mouseover", function (d) {
+                            d3.select(this).style("cursor", "pointer");
+
+                        })
+                        .attr("transform", "translate(" + cal + ",0)")
+                        .append("rect")
+                        .attr("class", "toolbox-icon")
+
+                        .on("click", function () {
+                            //.attr("transform", "translate(100,400)")
+                            d3.selectAll(".toolbox-icon").style("stroke", "grey");
+                            sel_toolbox = "btn-zoom-in";
+                            d3.select(this)
+                                .classed("selected", true);
+                            document.getElementById("mergedtree").style.cursor = "zoom-in";
+                            d3.select(this).style("stroke", "red");
+                            if (zoomfactor < 3)
+                                zoomfactor += 1;
+
+                            mergedtree_svg
+                                .select("#mergedtree")
+                                .transition()
+                                .duration(750)
+                                //.call(zoom.scaleBy, 0.5);
+                                .call(zoom.transform,
+                                    d3.zoomIdentity
+                                        .translate(100, 400)
+                                        .scale(zoomfactor)
+                                        //.scaleBy(0.5)
+                                        //.translateExtent([[1200, 1200], [width, height]]));
+                                        .translate(100, 400));
+
+                            //zoom
+                            // .translateTo([100, 400])
+                            //.scaleTo(mergedtree_svg.select("#mergedtree").transition().duration(750), zoomfactor, [100, 400]);
+                            //zoom.translateTo(mergedtree_svg.select("#mergedtree").transition().duration(750), [100, 400]);
+                            console.log("zoomin " + zoomfactor);
+                        });
+
+
+                    d3.select("#btn-zoom-in")
+                        .append("path")
+                        .attr("d", "M26 10a10 10 0 1 0-11 9.95V22h-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1v-2.05A10 10 0 0 0 26 10zm-10 8a8 8 0 1 1 8-8 8 8 0 0 1-8 8z")
+                        .attr("transform", "scale(1,1)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 3)
+                        .style("fill", "black");
+
+                    d3.select("#btn-zoom-in")
+                        .append("path")
+                        .attr("d", "M17 5h-2v4h-4v2h4v4h2v-4h4V9h-4V5z")
+                        .attr("transform", "scale(1,1)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 3)
+                        .style("fill", "green");
+
+
+                    bt++;
+                    cal = bt_start + (bt * icon_offset);
+                    //.attr("transform", "translate(" + cal + ",0)scale(1,1)")
+
+
+                    d3.select("#btn-toolbox")
+                        .append("g")
+                        .attr("id", "btn-zoom-out")
+                        .attr("transform", "translate(" + cal + ",0)")
+                        .on("mouseover", function (d) {
+                            d3.select(this).style("cursor", "pointer");
+                        })
+                        .append("rect")
+                        .attr("class", "toolbox-icon")
+
+                        .on("click", function () {
+                            d3.selectAll(".toolbox-icon").style("stroke", "grey");
+                            sel_toolbox = "btn-zoom-out";
+                            d3.select(this)
+                                .classed("selected", true);
+                            document.getElementById("mergedtree").style.cursor = "zoom-out";
+                            d3.select(this).style("stroke", "red");
+                            if (zoomfactor >= 1)
+                                zoomfactor -= 1;
+                            if (zoomfactor == 0)
+                                mergedtree_svg.select("#mergedtree").transition().duration(750).attr("transform", "translate(100,400)");
+                            else
+                                zoom.scaleTo(mergedtree_svg.select("#mergedtree").transition().duration(750), zoomfactor);
+                            console.log("zoomout " + zoomfactor);
+                        });
+
+                    d3.select("#btn-zoom-out")
+                        .append("path")
+                        .attr("d", "M26 10a10 10 0 1 0-11 9.95V22h-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1v-2.05A10 10 0 0 0 26 10zm-10 8a8 8 0 1 1 8-8 8 8 0 0 1-8 8z")
+                        .attr("transform", "scale(1,1)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 3)
+                        .style("fill", "black");
+
+                    d3.select("#btn-zoom-out")
+                        .append("path")
+                        .attr("d", "M11 9h10v2H11z")
+                        .attr("transform", "scale(1,1)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 3)
+                        .style("fill", "red");
+
+                    bt++;
+                    cal = bt_start + (bt * icon_offset);
+
+
+                    d3.select("#btn-toolbox")
+                        .append("g")
+                        .attr("id", "btn-pan-left")
+                        .attr("transform", "translate(" + cal + ",0)")
+                        .on("mouseover", function (d) {
+                            d3.select(this).style("cursor", "pointer");
+                        })
+                        .append("rect")
+                        .attr("class", "toolbox-icon")
+                        .attr("x", 0)
+                        .attr("y", 0)
+                        .on("click", function () {
+                            d3.selectAll(".toolbox-icon").style("stroke", "grey");
+                            sel_toolbox = "btn-pan-left";
+                            d3.select(this)
+                                .classed("selected", true);
+                            d3.select(this).style("stroke", "red");
+                            zoom.translateBy(mergedtree_svg.select("#mergedtree").transition().duration(750), -100, 0);
+
+
+                        });
+
+                    d3.select("#btn-pan-left")
+                        .append("path")
+                        .attr("d", "M24 9v7H9v4l-8-7.5L9 5v4z")
+                        .attr("transform", "scale(1,1)")
+                        .style("fill", "red");
+
+
+                    bt++;
+                    cal = bt_start + (bt * icon_offset);
+
+                    d3.select("#btn-toolbox")
+                        .append("g")
+                        .attr("id", "btn-pan-right")
+                        .attr("transform", "translate(" + cal + ",0)")
+                        .on("mouseover", function (d) {
+                            d3.select(this).style("cursor", "pointer");
+                        })
+                        .append("rect")
+                        .attr("class", "toolbox-icon")
+                        .attr("x", 0)
+                        .attr("y", 0)
+                        .on("click", function () {
+                            d3.selectAll(".toolbox-icon").style("stroke", "grey");
+                            sel_toolbox = "btn-pan-right";
+                            d3.select(this)
+                                .classed("selected", true);
+                            document.getElementById("mergedtree").style.cursor = "nw-resize";
+                            d3.select(this).style("stroke", "red");
+                            zoom
+                                //
+                                .translateBy(mergedtree_svg.select("#mergedtree").transition().duration(750), 100, 0);
+
+                        })
+
+                    d3.select("#btn-pan-right")
+                        .append("path")
+                        .attr("d", "m18.707 12.707-3 3a1 1 0 0 1-1.414-1.414L15.586 13H6a1 1 0 0 1 0-2h9.586l-1.293-1.293a1 1 0 0 1 1.414-1.414l3 3a1 1 0 0 1 0 1.414z")
+                        .attr("transform", "scale(1,1)")
+                        .style("fill", "red");
+
+
+                    bt++;
+                    cal = bt_start + (bt * icon_offset);
+
+                    d3.select("#btn-toolbox")
+                        .append("g")
+                        .attr("id", "btn-center")
+                        .attr("transform", "translate(" + cal + ",0)")
+                        .on("mouseover", function (d) {
+                            d3.select(this).style("cursor", "pointer");
+                        })
+                        .append("rect")
+                        .attr("class", "toolbox-icon")
+                        .attr("x", 0)
+                        .attr("y", 0)
+                        .on("click", function () {
+                            d3.selectAll(".toolbox-icon").style("stroke", "grey");
+                            sel_toolbox = "btn-center";
+                            d3.select(this)
+                                .classed("selected", true);
+                            document.getElementById("mergedtree").style.cursor = "ne-resize";
+                            d3.select(this).style("stroke", "red");
+                            mergedtree_svg.select("#mergedtree").transition().duration(750).attr("transform", "translate(100,400)");
+
+                        })
+
+                    d3.select("#btn-center")
+                        .append("path")
+                        .attr("d", "M21 11h-3.586l.293-.293a1 1 0 0 0-1.414-1.414l-2 2a1 1 0 0 0 0 1.416l2 2a1 1 0 0 0 1.414-1.414L17.414 13H21a1 1 0 0 0 0-2zM9.706 11.292l-2-2a1 1 0 0 0-1.414 1.414l.294.294H3a1 1 0 0 0 0 2h3.586l-.293.293a1 1 0 0 0 1.414 1.414l2-2a1 1 0 0 0-.001-1.415zM12.708 14.294a1 1 0 0 0-1.416 0l-2 2a1 1 0 0 0 1.414 1.414l.294-.294V21a1 1 0 0 0 2 0v-3.586l.293.293a1 1 0 0 0 1.414-1.414zM11.292 9.706a1 1 0 0 0 1.416 0l2-2a1 1 0 1 0-1.414-1.414L13 6.586V3a1 1 0 0 0-2 0v3.586l-.293-.293a1 1 0 0 0-1.414 1.414z")
+                        .attr("transform", "scale(1,1)")
+                        .style("fill", "black");
+
+                    d3.select("#btn-center")
+                        .append("circle")
+                        .attr("cx", 12)
+                        .attr("cy", 12)
+                        .attr("r", 2)
+                        .style("fill", "red");
+
+
+                    bt++;
+                    cal = bt_start + (bt * icon_offset);
+
+                    d3.select("#btn-toolbox")
+                        .append("g")
+                        .attr("id", "btn-expand-folder")
+                        .attr("transform", "translate(" + cal + ",0)")
+                        .append("rect")
+                        .attr("class", "toolbox-icon")
+                        .attr("x", 0)
+                        .attr("y", 0)
+                        .on("click", function () {
+                            d3.selectAll(".toolbox-icon").style("stroke", "grey");
+                            sel_toolbox = "btn-expand-folder";
+                            d3.select(this)
+                                .classed("selected", true);
+                            document.getElementById("mergedtree").style.cursor = "pointer";
+                            d3.select(this).style("stroke", "red");
+                        });
+
+                    d3.select("#btn-expand-folder")
+                        .append("path")
+                        .attr("d", "M35 44H5a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3h12.12a4.979 4.979 0 0 1 3.9 1.875l5 6.249A4.97 4.97 0 0 0 29.92 18H47a1 1 0 0 0 0-2H29.92a2.979 2.979 0 0 1-2.339-1.125l-5-6.251A6.971 6.971 0 0 0 17.12 6H5a5.006 5.006 0 0 0-5 5v30a5.006 5.006 0 0 0 5 5h30a1 1 0 0 0 0-2z")
+                        .attr("transform", "scale(0.5,0.5)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 2)
+                        .style("stroke", "black")
+                        .style("fill", "black");
+
+                    d3.select("#btn-expand-folder")
+                        .append("path")
+                        .attr("d", "M28 11h19a3 3 0 0 1 3 3v15a1 1 0 0 0 2 0V14a5.006 5.006 0 0 0-5-5H28a1 1 0 0 0 0 2zM51 32a13 13 0 1 0 13 13 13.015 13.015 0 0 0-13-13zm0 24a11 11 0 1 1 11-11 11.013 11.013 0 0 1-11 11z")
+                        .attr("transform", "scale(0.5,0.5)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 2)
+                        .style("stroke", "black")
+                        .style("fill", "black");
+
+                    d3.select("#btn-expand-folder")
+                        .append("path")
+                        .attr("d", "M57 44h-5v-5a1 1 0 0 0-2 0v5h-5a1 1 0 0 0 0 2h5v5a1 1 0 0 0 2 0v-5h5a1 1 0 0 0 0-2z")
+                        .attr("transform", "scale(0.5,0.5)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 2)
+                        .style("stroke", "#155446")
+                        .style("fill", "black");
+
+
+                    bt++;
+                    cal = bt_start + (bt * icon_offset);
+
+
+                    d3.select("#btn-toolbox")
+                        .append("g")
+                        .attr("id", "btn-collapse-folder")
+                        .attr("transform", "translate(" + cal + ",0)")
+                        .append("rect")
+                        .attr("class", "toolbox-icon")
+                        .attr("x", 0)
+                        .attr("y", 0)
+                        .on("click", function () {
+                            d3.selectAll(".toolbox-icon").style("stroke", "grey");
+                            sel_toolbox = "btn-collapse-folder";
+                            d3.select(this)
+                                .classed("selected", true);
+                            document.getElementById("mergedtree").style.cursor = "pointer";
+                            d3.select(this).style("stroke", "red");
+                        });
+
+
+
+                    d3.select("#btn-collapse-folder")
+                        .append("path")
+                        .attr("d", "M35 44H5a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3h12.12a4.979 4.979 0 0 1 3.9 1.875l5 6.249A4.97 4.97 0 0 0 29.92 18H47a1 1 0 0 0 0-2H29.92a2.979 2.979 0 0 1-2.339-1.125l-5-6.251A6.971 6.971 0 0 0 17.12 6H5a5.006 5.006 0 0 0-5 5v30a5.006 5.006 0 0 0 5 5h30a1 1 0 0 0 0-2z")
+                        .attr("transform", "scale(0.5,0.5)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 2)
+                        .style("stroke", "black")
+                        .style("fill", "black");
+
+                    d3.select("#btn-collapse-folder")
+                        .append("path")
+                        .attr("d", "M28 11h19a3 3 0 0 1 3 3v15a1 1 0 0 0 2 0V14a5.006 5.006 0 0 0-5-5H28a1 1 0 0 0 0 2zM51 32a13 13 0 1 0 13 13 13.015 13.015 0 0 0-13-13zm0 24a11 11 0 1 1 11-11 11.013 11.013 0 0 1-11 11z")
+                        .attr("transform", "scale(0.5,0.5)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 2)
+                        .style("stroke", "black")
+                        .style("fill", "black");
+
+                    d3.select("#btn-collapse-folder")
+                        .append("path")
+                        .attr("d", "M57 44H45a1 1 0 0 0 0 2h12a1 1 0 0 0 0-2z")
+                        .attr("transform", "scale(0.5,0.5)")
+                        .attr("font-size", "10px")
+                        .style("stroke-width", 2)
+                        .style("stroke", "red")
+                        .style("fill", "black");
+
+
+
+                    d3.selectAll(".toolbox-icon")
+                        .attr("height", 40)
+                        .attr("width", 40)
+                        .style("stroke", "grey");
+
+
+
+
+
+
+                }
+
+                /*  */
+
+
                 if (d3.select("#btn-level-line").empty()) {
                     mergedtree_svg
                         .append("g")
@@ -4099,10 +4304,12 @@
 
                         });
 
+                    var btn_offset = 50;
+
                     d3.select("#btn-level-line")
                         .append("rect")
                         .attr('x', width - btn_width * 2.3)
-                        .attr('y', tree_start[1] - 20)
+                        .attr('y', tree_start[1] - btn_offset)
                         .attr("class", "rounded")
                         .attr("height", btn_height)
                         .attr("width", btn_width)
@@ -4115,7 +4322,7 @@
                     d3.select("#btn-level-line")
                         .append("text")
                         .attr('x', width - btn_width * 2.3 + 5)
-                        .attr('y', tree_start[1] + 2)
+                        .attr('y', tree_start[1] - btn_offset + 20)
                         .attr("dy", ".40em")
                         .style("font-size", "20px")
                         .style("fill", "white")
@@ -4161,7 +4368,7 @@
                     d3.select("#btn-level-chart")
                         .append("rect")
                         .attr('x', width - btn_width * 1.25)
-                        .attr('y', tree_start[1] - 20)
+                        .attr('y', tree_start[1] - btn_offset)
                         .attr("class", "rounded")
                         .attr("height", btn_height)
                         .attr("width", btn_width)
@@ -4175,7 +4382,7 @@
                     d3.select("#btn-level-chart")
                         .append("text")
                         .attr('x', width - btn_width * 1.25 + 10)
-                        .attr('y', tree_start[1] + 2)
+                        .attr('y', tree_start[1] - btn_offset + 20)
                         .attr("dy", ".40em")
                         .style("font-size", "20px")
                         .style("fill", "white")
@@ -4373,6 +4580,21 @@
             localStorage.setItem("logObject", JSON.stringify(logObject));
 
         }
+
+        function KeyPress(e) {
+            var evtobj = window.event ? event : e
+            if (evtobj.keyCode == 27) { //escape key
+                console.log(sel_toolbox);
+                sel_toolbox = "";
+                anc_desc = [];
+                document.getElementById("mergedtree").style.cursor = "default";
+                d3.selectAll(".toolbox-icon")
+                    .style("stroke", "grey");
+            }
+
+        }
+
+        document.onkeydown = KeyPress;
 
 
     </script>
