@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Schema</title>
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<body>
+    <script type="text/javascript">
+
+
+
+        d3.queue()
+            .defer(d3.csv, "LibraryFiles/AllClassE.csv")
+            .defer(d3.csv, "LibraryFiles/AllClassJ.csv")
+            .defer(d3.csv, "LibraryFiles/HistoryofPolitics-QNL.csv")
+            .await(function (error, uose, uosj, qnl) {
+                if (error) throw error;
+
+                else {
+                    commonbooks(uose, qnl);
+                    commonbooks(uosj, qnl);
+                    //console.log(data_str);
+                    console.log(qnl_str);
+                    console.log(uos_str);
+                }
+            });
+
+        // var data_str = "CallNumber,Author,Title,ISBN,PubName,PubYear\n";
+        var qnl_str = "CallNumber,Author,Title,ISBN,PubName,PubYear,CB\n";
+        var uos_str = "CallNumber,Author,Title,ISBN,PubName,PubYear,CB\n";
+
+
+
+        function commonbooks(uos, qnl) {
+            //console.log(uos);
+            //console.log(qnl);
+
+            var uisbn = [];
+            var qisbn = [];
+            var matchflag = 0;
+            var match = 0, qnlnonmatch = 0, uosnonmatch = 0;
+
+
+            //for (var q = 0; q < 100; q++) {
+            for (var q = 0; q < 10000; q++) {
+
+                //console.log(qnl[q]);
+
+                if (qnl[q].ISBN != "") {
+                    qisbn = qnl[q].ISBN.split(";");
+                    //console.log(qisbn);
+                    matchflag = 0;
+                    if (match < 150) {
+                        //for (var u = 0; u < 500; u++) {
+                        for (var u = 0; u < 5000; u++) {
+
+
+                            //console.log(uos[u].ISBN);
+                            uisbn = uos[u].ISBN.split(";");
+
+
+                            for (var i = 0; i < uisbn.length; i++) {
+
+                                for (var j = 0; j < qisbn.length; j++) {
+                                    if (uisbn != "")
+                                        if (uisbn[i].trimStart() == qisbn[j].trimStart()) {
+                                            match++;
+                                            //console.log(qnl[q]);
+                                            //console.log(uos[u]);
+                                            console.log("MATCH: " + match + " uos:" + u + " qnl:" + q);
+
+                                            qnl_str = qnl_str + qnl[q].CallNumber.replaceAll(",", ";") + "," + qnl[q].Author.replaceAll(",", ";") + "," + uos[u].Title.replaceAll(",", ";") + "," + qnl[q].ISBN.replaceAll(",", ";") + "," + uos[u].PubName.replaceAll(",", ";") + "," + uos[u].PubYear.replaceAll(",", ";") + ",yes" + "\n";
+                                            uos_str = uos_str + uos[u].CallNumber.replaceAll(",", ";") + "," + qnl[q].Author.replaceAll(",", ";") + "," + uos[u].Title.replaceAll(",", ";") + "," + uos[u].ISBN.replaceAll(",", ";") + "," + uos[u].PubName.replaceAll(",", ";") + "," + uos[u].PubYear.replaceAll(",", ";") + ",yes" + "\n";
+                                            //data_str = data_str + uos[u].CallNumber.replaceAll(",", ";") + "," + qnl[q].Author.replaceAll(",", ";") + "," + uos[u].Title.replaceAll(",", ";") + "," + uos[u].ISBN.replaceAll(",", ";") + "," + uos[u].PubName.replaceAll(",", ";") + "," + uos[u].PubYear.replaceAll(",", ";") + "\n";
+                                            //console.log(uisbn[i] + " " + qisbn[j]);
+                                            //console.log(uos[u].ISBN + " " + qnl[q].ISBN);
+                                            //console.log(uos[u]);
+                                            //console.log(qnl[q]);
+                                            matchflag = 1;
+                                            i = uisbn.length;
+                                            break;
+                                        }
+                                }
+
+                            }
+                            if (matchflag == 0)
+                            //console.log(q + " " + u + "MATCH");
+                            //els
+                            {
+                                //console.log(q + " " + u + " no match");
+                                //console.log(qnl[q].Title + " " + uos[u].Title);
+                                if (uosnonmatch < 300) {
+
+                                    uos_str = uos_str + uos[u].CallNumber.replaceAll(",", ";") + "," + uos[u].Author.replaceAll(",", ";") + "," + uos[u].Title.replaceAll(",", ";") + "," + uos[u].ISBN.replaceAll(",", ";") + "," + uos[u].PubName.replaceAll(",", ";") + "," + uos[u].PubYear.replaceAll(",", ";") + ",no" + "\n";
+                                    uosnonmatch++;
+                                }
+
+
+
+                            }
+                        }
+                        console.log();
+                        if (matchflag == 0)
+                        //console.log(q + " " + u + "MATCH");
+                        //else 
+                        {
+                            //console.log(q + " " + u + " no match");
+                            //console.log(qnl[q].Title + " " + uos[u].Title);
+                            if (qnlnonmatch < 300) {
+                                qnl_str = qnl_str + qnl[q].CallNumber.replaceAll(",", ";") + "," + qnl[q].Author.replaceAll(",", ";") + "," + qnl[q].Title.replaceAll(",", ";") + "," + qnl[q].ISBN.replaceAll(",", ";") + "," + qnl[q].PubName.replaceAll(",", ";") + "," + qnl[q].PubYear.replaceAll(",", ";") + ",no" + "\n";
+
+                                qnlnonmatch++;
+                            }
+
+
+                        }
+
+                    }
+                }
+            }
+
+            //console.log(qnl_str);
+            //console.log(uos_str);
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

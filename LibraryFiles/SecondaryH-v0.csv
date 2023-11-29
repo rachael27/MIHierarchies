@@ -1,0 +1,781 @@
+child,parent,description_child,description_parent,title,author,isbn,pubname,pubyear
+root,,root,,,,,,
+e,root,e,root,,,,,
+j,root,j,root,,,,,
+ja,j,JA,J,,,,,
+jb,j,JB,J,,,,,
+e101tdo,e100,E101TDO,E100,The discovery of mankind : Atlantic encounters in the age of Columbus , David. Abulafia,0300125828; 9780300125825,Yale University Press,2008
+e101lc,e100,E101LC,E100,Les conquistadors , Jean. Descola,9782253023869; 2253023868,Fayard,1954
+e101fio,e100,E101FIO,E100,First Images of America : the Impact of the New World on the Old , Jean. Descola,9780520030107; 0520030109,U of California P,1976
+e101mp,e100,E101MP,E100,Marvelous possessions : the wonder of the New World , Stephen Greenblatt,9780198123828; 0198123825; 9780198122661; 0198122667,Clarendon Press,1991
+e101tmo,e100,E101TMO,E100,The meeting of two worlds : Europe and the Americas 1492-1650 , Stephen Greenblatt,9780197261347; 0197261345,OUP for the Academy,1993
+e101ted,e100,E101TED,E100,The European discovery of America : the northern voyages; A.D. 500-1600 , Samuel Eliot Morison,,OUP,1971
+e101tge,e100,E101TGE,E100,The great explorers : the European discovery of America , Samuel Eliot Morison,9780195023145; 0195023145,OUP,1978
+e101tnc,e100,E101TNC,E100,The Northmen; Columbus and Cabot; 985-1503., Samuel Eliot Morison,,Barnes,1959
+e101tao,e100,E101TAO,E100,The age of discovery; 1400-1550 , Dan. O'Sullivan,9780582353725; 0582353726,Longman,1984
+e101eva,e100,E101EVA,E100,Early voyages and northern approaches; 1000-1632 , T. J. Oleson,,Oxford UP,1964
+e101naf,e100,E101NAF,E100,North America from earliest discovery to first settlements : the Norse voyages to 1612 , David B. Quinn,9780060134587; 0060134585,Harper & Row,1977
+e101nad,e100,E101NAD,E100,North American discovery; circa 1000-1612 , David B. Quinn,9780061392443; 0061392448,Harper & Row,1971
+e101rda,e100,E101RDA,E100,Race; discourse and the origin of the Americas : a new world view , David B. Quinn,9781560985075; 1560985070,Smithsonian Institute P,1995
+e101bg,e100,E101BG,E100,Beyond geography : the western spirit against the wilderness , Frederick W. Turner,0813519098; 9780813519098,Rutgers University Press,1992
+e103ab,e100,E103AB,E100,America B.C. : ancient settlers in the New World , Barry. Fell,9780704503274; 0704503271,Wildwood House,1978
+e1031t,e100,E1031T,E100,1491 : the Americas before Columbus , Charles C. Mann,9781862078765; 1862078769,Granta,2006
+e105wt,e100,E105WT,E100,Westviking : the ancient Norse in Greenland and North America , F. Mowat,,Little Brown & Co,1965
+e109mat,e100,E109MAT,E100,Madoc and the discovery of America : some new light on an old controveersy , Richard. Deacon,,Muller,1966
+e109mt,e100,E109MT,E100,Madoc : the making of a myth , O. A. A. A. Fadipe-Ogundugba,9780413394507; 0413394506,Eyre Methuen,1979
+e109tcb,e100,E109TCB,E100,They came before Columbus : the African presence in ancient America , Ivan. Van Sertima,9780394402451; 0394402456,Random,1977
+e110tio,e100,E110TIO,E100,The invention of America : an inquiry into the historical ture of the New World and the meaning of its history , Edmundo. O'Gorman,9780837164700; 0837164702,Greenwood P,1972
+e110ah,e100,E110AH,E100,American holocaust : the conquest of the New World , David E. Stanrd,9780195075816; 0195075811; 9780195085570; 0195085574,Oxford University press,1992
+e110soc,e100,E110SOC,E100,Seeds of change : a quincentennial commemoration , David E. Stanrd,9781560980360; 1560980362,Smithsonian Institution P,1991
+e111tta,e100,E111TTA,E100,The truth about Columbus and the discovery of America , C. Duff,,Jarrolds,1957
+e111c,e100,E111C,E100,Columbus , Felipe. Feŕndez-Armesto,9780192852601; 0192852604,OUP,1991
+e111tla,e100,E111TLA,E100,The life and voyages of Christopher Columbus , Washington Irving,,Nelson,1897
+e111aot,e100,E111AOT,E100,Admiral of the Ocean Sea : a Life of Christopher Columbus , Samuel Eliot Morison,,Little Brown,1942
+e111ccm,e100,E111CCM,E100,Christopher Columbus; mariner , Samuel Eliot Morison,,Faber,1956
+e111woc,e100,E111WOC,E100,Worlds of Christopher Columbus , William D. Phillips,9780521446525; 052144652X,Cambridge University Press,1993
+e111cop,e100,E111COP,E100,Conquest of paradise : Christopher Columbus and the Columbian legacy , Kirkpatrick. Sale,9780340533833; 0340533838,Hodder and Stoughton,1990
+e111tmh,e100,E111TMH,E100,The mysterious history of Columbus : an exploration of the man; the myth; the legacy , John Noble. Wilford,9780679404767; 0679404767,Knopf,1991
+e111cca,e100,E111CCA,E100,Christopher Columbus and the new world of his discovery , F. Young,,Richards,1911
+e112adc,e100,E112ADC,E100,America discovers Columbus : how an Italian explorer became an American hero , Claudia L. Bushman,9780874515763; 0874515769,UP of New England,1992
+e118tdo,e100,E118TDO,E100,The diario of Christopher Columbus's first voyage to America 1492-1493 , Christopher. Columbus,9780806123844; 0806123842,U of Oklahoma P,1989
+e118tfv,e100,E118TFV,E100,The four voyages of Christopher Columbus : being his own log-book; letters and dispatches with connecting rrative drawn from the Life of the Admiral by his son Herndo Colon and other contemporary historians , Christopher. Columbus,,Penguin,1969
+e118tj,e100,E118TJ,E100,The jourl , Christopher. Columbus,,Hakluyt Society,1960
+e118sdi,e100,E118SDI,E100,Select documents illustrating the four voyages of Columbus.. , L. C. Jane,,Hakluyt Society,1930
+e118cca,e100,E118CCA,E100,Christopher Columbus and the enterprise of the Indies : a brief history with documents , Geoffrey. Symcox,9781403968074; 1403968071,Palgrave Macmillan,2005
+e121teo,e100,E121TEO,E100,The Explorers of North America; 1492-1806 , J. B. Brebner,,Black,1964
+e121tfv,e100,E121TFV,E100,The four voyages of Christopher Columbus , Christopher. Columbus,9780140442175; 0140442170,Penguin,1969
+e121tsf,e100,E121TSF,E100,The search for El Dorado , John Hemming,9780718117542; 0718117549,Michael Joseph,1978
+e121tnw,e100,E121TNW,E100,The New World : the first pictures of America...with contemporary rratives of the Huguenot settlement in Florida; 1562-1565; and the Virginia colony; 1585-1590 , S. Lorant,,Duell,1946
+e121ted,e100,E121TED,E100,The European discovery of America : the southern voyages; A.D.1492-1616 , Samuel Eliot Morison,,OUP,1974
+e121tdo,e100,E121TDO,E100,The discovery of South America , J. H. 1914- (John Horace) Parry,9780236176755; 0236176757,Elek,1979
+e121scn,e100,E121SCN,E100,Sixteenth century North America : the land and the people as seen by the Europeans , C. O. Sauer,9780520018549; 0520018540,U of California P,1971
+e121cop,e100,E121COP,E100,Ceremonies of possession in Europe's conquest of the New World; 1492-1640 , Patricia. Seed,9780521497572; 0521497574,CUP,1996
+e123cta,e100,E123CTA,E100,Columbus then and now : a life reexamined , Miles H. Davidson,9780806129341; 0806129344,U of Oklahoma P,1997
+e123tit,e100,E123TIT,E100,ture in the New World : from Christopher Colombus to Gonzalo Ferndez de Oviedo , Antonello. Gerbi,9780822935162; 0822935163,U of Pittsburgh P,1986
+e123sia,e100,E123SIA,E100,Spain in America , Charles Gibson,,Harper,1966
+e123tsc,e100,E123TSC,E100,The Spanish conquistadores , F. A. Kirkpatrick,,Black,1946
+e123ct,e100,E123CT,E100,Conquest : the destruction of the American Indios , Massimo. Livi Bacci,0745640001; 9780745640006; 074564001X; 9780745640013,Polity,2008
+e123sei,e100,E123SEI,E100,Spain's empire in the New World : the role of ideas in institutiol and social change , Colin M. MacLachlan,9780520074101; 0520074106,University of California Press,1991
+e123sap,e100,E123SAP,E100,Spain and Portugal and the New World; 1492-1700 , Lyle N. McAlister,9780196480466; 0196480469,OUP,1984
+e123sei,e100,E123SEI,E100,Spanish explorers in the southern United States; 1528-1543., Lyle N. McAlister,,Barnes,1959
+e123tco,e100,E123TCO,E100,The conquest of America : the question of the other , Tzvetan Todorov,9780060151805; 0060151803,Harper & Row,1984
+e125tlo,e100,E125TLO,E100,The life of Las Casas , Arthur Helps,,Bell,1896
+e125hds,e100,E125HDS,E100,Herndo de Soto : together with an account of one of his captains; Goncalo Silvestre , R. B. 1852-1936. (Robert Bontine) Cunninghame Graham,,Heinemann,1903
+e125bdl,e100,E125BDL,E100,Bartolomé de Las Casas in history: toward an understanding of the man and his work , R. B. 1852-1936. (Robert Bontine) Cunninghame Graham,9780875809878; 0875809871,Cornell University Press,2008
+e125tma,e100,E125TMA,E100,The marvellous adventure of Cabeza de Vaca : also; Malinche , Haniel Long,9780285647091; 0285647091,Souvenir Press,1972
+e125thd,e100,E125THD,E100,"The Herndo de Soto expedition : history; historiography and ""discovery"" in the Southeast ", Haniel Long,9780803221574; 0803221576,U of Nebraska P,1997
+e127eea,e100,E127EEA,E100,Early English and French voyages; chiefly from Hakluyt; 1534-1608 , H. S. Burrage,,Barnes,1959
+e127haa,e100,E127HAA,E100,Humanism and America : an intellectual history of English colonisation; 1500-1625 , Andrew. Fitzmaurice,9780521822251; 0521822254; 9780521036184; 0521036186,Cambridge University Press,2003
+e127us,e100,E127US,E100,Undreamed shores : England's wasted empire in America , Michael. Foss,9780245519826; 0245519823,Harrap,1974
+e127edo,e100,E127EDO,E100,English discovery of America to 1585 , F. T. McCann,,King's Crown P,1952
+e127eat,e100,E127EAT,E100,England and the discovery of America; 1481-1620 : from the Bristol voyages of the fifteenth century to the Pilgrim settlement at Plymouth : the exploration; exploitation; and trial-and-error colonization of North America by the English , David B. Quinn,,Knopf,1973
+e127tea,e100,E127TEA,E100,The Elizabethans' America : a collection of early reports by Englishmen on the New World , David B. Quinn,,Arnold,1965
+e129hh,e100,E129HH,E100,Henry Hudson , Llewelyn. Powys,,John Lane,1927
+e129tdo,e100,E129TDO,E100,The discoverie of the large; rich; and bewtiful Empyre of Guia , Walter Raleigh,1849022356; 9781849022354,Benediction Books,2010
+e129swr,e100,E129SWR,E100,Sir Walter Ralegh's Discoverie of Guia , Walter Raleigh,9780904180879; 0904180875,Hakluyt Society,2006
+e131lnf,e100,E131LNF,E100,Les nouvelles Frances : France in America; 1500 to 1815 : an imperial perspective , Philip P. Boucher,9780916617325; 0916617327,John Carter Brown Library,1989
+e137tdd,e100,E137TDD,E100,These daring disturbers of the public peace : the struggle for property and power in early New Jersey , Brendan McConville,9780812218596; 0812218590,University of Pennsylvania Press,2003
+e141hho,e100,E141HHO,E100,Hidden histories of exploration : researching the RGS-IBG Collections , Felix. Driver,1905846304; 9781905846306,Royal Holloway University of London in association with the Royal Geographical Society (with IBG),2009
+e141des,e100,E141DES,E100,Discoverers; explorers; settlers : the diligent writers of early America , Wayne. Franklin,9780226260716; 0226260712; 9780226260723; 0226260720,University of Chicago Press,1979
+e141nwe,e100,E141NWE,E100,New World encounters , Wayne. Franklin,9780520080201; 0520080203; 9780520080218; 0520080211,U of California P,1993
+e141ia,e100,E141IA,E100,Inventing America : Spanish historiography and the formation of Eurocentrism , José Rabasa,9780806125398; 080612539X,U of Oklahoma P,1993
+e15aoa,e10,E15AOA,E10,Atlas of American history , E. W. Fox,,OUP,1964
+e155nas,e100,E155NAS,E100,Nickmes and Sobriquets of U.S. Cities; States and Counties , J. N. Kane,9780810812550; 081081255X,Scarecrow P,1979
+e155ap,e100,E155AP,E100,American place-mes : a concise and selective dictiory for the continental United States of America , George R. Stewart,,Oxford University Press,1970
+e155mot,e100,E155MOT,E100,mes on the land : a historical account of place-ming in the United States , George R. Stewart,,Random House,1945
+e155hao,e100,E155HAO,E100,Historical atlas of the United States , E. B. Wesley,,Philip,1956
+e156htv,e100,E156HTV,E100,How to visit America and enjoy it , Alan Arnold,,Putm,1964
+e156lat,e100,E156LAT,E100,Look at the U.S.A.., Alan Arnold,,Houghton Mifflin,1955
+e157tah,e100,E157TAH,E100,The American Heritage book of great historic places., Alan Arnold,,American Heritage,1957
+e158tus,e100,E158TUS,E100,The United States; with an excursion into Mexico : a handbook for travellers; 1893 , Karl. Baedeker,,Da Capo,1971
+e158aw,e100,E158AW,E100,America's wonderlands : the scenic tiol parks and monuments of the United States.,undefined tiol Geographic Society (U.S.).,,The Society,1959
+e159tuo,e100,E159TUO,E100,The unveiling of the tiol icons : a plea for patriotic iconoclasm in a tiolist era , Albert. Boime,9780521570671; 0521570670,CUP,1998
+e159ihh,e100,E159IHH,E100,Interpreting historic house museums , Albert. Boime,0759102503; 9780759102507; 0759102511; 9780759102514,AltaMira,2002
+e159wis,e100,E159WIS,E100,Written in stone : public monuments in changing societies , Sanford Levinson,9780822322207; 082232220X,Duke UP,1998
+e159vft,e100,E159VFT,E100,Voices from the back stairs : interpreting servants' lives at historic house museums , Jennifer Pustz,0875806228; 9780875806228,Northern Illinois University Press,2010
+e159rtp,e100,E159RTP,E100,Reclaiming the past : landmarks of women's history , Jennifer Pustz,9780253338426; 0253338425,India UP,1992
+e159cap,e100,E159CAP,E100,Colonials and patriots : historic places commemorating our forebears 1700-1783 , F. B. Sarles,,US Department of the Interior tiol Park Service,1964
+e159faf,e100,E159FAF,E100,Founders and frontiersmen : historic places commemorating early tionhood and the westward movement; 1783-1828.,undefined United States. tiol Park Service.,,USGPO,1968
+e16pot,e10,E16POT,E10,Program of the history of American Indians , P. Armillas,,Pan American Union,1958
+e16dta,e10,E16DTA,E10,Do the Americans have a common history? A critique of the Bolton theory , Lewis. Hanke,,Knopf,1964
+e16tcm,e10,E16TCM,E10,The critical method in historical research and writing , H. C. Hockett,,Macmillan,1955
+e16aho,e10,E16AHO,E10,A history of American history , M. Kraus,,Farrar,1937
+e16hia,e10,E16HIA,E10,Historical interpretations and American historianship , J. B. Sanders,,Antioch P,1966
+e160aap,e100,E160AAP,E100,An American primer , Daniel J. 1914-2004. (Daniel Joseph) Boorstin,,University of Chicago P,1966
+e160aho,e100,E160AHO,E100,A history of American life and thought , Nelson Manfred Blake,,McGraw-Hill,1963
+e160aat,e100,E160AAT,E100,America and the Image of Europe : Reflections on American Thought , Daniel J. 1914-2004. (Daniel Joseph) Boorstin,,Meridian Books,1960
+e160ac,e100,E160AC,E100,American civilization : an introduction to the social sciences , M. Boyd,,Allyn and Bacon,1964
+e160asi,e100,E160ASI,E100,American studies in honor of William Kenneth Boyd , W. K. Boyd,,Duke UP,1940
+e160tpa,e100,E160TPA,E100,The polite Americans : 300 years of more or less good behaviour , Gerald Carson,,Macmillan,1967
+e160lla,e100,E160LLA,E100,Life; liberty and the pursuit of happiness : a social history of the United States of America in documents , Joan M. 1930- (Joan Mary) Chandler,,OUP,1971
+e160btt,e100,E160BTT,E100,Breakthrough to the Great Society , D. C. Coyle,,Ocea Publications,1965
+e160iot,e100,E160IOT,E100,Inventors of the Promised Land , L. J. Friedman,9780394472638; 0394472632,Knopf,1975
+e160ta,e100,E160TA,E100,The Americans : a social history of the United States 1587-1914 , J. C. Furs,,Longman,1970
+e160tbc,e100,E160TBC,E100,"The beer can by the highway : essays on what's ""American"" about America ", J. A. Kouwenhoven,,Doubleday,1961
+e160atb,e100,E160ATB,E100,America through British eyes , Allan Nevins,,OUP,1948
+e160tnp,e100,E160TNP,E100,The Newberry papers in family and community history : thirteen papers presented at the conference.,undefined Newberry Library Conference on Quantitative and Social Science Approaches in Early American History Chicago) (1977 :,,Newberry Library,1977
+e160tac,e100,E160TAC,E100,This almost chosen people : essays in the history of American ideas , Russel B. 1913- (Russel Blaine) Nye,,Michigan State UP,1966
+e160tus,e100,E160TUS,E100,The United States , P. O'Donovan,,Time Incorporated,1965
+e160ar1,e100,E160AR1,E100,American reformers; 1870-1920 : progressives in word and deed , P. O'Donovan,9780742527621; 074252762X; 9780742527638; 0742527638,Rowman & Littlefield Publishers,2006
+e160tap,e100,E160TAP,E100,The American people : their civilization and character , H. B. Parkes,,Eyre,1949
+e160ar,e100,E160AR,E100,America remembers : our best-loved customs and traditions , S. Rapport,,Hanover House,1956
+e160sol,e100,E160SOL,E100,Seeds of liberty : the genesis of the American mind , M. Savelle,,U of Washington P,1965
+e160taa,e100,E160TAA,E100,The American as reformer , Arthur M. 1888-1965. (Arthur Meier) Schlesinger,,Harvard UP,1950
+e160tsc,e100,E160TSC,E100,The stammering century , G. V. Seldes,,Harper,1965
+e160aah,e100,E160AAH,E100,America and her commentators; with a critical sketch of travel in the United States , H. T. Tuckerman,,Antiquarian P,1961
+e160ff,e100,E160FF,E100,Freedom's ferment : phases of American social history from the colonial period to the outbreak of the Civil War , A. F. Tyler,9780061310744; 0061310743,Harper,1962
+e160tso,e100,E160TSO,E100,The saga of American society : a record of social aspiration; 1607-1937 , Dixon Wecter,,Scribner's,1937
+e160tfi,e100,E160TFI,E100,The future in America : a search after realities , H. G. 1866-1946. (Herbert George) Wells,,Chapman,1906
+e161tuw,e100,E161TUW,E100,The urgent west : an introduction to the idea of the United States , Walter Ernest Allen,,Baker,1969
+e161at1,e100,E161AT1,E100,America's taste 1851-1959 : the cultural events of a century reported by contemporary observers in the pages of the New York Times , Walter Ernest Allen,,Simon and Schuster,1959
+e161wks,e100,E161WKS,E100,Who killed society? , C. Amory,,Harper,1960
+e161iat,e100,E161IAT,E100,Individualism and tiolism in American ideology , Y. Arieli,,Harvard UP,1964
+e161coa,e100,E161COA,E100,City on a hill : a history of ideas and myths in America , Loren Baritz,,Wiley,1964
+e161ala,e100,E161ALA,E100,A literary and historical atlas of America , J. G. 1860-1920. (John George) Bartholomew,,Dent,1946
+e161tai,e100,E161TAI,E100,The American identity : a college reader , Sam S. Baskett,,Heath,1962
+e161far,e100,E161FAR,E100,Freedom and responsibility in the American way of life , Carl Lotus Becker,,Random House,1955
+e161tpo,e100,E161TPO,E100,The promise of America : an historical enquiry , John Morton Blum,,Houghton Mifflin,1966
+e161taa,e100,E161TAA,E100,The American adventure : a study of bourgeois civilisation , M. J. Bonn,,John Day,1934
+e161tgo,e100,E161TGO,E100,The genius of American politics , Daniel J. 1914-2004. (Daniel Joseph) Boorstin,,U of Chicago P,1958
+e161at,e100,E161AT,E100,American themes , D. W. 1900-1974. (Denis William) Brogan,,Hamilton,1948
+e161tac,e100,E161TAC,E100,The American character , D. W. 1900-1974. (Denis William) Brogan,,Viking Books,1956
+e161tap,e100,E161TAP,E100,The American problem , D. W. 1900-1974. (Denis William) Brogan,,Hamilton,1944
+e161tai,e100,E161TAI,E100,The American Idea of Mission : Concepts of tiol Purpose and Destiny , Edward Mcll Burns,,Rutgers UP,1957
+e161tmt,e100,E161TMT,E100,Their majesties the mob , John Walton Caughey,,U of Chicago P,1960
+e161tdv,e100,E161TDV,E100,The democratic vista : a dialogue on life and letters in contemporary America , R. V. Chase,,Doubleday,1958
+e161eva,e100,E161EVA,E100,Europe views America : a critical evaluation , E. W. Chester,,Public Affairs P,1962
+e161at,e100,E161AT,E100,American thought : a critical sketch , Morris R. 1880-1947. (Morris Raphael) Cohen,,Collier Books,1962
+e161lii,e100,E161LII,E100,Living ideas in America , Henry Steele Commager,,Harper,1951
+e161tao,e100,E161TAO,E100,The art of democracy : a concise history of popular culture in the United States , Jim Cullen,9780853459200; 0853459207,Monthly Review P,1996
+e161tgo,e100,E161TGO,E100,The growth of American thought , Merle 1897-1996. (Merle Eugene) Curti,9780878558797; 0878558799,Transaction Books,1982
+e161aho,e100,E161AHO,E100,A history of recreation : America learns to play , Foster Rhea Dulles,,Appleton-Century-Crofts,1965
+e161alt,e100,E161ALT,E100,America learns to play : a history of popular recreation; 1607-1940 , Foster Rhea Dulles,,Peter Smith,1963
+e161iat,e100,E161IAT,E100,Inventing American tradition : from the Mayflower to Cinco de Mayo , Jack David Eller,9781780239866; 1780239866,Reaktion Books,2018
+e161tdo,e100,E161TDO,E100,The decline of American liberalism , Arthur Alphonse Ekirch,,Longmans,1955
+e161oa,e100,E161OA,E100,Our America , F. Waldo,,Boni and Liveright,1919
+e161tpo,e100,E161TPO,E100,The Pageant of America : a Pictorial History of the United States , Ralph Henry Gabriel,,Yale UP,1925
+e161tco,e100,E161TCO,E100,The course of American democratic thought , Ralph Henry Gabriel,,Rold Press,1956
+e161sat,e100,E161SAT,E100,Socialism and the American spirit , N. P. Gilman,,Houghton Mifflin,1893
+e161tbk,e100,E161TBK,E100,Their brothers' keepers : moral stewardship in the United States; 1800-1865 , C. S. Griffin,,Rutgers UP,1960
+e161cot,e100,E161COT,E100,Crisis of the American mind , L. Gurko,,Rider,1956
+e161tdo,e100,E161TDO,E100,The dimensions of liberty , Oscar Handlin,,Harvard UP,1961
+e161twa,e100,E161TWA,E100,This was America , Oscar Handlin,,Harvard UP,1949
+e161aaf,e100,E161AAF,E100,America and French culture; 1750-1848 , Howard Mumford. Jones,,U of Caroli P,1927
+e161osn,e100,E161OSN,E100,O strange new world : American culture : the formative years , Howard Mumford. Jones,,Viking,1964
+e161tpo,e100,E161TPO,E100,The pursuit of happiness , Howard Mumford. Jones,,Harvard UP,1953
+e161cpa,e100,E161CPA,E100,Cultural pluralism and the American idea : an essay in social philosophy , H. M. Kallen,,U of Pennsylvania P,1956
+e161at,e100,E161AT,E100,American tiolism : an interpretative essay , Hans Kohn,,Collier Books,1961
+e161mc,e100,E161MC,E100,Material culture : a research guide , Leo Marx,9780700602759; 0700602755,UnivPof Kansas,1985
+e161eit,e100,E161EIT,E100,Errand into the wilderness , Perry. Miller,0674261550; 9780674261556,Belkp Press,1984
+e161mda,e100,E161MDA,E100,Manifest destiny and mission in American history : a reinterpretation , Frederick Merk,,Knopf,1963
+e161tt,e100,E161TT,E100,ture's tion , Perry Miller,9780674605503; 0674605500,Belkp P,1967
+e161tat,e100,E161TAT,E100,The American temper : patterns of our intellectual heritage , Richard David Mosier,,U of California P,1952
+e161tgd,e100,E161TGD,E100,The golden day : a study in American experience and culture , Lewis Mumford,,Boni,1926
+e161tio,e100,E161TIO,E100,The irony of American history , Reinhold Niebuhr,,Nisbet,1952
+e161tae,e100,E161TAE,E100,The American experience : an interpretation of the history and civilization of the American people , H. B. Parkes,,Vintage Books,1959
+e161rar,e100,E161RAR,E100,Radicalism and reform : the Vrooman family and American social thought; 1837-1937 , R. E. Paulson,,U of Kentucky P,1968
+e161pad,e100,E161PAD,E100,Puritanism and democracy , R. B. Perry,,Vanguard P,1944
+e161ja,e100,E161JA,E100,Johnny Appleseed : man and myth , R. Price,,Smith,1967
+e161soa,e100,E161SOA,E100,Santaya on America : essays; notes and letters on American life; literature and philosophy , George Santaya,,Harcourt,1968
+e161poa,e100,E161POA,E100,Paths of American thought , Arthur M. Schlesinger,,Chatto,1942 et
+e161cta,e100,E161CTA,E100,Civil tongues and polite letters in British America , David S. Shields,9780807823514; 0807823511,U of North Caroli P,1997
+e161sfi,e100,E161SFI,E100,Social forces in American history , A. M. Simons,,The Book League of America,1929
+e161aa,e100,E161AA,E100,America : a re-appraisal , H. E. Stearns,,Hillman Curl,1937
+e161ihi,e100,E161IHI,E100,Intellectual history in America , C. Strout,,Harper,1968
+e161tai,e100,E161TAI,E100,The American image of the old world , C. Strout,,Harper,1963
+e161rt,e100,E161RT,E100,Redeemer tion : the idea of America's millennial role , E. L. Tuveson,,U of Chicago P,1968
+e161tus,e100,E161TUS,E100,The United States : a companion to American studies , Dennis. Welland,9780416415001; 0416415008,Methuen,1987
+e161tjt,e100,E161TJT,E100,The Jeffersonian tradition in American democracy , C. M. Wiltse,,Hill & Wang,1960
+e161tmo,e100,E161TMO,E100,The myth of the American frontier : its relevance to America; Cada and Australia , R. W. Winks,9780718511104; 0718511107,Leicester UP,1971
+e161sat,e100,E161SAT,E100,Society and thought in America , H. Wish,,McKay,1950
+e161saf,e100,E161SAF,E100,See America first : tourism and tiol identity; 1880-1940 , Marguerite S. Shaffer,9781560989530; 156098953X; 9781560989769; 1560989769,Smithsonian Institution,2001
+e161wwe,e100,E161WWE,E100,With women's eyes : visitors to the New World 1775-1918 , Marguerite S. Shaffer,9780208023711; 0208023712,Archon,1993
+e162ps1,e100,E162PS1,E100,Provincial society; 1690-1763 , James Truslow Adams,,Macmillan,1927
+e162aas,e100,E162AAS,E100,Atlantic American societies : from Columbus through abolition 1492-1888 , James Truslow Adams,9780415080736; 0415080738,Routledge,1992
+e162cit,e100,E162CIT,E100,Cities in the wilderness : the first century of urban life in America 1625-1742 , Carl. Bridenbaugh,,Knopf,1960
+e162teo,e100,E162TEO,E100,The eyes of discovery : the pageant of North America as seen by the first explorers , John Bakeless,,Dover,1961
+e162tnc,e100,E162TNC,E100,The new country : a social history of the American frontier; 1776-1890 , Richard A. Bartlett,,OUP,1974
+e162ta,e100,E162TA,E100,The Americans : the colonial experience , Daniel J. 1914-2004. (Daniel Joseph) Boorstin,,Random House,1958 et
+e162ttt,e100,E162TTT,E100,Travels through the middle settlements in North-America in the years 1759 and 1760; with observations upon the state of the colonies , A. Burby,,Cornell UP,1960
+e162ama,e100,E162AMA,E100,A most amazing scene of wonders : electricity and enlightenment in early America , James Delbourgo,9780674022997; 0674022998,Harvard University Press,2006
+e162cal,e100,E162CAL,E100,Circles and lines : the shape of life in early America , John. Demos,9780674013247; 0674013247,Harvard University Press,2004
+e162som,e100,E162SOM,E100,Seasons of misery : catastrophe and colonial settlement in early America , Kathleen Donegan,0812245407; 9780812245400,University of Pennsylvania Press,2014
+e162j1,e100,E162J1,E100,Jourl; 1679-1680 , J. Danckaerts,,Barnes,1959
+e162dau,e100,E162DAU,E100,Diversity and unity in early North America , J. Danckaerts,9780415087995; 0415087996,Routledge,1993
+e162aho,e100,E162AHO,E100,A history of travel in America , Seymour Dunbar,,Tudor,1937
+e162tto,e100,E162TTO,E100,The transit of civilization from England to America in the seventeenth century , E. Eggleston,,Beacon Press,1959
+e162as,e100,E162AS,E100,Albion's seed : four British folkways in America , David Hackett Fischer,9780195069051; 0195069056,Oxford University Press,1991
+e162moa,e100,E162MOA,E100,Memoirs of an American lady; with sketches of manners and scenes in America as they existed previous to the Revolution; with unpublished letters and a memoir of Mrs. Grant by James Grant Wilson , Anne MacVicar Grant,,Dodd,1903
+e162tac,e100,E162TAC,E100,The American colonial mind and the classical tradition : essays in comparative culture , R. M. Gummere,,Harvard UP,1963
+e162gp,e100,E162GP,E100,Gentleman's progress : the Itinerarium of Alexander Hamilton; 1744 , Alexander Hamilton,,U of North Caroli P,1948
+e162aa1,e100,E162AA1,E100,America at 1750 : a social portrait , Richard Hofstadter,9780394717951; 0394717953; 9780224007108; 0224007106,Cape,1972 et
+e162ai,e100,E162AI,E100,American incartion : the individual; the tion; and the continent , Myra. Jehlen,9780674024267; 0674024265,Harvard UP,1986
+e162tao,e100,E162TAO,E100,The America of 1750 : Peter Kalm's travels in North America , P. Kalm,,Dover,1966
+e162pop,e100,E162POP,E100,People of Paradox : an Inquiry Concerning the Origins of American Civilization , Michael G. Kammen,9780394719337; 0394719336; 9780394460772; 0394460774,Knopf,1972
+e162fct,e100,E162FCT,E100,From colonials to provincials : American thought and culture; 1680-1760 , Ned C. Landsman,9780801487019; 0801487013,Cornell University Press,2000
+e162mam,e100,E162MAM,E100,Materialism and morality in the American past : themes and sources; 1680-1860 , Joyce Oldham Appleby,,Addison-Wesley,1974
+e162tit,e100,E162TIT,E100,Travels in the American Colonies , N. D. Mereness,,Antiquarian P,1961
+e162bop,e100,E162BOP,E100,Birds of passage : five Englishwomen in search of America , Richard. Mullen,9780715624296; 0715624296,Duckworth,1994
+e162oci,e100,E162OCI,E100,Of consuming interests : the style of life in the eighteenth century , Richard. Mullen,9780813914138; 0813914132,UP of Virginia for the Society,1994
+e162pl,e100,E162PL,E100,Paradox lost : free will and political liberty in American culture; 1630-1760 , Jon. Pahl,9780801843341; 0801843340,Johns Hopkins UP,1992
+e162tco,e100,E162TCO,E100,The coming of the white man; 1492-1848 , H. I. Priestley,,Macmillan,1929
+e162hea,e100,E162HEA,E100,How early America sounded , Richard Cullen. Rath,0801472725; 9780801472725,University Presses Marketing distributor; Cornell University Press,2005
+e162tad,e100,E162TAD,E100,Taverns and drinking in early America , Sharon V. (Sharon Vineberg) Salinger,9780801878992; 0801878993,Johns Hopkins UP,2004
+e162da1,e100,E162DA1,E100,Discovering America; 1700-1875 , H. Savage,9780060137823; 0060137827,Harper,1979
+e162sa,e100,E162SA,E100,Seventeenth-century America : essays in colonial history , James Morton. Smith,,UP of North Caroli,1959
+e162tww,e100,E162TWW,E100,The way we lived : essays and documents in American social history , James Morton. Smith,9780395959602; 0395959608,Houghton Mifflin,2000
+e162tfo,e100,E162TFO,E100,The Founding of American Civilization : the Middle Colonies , Thomas Jefferson Wertenbaker,,Scribner's,1938
+e162tfa,e100,E162TFA,E100,The first Americans 1607-1690 , Thomas Jefferson Wertenbaker,,Macmillan,1927
+e162tga,e100,E162TGA,E100,The golden age of colonial culture , Thomas Jefferson Wertenbaker,,Great Seal Books,1959
+e162cot,e100,E162COT,E100,Culture on the moving frontier , Louis B. 1899-1984. (Louis Booker) Wright,,Harper,1961
+e162taf,e100,E162TAF,E100,The Atlantic frontier : colonial American civilization 1607-1763 , Louis B. 1899-1984. (Louis Booker) Wright,,Cornell UP,1959
+e162tcc,e100,E162TCC,E100,The colonial civilisation of North America 1607-1763 , Louis B. 1899-1984. (Louis Booker) Wright,,Eyre,1949
+e162tcl,e100,E162TCL,E100,The cultural life of the American colonies; 1607-1763 , Louis B. 1899-1984. (Louis Booker) Wright,,Harper,1957
+e163lar,e100,E163LAR,E100,Liberalism and republicanism in the historical imagition , Joyce Oldham Appleby,9780674530133; 0674530136,Harvard UP,1992
+e163pap,e100,E163PAP,E100,Providence and patriotism in early America; 1640-1815 , John F. Berens,9780813907796; 0813907799,UP of Virginia,1978
+e163cma,e100,E163CMA,E100,Cotton Mather and Benjamin Franklin : the price of representative persolity , Mitchell Robert. Breitwieser,9780521267687; 0521267684,CUP,1984
+e163tro,e100,E163TRO,E100,The refinement of America : persons; houses; cities , Richard L. Bushman,9780394550107; 0394550102,Knopf,1992
+e163tin,e100,E163TIN,E100,Travels in North America in the years 1780; 1781 and 1782 , F. J. Chastellux,,U of North Caroli P,1963
+e163teo,e100,E163TEO,E100,The empire of reason : how Europe imagined and America realized the enlightenment , Henry Steele Commager,9780297774211; 0297774212,Doubleday,1977 et
+e163lfa,e100,E163LFA,E100,Letters from an American Farmer , M. G. S. J. Crevecoeur,,Dent,1912
+e163tdl,e100,E163TDL,E100,The divided loyalist : Crevecoeur's America , M. G. S. J. Crevecoeur,,Folio Society,1978
+e163mlf,e100,E163MLF,E100,More letters from the American farmer : an edition of the essays in English; left unpublished by Crevecoeur , Michel Guillaume St. John de. Crevecoeur,9780820315997; 0820315990,U of Georgia P,1995
+e163lca,e100,E163LCA,E100,Le cultivateur americain : etude sur l'oeuvre de Saint John de Crevecoeur , H. C. Rice,,Champion,1933
+e163teo,e100,E163TEO,E100,The end of Anglo-America : historical essays in the study of cultural divergence , H. C. Rice,9780719030772; 0719030773,Manchester UP,1991
+e163pap,e100,E163PAP,E100,Prodigals and pilgrims : the American revolution against patriarchal authority; 1750-1800 , Jay. Fliegelman,9780521237192; 052123719X,CUP,1982
+e163trg,e100,E163TRG,E100,The Revolutiory Generation; 1763-1790 , E. B. Greene,,Macmillan,1943
+e163iba,e100,E163IBA,E100,Imperatives; behaviors; and identities : essays in early American cultural history , Jack P. 1931- (Jack Phillip) Greene,9780813914060; 081391406X,UP of Virginia,1992
+e163arp,e100,E163ARP,E100,A Restless People : Americans in Rebellion; 1770-1787 , Oscar Handlin,9780385061025; 0385061021,Anchor P,1982
+e163tde,e100,E163TDE,E100,The democratic enlightenment , D. H. Meyer,9780399116865; 0399116869,Putm,1976
+e163tnd,e100,E163TND,E100,The new democracy in America : travels of Francisco de Miranda in the United States; 1783-84 , F. Miranda,,U of Oklahoma P,1963
+e163tfe,e100,E163TFE,E100,The French Enlightenment in America : essays on the times of the founding fathers , Paul Merrill. Spurlin,9780820307213; 0820307211,U of Georgia P,1984
+e164aia,e100,E164AIA,E100,Abroad in America : visitors to the new tion 1776-1914 , Paul Merrill. Spurlin,9780201000313; 0201000318,Addison-Wesley,1976
+e164tus,e100,E164TUS,E100,The United States in 1800 , Henry Adams,,Cornell UP,1955
+e164roa,e100,E164ROA,E100,Retrospections of America; 1797-1811 , John Berrd,,Harper,1887
+e164ros,e100,E164ROS,E100,Recollections of Samuel Breck; with passages from his note-books; 1771-1862 , Samuel. Breck,,Porter,1877
+e164nti,e100,E164NTI,E100,New travels in the United States of America; 1788 , J. P. Brissot,,Harvard UP,1964
+e164atr,e100,E164ATR,E100,After the Revolution : Profiles of early American Culture , J. J. Ellis,9780393012538; 0393012530,Norton,1979
+e164tet,e100,E164TET,E100,The European traveller in America : contained in three letters to his friend in London., J. J. Ellis,,Hall,1972
+e164ja,e100,E164JA,E100,Jeffersonian America : notes on the United States of America collected in the years 1805-6-7 and 11-12 , A. J. Foster,,Huntingdon Library,1954
+e164trc,e100,E164TRC,E100,The republican court or American society in the days of Washington , R. W. Griswold,,Appleton,1854
+e164rar,e100,E164RAR,E100,Revolution and regeneration : life cycle and the historical vision of the generation of 1776 , Peter Charles Hoffer,9780820306674; 0820306673,U of Georgia P,1983
+e164off,e100,E164OFF,E100,Orders from France : the Americans and the French in a revolutiory world; 1780-1820 , Roger G. Kennedy,9780812213287; 0812213289,U of Pennsylvania P,1990
+e164tco,e100,E164TCO,E100,The completion of independence; 1790-1830 , J. A. Krout,,Macmillan,1944
+e164mds,e100,E164MDS,E100,Moreau de St Mery's American journey (1793-1798) ,Moreau de Saint-Mearry,,Doubleday & Co,1947
+e164ty,e100,E164TY,E100,True yankees : The South Seas and the discovery of American identity , Dane Anthony Morrison,1421415429; 9781421415420,Johns Hopkins University Press,2014
+e164aat,e100,E164AAT,E100,America and the world : diplomacy; politics; and war , Dane Anthony Morrison,9780815304449; 0815304447,Garland,1991
+e164ac1,e100,E164AC1,E100,American culture; 1776-1815 , Dane Anthony Morrison,9780815304470; 0815304471,Garland,1991
+e164as1,e100,E164AS1,E100,American society; 1776-1815 , Dane Anthony Morrison,9780815304463; 0815304463,Garland,1991
+e164cat,e100,E164CAT,E100,Congress and the Confederation , Dane Anthony Morrison,9780815304395; 0815304390,Garland,1991
+e164etn,e100,E164ETN,E100,Establishing the new regime : the Washington administration , Dane Anthony Morrison,9780815304425; 0815304420,Garland,1991
+e164far,e100,E164FAR,E100,Federalists and republicans , Dane Anthony Morrison,9780815304432; 0815304439,Garland,1991
+e164raa,e100,E164RAA,E100,Ratifying; amending; and interpreting the Constitution , Dane Anthony Morrison,9780815304418; 0815304412,Garland,1991
+e164sal,e100,E164SAL,E100,State and local politics in the new tion , Dane Anthony Morrison,9780815304456; 0815304455,Garland,1991
+e164tfc,e100,E164TFC,E100,The Federal Constitution , Dane Anthony Morrison,9780815304401; 0815304404,Garland,1991
+e164tri,e100,E164TRI,E100,The Revolution in American thought , Dane Anthony Morrison,9780815304364; 0815304366,Garland,1991
+e164tcl,e100,E164TCL,E100,The cultural life of the new tion; 1776-1830 , Russel B. 1913- (Russel Blaine) Nye,,Hamilton,1960
+e164tve,e100,E164TVE,E100,This violent empire : the birth of an American tiol identity , Carroll. Smith-Rosenberg,0807832960; 9780807832967,Published for the Omohundro Institute of Early American History and Culture by University of North Caroli Press,2010
+e164fmo,e100,E164FMO,E100,French memories of eighteenth-century America , C. H. Sherrill,,Scribner's,1915
+e164atr,e100,E164ATR,E100,After the Revolution : the Smithsonian history of everyday life in the eighteenth century , Barbara Clark. Smith,9780394543819; 0394543815,Pantheon Books,1985
+e183bc,e100,E183BC,E100,Broken covent : American foreign policy and the crisis between the U.S. and Israel ,Moshe Arens,9780671869649; 0671869647,Simon & Schuster,1995
+e183pwg,e100,E183PWG,E100,Paved with Good Intentions : the American Experience and Iran ,Barry Rubin,9780195028058; 0195028058,OUP,1980
+e183plc,e100,E183PLC,E100,Promised land; crusader state : the American encounter with the world since 1776 ,Walter A McDougall,9780395901328; 0395901324,Houghton Mifflin,1998
+e183tpa,e100,E183TPA,E100,The passiote attachment : America's involvement with Israel; 1947 to the present ,George W Ball and Douglas B Ball,9780393029338; 0393029336,Norton,1992
+e183tus,e100,E183TUS,E100,The United States and Iran; 1946-51 : the diplomacy of neglect ,James F Goode,9780333471036; 0333471032,Macmillan,1989
+e183tus,e100,E183TUS,E100,The United States and Israel : the limits of the special relationship ,Abraham Ben-Zvi,9780231081849; 0231081847,Columbia UP,1993
+e184pa,e100,E184PA,E100,Puro arte : Filipinos on the stages of empire ,Lucy Mae San Pablo Burns,0814744435; 9780814744437; 0814725457; 9780814725450,New York University Press,©2012
+e267tmw,e200,E267TMW,E200,The men who lost America : British leadership; the American Revolution; and the fate of the empire ,Andrew Jackson O'Shaughnessy,0300191073; 9780300191073; 0300209401; 9780300209402,Yale University Press,2013
+e183as,e100,E183AS,E100,American speeches.,Scott Farris,1931082987; 9781931082983,Distributed to the trade in the United States by Penguin Putm; Library of America,2006
+e185lor,e100,E185LOR,E100,Long old road : back to Black metropolis ,Horace R Cayton,141281121X; 9781412811217,Transaction Publishers,2010
+e184ca,e100,E184CA,E100,Coming apart : the state of white America; 1960-2010 ,Charles Murray,0307453421; 9780307453426,Crown Forum,2012
+e185cc,e100,E185CC,E100,Colored cosmopolitanism : the shared struggle for freedom in the United States and India ,Nico Slate,0674059670; 9780674059672,Harvard University Press,2012
+e183ra,e100,E183RA,E100,Rethinking anti-Americanism : the history of an exceptiol concept in American foreign relations ,Max Paul Friedman,0521864917; 9780521864916; 0521683424; 9780521683425,Cambridge University Press,2012
+e159bit,e100,E159BIT,E100,Born in the U.S.A. : birth; commemoration; and American public memory ,edited  Seth C Bruggeman,1558499385; 9781558499386; 1558499377; 9781558499379,University of Massachusetts Press,2012
+e169tai,e100,E169TAI,E100,The American intellectual tradition.,edited  David A Hollinger and Charles Capper,0195392930; 9780195392937,Oxford University Press,2011
+e175vft,e100,E175VFT,E100,Views from the dark side of American history ,Michael Fellman,0807139025; 9780807139028,Louisia State University Press,2011
+e164tcr,e100,E164TCR,E100,The cultural roots of American Islamicism ,Timothy Marr,0521852935; 9780521852937; 052161807X; 9780521618076,Cambridge University Press,2006
+e185fst,e100,E185FST,E100,From sit-ins to SNCC : the student civil rights movement in the 1960s ,edited  Iwan Morgan and Philip Davies,0813041511; 9780813041513; 0813049598; 9780813049595,University Press of Florida,2012
+e184maj,e100,E184MAJ,E100,Muslims and Jews in America : commolities; contentions; and complexities ,edited  Reza Aslan and Aaron J Hahn Tapper,0230108601; 9780230108608; 023010861X; 9780230108615,Palgrave Macmillan,2011
+e185ri,e100,E185RI,E100,Racial innocence : performing American childhood from slavery to civil rights ,Robin Bernstein,081478707X; 9780814787076; 0814787088; 9780814787083,New York University Press,2011
+e185sff,e100,E185SFF,E100,Sojourning for freedom : black women; American communism; and the making of black left feminism ,Erik S McDuffie,0822350335; 9780822350330; 0822350505; 9780822350507,Duke University Press,2011
+e185lbb,e100,E185LBB,E100,Louisia beyond black and white : new interpretations of twentieth-century race and race relations ,edited  Michael S Martin ; foreword  Adam Fairclough,1935754041; 9781935754046,University of Louisia at Lafayette Press,2011
+e185mga,e100,E185MGA,E100,Marcus Garvey and the vision of Africa ,edited  John Hendrik Clarke with the assistance of Amy Jacques Garvey ; [new introduction  Runoki Rashidi],1574780476; 9781574780475,Black Classic Press,2011
+e185bfa,e100,E185BFA,E100,Beyond forty acres and a mule : African American landowning families since Reconstruction ,edited  Debra A Reid and Evan P Bennett ; foreword  Loren Schweninger,081303986X; 9780813039862,University Press of Florida,2012
+e1630ed,e1000,E1630ED,E1000,European disunion : between sovereignty and solidarity ,edited  Jack Hayward and Rüdiger Wurzel,0230367739; 9780230367739,Palgrave Macmillan,2012
+e185tla,e100,E185TLA,E100,To live an antislavery life : persol politics and the antebellum Black middle class ,Erica L Ball,0820329762; 9780820329765; 0820343501; 9780820343501,University of Georgia Press,2012
+e183poe,e100,E183POE,E100,Patterns of empire : the British and American empires; 1688 to the present ,Julian Go,1107011833; 9781107011830; 1107600782; 9781107600782,Cambridge University Press,2011
+e175mma,e100,E175MMA,E100,Museums; monuments; and tiol parks : toward a new genealogy of public history ,Denise D Meringolo,1558499407; 9781558499409; 1558499393; 9781558499393,University of Massachusetts Press,2012
+e185tmo,e100,E185TMO,E100,The myth of post-racial America : searching for equality in the age of materialism ,H Roy Kaplan,1610480058; 9781610480055; 1610480066; 9781610480062,Rowman & Littlefield Education,2011
+e185nio,e100,E185NIO,E100,Not in our lifetimes : the future of black politics ,Michael C Dawson,0226138623; 9780226138626,University of Chicago Press,2011
+e184aa,e100,E184AA,E100,Arab America : gender; cultural politics; and activism ,Nadine Naber,081475886X; 9780814758861; 0814758878; 9780814758878,New York University Press,2012
+e183ufp,e100,E183UFP,E100,US foreign policy and Iran ,Donette Murray,0415581397; 9780415581394,Routledge,2010
+e183tra,e100,E183TRA,E100,The rise and decline of the American 'Empire' : power and its limits in comparative perspective ,Geir Lundestad,0199646104; 9780199646104,Oxford University Press,2012
+e185oat,e100,E185OAT,E100,Obama and the biracial factor : the battle for a new American majority ,edited  Andrew J Jolivette,1447301013; 9781447301011; 1447301005; 9781447301004,Policy,2012
+e183tkq,e100,E183TKQ,E100,The Kurdish question in U.S. foreign policy : a documentary sourcebook ,[compiled ] Lokman I Meho,9780313314353; 0313314357,Praeger,2004
+e184baa,e100,E184BAA,E100,Between Arab and White : race and ethnicity in the early Syrian American diaspora ,Sarah MA Gualtieri,0520255321; 9780520255326; 0520255348; 9780520255340,University of California Press,2009
+e185cwc,e100,E185CWC,E100,Cold War civil rights : race and the image of American democracy ,Mary L Dudziak,0691152438; 9780691152431,Princeton University Press,2011
+e169tad,e100,E169TAD,E100,The American dream : a cultural history ,Lawrence R Samuel,0815610076; 9780815610076,Syracuse University Press,2012
+e185wwb,e100,E185WWB,E100,We will be satisfied with nothing less : the African American struggle for equal rights in the North during Reconstruction ,Hugh Davis,0801450098; 9780801450099,Cornell University Press,2011
+e185str,e100,E185STR,E100,Seeing through race : a reinterpretation of civil rights photography ,Martin A Berger ; foreword  David J Garrow,0520268636; 9780520268630; 0520268644; 9780520268647,University of California Press,2011
+e169hwf,e100,E169HWF,E100,How we forgot the Cold War : a historical journey across America ,Jon Wiener,0520271416; 9780520271418,University of California Press,2012
+e183tka,e100,E183TKA,E100,The Kurds and US foreign policy : intertiol relations in the Middle East since 1945 ,Marianna Charountaki,0415587530; 9780415587532,Routledge,2011
+e185iia,e100,E185IIA,E100,Imprisoned in a luminous glare : photography and the African American freedom struggle ,Leigh Renee Raiford,0807834300; 9780807834305; 1469609789; 9781469609782,University of North Caroli Press,2011
+e185itc,e100,E185ITC,E100,In the cause of freedom : radical Black intertiolism from Harlem to London; 1917-1939 ,Minkah Makalani,0807835048; 9780807835043,University of North Caroli Press,2011
+e185dbt,e100,E185DBT,E100,Death blow to Jim Crow : the tiol Negro Congress and the rise of militant civil rights ,Erik S Gellman,0807835315; 9780807835319,University of North Caroli Press,2012
+e183tfw,e100,E183TFW,E100,The French way : how France embraced and rejected American values and power ,Richard F Kuisel,0691151814; 9780691151816,Princeton University Press,2012
+e185w,e100,E185W,E100,Writings ,"WEB Du Bois""",9780940450332; 094045033X,Library of America,1986
+e185pra,e100,E185PRA,E100,Paul Robeson and the Cold War performance complex : race; madness; activism ,Tony Perucci,0472071688; 9780472071685; 0472051687; 9780472051687,Eurospan distributor; University of Michigan Press,2012
+e184oop,e100,E184OOP,E100,Out of place : a memoir ,Edward W Said,9781862073708; 1862073708; 9781862070110; 1862070113,Granta Books,1999
+e185tv,e100,E185TV,E100,Troubling vision : performance; visuality; and blackness ,Nicole R Fleetwood,0226253023; 9780226253022; 0226253031; 9780226253039,The University of Chicago Press,2011
+e161tmi,e100,E161TMI,E100,The machine in the garden : technology and the pastoral ideal in America ,Leo Marx,9780195133509; 0195133501; 9780195133516; 019513351X,Oxford University Press,2000
+e183eaa,e100,E183EAA,E100,Evangelicals and American foreign policy ,Mark R Amstutz,9780199987634; 0199987637,Oxford University Press,2014
+e185anu,e100,E185ANU,E100,A nation under our feet : black political struggles in the rural South from slavery to the great migration ,Steven Hahn,9780674011694; 0674011694,Belkp,2003
+e183pop,e100,E183POP,E100,Perceptions of Palestine : their influence on U.S. Middle East policy ,Kathleen Christison,9780520217188; 0520217187,University of California Press,1999
+e169dad,e100,E169DAD,E100,Disciplirity and dissent in cultural studies ,edited  Cary Nelson and Dilip Parameshwar Gaonkar,9780415913720; 0415913721,Routledge,1996
+e169mca,e100,E169MCA,E100,Mass culture and everyday life ,edited  Peter Gibian,9780415916745; 0415916747; 9780415916752; 0415916755,Routledge,1996
+e184mfw,e100,E184MFW,E100,My father's wars : migration; memory; and the violence of a century ,Alisse Waterston,0415859182; 9780415859189; 0415859174; 9780415859172,Routledge,2014
+e185aho,e100,E185AHO,E100,A history of prejudice : race; caste; and difference in India and the United States ,Gyanendra Pandey,9781107029002; 1107029007; 9781107609389; 1107609380,Cambridge University Press,2013
+e184cdi,e100,E184CDI,E100,Cultural diversity in the United States ,edited  Larry L Naylor,9780897894784; 0897894782,Bergin & Garvey,1997
+e169pm,e100,E169PM,E100,Prosthetic memory : the transformation of American remembrance in the age of mass culture ,Alison Landsberg,9780231129268; 0231129262; 9780231129275; 0231129270,Columbia University Press,2004
+e184caa,e100,E184CAA,E100,Chinese Americans and their immigrant parents : conflict; identity; and values ,May Paomay Tung,9780789010551; 0789010550; 9780789010568; 0789010569,Haworth Clinical Practice Press,2000
+e184amr,e100,E184AMR,E100,American mixed race : the culture of microdiversity ,edited  Naomi Zack,9780847680139; 0847680134,Rowman & Littlefield,1995
+e169tpp,e100,E169TPP,E100,The postmodern presence : readings on postmodernism in American culture and society ,edited  Arthur Asa Berger,9780761989806; 0761989803,AltaMira P,1998
+e169ttd,e100,E169TTD,E100,The terror dream : myth and misogyny in an insecure America ,Susan Faludi,0312428006; 9780312428006,Picador,2008
+e185rca,e100,E185RCA,E100,Race; culture; and the intellectuals : 1940-1970 ,Richard H King,0801880661; 9780801880667; 9780801880650; 0801880653,Johns Hopkins University Press; Woodrow Wilson Center Press,2004
+e164tro,e100,E164TRO,E100,The reshaping of everyday life; 1790-1840 ,Jack Larkin,9780060916060; 0060916060,HarperPerennial,1989
+e184ls,e100,E184LS,E100,La storia : five centuries of the Italian American experience; 1492-1992 ,Jerre Mangione & Ben Morreale,9780060167783; 0060167785; 9780060924416; 0060924411,HarperCollins Publishers,1992
+e184bt,e100,E184BT,E100,Brown : the last discovery of America ,Richard Rodriguez,0670030430; 9780670030439; 0142000795; 9780142000793,Viking,2002
+e152ita,e100,E152ITA,E100,Into the American woods : negotiators on the Pennsylvania frontier ,James H Merrell,9780393046762; 0393046761,Norton,1999
+e210olo,e200,E210OLO,E200,Our lives; our fortunes and our sacred honor : the forging of American independence; 1774-1776 ,Richard R Beeman,046502629X; 9780465026296,Basic Books A Member of the Perseus Books Group,2013
+e188ac,e100,E188AC,E100,American colonies ,Alan Taylor ; [map illustrations  Jeffrey Ward],9780142002100; 0142002100,Penguin,2002
+e178gml,e100,E178GML,E100,Give me liberty! : An American history ,Eric Foner,0393934306; 9780393934304; 0393911896; 9780393911893,WW Norton,2011
+e191tby,e100,E191TBY,E100,The barbarous years : the peopling of British North America : the conflict of civilizations; 1600-1675 ,Bernard Bailyn,0394515706; 9780394515700,Alfred A Knopf,2012
+e178ooo,e100,E178OOO,E100,Out of our past : the forces that shaped modern America ,Carl N Degler,9780061319853; 0061319856,Harper & Row,1984
+e169aia,e100,E169AIA,E100,Anti-intellectualism in American life ,Richard Hofstadter,9780394703176; 0394703170,Vintage Books,1963
+e178gii,e100,E178GII,E100,Great issues in American history ,edited  Clarence L  Ver Steeg and Richard Hofstadter,9780394705408; 0394705408,Vintage Books,1969
+e183ara,e100,E183ARA,E100,America; Russia; and the Cold War; 1945-2006 ,Walter LaFeber,0073534668; 9780073534664,McGraw-Hill,2008
+e169afg,e100,E169AFG,E100,A field guide to getting lost ,Rebecca Solnit,9780143037248; 0143037242,Penguin,2006
+e188tpo,e100,E188TPO,E100,The peopling of British North America : an introduction ,Joseph C Morton,9780394757797; 0394757793; 9780394553924; 0394553926,Vintage Books,1988
+e178tph,e100,E178TPH,E100,The Penguin history of the United States of America ,Hugh Brogan,9780140252552; 014025255X,Penguin,2001
+e302rc,e300,E302RC,E300,Revolutiory characters : what made the founders different ,Gordon S Wood,1594200939; 9781594200939; 0143112082; 9780143112082,Penguin Press,2007
+e169tgd,e100,E169TGD,E100,The Great Depression in America : a cultural encyclopedia.,William H Young and Nancy K Young,0313335206; 9780313335204; 9780313335211; 0313335214,Harcourt Education distributor; Greenwood,2007
+e161tlo,e100,E161TLO,E100,The life of the mind in America : from the Revolution to the Civil War ,Perry Miller,9780156519908; 0156519909,Harcourt,1965
+e178tgo,e100,E178TGO,E100,The growth of the American republic ,Samuel Eliot Morison and Henry Steele Commager,9780195025934; 0195025938,OUP,1980
+e183saf,e100,E183SAF,E100,Support any friend : Kennedy's Middle East and the making of the U.S.-Israel alliance ,Warren Bass,9780195177503; 0195177509; 9780195165807; 0195165802,Oxford University Press,2004
+e185tso,e100,E185TSO,E100,The shadow of the panther : Huey Newton and the price of Black power in America ,Hugh Pearson,9780201632781; 0201632780; 9780201483413; 0201483416,Addison-Wesley,1994
+e183sa,e100,E183SA,E100,Self-rule : a cultural history of American democracy ,Robert H Wiebe,9780226895628; 0226895629,U of Chicago P,1995
+e184tce,e100,E184TCE,E100,The Chinese experience in America ,Shih-shan Henry Tsai,9780253203878; 0253203872,India UP,1986
+e185tao,e100,E185TAO,E100,The autobiography of Malcolm X ,with the assistance of Alex Haley ; foreword  Attallah Shabazz ; introduction  MS Handler ; epilogue  Alex Haley ; afterword  Ossie Davis,0345350685; 9780345350688,Ballantine,1999
+e185blm,e100,E185BLM,E100,Black like me ,John Howard Griffin,0451234219; 9780451234216,Signet,2010
+e161ts,e100,E161TS,E100,The seventies : the great shift in American culture; society; and politics ,Bruce J Schulman,030681126X; 9780306811265,Da Capo,2002
+e185rt,e100,E185RT,E100,Redemption : the last battle of the Civil War ,Nicholas Lemann,0374530693; 9780374530696; 0374530696; 9780374530693,Farrar Straus and Giroux,2007
+e183fts,e100,E183FTS,E100,For the soul of mankind : the United States; the Soviet Union; and the Cold War ,Melvyn P Leffler,0809097176; 9780809097173; 0374531420; 9780374531423,Hill and Wang,2007
+e206fol,e200,E206FOL,E200,Friends of liberty : Thomas Jefferson; Tadeusz Kościuszko; and Agrippa Hull : a tale of three patriots; two revolutions; and a tragic betrayal of freedom in the new tion ,Gary B Nash and Graham Russell Gao Hodges,0465048145; 9780465048144,Basic Books,2008
+e302tbt,e300,E302TBT,E300,To begin the world anew : the genius and ambiguities of the American founders ,Bernard Bailyn,0375713085; 9780375713088,Vintage,2004
+e183dt,e100,E183DT,E100,Dangerous tion ,Robert Kagan,9780375411052; 0375411054; 0375724915; 9780375724916,Knopf,2006
+e184wtw,e100,E184WTW,E100,Working toward whiteness : how America's immigrants became white : the strange journey from Ellis Island to the suburbs ,David R  Roediger,0465070744; 9780465070749,Perseus Running distributor; BasicBooks,2006
+e185coa,e100,E185COA,E100,Coming of age in Mississippi ,Anne Moody,9780385337816; 0385337817,Delta Trade Paperbacks,2004
+e185sba,e100,E185SBA,E100,Slavery by another me : the re-enslavement of Black Americans from the Civil War to World War II ,Douglas A Blackmon,0385722702; 9780385722704,Anchor Books,2009
+e302tro,e300,E302TRO,E300,The rise of American democracy : Jefferson to Lincoln ,Sean Wilentz,9780393058208; 0393058204; 9780393329216; 0393329216,Norton,2005
+e184wwb,e100,E184WWB,E100,We won't budge : an African exile in the world ,Manthia Diawara,9780465017102; 046501710X,BasicBooks,2004
+e175hot,e100,E175HOT,E100,Historians of the American frontier : a bio-bibliographical sourcebook ,edited  John R Wunder,9780313248993; 0313248990,Greenwood P,1988
+e199eof,e100,E199EOF,E100,Empire of fortune : crowns; colonies; and tribes in the Seven Years War in America ,Francis Jennings,9780393025378; 0393025373,Norton,1988
+e175ttt,e100,E175TTT,E100,Telling the truth about history ,Joyce Oldham Apple ; with Lynn Hunt and Margaret Jacob,0393036154; 9780393036152; 0393312860; 9780393312867,Norton,1994
+e169cyd,e100,E169CYD,E100,"Commodify your dissent : salvos from ""The Baffler"" ",edited  Thomas Frank and Matt Weiland,9780393316735; 0393316734,WWNorton,1997
+e185st,e100,E185ST,E100,Sojourner Truth : a life; a symbol ,Nell Irvin Painter,9780393027396; 0393027392; 9780393317084; 0393317080,WW Norton,1996
+e184jft,e100,E184JFT,E100,Journey from the land of no : a girlhood caught in revolutiory Iran ,Roya Hakakian,0609810308; 9780609810309,Hi Marketing distributor; Random House,2006
+e221ia,e200,E221IA,E200,Inventing America : Jefferson's Declaration of Independence ,Garry Wills,9780618257768; 0618257764,Houghton Mifflin Co,2002
+e169ts,e100,E169TS,E100,The sixties : years of hope; days of rage ,Todd Gitlin,9780553372120; 0553372122,Bantam Books,1993
+e169ooo,e100,E169OOO,E100,On our own : Americans in the sixties ,Douglas T Miller,9780669247770; 0669247774,DC Heath,1996
+e185ptw,e100,E185PTW,E100,Parting the waters : America in the King years; 1954-63 ,Taylor Branch,9780671687427; 0671687425,Simon and Schuster,1989
+e208for,e200,E208FOR,E200,Faces of revolution : persolities and themes in the struggle for American independence ,Bernard Bailyn,9780679736233; 0679736239,Vintage Books,1992
+e209tro,e200,E209TRO,E200,The radicalism of the American Revolution ,Gordon S Wood,9780679736882; 0679736883,Vintage Books,1993
+e197tuc,e100,E197TUC,E100,The unredeemed captive : a family story from early America ,John Demos,9780679759614; 0679759611,Vintage Books,1995
+e159laa,e100,E159LAA,E100,Lies across America : what our historic sites get wrong ,James W Loewen,074329629X; 9780743296298,Simon & Schuster,2000
+e184aa,e100,E184AA,E100,Asian Americans : an interpretive history ,Sucheng Chan,9780805784268; 0805784268,Twayne,1991
+e185tmd,e100,E185TMD,E100,The Memphis diary of Ida B. Wells ,edited  Miriam DeCosta-Willis ; foreword  Mary Helen Washington ; afterword  Dorothy Sterling,9780807070659; 0807070653,Beacon P,1995
+e175ycb,e100,E175YCB,E100,You can't be neutral on a moving train : a persol history of our times ,Howard Zinn,9780807071274; 0807071277,Beacon Press,2002
+e162tic,e100,E162TIC,E100,The intellectual construction of America : exceptiolism and identity from 1492 to 1800 ,Jack P Greene,9780807820971; 0807820970,U of North Caroli P,1993
+e185fpt,e100,E185FPT,E100,From plantation to ghetto ,August Meier and Elliott Rudwick,9780809047925; 0809047926,Hill & Wang,1976
+e179md,e100,E179MD,E100,Manifest destiny : American expansionism and the empire of right ,Anders Stephanson,9780809015849; 0809015846,Hill and Wang,1995
+e185ttt,e100,E185TTT,E100,To tell the truth freely : the life of Ida B. Wells ,Mia Bay,0809095297; 9780809095292; 080901646X; 9780809016464,Hill and Wang,2009
+e208tar,e200,E208TAR,E200,The American revolution ,Edward Countryman,9780809025626; 0809025620,Hill and Wang,2003
+e215tsa,e200,E215TSA,E200,The shoemaker and the tea party : memory and the American Revolution ,Alfred F Young,0807054054; 9780807054055; 9780807071403; 0807071404,Beacon Press,1999
+e178ata,e100,E178ATA,E100,A tion among tions : America's place in world history ,Thomas Bender,9780809095278; 0809095270; 9780809072354; 0809072351,Hill and Wang,2006
+e185aia,e100,E185AIA,E100,Ain't I a woman : Black women and feminism ,Marty Jezer,9780896081307; 0896081303; 9780896081284; 0896081281,South End Press,1981
+e185tpc,e100,E185TPC,E100,The Pan-African connection : from slavery to Garvey and beyond ,Tony Martin,9780912469102; 0912469102; 9780912469119; 0912469110,Majority Press,1984
+e185bf,e100,E185BF,E100,Black foremothers : three lives ,Dorothy Sterling ; foreword  Margaret Walker ; introduction  Barbara Christian,9780935312898; 0935312897,Feminist P,1988
+e185tlc,e100,E185TLC,E100,The last crusade : Martin Luther King Jr; the FBI and the Poor People's Campaign ,Gerald D McKnight,0813333849; 9780813333847,Westview Press,1998
+e276rm,e200,E276RM,E200,Revolutiory mothers : women in the struggle for America's independence ,Carol Berkin,9781400041633; 1400041635; 9781400075324; 1400075327,Distributed by Random House; Knopf,2005
+e183sot,e100,E183SOT,E100,Sword of the spirit; shield of faith : religion in American war and diplomacy ,Andrew Preston,140007858X; 9781400078585,Anchor Books,2012
+e169tao,e100,E169TAO,E100,The age of American unreason ,Susan Jaco,9781400096381; 1400096383,Vintage Books,2009
+e184tiw,e100,E184TIW,E100,The Irish way : becoming American in the multiethnic city ,James R Barrett,1594203253; 9781594203251,Penguin Press,2012
+e185wdb,e100,E185WDB,E100,W.E.B. Du Bois : Black radical democrat ,Manning Marable,9781594510182; 1594510180; 9781594510199; 1594510199,Paradigm Publishers,2005
+e185tot,e100,E185TOT,E100,Time on two crosses : the collected writings of Bayard Rustin ,edited  Devon W Carbado and Donald Weise,9781573441742; 1573441740,Cleis,2003
+e184lj,e100,E184LJ,E100,Lipstick Jihad : a memoir of growing up Iranian in America and American in Iran ,Azadeh Moaveni,1586483781; 9781586483784,PublicAffairs,2006
+e185fal,e100,E185FAL,E100,Free at last : a documentary history of slavery; freedom and the civil war ,[edited ] Ira Berlin [and others],9781565841208; 1565841204,New P,1992
+e169acp,e100,E169ACP,E100,American cultural patterns : a cross-cultural perspective ,Edward C Stewart and Milton J Bennett,9781877864018; 1877864013,Intercultural Press,1991
+e185tha,e100,E185THA,E100,Too heavy a load : Black women in defense of themselves; 1894-1994 ,Deborah Gray White,9780393319927; 039331992X,WWNorton,1999
+e185bdc,e100,E185BDC,E100,Better day coming : blacks and equality; 1890-2000 ,Adam Fairclough,9780142001295; 0142001295; 9780670875924; 0670875929,Penguin,2002
+e185tbp,e100,E185TBP,E100,The Black Panther party (reconsidered) ,edited  Charles E  Jones,0933121962; 9780933121966; 0933121970; 9780933121973,Black Classic Press,1998
+e185two,e100,E185TWO,E100,The warmth of other suns : the epic story of America's great migration ,Isabel Wilkerson,0679444327; 9780679444329; 0679763880; 9780679763888,Random House,2010
+e169etc,e100,E169ETC,E100,Entertaining the citizen : when politics and popular culture converge ,Liesbet van Zoonen,9780742529069; 0742529061; 9780742529076; 074252907X,Rowman & Littlefield,2005
+e169sae,e100,E169SAE,E100,Slanted and enchanted : the evolution of indie culture ,Kaya Oakes,0805088520; 9780805088526,Henry Holt and Co,2009
+ja0pp,ja0,JA0PP,JA0,Practical politics : lessons in power and democracy , Titus Alexander,9781858567846; 185856784X,Trentham Books,2016
+ja0tat,ja0,JA0TAT,JA0,The argumentative turn in policy analysis and planning , Titus Alexander,9780822313724; 0822313723; 9780822313540; 0822313545,Duke University Press,1993
+ja0mpa,ja0,JA0MPA,JA0,Modern politics and government., Alan R. Ball,9780333961605; 0333961609; 9780333961612; 0333961617,Palgrave Macmillan,2005
+ja0tro,ja0,JA0TRO,JA0,The reinvention of politics : rethinking modernity in the global social order , Ulrich Beck,9780745613666; 0745613667; 9780745617589; 0745617581,Polity,1997
+ja0itp,ja0,JA0ITP,JA0,Introduction to politics and society , Shaun. Best,9780761971313; 0761971319; 9780761971306; 0761971300,SAGE,2002
+ja0pp,ja0,JA0PP,JA0,Political philosophy : an introduction , William T. Blackstone,9780690646337; 069064633X,Crowell,1973
+ja0eip,ja0,JA0EIP,JA0,Essays in political science , Edward H. 1910- (Edward Henry) Buehrig,,Indiana University Press,1966
+ja0mpa,ja0,JA0MPA,JA0,Modern politics and government , Alan R. Ball,9780333737477; 0333737474,Macmillan,2000
+ja0pa,ja0,JA0PA,JA0,Political argument , Brian M. Barry,9780745009063; 0745009069,Harvester Wheatsheaf,1990
+ja0tdo,ja0,JA0TDO,JA0,The Discipline of Politics , Jean Blondel,9780408106818; 0408106816,Butterworths,1981
+ja0sap,ja0,JA0SAP,JA0,Social and political philosophy : a contemporary introduction , John Philip Christman,9780415217972; 0415217970; 9780415217989; 0415217989,Routledge,2002
+ja0hot,ja0,JA0HOT,JA0,History of the International Political Science Association; 1949-1999 , John. Coakley,9781902277288; 1902277287,International Political Science Association,2000
+ja0srb,ja0,JA0SRB,JA0,Some relations between political and economic theory , G. D. H. 1889-1959. (George Douglas Howard) Cole,,Macmillan,1934
+ja0taf,ja0,JA0TAF,JA0,Theories and forms of political organisation , G. D. H. 1889-1959. (George Douglas Howard) Cole,,V Gollancz ltd,1932
+ja0ma,ja0,JA0MA,JA0,Microcosmographia academica : being a guide for the young academic politician , Francis Macdonald Cornford,,Bowes and Bowes,1964
+ja0ido,ja0,JA0IDO,JA0,In defence of politics , Bernard Crick,9780826487513; 0826487513,Continuum,2000
+ja0tsa,ja0,JA0TSA,JA0,The science and method of politics , George Edward Gordon Catlin,,Kegan Paul,1927
+ja0tto,ja0,JA0TTO,JA0,The terms of political discourse , William E. Connolly,9780855206000; 0855206004,Robertson,1983
+ja0ido,ja0,JA0IDO,JA0,In defence of politics , Bernard Crick,9780297820840; 0297820842,Weidenfeld,1992
+ja0wip,ja0,JA0WIP,JA0,What is politics , Bernard Crick,9780713165043; 0713165049,Arnold,1987
+ja0diw,ja0,JA0DIW,JA0,Dialectics in world politics , Bernard Crick,9780415625272; 0415625270,Routledge,2015
+ja0rim,ja0,JA0RIM,JA0,Readings in modern political analysis , Robert A. Dahl,,Prentice-Hall,1968
+ja0tdo,ja0,JA0TDO,JA0,The development of political science : a comparative survey , Robert A. Dahl,9780415056236; 0415056233,Routledge,1991
+ja0pop,ja0,JA0POP,JA0,Politics of persuasion : essays written in memory of Dr G.P. Dhawan , G. N. (Gopi Nath) Dhawan,,Manaktalas,1967
+ja0ipe,ja0,JA0IPE,JA0,Institutions politiques et droit constitutionnel , Maurice Duverger,,PUF,1973
+ja0tso,ja0,JA0TSO,JA0,The study of politics , Maurice Duverger,9780177110986; 0177110988,Nelson,1972
+ja0tsu,ja0,JA0TSU,JA0,The symbolic uses of politics , Murray J. 1919-2001. (Murray Jacob) Edelman,,University of Illinois Press,1964
+ja0tpi,ja0,JA0TPI,JA0,The political illusion , Jacques. Ellul,,Knopf,1967
+ja0eog,ja0,JA0EOG,JA0,Encyclopedia of government and politics., Jacques. Ellul,9780415072250; 0415072255,Routledge,1992
+ja0atc,ja0,JA0ATC,JA0,Approaches to comparative and international politics , Jacques. Ellul,,Northwestern University Press,1966
+ja0sp,ja0,JA0SP,JA0,Social philosophy., Joel Feinberg,9780138172626; 0138172625; 9780138172541; 0138172544,Prentice-Hall,1973
+ja0cis,ja0,JA0CIS,JA0,Concepts in social & political philosophy , Richard E. Flathman,,Macmillan,1973
+ja0tfo,ja0,JA0TFO,JA0,The future of political science : 100 perspectives , Richard E. Flathman,0415997003; 9780415997003; 0415997011; 9780415997010,Routledge,2009
+ja0pra,ja0,JA0PRA,JA0,Political research and political theory : essays in memory of Prof. V. O. Key Jr. , Richard E. Flathman,,Harvard University Press,1968
+ja0ait,ja0,JA0AIT,JA0,An introduction to metapolitics : a brief inquiry into the conceptual language of political science , A. James 1929- (Anthony James) Gregor,,Free Press,1971
+ja0wwh,ja0,JA0WWH,JA0,Why we hate politics , Colin Hay,0745630987; 9780745630984; 0745630995; 9780745630991,Polity,2007
+ja0pa,ja0,JA0PA,JA0,Political analysis , Colin Hay,9780333750025; 0333750020; 9780333750032; 0333750039,Palgrave,2002
+ja0taw,ja0,JA0TAW,JA0,Time and world politics : thinking the present , Kimberly Hutchings,0719073022; 9780719073021,Manchester University Press,2008
+ja0hop,ja0,JA0HOP,JA0,Handbook of political science , Kimberly Hutchings,9780201026016; 0201026015,Addison-Wesley,1975
+ja0p,ja0,JA0P,JA0,Politics , Andrew. Heywood,9780333986295; 0333986296; 9780333971314; 0333971310,Palgrave,2002
+ja0ip,ja0,JA0IP,JA0,Interpreting politics , Andrew. Heywood,9780631157779; 0631157778,Blackwell,1987
+ja0gtt,ja0,JA0GTT,JA0,Guide to the philosophy of morals and politics , C. E. M. 1891-1953. (Cyril Edwin Mitchinson) Joad,,V Gollancz,1938
+ja0tlo,ja0,JA0TLO,JA0,The limits of political science , Nevil. Johnson,9780198273417; 019827341X,Clarendon P,1989
+ja0pa,ja0,JA0PA,JA0,Politics : an introduction to the modern democratic state , Larry Johnston,9781551113692; 1551113694,Broadview Press,2001
+ja0tpt,ja0,JA0TPT,JA0,The Pure Theory of Politics , Bertrand de Jouvenel,,CUP,1963
+ja0fts,ja0,JA0FTS,JA0,Fixing the system : a history of populism; ancient and modern , Adrian Kuzminski,0826429599; 9780826429599; 0826429602; 9780826429605,Continuum,2008
+ja0ofa,ja0,JA0OFA,JA0,On freedom and human dignity : the importance of the sacred in politics , Morton A. Kaplan,,General Learning P,1973
+ja0iam,ja0,JA0IAM,JA0,Issues and methods in comparative politics : an introduction , Todd. Landman,9780415272698; 0415272696; 9780415272704; 041527270X,Routledge,2003
+ja0lar,ja0,JA0LAR,JA0,Left and right : the topography of political perceptions , J. A. Laponce,9780802055330; 0802055338,University of Toronto Press,1981
+ja0pat,ja0,JA0PAT,JA0,Politics and the social sciences , Seymour Martin. Lipset,,Oxford University Press,1969
+ja0ago,ja0,JA0AGO,JA0,A grammar of politics , Harold J. 1893-1950. (Harold Joseph) Laski,,Allen & Unwin,1938
+ja0ait,ja0,JA0AIT,JA0,An introduction to politics , Harold J. 1893-1950. (Harold Joseph) Laski,,Allen & Unwin,1951
+ja0tdo,ja0,JA0TDO,JA0,The danger of being a gentleman; and other essays , Harold J. 1893-1950. (Harold Joseph) Laski,,Allen and Unwin,1939
+ja0lop,ja0,JA0LOP,JA0,Language of politics : studies in quantitative semantics , Harold D. 1902-1978. (Harold Dwight) Lasswell,,MIT Press,1965
+ja0thp,ja0,JA0THP,JA0,The human polity : a comparative introduction to political science , Kay. Lawson,9780618043644; 0618043640,Houghton Mifflin Co,2003
+ja0wip,ja0,JA0WIP,JA0,What is political science , L. Lipson,,Victoria University College,1939
+ja0tsa,ja0,JA0TSA,JA0,The state and the citizen : an introduction to political philosophy;, J. D. (John David) Mabbott,,Hutchinson,1967
+ja0po,ja0,JA0PO,JA0,Political obligation., Thomas. McPherson,9780710051226; 0710051220; 9780710051219; 0710051212,Routledge & Kegan Paul,1967
+ja0tto,ja0,JA0TTO,JA0,The theatre of politics., Ferdinand Mount,029799518X; 0297995189; 9780297995180,Weidenfeld and Nicolson,1972
+ja0mcp,ja0,JA0MCP,JA0,Modern comparative politics , Peter H. (Peter Hans) Merkl,,Holt Rinehart & Winston,1970
+ja0ial,ja0,JA0IAL,JA0,Introduction a la science politique , Jean Meynaud,,Colin,1961
+ja0tno,ja0,JA0TNO,JA0,The nature of politics , J. D. B. 1922- (John Donald Bruce) Miller,,Duckworth,1962
+ja0pac,ja0,JA0PAC,JA0,Politics and controversy , A. J. M. 1922- (Alan John Mitchell) Milne,,U of Durham,1977
+ja0pia,ja0,JA0PIA,JA0,Politics in an antipolitical age , Geoff. Mulgan,9780745608136; 0745608132,Polity P,1994
+ja0anh,ja0,JA0ANH,JA0,A new handbook of political science , Geoff. Mulgan,9780198280156; 0198280157; 9780198294719; 0198294719,Oxford University Press,1996
+ja0np,ja0,JA0NP,JA0,Nongovernmental politics , Geoff. Mulgan,1890951757; 9781890951757; 1890951749; 9781890951740,Distributed by MIT Press; Zone Books,2007
+ja09to,ja0,JA09TO,JA0,95 theses on politics; culture; and method , Anne Norton,9780300100112; 0300100116,Yale University Press,2004
+ja0tno,ja0,JA0TNO,JA0,The nature of political theory , Anne Norton,9780198274414; 0198274416,Clarendon P,1983
+ja0toh,ja0,JA0TOH,JA0,The Oxford handbook of political science , Anne Norton,0199562954; 9780199562954,Oxford University Press,2009
+ja0pia,ja0,JA0PIA,JA0,Political innovation and conceptual change , Anne Norton,9780521351904; 0521351901; 9780521359788; 0521359783,Cambridge University Press,1989
+ja0tpc,ja0,JA0TPC,JA0,The politics companion , Anne Norton,9781861057969; 1861057962,Robson,2004
+ja0asc,ja0,JA0ASC,JA0,A Stata companion to political analysis , Philip H. Pollock,1506379702; 9781506379708,SAGE/CQ Press,2019
+ja0pe,ja0,JA0PE,JA0,Political economy : institutions; competition and representation : proceedings... , Dorothy Maud. Pickles,9780521417815; 0521417813,CUP,1993
+ja0ps,ja0,JA0PS,JA0,Political science : an introduction , Dorothy Maud. Pickles,9780136815600; 013681560X,Prentice-Hall,1991
+ja0pa,ja0,JA0PA,JA0,Politics : an introduction , Dorothy Maud. Pickles,9780415110747; 0415110742,Routledge,1997
+ja0pat,ja0,JA0PAT,JA0,Politics at the edge : the PSA yearbook 1999 , Dorothy Maud. Pickles,9780333779033; 0333779037; 9780333915622; 0333915623,Macmillan,2000
+ja0itp,ja0,JA0ITP,JA0,Introduction to politics , Geoffrey. Ponton,9780631187844; 0631187847,Blackwell,1993
+ja0ga,ja0,JA0GA,JA0,Governing : a brief introduction to political science., Austin. Ranney,9780030853104; 0030853109,Holt Rinehart and Winston,1971
+ja0pta,ja0,JA0PTA,JA0,Political Theory and the Rights of Man , D. D. 1916-2015. (David Daiches) Raphael,,Macmillan,1967
+ja0tto,ja0,JA0TTO,JA0,The tragedy of political science , David M. Ricci,9780300030884; 0300030886,Yale UP,1984
+ja0iap,ja0,JA0IAP,JA0,Ideology and politics , Martin. Seliger,9780043201091; 0043201091; 9780043201107; 0043201105,Allen & Unwin,1976
+ja0pac,ja0,JA0PAC,JA0,Power and choice : an introduction to political science , W. Phillips Shively,9780073278902; 0073278904,McGraw Hill Higher Education,2006
+ja0itp,ja0,JA0ITP,JA0,Introduction to political science : two series of lectures , J. R. Seeley,,Macmillan,1896
+ja0ap,ja0,JA0AP,JA0,Analyzing politics : rationality; behavior; and institutions , Kenneth A. Shepsle,9780393971071; 0393971074,WW Norton,1997
+ja0pag,ja0,JA0PAG,JA0,Politics and government , T. H. Stevenson,,Littlefield,1973
+ja0tam,ja0,JA0TAM,JA0,Theory and methods in political science , T. H. Stevenson,9780230576261; 0230576265; 9780230576278; 0230576273,Palgrave Macmillan,2010
+ja0pt,ja0,JA0PT,JA0,Politics : the basics , Stephen D. Tansey,9780415191982; 041519198X,Routledge,2000
+ja0tpv,ja0,JA0TPV,JA0,The political vocation , P. Tillett,,Basic Books,1965
+ja0kap,ja0,JA0KAP,JA0,Knowledge and politics , Roberto Mangabeira. Unger,9780029328408; 0029328403,Free P,1975
+ja0tns,ja0,JA0TNS,JA0,The new science of politics : an introduction., Eric Voegelin,,University of Chicago Press,1952
+ja0tvo,ja0,JA0TVO,JA0,The vocabulary of politics : an enquiry into the use and abuse of language in the making of political theories. , T. D. (Thomas Dewar) Weldon,,Johnson Reprint Co,1970
+ja0wip,ja0,JA0WIP,JA0,What is politics : the activity and its study , T. D. (Thomas Dewar) Weldon,9780745630557; 0745630553; 9780745630564; 0745630561,Polity,2004
+ja10a1,ja10,JA10A1,JA10,Argument-reprint; 1-17., T. D. (Thomas Dewar) Weldon,9783920037059; 3920037057,Argument,1974
+ja10ieo,ja10,JA10IEO,JA10,International encyclopedia of political science., T. D. (Thomas Dewar) Weldon,1412959632; 9781412959636,SAGE,2011
+ja10tpq,ja10,JA10TPQ,JA10,The Political Quarterly in the thirties , W. A. Robson,,Allen Lane,1971
+ja100add,ja100,JA100ADD,JA100,A discipline divided : schools and sects in political science , Gabriel A. 1911-2002. (Gabriel Abraham) Almond,9780803933019; 0803933010; 9780803933026; 0803933029,Sage Publications,1990
+ja100gfp,ja100,JA100GFP,JA100,Goals for political science.,undefined American Political Science Association. Committee for the Advancement of Teaching.,,Sloane,1951
+ja100psi,ja100,JA100PSI,JA100,Political science in Western Europe : a trend report , J. Barents,,Stevens,1961
+ja100eip,ja100,JA100EIP,JA100,Elements in political science , Frank. Bealey,9780748611973; 0748611975,Edinburgh UP,1999
+ja100cep,ja100,JA100CEP,JA100,Comparative European politics : the story of a profession , Frank. Bealey,9781855673991; 1855673991,Pinter,1997
+ja100tas,ja100,JA100TAS,JA100,The American science of politics : its origins and conditions , Bernard Crick,,Routledge,1959
+ja100tps,ja100,JA100TPS,JA100,The political system : an inquiry into the state of political science., David Easton,,Knopf,1953
+ja100tpr,ja100,JA100TPR,JA100,The political research experience : readings and analysis , Marcus E. Ethridge,9780873325189; 0873325184,MESharpe,1990
+ja100pr,ja100,JA100PR,JA100,Political research : methods and practical skills , Sandra author. Halperin,0198702744; 9780198702740,Oxford University Press,2017
+ja100asc,ja100,JA100ASC,JA100,A Stata companion for the third edition of the Fundamentals of political science research , Paul M. Kellstedt,1108447961; 9781108447966,Cambridge University Press,2020
+ja100eae,ja100,JA100EAE,JA100,Exits and entrances : political research as a creative art , Lewis. Minkin,9780863396366; 0863396364,Sheffield Hallam UP,1997
+ja100ndi,ja100,JA100NDI,JA100,New directions in political science : responding to the challenges of an interdependent world , Lewis. Minkin,0230228488; 9780230228481; 0230228496; 9780230228498,Palgrave Macmillan,2010
+ja100pam,ja100,JA100PAM,JA100,Problems and methods in the study of politics , Lewis. Minkin,9780521831741; 0521831741; 9780521539432; 0521539439,Cambridge University Press,2004
+ja100ps,ja100,JA100PS,JA100,Political science : the state of the discipline , Lewis. Minkin,9781878147080; 1878147080,American Political Science Assoc,1993
+ja100dp,ja100,JA100DP,JA100,Decolonizing politics : an introduction , Robbie Shilliam,1509539387; 9781509539383; 1509539395; 9781509539390,Polity Press,2021
+ja100aps,ja100,JA100APS,JA100,American political science : a profile of a discipline , Albert. Somit,,Atherton Press,1964
+ja100ctp,ja100,JA100CTP,JA100,Capturing the political imagination : think tanks and the policy process , Diane. Stone,9780714642635; 0714642630,Frank Cass,1996
+ja100aso,ja100,JA100ASO,JA100,A survey of research in political science., Diane. Stone,,Allied Publishers,1981
+ja100spa,ja100,JA100SPA,JA100,Studying politics abroad : field research in the developing areas , Diane. Stone,,Little Brown,1964
+ja200map,ja200,JA200MAP,JA200,Mathematics and politics , Hayward R. Alker,,Collier-Macmillan,1965
+ja200ppt,ja200,JA200PPT,JA200,Positive political theory I : collective preference , David. Austen-Smith,9780472104802; 0472104802,University of Michigan Press,1999
+ja200pm,ja200,JA200PM,JA200,Process-tracing methods : foundations and guidelines , Derek. Beach,0472071890; 9780472071890; 047205189X; 9780472051892,University of Michegan press,2012
+ja200tqa,ja200,JA200TQA,JA200,The quantitative approach in political science : an introduction , Scott Bennett,9780889462052; 0889462054,Edwin Mellen,1986
+ja200dcs,ja200,JA200DCS,JA200,Designing case studies : explanatory approaches in small-n research , Joachim Blatter,9780230249691; 0230249698,Palgrave Macmillan,2012
+ja200gta,ja200,JA200GTA,JA200,Game theory and politics , S. J. Brams,9780029045503; 0029045509,Free P,1975
+ja200cho,ja200,JA200CHO,JA200,Cambridge handbook of experimental political science , S. J. Brams,0521174554; 9780521174558; 0521192129; 9780521192125,Cambridge University Press,2011
+ja200wga,ja200,JA200WGA,JA200,Wars; guns; and votes : democracy in dangerous places , Paul. Collier,0061479632; 9780061479632,Harper,2009
+ja200itq,ja200,JA200ITQ,JA200,Introduction to quantitative political science , Leonard. Champney,9780065010329; 0065010329,HarperCollins College Publishers,1995
+ja200pau,ja200,JA200PAU,JA200,Politics and uncertainty : theory; models and applications , Claudio. Cioffi-Revilla,9780521589154; 0521589150,CUP,1998
+ja200cdm,ja200,JA200CDM,JA200,Critical Decision Making : a New Theory of Social Choice , D. Collingridge,9780861872381; 086187238X,Pinter,1982
+ja200poa,ja200,JA200POA,JA200,Patterns of authority : a structural basis for political inquiry , H. Eckstein,9780471230762; 0471230766,Wiley-Interscience,1975
+ja200ps,ja200,JA200PS,JA200,Political science , Heinz Eulau,,Prentice-Hall,1969
+ja200efo,ja200,JA200EFO,JA200,Experimental foundations of political science , Heinz Eulau,9780472102730; 0472102737,U of Michigan P,1993
+ja200fop,ja200,JA200FOP,JA200,Foundation of political science : research; methods; and scope , Heinz Eulau,9780029106709; 0029106702,Free Press,1977
+ja200tno,ja200,JA200TNO,JA200,The nature of political inquiry , Fred M. Frohock,,Dorsey Press,1967
+ja200gta,ja200,JA200GTA,JA200,Game theory and political science , Fred M. Frohock,9780814761564; 0814761569,Published for the Center for Applied Economics New York University by New York University Press,1978
+ja200fe,ja200,JA200FE,JA200,Field experiments : design; analysis; and interpretation , Alan S. author. Gerber,0393979954; 9780393979954,WW Norton,2012
+ja200amp,ja200,JA200AMP,JA200,A methodological primer for political scientists , Robert T. Golembiewski,,Rand McNally,1969
+ja200por,ja200,JA200POR,JA200,Pathologies of rational choice theory : a critique of applications in political science , Donald P. Green,9780300059144; 0300059140,Yale UP,1994
+ja200tco,ja200,JA200TCO,JA200,The conduct of political inquiry : behavioral political analysis. , Donald P. Green,9780131673045; 0131673041,Prentice-Hall,1970
+ja200ca,ja200,JA200CA,JA200,Collective action , Russell Hardin,9780801828195; 0801828198,Johns Hopkins UP,1982
+ja200pr,ja200,JA200PR,JA200,Political research : an introduction , Lisa. Harrison,9780415226554; 0415226554; 9780415226561; 0415226562,Routledge,2001
+ja200tso,ja200,JA200TSO,JA200,The study of comparative government and politics , Gunnar. Heckscher,,Allen & Unwin,1957
+ja200itp,ja200,JA200ITP,JA200,Interpreting the political : new methodologies , Gunnar. Heckscher,9780415131957; 0415131952,Routledge,1997
+ja200psr,ja200,JA200PSR,JA200,Political science research methods , Janet Buttolph Johnson,1608716899; 9781608716890,CQ Press,2012
+ja200cpr,ja200,JA200CPR,JA200,Conducting political research , E. Terrence 1941- (Endsley Terrence) Jones,9780060434281; 0060434287,Harper & Row,1971
+ja200tfo,ja200,JA200TFO,JA200,The fundamentals of political science research , Paul M. Kellstedt,052187517X; 9780521875172; 0521697883; 9780521697880,Cambridge University Press,2009
+ja200pir,ja200,JA200PIR,JA200,Politics; international relations and law : scope; methodology and classification , G. Kumar,,Asia Publishing House,1965
+ja200sca,ja200,JA200SCA,JA200,Social choice and public policy , Michael Laver,9780631146933; 0631146938,Blackwell,1986
+ja200iap,ja200,JA200IAP,JA200,Issues and parties in legislative voting : methods of statistical analysis., Duncan. MacRae,,Harper & Row,1970
+ja200ap,ja200,JA200AP,JA200,Apolitical politics : a critique of behavioralism. , Duncan. MacRae,,Crowell,1967
+ja200pi,ja200,JA200PI,JA200,Political inquiry : the nature and uses of survey research., Herbert. McClosky,,Macmillan,1969
+ja200tmo,ja200,JA200TMO,JA200,The methodology of comparative research : a symposium from the Center for Comparative Studies in Technological Development and Social Change and the Department of Political Science; University of Minnesota. , Herbert. McClosky,,Free Press,1970
+ja200mam,ja200,JA200MAM,JA200,Methods and models : a guide to the empirical analysis of formal models in political science , Rebecca B. Morton,9780521633949; 052163394X; 9780521633000; 0521633001,Cambridge University Press,1999
+ja200eps,ja200,JA200EPS,JA200,Experimental political science and the study of causality : from nature to the lab , Rebecca B. Morton,0521199662; 9780521199667; 0521136482; 9780521136488,Cambridge University Press,2010
+ja200paf,ja200,JA200PAF,JA200,Policy analysis for public decisions , Duncan. MacRae,9780819148353; 0819148350,UP of America,1985
+ja200epa,ja200,JA200EPA,JA200,Empirical political analysis : research methods in political science , Jarol B. Manheim,9780582285903; 0582285909,Longman,1986
+ja200cn,ja200,JA200CN,JA200,Comparing Nations : the Use of Quantitative Data in Cross-National Research , Richard L. 1933- (Richard Lawrence) Merritt,,Yale UP,1966
+ja200spa,ja200,JA200SPA,JA200,Science; politics and international conferences : a functional analysis of the Moscow Political Science Congress , Richard L. 1933- (Richard Lawrence) Merritt,9781555871345; 1555871348,Rienner,1989
+ja200mfp,ja200,JA200MFP,JA200,Methods for political inquiry : the discipline; philosophy and analysis of politics , Richard L. 1933- (Richard Lawrence) Merritt,9780136755623; 0136755623,Prentice Hall,1999
+ja200ca,ja200,JA200CA,JA200,Content analysis : a handbook with applications for the study of international crisis , R. C. North,,Northwestern UP,1963
+ja200rba,ja200,JA200RBA,JA200,Rational behaviour and the design of institutions : concepts; theories and models , Hannu. Nurmi,9781858988047; 1858988047,Edward Elgar,1998
+ja200toh,ja200,JA200TOH,JA200,The Oxford handbook of political methodology , Hannu. Nurmi,9780199286546; 019928654X; 9780199585564; 0199585563,Oxford University Press,2008
+ja200apt,ja200,JA200APT,JA200,A political theory primer , Peter C. Ordeshook,9780415902410; 041590241X,Routledge,1992
+ja200gta,ja200,JA200GTA,JA200,Game theory and political theory : an introduction , Peter C. Ordeshook,9780521315937; 052131593X,CUP,1986
+ja200dri,ja200,JA200DRI,JA200,Doing research in political science : an introduction to comparative methods and statistics , Paul. Pennings,9780761951025; 0761951024; 9780761951032; 0761951032,SAGE,1999
+ja200asc,ja200,JA200ASC,JA200,An SPSS companion to political analysis , Philip H. Pollock,9781568029962; 1568029969,CQ Press,2005
+ja200teo,ja200,JA200TEO,JA200,The essentials of political analysis , Philip H. Pollock,1506305830; 9781506305837,SAGE,2016
+ja200pt,ja200,JA200PT,JA200,Process tracing : from metaphor to analytic tool , Philip H. Pollock,1107044529; 9781107044524; 1107686377; 9781107686373,Cambridge University Press,2015
+ja200pa,ja200,JA200PA,JA200,Political analysis : an annual publication... , Philip H. Pollock,9780472102266; 0472102265,U of Michigan P,1991
+ja200rmi,ja200,JA200RMI,JA200,Research methods in politics , Philip H. Pollock,0230019846; 9780230019843; 0230019854; 9780230019850,Palgrave Macmillan,2008
+ja200tso,ja200,JA200TSO,JA200,The study of local politics : a manual , William H. Riker,,Random House,1959
+ja200aop,ja200,JA200AOP,JA200,Analysis of political cleavages , Douglas W. Rae,,Yale UP,1970
+ja200trc,ja200,JA200TRC,JA200,The rational choice controversy : economic models of politics reconsidered , Douglas W. Rae,9780300068214; 0300068212,Yale University Press,1996
+ja200qmi,ja200,JA200QMI,JA200,Quantitative methods in politics , S. A. Rice,,Russell,1969
+ja200dps,ja200,JA200DPS,JA200,Doing political science and international relations : theories in action , Heather Savigny,9780230245860; 0230245862; 9780230245877; 0230245870,Palgrave Macmillan,2011
+ja200sta,ja200,JA200STA,JA200,Science; technology; and art in international relations , Heather Savigny,113866894X; 9781138668942; 1138668974; 9781138668973,Routledge,2019
+ja200pdp,ja200,JA200PDP,JA200,Political decision-making processes : studies in national; comparative and international politics , Dusan. Sidjanski,9780444410894; 0444410899,Elsevier Scientific Pub Company,1973
+ja200tct,ja200,JA200TCT,JA200,The cybernetic theory of decision : new dimensions of political analysis , John D. Steinbruner,9780691075594; 069107559X,Princeton University Press,1974
+ja200tps,ja200,JA200TPS,JA200,The political sciences : general principles of selection in social science and history., Hugh. Stretton,9780710061775; 0710061773,Routledge & K Paul,1969
+ja200apo,ja200,JA200APO,JA200,A primer of political analysis , Donald A. Strickland,,Markham Pub Company,1968
+ja200alo,ja200,JA200ALO,JA200,A logic of expressive choice , Alexander A. Schuessler,9780691006611; 069100661X; 9780691006628; 0691006628,Princeton University Press,2000
+ja200sod,ja200,JA200SOD,JA200,Structure of decision : the cognitive maps of political elites , Alexander A. Schuessler,9780691100500; 0691100500,Princeton UP,1976
+ja200map,ja200,JA200MAP,JA200,Mathematics and politics : strategy; voting; power; and proof , Alan D. Taylor,0387776435; 9780387776439,Springer,2008
+ja200sca,ja200,JA200SCA,JA200,Social choice and the mathematics of manipulation , Alan D. Taylor,9780521008839; 0521008832; 9780521810524; 0521810523,Cambridge University Press,2003
+ja200map,ja200,JA200MAP,JA200,Mathematics and politics : strategy; voting; power and proof , Alan D. Taylor,9780387945002; 0387945008,Springer,1995
+ja200tam,ja200,JA200TAM,JA200,Toward a mathematics of politics , Gordon. Tullock,,U of Michigan P,1967
+ja200gtm,ja200,JA200GTM,JA200,Guide to methods for students of political science , Stephen. Van Evera,9780801484575; 080148457X,Cornell University Press,1997
+ja200pr,ja200,JA200PR,JA200,Political reasoning , Evert. Vedung,9780803918153; 0803918151,Sage,1982
+ja200dps,ja200,JA200DPS,JA200,Doing political science : an introduction to political analysis , Alan S. Zuckerman,9780813310039; 0813310032,Westview,1991
+ja210sea,ja200,JA210SEA,JA200,Sociologists; economists and democracy , Brian M. Barry,9780029723500; 0029723507; 9780029723609; 0029723604,Collier-Macmillan,1970
+ja210sea,ja200,JA210SEA,JA200,Sociologists; economists; and democracy , Brian M. Barry,9780226038247; 0226038246,UnivChicago P,1988
+ja400aao,ja400,JA400AAO,JA400,An atlas of world political flashpoints : a sourcebook of geopolitical crisis , Ewan W. Anderson,9781855670532; 1855670534,Pinter,1993
+ja400tbd,ja400,JA400TBD,JA400,The Blackwell dictionary of political science : a user's guide to its terms , Frank. Bealey,9780631206941; 0631206949; 9780631206958; 0631206957,Blackwell,1999
+ja400ddt,ja400,JA400DDT,JA400,Dizionario di termini storici politici ed economici moderni , Roberto Berardi,,Le Monnier,1976
+ja400bgt,ja400,JA400BGT,JA400,Bidwell's guide to government ministers , Robin Leonard Bidwell,,Cass,1973
+ja400tbe,ja400,JA400TBE,JA400,The Blackwell encyclopaedia of political institutions , Robin Leonard Bidwell,9780631138419; 0631138412,Blackwell,1987
+ja400tbe,ja400,JA400TBE,JA400,The Blackwell encyclopaedia of political thought , Robin Leonard Bidwell,9780631140115; 0631140115,Blackwell,1987
+ja400dog,ja400,JA400DOG,JA400,Dictionary of government and politics , P. H. 1935- (Peter Hodgson) Collin,9780948549892; 0948549890,Peter Collin Publishing,2000
+ja400cpf,ja400,JA400CPF,JA400,Commonwealth political facts , Chris Cook,9780333188279; 0333188276,Macmillan,1979
+ja400tco,ja400,JA400TCO,JA400,The concise Oxford dictionary of politics , Chris Cook,9780192852885; 0192852884,OUP,1996
+ja400dom,ja400,JA400DOM,JA400,Dictionary of modern political ideologies , Chris Cook,9780719018824; 071901882X,Manchester UP,1987
+ja400eot,ja400,JA400EOT,JA400,Encyclopaedia of the Labour Movement., F. Elliott,,Caxton Pub Co,1928
+ja400tdo,ja400,JA400TDO,JA400,The dictionary of world politics : a reference guide to concepts; ideas and institutions , Graham. Evans,9780745012230; 074501223X,Harvester Wheatsheaf,1992
+ja400tfo,ja400,JA400TFO,JA400,The Facts on File world political almanac , Graham. Evans,9780816026036; 0816026033,Facts on File,1992
+ja400ird,ja400,JA400IRD,JA400,International relations dictionary., Graham. Evans,,USGPO,1980
+ja400adt,ja400,JA400ADT,JA400,Amenagement du territoire : francais-allemand; allemand-francais.,undefined International Institute for Legal and Administrative Terminology.,,Langenscheidt,1970
+ja400sro,ja400,JA400SRO,JA400,Synthesis report on the I.P.S.A. : 20 years activities 1949-1969.,undefined International Political Science Association.,,The Association,1970
+ja400tpp,ja400,JA400TPP,JA400,The Penguin political atlas , Stanley C. 1878- (Stanley Currie) Johnson,,Penguin,1940
+ja400pdh,ja400,JA400PDH,JA400,Political data handbook : OECD countries , Jan-Erik. Lane,9780198280538; 019828053X,OUP,1997
+ja400ado,ja400,JA400ADO,JA400,A dictionary of politics , Walter Laqueur,,Pan,1973
+ja400doa,ja400,JA400DOA,JA400,Dictionary of American politics , E. J. McCarthy,,Collier-Macmillan,1968
+ja400toc,ja400,JA400TOC,JA400,The Oxford companion to politics of the world , E. J. McCarthy,9780195117394; 0195117395,Oxford University Press,2001
+ja400pep,ja400,JA400PEP,JA400,Petite encyclopedie politique , E. J. McCarthy,,Editions du Seuil,1969
+ja400trd,ja400,JA400TRD,JA400,The Routledge dictionary of politics , David Robertson,9780415323772; 0415323770,Routledge,2003
+ja400ado,ja400,JA400ADO,JA400,A dictionary of modern politics , David Robertson,9780946653751; 0946653755,Europa Publications,1993
+ja4002cp,ja400,JA4002CP,JA400,21st century political science : a reference handbook., David Robertson,9781412969017; 1412969018,SAGE Publications,2011
+ja400ado,ja400,JA400ADO,JA400,A dictionary of globalization , Jens-Uwe. Wunderlich,1857433327; 9781857433326,Europa,2005
+ja400twt,ja400,JA400TWT,JA400,The world this year 1973 : supplement to the Political handbook and atlas of the world : governments and intergovernmental organizations as of January 1; 1973 , Jens-Uwe. Wunderlich,9780671216214; 067121621X,Council on Foreign Relations,1973
+ja400who,ja400,JA400WHO,JA400,World handbook of political and social indicators , Jens-Uwe. Wunderlich,9780300015553; 0300015550,Yale UP,1972
+ja410dot,ja400,JA410DOT,JA400,Directory of the Republic of Ghana; 1961-62., Jens-Uwe. Wunderlich,,Diplomatic P,1961
+ja410dot,ja400,JA410DOT,JA400,Directory of the Federation of Nigeria; 1960., Jens-Uwe. Wunderlich,,Diplomatic P,1960
+ja410tdo,ja400,JA410TDO,JA400,Trade directory of the Federal Republic of Nigeria; 1963-64., Jens-Uwe. Wunderlich,,Diplomatic P,1963
+ja420pfo,ja400,JA420PFO,JA400,Political facts of the United States since 1789 , Erik W. Austin,9780231060943; 0231060947,Columbia UP,1986
+ja420ppd,ja400,JA420PPD,JA400,Presidential-Congressional political dictionary , Jeffrey M. Elliot,9780874363579; 0874363578,ABC-Clio,1984
+ja440pae,ja400,JA440PAE,JA400,Political and economic encyclopedia of the Pacific , Jeffrey M. Elliot,9780582051614; 0582051614,Longman,1989
+ja440ies,ja400,JA440IES,JA400,Indian elections since independence ,undefined Shiv Lal.,,Election Archives,1972
+ja440jps,ja400,JA440JPS,JA400,Japanese political science : a guide to Japanese reference and research materials , Robert E. Ward,,U of Michigan P,1961
+ja450epf,ja400,JA450EPF,JA400,European political facts; 1789-1848 , Chris Cook,9780333216972; 0333216970,Macmillan,1981
+ja450epf,ja400,JA450EPF,JA400,European political facts of the twentieth century , Chris Cook,9780333792032; 0333792033,Macmillan,2000
+ja450epf,ja400,JA450EPF,JA400,European political facts; 1848-1918 , Chris Cook,9780333151006; 0333151003,Macmillan,1978
+ja450epf,ja400,JA450EPF,JA400,European political facts; 1900-1996 , Chris Cook,9780333696309; 0333696301,Macmillan,1998
+ja450epf,ja400,JA450EPF,JA400,European political facts 1648-1789 , Chris Cook,9780333321119; 0333321111,Macmillan,1984
+ja450doe,ja400,JA450DOE,JA400,Directory of European political scientists.,undefined European Consortium for Political Research.,,U of Essex P,1973
+ja450ado,ja400,JA450ADO,JA400,A dictionary of the European Union , David. Phinnemore,1857435826; 9781857435825,Routledge,2010
+ja450cdg,ja400,JA450CDG,JA400,Composition du Gouvernement et des cabinets ministeriels.,undefined France. Secretariat General du Gouvernement.,,La Documentation Francaise,1971
+ja450gdl,ja400,JA450GDL,JA400,Guide de la France des luttes ,undefined France. Secretariat General du Gouvernement.,,Stock,1974
+ja450gg,ja400,JA450GG,JA400,Geschichtliche grundbegriffe : historisches lexikon zur politisch-sozialen sprache in Deutschland.,undefined France. Secretariat General du Gouvernement.,9783129038505; 3129038507,Klett-Cotta,1972
+ja450roc,ja400,JA450ROC,JA400,Register of current research into German politics.,undefined Association for the Study of German Politics.,9780950428208; 0950428205,The Association,1975
+ja450gg,ja400,JA450GG,JA400,Geschichtliche Grundbegriffe : historisches Lexikon zur politisch-sozialen Sprache in Deutschland ,undefined Association for the Study of German Politics.,9783129038703; 3129038701,Klett-Cotta,1982
+ja450aos,ja400,JA450AOS,JA400,Almanac of Scottish politics , Gerry. Hassan,9781902301532; 1902301536,Politico's,2000
+ja450tbp,ja400,JA450TBP,JA400,Twentieth-century British political facts 1900-2000 , David Butler,9780333772218; 0333772210; 9780333772225; 0333772229; 9780312229474; 031222947X,Macmillan,2000
+ja450bpf,ja400,JA450BPF,JA400,British political facts; 1900-1994 , David Butler,9780333526163; 0333526163,Macmillan,1994
+ja450eff,ja400,JA450EFF,JA400,Electoral facts from 1832-1853 : impartially stated; constituting a complete political gazeteer. , Charles R. 1793-1855. (Charles Roger) Dod,9780901759924; 0901759929,Harvester Press,1972
+ja450mpp,ja400,JA450MPP,JA400,McCalmont's parliamentary poll book : British election results 1832-1918 , F. H. McCalmont,,Harvester P,1971
+ja500wa,ja500,JA500WA,JA500,Women : a modern political dictionary , Cheryl. Law,9781860645020; 186064502X,I B Tauris,2000
+ja500lot,ja500,JA500LOT,JA500,Leaders of the communist world , Cheryl. Law,,Free P,1971
+ja500lsd,ja500,JA500LSD,JA500,Lexikon sozialistischer deutscher Literatur., Cheryl. Law,,VEB Verlag Sprache und Literatur,1962
+ja500wwi,ja500,JA500WWI,JA500,Who's who in world politics : from 1860 to the present day , Alan Palmer,9780415131629; 0415131626,Routledge,1996
+ja500bdo,ja500,JA500BDO,JA500,Biographical dictionary of the extreme right since 1890 , Philip. Rees,9780710810199; 0710810199,Harvester Wheatsheaf,1990
+ja520dot,ja500,JA520DOT,JA500,Dictionary of the United States Congress , C. Lanman,,Government Printing Office,1866
+ja520ocd,ja500,JA520OCD,JA500,Official congressional directory : 93rd congress; 1st session; convened Jan. 3rd 1973.,undefined United States. Congress.,,USGPO,1973
+ja520ocd,ja500,JA520OCD,JA500,Official congressional directory : 97th congress; convened January 5th 1981.,undefined United States. Congress.,,USGPO,1981
+ja520ocd,ja500,JA520OCD,JA500,Official congressional directory for the use of the United States Congress : 83rd congress; 2nd session.,undefined United States. Congress.,,USGPO,1954
+ja520ocd,ja500,JA520OCD,JA500,Official congressional directory for the use of the United States Congress : 89th congress; 1st session.,undefined United States. Congress.,,USGPO,1965
+ja520tus,ja500,JA520TUS,JA500,The United States Congressional directories; 1789-1840 ,undefined United States. Congress.,,Columbia UP,1973
+ja520bdo,ja500,JA520BDO,JA500,Biographical directory of the United States Congress; 1774-1989.,undefined United States. Congress. Joint Committee on Printing.,,USGPO,1989
+ja540bdo,ja500,JA540BDO,JA500,Biographic dictionary of Chinese communism 1921-1965 , D. W. Klein,,Harvard UP,1971
+ja540oit,ja500,JA540OIT,JA500,Opposition in the parliament : a unique; authentic and comprehensive biographical dictionary of M.P.'s on opposition benches , H. S. Chhabra,,New Publishers,1952
+ja540wwi,ja500,JA540WWI,JA500,Who's who in 1957.,undefined India. Parliament. House of the People.,,Lok Sabha Secretariat,1957
+ja540bld,ja500,JA540BLD,JA500,Bombay Legislature directory.,undefined Indian National Congress.,,Bombay Legislature Congress Party,1953
+ja540dot,ja500,JA540DOT,JA500,Directory of the Madras Legislature.,undefined Indian National Congress.,,Madras Legislature Congress Party,1950
+ja550ddl,ja500,JA550DDL,JA500,Dictionnaire de la politique francaise ,undefined Indian National Congress.,,La Librairie Francaise,1967
+jb60pti,jb60,JB60PTI,JB60,Political trends in the Arab world : the role of ideas and ideals in politics ,Majid Khadduri,9780801811227; 0801811228,Johns Hopkins P,1970
+jb60tho,jb60,JB60THO,JB60,The history of Islamic political thought : from the Prophet to the present ,Antony Black,9780748614714; 0748614710; 9780748614721; 0748614729,Edinburgh University Press,2001
+jb170lsa,jb100,JB170LSA,JB100,Leo Strauss and the invasion of Iraq : encountering the abyss ,Aggie Hirst,0415621623; 9780415621625,Routledge,2013
+jb130tp,jb100,JB130TP,JB100,The prince : a new translation; backgrounds; interpretations; peripherica ,"Niccolò Machiavelli ; translated and edited  Robert M Adams""",9780393044485; 0393044483; 9780393091496; 039309149X,Norton,1977
+jb200o,jb200,JB200O,JB200,Oligarchy ,Jeffrey A Winters,1107005280; 9781107005280; 0521182980; 9780521182980,Cambridge University Press,2011
+jb170pwv,jb100,JB170PWV,JB100,Politics without vision : thinking without a banister in the twentieth century ,Tracy B Strong,0226777464; 9780226777467,University of Chicago Press,2012
+jb210tto,jb200,JB210TTO,JB200,The time of popular sovereignty : process and the democratic state ,Paulina Ochoa Espejo,0271037962; 9780271037967; 0271037970; 9780271037974,Pennsylvania State University Press,2011
+jb150tpa,jb100,JB150TPA,JB100,Tom Paine's America : the rise and fall of transatlantic radicalism in the early republic ,Seth Cotlar,0813931002; 9780813931005,University of Virginia Press,2011
+jb170tem,jb100,JB170TEM,JB100,The Ellen Meiksins Wood reader ,edited  Larry Patriquin,9004230084; 9789004230088,Extenza Turpin distributor; Brill,2012
+jb200pit,jb200,JB200PIT,JB200,Power in the 21st century : conversations with John A. Hall ,Michael Mann,0745653227; 9780745653228; 0745653235; 9780745653235,Polity Press,2011
+jb150sla,jb100,JB150SLA,JB100,Settlers; liberty; and empire : the roots of early American political theory; 1675-1775 ,Craig Yirush,0521193303; 9780521193306; 0521132460; 9780521132466,Cambridge University Press,2011
+jb170pr,jb100,JB170PR,JB100,Political romanticism ,"Carl Schmitt ; translated  Guy Oakes ; with a new introduction  Graham McAleer""",1412814723; 9781412814720,Transaction,2011
+jb216daa,jb200,JB216DAA,JB200,Democracy and authoritarianism in the Arab world ,Nicola Pratt,9781588264619; 1588264610; 9781588264862; 1588264866,Lynne Rienner Publishers,2007
+jb50ea,jb50,JB50EA,JB50,Eurocentrism : a Marxian critical realist critique ,Nick Hostettler,0415565103; 9780415565103,Routledge,2012
+jb210pod,jb200,JB210POD,JB200,Patterns of democracy : government forms and performance in thirty-six countries ,Arend Lijphart,9780300078947; 0300078943; 9780300078930; 0300078935; 0300172028; 9780300172027,Yale University Press,1999
+jb225rtr,jb200,JB225RTR,JB200,Romancing the revolution : the myth of Soviet democracy and the British Left ,Ian Bullock,192683612X; 9781926836126,AU Press,2011
+jb225svs,jb200,JB225SVS,JB200,Socialism vanquished; socialism challenged : Eastern Europe and China; 1989-2009 ,edited  Nina Bandelj and Dorothy J Solinger,019989597X; 9780199895977; 0199895961; 9780199895960,Oxford University Press,2012
+jb200oho,jb200,JB200OHO,JB200,Oxford handbook of governance ,edited  David Levi-Faur,0199560536; 9780199560530; 0199677069; 9780199677061,Oxford University Press,2012
+jb210tgo,jb200,JB210TGO,JB200,The government of the peoples : on the idea and principles of multilateral democracy ,Francis Cheneval,023011699X; 9780230116993,Palgrave Macmillan,2011
+jb210df,jb200,JB210DF,JB200,Democratic futures : revisioning democracy promotion ,Milja Kurki,9780203073131; 0203073134; 9780415690324; 0415690323; 9780415690348; 041569034X,Routledge,2013
+jb0pp,jb0,JB0PP,JB0,Philosophic pride : Stoicism and political thought from Lipsius to Rousseau ,Christopher Brooke,069115208X; 9780691152080,Princeton University Press,2012
+jb170tdi,jb100,JB170TDI,JB100,The devil in history : communism; fascism; and some lessons of the twentieth century ,Vladimir Tismaneanu,0520239725; 9780520239722,University of California Press,2012
+jb160dpa,jb100,JB160DPA,JB100,Dialectics; politics; and the contemporary value of Hegel's practical philosophy ,Andrew Buchwalter,0415806100; 9780415806107,Routledge,2012
+jb170fpa,jb100,JB170FPA,JB100,Foucault; politics; and violence ,Johanna Oksala,0810128039; 9780810128033; 0810128020; 9780810128026,Northwestern University Press,2012
+jb160ol;,jb100,JB160OL;,JB100,On liberty ; and; The subjection of women ,John Stuart Mill ; edited  Alan Ryan,9780141441474; 014144147X,Penguin,2006
+jb214tpo,jb200,JB214TPO,JB200,The politics of the governed : reflections on popular politics ,Partha Chatterjee,9780231130639; 0231130635,Columbia University Press,2006
+jb0pp,jb0,JB0PP,JB0,Political philosophy : the essential texts ,edited  Steven M Cahn,9780195177084; 0195177088,Oxford University Press,2005
+jb210tso,jb200,JB210TSO,JB200,The specter of democracy : what Marx and Marxists haven't understood and why ,Dick Howard,9780231124843; 0231124848,Columbia University Press,2002
+jb210de,jb200,JB210DE,JB200,Democratic elitism : new theoretical and comparative perspectives ,edited  Heinrich Best and John Higley,9004179399; 9789004179394,Brill,2010
+jb200soj,jb200,JB200SOJ,JB200,Spheres of justice : a defense of pluralism and equality ,Michael Walzer,9780465081899; 0465081894,BasicBooks,1983
+jb150ptf,jb100,JB150PTF,JB100,Philosophy; the Federalist and the Constitution ,Morton White,9780195039115; 0195039114,OUP,1987
+jb200itp,jb200,JB200ITP,JB200,Introduction to political psychology ,Martha L Cottam [and others],1848728816; 9781848728813; 1848728824; 9781848728820,Psychology Press,2009
+jb150lap,jb100,JB150LAP,JB100,Liberty and property : a social history of Western political thought from Renaissance to Enlightenment ,Ellen Meiksins Wood,1844677524; 9781844677528,Verso,2012
+jb170tro,jb100,JB170TRO,JB100,The rebirth of history ,"Alain Badiou ; translated  Gregory Elliott""",1844678792; 9781844678792,Verso,2012
+jb210at,jb200,JB210AT,JB200,Anti-democratic thought ,edited  Erich Kofmel,1845401247; 9781845401245,Imprint Academic,2008
+jb160la,jb100,JB160LA,JB100,Liberty abroad : J.S. Mill on international relations ,Georgios Varouxakis,1107039142; 9781107039148,Cambridge University Press,2013
+ja200iam,ja200,JA200IAM,JA200,Interpretation and method : empirical research methods and the interpretive turn ,edited  Dvora Yanow and Peregrine Schwartz-Shea,9780765635396; 0765635399; 9780765635402; 0765635402,ME Sharp Inc,2014
+jb200ato,jb200,JB200ATO,JB200,A theory of freedom ,Stanley I Benn,9780521342605; 0521342600,CUP,1988
+jb130tp,jb100,JB130TP,JB100,The prince ,"The prince ; edited  Quentin Skinner and Russell Price""",9780521342407; 0521342406; 9780521349932; 0521349931,Cambridge University Press,1988
+jb120asd,jb100,JB120ASD,JB100,A short discourse on the tyrannical government over things divine and human; but especially over the Empire and those subject to the Empire; usurped by some who are called highest pontiffs ,"William of Ockham ; edited  Arthur Stephen McGrade ; translated  John Kilcullen""",9780521352420; 0521352428; 9780521358033; 0521358035,Cambridge University Press,1992
+jb140tpw,jb100,JB140TPW,JB100,The political writings of Leibniz ,"translated and edited with an introduction and notes  Patrick Riley""",9780521353809; 0521353807,CUP,1972
+jb120po,jb100,JB120PO,JB100,Policraticus : of the frivolities of courtiers and the footprints of philosophers ,"edited and translated  Cary J Nederman""",9780521363990; 0521363993; 9780521367011; 0521367018,Cambridge University Press,1990
+jb130pw,jb100,JB130PW,JB100,Political writings ,Francisco de Vitoria ; edited  Anthony Pagden and Jeremy Lawrance,9780521364423; 0521364426; 9780521367141; 052136714X,Cambridge University Press,1991
+jb150kp,jb100,JB150KP,JB100,Kant : political writings ,"edited with an introduction and notes  Hans Reiss ; translated  HB Nisbet""",9780521398374; 0521398371,Cambridge University Press,1990
+jb150tda,jb100,JB150TDA,JB100,The Discourses and other early political writings ,"Rousseau ; edited and translated  Victor Gourevitch""",9780521413817; 0521413818; 9780521424455; 0521424453,Cambridge University Press,2002
+jb150tsc,jb100,JB150TSC,JB100,The social contract and other later political writings ,"Rousseau ; edited and translated  Victor Gourevitch""",9780521413824; 0521413826; 9780521424462; 0521424461,Cambridge University Press,1997
+jb140tlo,jb100,JB140TLO,JB100,The limits of Hobbesian contractarianism ,Jody S Kraus,9780521420624; 0521420628,CUP,1993
+jb110s,jb100,JB110S,JB100,Statesman ,"Plato ; edited  Julia Annas and Robin Waterfield ; translated  Robin Waterfield""",9780521442626; 0521442621; 9780521447782; 052144778X,Cambridge University Press,1995
+jb230tgw,jb200,JB230TGW,JB200,The general will : Rousseau; Marx; communism ,Andrew Levine,9780521443227; 0521443229; 9780521062282; 0521062284,Cambridge University Press,1993
+jb160ait,jb100,JB160AIT,JB100,An introduction to Nietzsche as political thinker : the perfect nihilist ,Keith Ansell-Pearson,9780521417228; 0521417228; 9780521427210; 0521427215,Cambridge University Press,1994
+jb140aat,jb100,JB140AAT,JB100,An approach to political philosophy : Locke in contexts ,James Tully,9780521430609; 0521430607; 9780521436380; 0521436389,Cambridge University Press,1993
+jb200hai,jb200,JB200HAI,JB200,History and illusion in politics ,Raymond Geuss,9780521805964; 0521805961; 9780521000437; 0521000432,Cambridge University Press,2001
+jb140gla,jb100,JB140GLA,JB100,God; Locke; and equality : Christian foundations in Locke's political thought ,Jeremy Waldron,9780521890571; 0521890578; 9780521810012; 0521810019,Cambridge University Press,2002
+jb110tp;,jb100,JB110TP;,JB100,The politics ; and; The constitution of Athens ,"Aristotle ; edited  Stephen Everson""",9780521482431; 0521482437; 9780521484008; 0521484006,Cambridge University Press,1996
+jb150pe,jb100,JB150PE,JB100,Political essays ,"David Hume ; edited  Knud Haakonssen""",9780521460934; 052146093X; 9780521466394; 0521466393,Cambridge University Press,1994
+jb140cha,jb100,JB140CHA,JB100,Classical humanism and republicanism in English political thought; 1570-1640 ,Markku Peltonen,9780521496957; 0521496950,Cambridge University Press,1995
+jb150hla,jb100,JB150HLA,JB100,Hobbes; Locke; and confusion's masterpiece ,Ross Harrison,9780521017190; 052101719X; 9780521817004; 0521817005,Cambridge University Press,2002
+jb110gta,jb100,JB110GTA,JB100,Greek tragedy and political philosophy : rationalism and religion in Sophocles' Theban plays ,Peter J Ahrensdorf,0521515866; 9780521515863,Cambridge University Press,2009
+jb140iai,jb100,JB140IAI,JB100,Ideals as interests in Hobbes's Leviathan : the power of mind over matter ,SA Lloyd,9780521392433; 0521392438; 9780521522328; 0521522323,Cambridge University Press,1992
+jb150rpw,jb100,JB150RPW,JB100,Rousseau's political writings ,"translated  Julia Conaway Bondanella ; edited  Alan Ritter and Julia Conaway Bondanella""",9780393024791; 0393024792; 9780393956511; 0393956512,Norton,1988
+jb150fon,jb100,JB150FON,JB100,Foundations of natural right : according to the principles of the Wissenschaftslehre ,"JG Fichte ; edited  Frederick Neuhouser ; translated  Michael Baur""",9780521573016; 0521573017; 9780521575911; 0521575915,Cambridge University Press,2000
+jb160ndg,jb100,JB160NDG,JB100,Nietzsche's dangerous game : philosophy in the twilight of the idols ,Daniel W Conway,9780521573719; 0521573718; 9780521892872; 0521892872,Cambridge University Press,1997
+jb140tcc,jb100,JB140TCC,JB100,The Cambridge companion to Hobbes's Leviathan ,edited  Patricia Springborg,0521836670; 9780521836678; 0521545218; 9780521545211,Cambridge University Press,2007
+jb110tcc,jb100,JB110TCC,JB100,The Cambridge companion to Plato's Republic ,edited  GRF Ferrari,0521839637; 9780521839631; 052154842X; 9780521548427,Cambridge University Press,2007
+jb140tmo,jb100,JB140TMO,JB100,The mind of John Locke : a study of political theory in its intellectual setting ,Ian Harris,0521638720; 9780521638722,Cambridge University Press,1998
+jb140jlp,jb100,JB140JLP,JB100,John Locke's politics of moral consensus ,Greg Forster,0521842182; 9780521842181,Cambridge University Press,2005
+jb150ado,jb100,JB150ADO,JB100,A discourse on inequality ,"Jean-Jacques Rousseau ; translated with an introduction and notes  Maurice Cranston""",9780140444391; 0140444394,Penguin,1984
+jb140ttl,jb100,JB140TTL,JB100,Taming the Leviathan : the reception of the political and religious ideas of Thomas Hobbes in England; 1640-1700 ,Jon Parkin,0521877350; 9780521877350,Cambridge University Press,2007
+jb0pp,jb0,JB0PP,JB0,Political philosophy : a very short introduction ,David Miller,9780192803955; 0192803956,Oxford University Press,2003
+jb130m,jb100,JB130M,JB100,Machiavelli ,Maurizio Viroli,9780198780885; 0198780885; 9780198780892; 0198780893,Oxford University Press,1998
+jb160bta,jb100,JB160BTA,JB100,Between tradition and revolution : the Hegelian transformation of political philosophy ,"Manfred Riedel ; translated  Walter Wright""",9780521256445; 0521256445,CUP,1984
+jb170lot,jb100,JB170LOT,JB100,Lectures on the history of political philosophy ,John Rawls ; edited  Samuel Freeman,9780674024922; 0674024923,Belknap Press of Harvard University Press,2007
+jb140hor,jb100,JB140HOR,JB100,Hobbes on resistance : defying the Leviathan ,Susanne Sreedhar,0521197244; 9780521197243,Cambridge University Press,2010
+jb140tpt,jb100,JB140TPT,JB100,"The political thought of John Locke : an historical account of the argument of the ""Two treatises of government"" ",John Dunn,9780521271394; 0521271398; 9780521074087; 0521074088,Cambridge University Press,1969
+jb150vca,jb100,JB150VCA,JB100,Virtue; commerce; and history : essays on political thought and history; chiefly in the eighteenth century ,JGA Pocock,9780521257015; 0521257018; 9780521276603; 0521276608,Cambridge University Press,1985
+jb170cpp,jb100,JB170CPP,JB100,Contemporary political philosophy : radical studies ,edited  Keith Graham,9780521245517; 0521245516,Cambridge University Press,1982
+jb160tsa,jb100,JB160TSA,JB100,The state and civil society : studies in Hegel's political philosophy ,edited  ZA Pelczynski,9780521247931; 0521247934; 9780521289696; 0521289696,Cambridge University Press,1984
+jb140hl,jb100,JB140HL,JB100,Hobbes's Leviathan : reader's guide ,Laurie M Johnson Bag,9780826486202; 0826486207; 9780826486196; 0826486193,Continuum,2007
+jb210tfo,jb200,JB210TFO,JB200,The future of freedom : illiberal democracy at home and abroad ,Fareed Zakaria ; [with a new afterword],0393047644; 9780393047646; 0393324877; 9780393324877,W W Norton,2004
+jb110tr,jb100,JB110TR,JB100,The republic ,"Plato ; translated  Richard W Sterling and William C Scott""",9780393314670; 0393314677,Norton,1985
+jb0ap,jb0,JB0AP,JB0,Alternative paradigms : the impact of Islamic and Western Weltanschauungs on political theory ,Ahmet Davutoglu,9780819190468; 0819190462; 9780819190475; 0819190470,University Press of America,1994
+jb200nr,jb200,JB200NR,JB200,Non-democratic regimes ,Paul Brooker,9781137305794; 1137305797; 9781137305800; 1137305800,,2014
+jb210dp,jb200,JB210DP,JB200,Democracy promotion : a critical introduction ,Jeff Bridoux and Milja Kurki,9780415857796; 0415857791; 9780415857802; 0415857805,Routledge,2014
+jb200e,jb200,JB200E,JB200,Equality ,Stuart White,9780745627731; 0745627730; 9780745627748; 0745627749,Polity Press,2007
+e100,e,E100,E,,,,,
+e10,e,E10,E,,,,,
+e200,e,E200,E,,,,,
+e1000,e,E1000,E,,,,,
+e300,e,E300,E,,,,,
+ja0,ja,JA0,JA,,,,,
+ja10,ja,JA10,JA,,,,,
+ja100,ja,JA100,JA,,,,,
+ja200,ja,JA200,JA,,,,,
+ja400,ja,JA400,JA,,,,,
+ja500,ja,JA500,JA,,,,,
+jb60,jb,JB60,JB,,,,,
+jb100,jb,JB100,JB,,,,,
+jb200,jb,JB200,JB,,,,,
+jb50,jb,JB50,JB,,,,,
+jb0,jb,JB0,JB,,,,,

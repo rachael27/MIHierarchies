@@ -400,15 +400,12 @@ padding: 0;
 
 
           .toolbox-icon{
-            fill:yellow;
+            /*fill:rgb(136, 178, 131);*/
+            fill:none;
             stroke-width:3;
+            stroke:grey;
 
           }
 
-          .toolbox-icon{
-            fill:yellow;
-            stroke-width:3;
-
-          }
-
+         
          

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Schema</title>
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<body>
+    <script type="text/javascript">
+
+
+
+        d3.queue()
+            .defer(d3.csv, "LibraryFiles/HistoryofPolitics-QNL-Original.csv")
+            .await(function (error, data) {
+                if (error) throw error;
+
+                else
+                    csvTransform(data);
+            });
+
+        var data_str = "CallNumber,Author,Title,ISBN,PubName,PubYear\n";
+        function csvTransform(data) {
+
+            console.log(data);
+            var split;
+            var arr = [];
+            var data_updated = [];
+            var callnumber = "";
+            var author = "";
+            var title = "";
+            var isbn = "";
+            var pubname = "";
+            var pubyear = "";
+
+            /* var data_obj = [{
+                "CallNumber": "",
+                "Author": "",
+                "Title": "",
+                "ISBN": "",
+                "PubName": "",
+                "PubYear": ""
+            }]; */
+            var start_bracket = 0;
+            var end_bracket = 0;
+            var year = 0;
+            var len = 0;
+
+            var arabic = /[\u0600-\u06FF]/;
+
+
+            for (var q = 0; q < data.length; q++) {
+                //console.log(data[q].CallNumber + " " + data[q].Title);
+                //console.log(data[q].CallNumber.includes("FIC") + " " + arabic.test(data[q].Title));
+                //console.log(!(data[q].CallNumber.includes("FIC")  arabic.test(data[q].Title)));
+                if (!(data[q].CallNumber.includes("FIC") || arabic.test(data[q].Title))) {
+                    console.log("enterd " + data[q].Title);
+
+                    ////////CALLNUMBER and YEAR
+                    split = data[q].CallNumber
+                        .replaceAll("\"", "")
+                        .replaceAll("x", "");
+
+                    arr = split.split("+");
+
+                    for (var i = 0; i < arr.length; i++) {
+
+                        pubyear = arr[i].substr(length - 4, arr[i].length);
+                        if (pubyear == "")
+                            pubyear = 0;
+
+                        arr[i] = arr[i].substr(0, arr[i].length - 5);
+
+
+                    }
+
+
+                    callnumber = arr.join(";");
+                    //console.log(callnumber + "--" + pubyear + "--");
+
+                    /////////////CALLNUMBER and YEAR
+
+
+
+
+                    ////////////author & title
+
+                    split = data[q].Title.split("/");
+
+
+
+
+                    title = split[0]
+                        .replaceAll(",", "")
+                        .replaceAll(".", "")
+                        .replaceAll(";", "")
+                        .replaceAll("\"", "")
+                        .replaceAll("[", "")
+                        .replaceAll("]", "")
+                        .trimStart();
+
+                    if (split.length > 1)
+                        author = split[1]
+                            .replaceAll(".", "")
+                            .replaceAll("by", "")
+                            .trimStart();
+
+                    //console.log(title + "--" + author);
+
+                    ////////////////////////author and title
+
+
+                    //////////////pubname
+
+                    split = data[q].PubName.split(",");
+
+                    pubname = split[0]
+                        .replaceAll(",", "")
+                        //.replaceAll(":", "")
+                        .replaceAll(".", "");
+
+
+                    //console.log(pubname);
+                    //////////////pubname
+
+
+
+
+
+                    ////////ISBN
+                    split = data[q].ISBN
+                        .replaceAll("\"", "");
+
+                    arr = split.split("+");
+
+                    for (var i = 0; i < arr.length; i++) {
+
+
+
+                        if (arr[i].includes("(")) {
+                            start_bracket = arr[i].indexOf("(");
+                            arr[i] = arr[i].substr(0, start_bracket - 1);
+                        }
+
+
+                    }
+
+                    isbn = arr.join(";");
+
+                    //console.log(isbn);
+                    /////////////ISBN
+
+
+
+
+
+
+
+
+
+
+
+                    //console.log(callnumber + " -- " + author + " -- " + title + " -- " + isbn + " -- " + pubname + " -- " + pubyear);
+
+
+
+                    //console.log(isbn);
+
+                    data_str = data_str + callnumber + "," + author + "," + title + "," + isbn + "," + pubname + "," + pubyear + "\n";
+
+                    /*  data_updated.push({
+                         "CallNumber": callnumber,
+                         "Author": author,
+                         "Title": title,
+                         "ISBN": isbn,
+                         "PubName": pubname,
+                         "PubYear": pubyear
+     
+                     });
+      */
+                }
+            }
+
+            console.log(data_str);
+            // console.log(data_updated);
+
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

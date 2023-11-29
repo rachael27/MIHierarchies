@@ -251,10 +251,10 @@
         title = ["Base Hierarchy - Log Week 1", "Target Hierarchy - Log Week 2", "Merged Hierarchy - Target mapped onto Base "];
 
         d3.queue()
-            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
-            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
-            //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
-            //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
+            //.defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
+            //.defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
+            .defer(d3.csv, "LibraryFiles/PrimaryH.csv")
+            .defer(d3.csv, "LibraryFiles/SecondaryH.csv")
             .await(function (error, h2, h1) {
                 if (error) throw error;
 

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Schema</title>
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<body>
+    <script type="text/javascript">
+
+
+
+        d3.queue()
+
+            //.defer(d3.csv, "LibraryFiles/UOS.csv")
+            .defer(d3.csv, "LibraryFiles/QNL.csv")
+
+
+            .await(function (error, data) {
+                if (error) throw error;
+
+                else
+                    //transform_uos(data);
+                    transform_qnl(data);
+            });
+
+
+        function transform_uos(uos) {
+            var parent = "", child = "", desc = "", split = [], title_split = [], len = 2;
+            var uos_str = "child,parent,description_child,description_parent,title,author,isbn,pubname,pubyear\n";
+            uos_str = uos_str + "root,,root,,,,,\n";
+
+            var category = [];
+
+            for (var q = 0; q < uos.length; q++) {
+
+
+                if (!(parseInt(uos[q].CallNumber.charAt(1)) >= '0' && uos[q].CallNumber.charAt(1) <= '9')) {
+                    if (!category.includes(uos[q].CallNumber.substr(0, 2).replaceAll(" ", "")))
+                        category.push(uos[q].CallNumber.substr(0, 2).replaceAll(" ", ""));
+                }
+                else {
+
+                    if (!category.includes(uos[q].CallNumber.substr(0, 1)))
+                        category.push(uos[q].CallNumber.substr(0, 1));
+                }
+
+            }
+
+            console.log(category);
+
+            for (var i = 0; i < category.length; i++) {
+                //console.log(category[i] + " " + category[i].length);
+                if (category[i].length == 2) {
+                    if (!category.includes(category[i].charAt(0)))
+                        category.push(category[i].charAt(0))
+                }
+            }
+
+            category.sort();
+            console.log(category);
+
+            for (var n = 0; n < category.length; n++) {
+                if (category[n].length == 1)
+                    uos_str = uos_str + category[n].toLowerCase() + ",root," + category[n].toLowerCase() + ",root,,,,,\n";
+                else
+                    uos_str = uos_str + category[n].toLowerCase() + "," + category[n].charAt(0).toLowerCase() + "," + category[n].toUpperCase() + "," + category[n].charAt(0).toUpperCase() + ",,,,,\n";
+            }
+
+
+            var blank = [];
+            var dots = [];
+
+            var cat_class = "";
+            var number = 0;
+            var num_cat = [];
+            var num_cat_whole = [];
+            var child = "";
+            var title_split = [];
+            var max_title_len = 3;
+            var len = 0;
+            var whole_num = 1;
+
+            for (var u = 0; u < uos.length; u++) {
+                title = "";
+                blank = uos[u].CallNumber.split(" ");
+                cat_class = blank[0];
+
+                if (blank[1].includes(".")) {
+                    dots = blank[1].split(".");
+                    number = parseInt(dots[0]);
+                }
+                else
+                    number = parseInt(blank[1]);
+
+
+                title_split = uos[u].Title.replaceAll(":", "")
+                    .replaceAll(",", "")
+                    .split(" ");
+
+
+                if (title_split.length < max_title_len)
+                    len = title_split.length;
+                else
+                    len = max_title_len;
+
+
+                for (var t = 0; t < len; t++) {
+                    title = title + title_split[t].charAt(0).toLowerCase();
+                }
+
+
+                child = cat_class + number + title;
+
+                if (!num_cat.includes(cat_class + "." + number.toString()))
+                    num_cat.push(cat_class + "." + number.toString());
+
+
+
+                //cat_class = num_cat[n].split(".")[0];
+                //number = num_cat[n].split(".")[1];
+                whole_num = number.toString().charAt(0);
+
+                //console.log(number.length
+
+                for (var i = 0; i < number.toString().length - 1; i++) {
+                    whole_num = whole_num + "0";
+                }
+
+                //console.log(number)
+                uos_str = uos_str + child.toLowerCase() + "," + (cat_class + whole_num).toLowerCase() + "," + child.toUpperCase() + "," + (cat_class + whole_num).toUpperCase() + "," + uos[u].Title + "," + uos[u].Author + "," + uos[u].ISBN + "," + uos[u].PubName + "," + uos[u].PubYear + "\n";
+
+
+            }
+
+
+            console.log(num_cat);
+
+            for (var n = 0; n < num_cat.length; n++) {
+
+
+                cat_class = num_cat[n].split(".")[0];
+                number = num_cat[n].split(".")[1];
+                whole_num = number.charAt(0);
+
+                //console.log(number.length
+
+                for (var i = 0; i < number.length - 1; i++) {
+                    whole_num = whole_num + "0";
+                }
+
+                //console.log(whole_num + " " + number);
+                if (!num_cat_whole.includes(cat_class + "." + whole_num))
+                    num_cat_whole.push(cat_class + "." + whole_num);
+
+
+            }
+            console.log(num_cat_whole);
+
+            for (var n = 0; n < num_cat_whole.length; n++) {
+                uos_str = uos_str + num_cat_whole[n].replace(".", "").toLowerCase() + "," + num_cat_whole[n].split(".")[0].toLowerCase() + "," + num_cat_whole[n].replace(".", "").toUpperCase() + "," + num_cat_whole[n].split(".")[0].toUpperCase() + ",,,,,\n";
+
+            }
+
+
+
+
+            console.log(uos_str);
+        }
+
+
+
+
+        function transform_qnl(qnl) {
+            var parent = "", child = "", desc = "", split = [], title_split = [], len = 2;
+            var qnl_str = "child,parent,description_child,description_parent,title,author,isbn,pubname,pubyear\n";
+            qnl_str = qnl_str + "root,,root,,,,,\n";
+
+            var category = [];
+
+            for (var q = 0; q < qnl.length; q++) {
+
+
+                if (!(parseInt(qnl[q].CallNumber.charAt(1)) >= '0' && qnl[q].CallNumber.charAt(1) <= '9')) {
+                    if (!category.includes(qnl[q].CallNumber.substr(0, 2).replaceAll(" ", "")))
+                        category.push(qnl[q].CallNumber.substr(0, 2).replaceAll(" ", ""));
+                }
+                else {
+
+                    if (!category.includes(qnl[q].CallNumber.substr(0, 1)))
+                        category.push(qnl[q].CallNumber.substr(0, 1));
+                }
+
+            }
+
+            console.log(category);
+
+            for (var i = 0; i < category.length; i++) {
+                //console.log(category[i] + " " + category[i].length);
+                if (category[i].length == 2) {
+                    if (!category.includes(category[i].charAt(0)))
+                        category.push(category[i].charAt(0))
+                }
+            }
+
+            category.sort();
+            console.log(category);
+
+            for (var n = 0; n < category.length; n++) {
+                if (category[n].length == 1)
+                    qnl_str = qnl_str + category[n].toLowerCase() + ",root," + category[n].toUpperCase() + ",root,,,,,\n";
+                else
+                    qnl_str = qnl_str + category[n].toLowerCase() + "," + category[n].charAt(0).toLowerCase() + "," + category[n].toUpperCase() + "," + category[n].charAt(0).toUpperCase() + ",,,,,\n";
+            }
+
+
+            var blank = [];
+            var dots = [];
+
+            var cat_class = "";
+            var number = 0;
+            var num_cat = [];
+            var num_cat_whole = [];
+            var child = "";
+            var title_split = [];
+            var max_title_len = 3;
+            var len = 0;
+            var whole_num = 1;
+
+            for (var u = 0; u < qnl.length; u++) {
+                title = "";
+                blank = qnl[u].CallNumber.split(".");
+                //console.log(blank);
+                //console.log(qnl[u].CallNumber);
+
+
+                for (var i = 0; i < blank[0].length; i++) {
+                    if (!(parseInt(blank[0].charAt(1)) >= '0' && blank[0].charAt(1) <= '9')) {
+
+                        cat_class = blank[0].substr(0, 2);
+                        number = blank[0].substr(2, blank[0].length - 2);
+
+                    }
+                    else {
+                        cat_class = blank[0].charAt(0);
+                        number = blank[0].substr(1, blank[0].length - 1);
+                    }
+                }
+
+
+                //console.log(cat_class + " " + number);
+
+                title_split = qnl[u].Title.replaceAll(":", "")
+                    .replaceAll(",", "")
+                    .split(" ");
+
+
+                if (title_split.length < max_title_len)
+                    len = title_split.length;
+                else
+                    len = max_title_len;
+
+
+                for (var t = 0; t < len; t++) {
+                    title = title + title_split[t].charAt(0).toLowerCase();
+                }
+
+
+                child = cat_class + number + title;
+
+                if (!num_cat.includes(cat_class + "." + number.toString()))
+                    num_cat.push(cat_class + "." + number.toString());
+
+
+
+                //cat_class = num_cat[n].split(".")[0];
+                //number = num_cat[n].split(".")[1];
+                whole_num = number.toString().charAt(0);
+
+                //console.log(number.length
+
+                for (var i = 0; i < number.toString().length - 1; i++) {
+                    whole_num = whole_num + "0";
+                }
+
+                //console.log(number)
+                qnl_str = qnl_str + child.toLowerCase() + "," + (cat_class + whole_num).toLowerCase() + "," + child.toUpperCase() + "," + (cat_class + whole_num).toUpperCase() + "," + qnl[u].Title + "," + qnl[u].Author + "," + qnl[u].ISBN + "," + qnl[u].PubName + "," + qnl[u].PubYear + "\n";
+
+
+            }
+
+
+            console.log(num_cat);
+
+            for (var n = 0; n < num_cat.length; n++) {
+
+
+                cat_class = num_cat[n].split(".")[0];
+                number = num_cat[n].split(".")[1];
+                whole_num = number.charAt(0);
+
+                //console.log(number.length
+
+                for (var i = 0; i < number.length - 1; i++) {
+                    whole_num = whole_num + "0";
+                }
+
+                //console.log(whole_num + " " + number);
+                if (!num_cat_whole.includes(cat_class + "." + whole_num))
+                    num_cat_whole.push(cat_class + "." + whole_num);
+
+
+            }
+            console.log(num_cat_whole);
+
+            for (var n = 0; n < num_cat_whole.length; n++) {
+                qnl_str = qnl_str + num_cat_whole[n].replace(".", "").toLowerCase() + "," + num_cat_whole[n].split(".")[0].toLowerCase() + "," + num_cat_whole[n].replace(".", "").toUpperCase() + "," + num_cat_whole[n].split(".")[0].toUpperCase() + ",,,,,\n";
+
+            }
+
+
+
+
+            console.log(qnl_str);
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
