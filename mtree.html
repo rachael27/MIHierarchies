@@ -82,8 +82,9 @@
 
 
 
-<!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
-<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<!--<script src="https://d3js.org/d3.v4.js"></script>-->
+
 <script src="https://kit.fontawesome.com/ae1e2e7d99.js" crossorigin="anonymous"></script>
 <script src="algorithm-books.js"></script>
 <script src="mtree-guidedtour.js"></script>
@@ -276,7 +277,7 @@
             //.defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
 
             .defer(d3.csv, "LibraryFiles/PrimaryH-v1.csv")
-            .defer(d3.csv, "LibraryFiles/SecondaryH-v1.csv")
+            .defer(d3.csv, "LibraryFiles/SecondaryH-v2.csv")
 
             .await(function (error, h2, h1) {
                 if (error) throw error;
@@ -691,7 +692,7 @@
                     return d.parent;
                 });
 
-            //console.log(h1);
+            console.log(h1);
             var h1_struct = stratify(h1);
             //console.log(h1_struct.children);
 
@@ -2292,23 +2293,7 @@
                             .toLowerCase();
                     })
                     .style("fill", function (d) {
-                        //            console.log(d.data.data.shape);
-                        //    if (d3.select("#solidshaperadio")._groups[0][0].checked == true) {
-                        //console.log("solid");
-                        //      console.log(d.data.data.color);
-                        //    return d.data.data.color;
-                        //}
 
-
-                        //    else if (d3.select("#hollowshaperadio")._groups[0][0].checked == true) {
-                        //console.log("hollow");
-                        //console.log(d);
-
-                        /*  if (d.data.data.shape == "h2")
-                             return "white";
-                         else
-                             return h2color; */
-                        //solid
 
 
                         if (d.data.data.shape == "h1")
@@ -2316,22 +2301,25 @@
                         else if (d.data.data.shape == "h2")
                             return "white";
                         else
-                            return "blue";
+                            return "green";
+
+
+                        /*   if (d.data.data.shape == "h1")
+                          return "green";
+                      else if (d.data.data.shape == "h2")
+                          return "white";
+                      else
+                          return "blue"; */
 
 
 
-                        //  }
+
 
 
 
                     })
-                    // .style("opacity", 1)
-                    //.style("fill", "yellow")
                     .style("stroke", function (d) {
-                        /*  if (d.data.data.shape == "h2")
-                             return "none";
-                         else
-                             return h2color; */
+
 
 
                         if (d.data.data.shape == "h1")
@@ -2339,11 +2327,21 @@
                         else if (d.data.data.shape == "h2")
                             return "none";
                         else
-                            return "blue";
+                            return "green";
 
 
 
-                        //return "none";
+                        /*   if (d.data.data.shape == "h1")
+                          return "green";
+                      else if (d.data.data.shape == "h2")
+                          return "none";
+                      else
+                          return "blue";
+*/
+
+
+
+
 
 
                     })
@@ -2759,21 +2757,21 @@
                         return "none";
                     })
                     .style("stroke", function (d) {
-                        //if (d.data.data.shape == "h2" || d.data.data.shape == "merged")
-                        //  return h2color;
-                        //console.log(" outer stroke" + d.data.data.shape + " " + d.data.data.child + " " + d.data.data.linkcolor);
 
-                        /*  if (d.data.data.shape == "h2" || d.data.data.shape == "merged")
-                             return d.data.data.levelcolor;
-     
-                         else return "none"; */
+
+                        /*    if (d.data.data.shape == "h1")
+                               return "none";
+                           else if (d.data.data.shape == "h2")
+                               return "red";
+                           else
+                               return "blue"; */
 
                         if (d.data.data.shape == "h1")
                             return "none";
                         else if (d.data.data.shape == "h2")
                             return "red";
                         else
-                            return "blue";
+                            return "red";
 
 
                     })
@@ -3939,13 +3937,18 @@
                         .append("g")
                         .attr("class", "toolbox-g")
                         .attr("id", "btn-zoom")
-                        .attr("transform", "translate(195,0)")
+                        .attr("transform", "translate(195,0)");
+
+
+
+
+                    d3.select("#btn-zoom")
                         .append("rect")
                         //.attr('x', 170)
                         //.attr('y', 0)
                         .attr("height", btn_height + 3)
                         .attr("width", 60)
-                        .style("fill", "none")
+                        .style("fill", "white")
                         .style("stroke-width", 3)
                         .style("stroke", "grey")
                         .style("border-radius", "15px")
@@ -3953,20 +3956,46 @@
                             console.log("click on zoom btn");
                             if (d3.select(this).style("stroke") == "grey") {
 
-                                d3.select("#btn-zoom").select("rect").style("stroke", "red");
-                            }
-                            else {
+
+
                                 d3.selectAll(".toolbox-icon")
-                                    .style("fill", "none")
+                                    .style("fill", "white")
                                     .style("stroke", "grey");
 
-                                d3.select(this).style("stroke", "grey");
+                                d3.select("#btn-zoom")
+                                    .select("rect")
+                                    .style("fill", "rgb(136, 178, 131)")
+                                    .style("stroke", "red");
 
-                                d3.select("btn-zoom-in")
+
+
+
+                            }
+                            else {
+
+
+
+                                d3.select(this)
+                                    .style("fill", "white")
+                                    .style("stroke", "grey");
+
+                                d3.select("#btn-zoom-in")
                                     .classed("selected", false);
 
-                                d3.select("btn-zoom-out")
+                                d3.select("#btn-zoom-in")
+                                    .select("rect")
+                                    .style("fill", "white")
+                                    .style("stroke", "grey");
+
+                                d3.select("#btn-zoom-out")
                                     .classed("selected", false);
+
+                                d3.select("#btn-zoom-out")
+                                    .select("rect")
+                                    .style("fill", "white")
+                                    .style("stroke", "grey");
+
+
 
 
                             }
@@ -3996,6 +4025,7 @@
                         .attr("height", 22)
                         .attr("width", 30)
                         .attr("class", "toolbox-icon")
+                        .style("fill", "white")
                         .on("click", function (e, d, i) {
 
                             d3.selectAll(".toolbox-icon")
@@ -4004,14 +4034,17 @@
                             sel_toolbox = "btn-zoom-in";
 
 
-                            if (d3.select(this).style("fill") == "none") {
+                            if (d3.select(this).style("fill") == "white") {
 
                                 d3.select(this)
                                     .classed("selected", true);
-                                //document.getElementById("mergedtree").style.cursor = "zoom-out";
+                                document.getElementById("mergedtree").style.cursor = "zoom-in";
 
-                                d3.select("#btn-zoom").select("rect").style("stroke", "red");
-                                d3.select(this).style("stroke", "red");
+
+
+                                d3.select(this)
+                                    .style("fill", "rgb(136, 178, 131)")
+                                    .style("stroke", "red");
 
                                 mergedtree_svg
                                     .transition()
@@ -4019,7 +4052,8 @@
                             }
                             else {
                                 d3.selectAll(".toolbox-icon")
-                                    .style("fill", "none")
+                                    .select("rect")
+                                    .style("fill", "white")
                                     .style("stroke", "grey");
 
                                 d3.select(this)
@@ -4065,6 +4099,7 @@
                         })
                         .append("rect")
                         .attr("class", "toolbox-icon")
+                        .style("fill", "white")
                         .attr("height", 20)
                         .attr("width", 30)
                         .on("click", function () {
@@ -4082,14 +4117,19 @@
 
 
 
-                            if (d3.select(this).style("fill") == "none") {
+                            if (d3.select(this).style("fill") == "white") {
 
                                 d3.select(this)
                                     .classed("selected", true);
                                 document.getElementById("mergedtree").style.cursor = "zoom-out";
 
-                                d3.select("#btn-zoom").select("rect").style("stroke", "red");
-                                d3.select(this).style("stroke", "red");
+                                d3.select("#btn-zoom").select("rect")
+                                    .style("fill", "rgb(136, 178, 131)")
+                                    .style("stroke", "red");
+
+                                d3.select(this)
+                                    .style("fill", "rgb(136, 178, 131)")
+                                    .style("stroke", "red");
 
                                 mergedtree_svg
                                     .transition()
@@ -4097,7 +4137,8 @@
                             }
                             else {
                                 d3.selectAll(".toolbox-icon")
-                                    .style("fill", "none")
+                                    .select("rect")
+                                    .style("fill", "white")
                                     .style("stroke", "grey");
 
                                 d3.select(this)
@@ -4138,6 +4179,7 @@
                         .attr("transform", "translate(" + cal + ",0)")
                         .append("rect")
                         .attr("class", "toolbox-icon")
+                        .style("fill", "white")
                         .attr("height", 40)
                         .attr("width", 40)
                         .attr("x", 0)
@@ -4151,7 +4193,7 @@
 
                             console.log(d3.select(this).style("fill"));
 
-                            if (d3.select(this).style("fill") == "none") {
+                            if (d3.select(this).style("fill") == "white") {
                                 d3.select(this)
                                     .style("fill", "rgb(136, 178, 131)")
                                     .style("stroke", "red");
@@ -4163,7 +4205,7 @@
                             }
                             else {
                                 d3.selectAll(".toolbox-icon")
-                                    .style("fill", "none")
+                                    .style("fill", "white")
                                     .style("stroke", "grey");
                             }
 
@@ -4213,13 +4255,14 @@
                         .attr("transform", "translate(" + cal + ",0)")
                         .append("rect")
                         .attr("class", "toolbox-icon")
+                        .style("fill", "white")
                         .attr("height", 40)
                         .attr("width", 40)
                         .attr("x", 0)
                         .attr("y", 0)
                         .on("click", function () {
 
-                            if (d3.select(this).style("fill") == "none") {
+                            if (d3.select(this).style("fill") == "white") {
                                 d3.select(this)
                                     .style("fill", "rgb(136, 178, 131)")
                                     .style("stroke", "red");
@@ -4238,7 +4281,7 @@
                                 sel_toolbox = "";
 
                                 d3.selectAll(".toolbox-icon")
-                                    .style("fill", "none")
+                                    .style("fill", "white")
                                     .style("stroke", "grey");
                             }
                         });
@@ -4282,12 +4325,13 @@
                         .attr("transform", "translate(" + cal + ",0)")
                         .append("rect")
                         .attr("class", "toolbox-icon")
+                        .style("fill", "white")
                         .attr("height", 40)
                         .attr("width", 40)
                         .attr("x", 0)
                         .attr("y", 0)
                         .on("click", function () {
-                            if (d3.select(this).style("fill") == "none") {
+                            if (d3.select(this).style("fill") == "white") {
                                 d3.select(this)
                                     .style("fill", "rgb(136, 178, 131)")
                                     .style("stroke", "red");
@@ -4306,7 +4350,7 @@
                                 sel_toolbox = "";
 
                                 d3.selectAll(".toolbox-icon")
-                                    .style("fill", "none")
+                                    .style("fill", "white")
                                     .style("stroke", "grey");
                             }
                         });

@@ -401,7 +401,7 @@ padding: 0;
 
           .toolbox-icon{
             /*fill:rgb(136, 178, 131);*/
-            fill:none;
+            fill:"white";
             stroke-width:3;
             stroke:grey;
 

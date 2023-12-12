@@ -109,6 +109,28 @@ function guidedtour() {
         },
 
         {
+            element: document.querySelector('[id="btn-zoom"]'),
+            title: "Zoom <hr class='border border-primary border-3 opacity-75'>",
+            intro: '<video width="320" height="240" controls><source src="Images/mergedtreeinaction.mov" type="video/mp4"></video>'
+
+        },
+
+        {
+            element: document.querySelector('[id="btn-expand-folder"]'),
+            title: "Expand Folder <hr class='border border-primary border-3 opacity-75'>",
+            intro: '<video width="320" height="240" controls><source src="Images/mergedtreeinaction.mov" type="video/mp4"></video>'
+
+        },
+
+        {
+            element: document.querySelector('[id="btn-collapse-folder"]'),
+            title: "Collapse Folder <hr class='border border-primary border-3 opacity-75'>",
+            intro: '<video width="320" height="240" controls><source src="Images/mergedtreeinaction.mov" type="video/mp4"></video>'
+
+        },
+
+
+        {
             element: document.querySelector('[id="notations-key"]'),
             title: "Notations <hr class='border border-primary border-3 opacity-75'>",
             intro: "Here is a reference to the notations."
