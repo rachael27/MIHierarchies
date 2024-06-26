@@ -508,8 +508,8 @@
         title = ["Before Hierarchy", "After Hierarchy", "Merged Tree"];
 
         d3.queue()
-            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v6.csv")
-            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v6.csv")
+            .defer(d3.csv, "File/" + fileversion + "-primaryHA-reduced-v5.csv")
+            .defer(d3.csv, "File/" + fileversion + "-secondaryHE-reduced-v5.csv")
             //.defer(d3.csv, "File/" + fileversion + "-primaryH.csv")
             //.defer(d3.csv, "File/" + fileversion + "-secondaryH.csv")
             .await(function (error, h2, h1) {
